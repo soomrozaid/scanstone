@@ -1,13 +1,27 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { ButtonLink, Card, Badge } from "@/components/ui";
-import { PRICING } from "@/lib/plans";
+import { PRICING, pricingSoftwareJsonLd } from "@/lib/plans";
+import { envClient } from "@/config/env.client";
 
 export const metadata: Metadata = {
-  title: "Pricing — Free forever plan, Pro at $9/month",
+  title: "Pricing — Free forever plan, Pro at $9 USD/month",
   description:
-    "Scanstone pricing: unlimited static QR codes, 3 free short links or dynamic QR codes, and Pro at $9/month for 500 total with full analytics. Redirects never expire.",
+    "Scanstone pricing: unlimited static QR codes, 3 free short links or dynamic QR codes, and Pro at $9 USD/month for 500 total with full analytics. Redirects never expire.",
   alternates: { canonical: "/pricing" },
 };
+
+function PricingJsonLd() {
+  const origin = envClient.APP_URL.replace(/\/$/, "");
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(pricingSoftwareJsonLd(`${origin}/pricing`)),
+      }}
+    />
+  );
+}
 
 const ROWS: Array<{ label: string; free: string; pro: string }> = [
   {
@@ -40,6 +54,7 @@ const ROWS: Array<{ label: string; free: string; pro: string }> = [
 export default function PricingPage() {
   return (
     <main id="main" className="mx-auto max-w-4xl px-4 py-14 sm:px-6">
+      <PricingJsonLd />
       <div className="max-w-2xl">
         <h1 className="engraved text-4xl font-semibold">Pricing</h1>
         <p className="mt-3 leading-relaxed text-ink-soft">
@@ -64,10 +79,21 @@ export default function PricingPage() {
             <Badge tone="green">Most popular</Badge>
           </div>
           <p className="mt-1 text-4xl font-semibold">
-            $9<span className="text-base font-normal text-ink-faint">/mo</span>
+            $9
+            <span className="text-base font-normal text-ink-faint">
+              {" "}USD/month
+            </span>
           </p>
           <p className="mt-1 text-sm text-ink-faint">
             or {PRICING.yearly.label} ({PRICING.yearly.note})
+          </p>
+          <p className="mt-3 text-sm leading-relaxed text-ink-soft">
+            If you cancel, printed codes and short links keep working — you only
+            lose the Pro extras. That promise is in{" "}
+            <Link href="/terms" className="text-verdigris-deep underline">
+              our terms
+            </Link>
+            .
           </p>
           <ButtonLink href="/signup" variant="accent" className="mt-5 w-full">
             Go Pro

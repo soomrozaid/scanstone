@@ -3,7 +3,7 @@ import { envClient } from "@/config/env.client";
 import { docsIn } from "@/lib/content";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = envClient.APP_URL;
+  const base = envClient.APP_URL.replace(/\/$/, "");
 
   const staticPages: MetadataRoute.Sitemap = [
     { url: `${base}/`, changeFrequency: "weekly", priority: 1 },
@@ -41,6 +41,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${base}/demo`,
       changeFrequency: "weekly",
       priority: 0.6,
+    },
+    {
+      url: `${base}/about`,
+      changeFrequency: "yearly",
+      priority: 0.3,
     },
     {
       url: `${base}/privacy`,
