@@ -4,9 +4,11 @@ import type { DaySeries } from "@/lib/analytics";
 export function ScanChart({
   series,
   title,
+  eventLabel = "scans",
 }: {
   series: DaySeries;
   title: string;
+  eventLabel?: string;
 }) {
   const { days } = series;
   const max = Math.max(1, ...days.map((d) => d.count));
@@ -27,7 +29,7 @@ export function ScanChart({
         viewBox={`0 0 ${w} ${h}`}
         className="w-full rounded-md border border-line bg-white/60"
         role="img"
-        aria-label={`Bar chart: ${title}. Peak ${max} scans in a day.`}
+        aria-label={`Bar chart: ${title}. Peak ${max} ${eventLabel} in a day.`}
       >
         <line
           x1={pad}
@@ -48,7 +50,7 @@ export function ScanChart({
                 rx={1.5}
                 fill="#2c6e63"
               >
-                <title>{`${d.date}: ${d.count} scans`}</title>
+                <title>{`${d.date}: ${d.count} ${eventLabel}`}</title>
               </rect>
               {i === 0 || i === days.length - 1 ? (
                 <text

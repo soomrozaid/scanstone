@@ -1,83 +1,35 @@
-# facts.md — the content pipeline's single source of truth
+# Scanstone content facts
 
-**Rule for any drafting (human or AI): every factual/numeric/comparative claim in
-published content must trace to this file.** No inventing statistics, prices, or
-ratings. If a needed fact isn't here, add it here (with a source + date) first, or
-don't make the claim. Re-verify dated facts each quarter.
+Drafts must trace factual, numeric, and comparative claims to this file. A lint pass does not verify a claim. Recheck product behavior and dated external sources during editorial review. Do not invent reviews, customers, rankings, or savings.
 
----
+## Product facts — reviewed against this repository, 2026-11-04
 
-## Product facts (Scanstone)
+- Static QR codes: unlimited, no account, no watermark, free PNG (2048px) and SVG. Data lives in the pattern. The pattern has no subscription expiry; a linked website still needs to stay available.
+- Dynamic QR codes: edit the destination after printing; count scans by date, coarse location, and device. No scan cookies, stored IPs, or fingerprints.
+- Short links: editable destinations and click counts. Short links and dynamic codes share the plan limit. Canonical website: https://www.scanstone.ca; configured short domain: https://scst.one.
+- Free: 3 dynamic codes or short links total, 30-day analytics, PNG. Pro: $9/month or $79/year, 500 codes or links total, full history, dynamic SVG and CSV export. Annual savings versus 12 monthly payments are $29; do not invent a discount percentage or currency conversion.
+- Cancellation, downgrade, or reaching plan limits does not disable redirects. This is a billing policy, not an uptime guarantee. Deleting a code or account removes its redirects. Dynamic codes also depend on the redirect infrastructure and destination staying available.
+- Source files: src/lib/plans.ts, src/app/r/[slug]/route.ts, src/components/free-tool/StaticGenerator.tsx. Public policy: https://www.scanstone.ca/terms and https://www.scanstone.ca/pricing.
+- Menu workflow: users supply a public menu webpage or PDF URL. Scanstone does not host PDFs, build restaurant websites, or accept food orders. If the menu content changes at the same URL, a static code can still be sufficient.
+- QR code creation here cannot change a QR pattern already printed by another provider. Moving providers generally requires a new code/reprint unless the user controls the encoded URL.
 
-- **Static QR codes:** free forever, unlimited, no account, no watermark, no
-  expiration. The content is encoded in the pattern itself — there is nothing to
-  switch off. Download PNG (2048px) or vector SVG.
-- **Dynamic QR codes:** editable destination after printing + cookieless scan
-  analytics (no IPs, no fingerprinting, coarse country/region/device only).
-- **The Covenant (verbatim promise):** a Scanstone redirect is **never disabled by
-  billing state** — not on downgrade, not on cancel, not on hitting a limit. Cancel
-  and your printed codes keep resolving; you only lose paid extras. Enforced in code:
-  the `/r/[slug]` redirect path runs zero plan/entitlement checks.
-- **Plans:**
-  - Free — unlimited static, **3** dynamic codes, 30-day analytics history, PNG.
-  - Pro — **$9/month or $79/year** (~2 months free), **500** dynamic codes, full
-    analytics history forever, SVG + CSV export.
-- **Domain:** `www.scanstone.ca` (canonical). Redirects also resolve on the legacy
-  `scanstone.vercel.app` (kept alive permanently for previously printed codes).
-- **Tech:** Next.js + Supabase + Stripe on Vercel. Own QR renderer (matrix → styled
-  SVG, decode-verified in CI). One-liner: *"Scanstone — a QR code generator whose
-  codes keep working even if you stop paying."*
+## External facts — verified 2026-11-04
 
-## Static vs dynamic (the mechanism — cite freely)
+- QRCG by Bitly (qr-code-generator.com) says dynamic codes created during its 14-day free trial are deactivated at the end of that trial and point to a service page. Its static codes keep working. Source: https://support.qr-code-generator.com/hc/en-us/articles/7665013224205-I-received-a-message-saying-that-my-QR-Codes-will-be-deactivated-What-does-that-mean
+- Its reactivation guidance says upgrading the original account can reactivate codes; creating a new account or a new code with the same content does not reactivate the old code. Source: https://support.qr-code-generator.com/hc/en-us/articles/7665090677005-How-can-I-reactivate-my-QR-Codes
+- Do not reuse historical Trustpilot scores or competitor prices. None is verified for use in this fact sheet. Do not generalize one provider's trial policy to the whole market or assert intent to deceive.
 
-- **Static:** data lives in the pattern. No server in the scan path. Cannot expire,
-  cannot be billed, cannot be switched off. Right choice for fixed links, WiFi,
-  vCards, plain text.
-- **Dynamic:** the pattern encodes a short link to a redirect server, which forwards
-  the scan. Enables editing-after-print + analytics, but introduces a middleman that
-  *can* be switched off. Worth paying for only with a no-shutoff guarantee.
+## Internal links
 
-## The trap (what competitors do) — sourced, dated
+- /qr-code-generator — free static generator
+- /restaurant-menu-qr-code — restaurant menu workflow, choice of static or dynamic
+- /wifi-qr-code-generator and /vcard-qr-code-generator — focused free tools
+- /pricing and /terms — limits and redirect policy
+- /demo — public analytics demo
+- /blog/qr-code-subscription-trap — source-backed explanation of trial expiry
 
-- qr-code-generator.com (`www.qr-code-generator.com`) rated **~1.6 / 5 ("Bad")** on
-  Trustpilot; the `my.` subdomain ~2.2/5. Ratings fluctuate 1.5–2.8 across pages.
-  Source: <https://www.trustpilot.com/review/www.qr-code-generator.com>. Verified
-  2026-07-24.
-- Dominant complaint pattern (from those reviews): "free" codes that are actually
-  **14-day trials of dynamic codes**; scans hit a paywall after the trial; reviewers
-  report **~£130 (~$165)/year** to keep printed codes working; **auto-renewal without
-  notice**; difficult cancellation/refunds; minimal support.
-- Competitor **dynamic** pricing, 2026 ("starting at"): QR Tiger ~$7/mo · Bitly
-  ~$10/mo · Uniqode (ex-Beaconstac) ~$15/mo · Flowcode Pro ~$60/mo · top tiers
-  (Flowcode Growth / Uniqode teams) $250+/mo. Range **$7–$250+/mo**.
-  Sources: <https://www.jotform.com/blog/qr-code-cost/>,
-  <https://qrcodenova.com/en/blog/qr-code-generator-pricing-comparison>. Verified
-  2026-07-24.
-- Competitors to name in comparisons: qr-code-generator.com, Bitly, Uniqode
-  (Beaconstac), QR Tiger (QRTiger), Flowcode, ME-QR.
+Do not link to queued posts until they exist in content/registry.json. Avoid multiple articles targeting the same intent as a working tool or use-case page.
 
-## Search Console reality (internal, do not publish)
+## Editorial rules
 
-- As of 2026-07: ~10 impressions/90d, avg position 70–90 for the target cluster on
-  the old vercel.app property. New domain `scanstone.ca` just made canonical. Wedge
-  clusters to win first: never-expire / permanent, code-stopped-working / rescue,
-  competitor "is it free", static-vs-dynamic.
-
-## Internal link targets (use where relevant)
-
-- `/qr-code-generator` — free static generator (primary CTA)
-- `/wifi-qr-code-generator`, `/vcard-qr-code-generator` — format tools
-- `/pricing` — plans + the covenant
-- `/demo` — live dynamic code with real analytics
-- `/blog/qr-code-subscription-trap` — the cornerstone investigation (hub)
-
-## Voice & guardrails
-
-- Voice: **"Straight answers."** Plain, exact, a little literary; empathetic to the
-  burned user; never salesy. Product appears **once**, as the honest resolution.
-- Answer the query in the **first sentence**. Include ≥1 concrete number and ≥1 cited
-  source per piece. Self-contained FAQ answers (survive being quoted out of context).
-- **Banned phrases:** "in today's digital world / fast-paced world", "unlock the
-  power of", "look no further", "game-changer", "revolutionize", "seamless",
-  "in conclusion", "elevate your". If a sentence could sit on any competitor's blog,
-  rewrite it.
+Answer the user's question first. Give a concrete workflow, a limitation, and useful next steps. Sources need their actual verification dates. Numbers are optional; never add a number solely to satisfy a content template. Be fair to alternatives. Do not claim special AI files or schema guarantee search visibility.

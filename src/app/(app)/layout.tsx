@@ -36,7 +36,7 @@ export default async function AppLayout({
               className="hidden items-center gap-4 text-sm text-ink-soft sm:flex"
             >
               <Link href="/dashboard" className="hover:text-ink">
-                Codes
+                Codes &amp; links
               </Link>
               <Link href="/account" className="hover:text-ink">
                 Account
@@ -71,7 +71,7 @@ export default async function AppLayout({
           className="flex gap-4 border-t border-line/60 px-4 py-2 text-sm text-ink-soft sm:hidden"
         >
           <Link href="/dashboard" className="hover:text-ink">
-            Codes
+            Codes &amp; links
           </Link>
           <Link href="/account" className="hover:text-ink">
             Account

@@ -5,6 +5,7 @@ const columns = [
   {
     title: "Free tools",
     links: [
+      { href: "/#short-links", label: "URL shortener" },
       { href: "/qr-code-generator", label: "QR code generator" },
       { href: "/wifi-qr-code-generator", label: "WiFi QR code" },
       { href: "/vcard-qr-code-generator", label: "vCard QR code" },
@@ -13,6 +14,7 @@ const columns = [
   {
     title: "Product",
     links: [
+      { href: "/restaurant-menu-qr-code", label: "Restaurant menus" },
       { href: "/demo", label: "Live demo" },
       { href: "/pricing", label: "Pricing" },
       { href: "/signup", label: "Create account" },
@@ -34,8 +36,9 @@ export function SiteFooter() {
         <div>
           <Wordmark />
           <p className="mt-3 max-w-xs text-sm leading-relaxed text-ink-soft">
-            QR codes set in stone. Free static codes forever, and dynamic codes
-            whose redirects never stop working — even if you stop paying.
+            QR codes for print. Short scst.one links for sharing. Free static
+            codes forever, and redirects that keep working even if you stop
+            paying.
           </p>
         </div>
         {columns.map((col) => (

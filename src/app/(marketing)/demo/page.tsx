@@ -8,7 +8,7 @@ import {
 } from "@/lib/analytics";
 import { designSchema } from "@/lib/validate";
 import { renderQRSvg } from "@/lib/qr/svg";
-import { envClient } from "@/config/env.client";
+import { getShortUrl } from "@/lib/short-url";
 import { Card, Badge, ButtonLink } from "@/components/ui";
 import { ScanChart } from "@/components/analytics/ScanChart";
 import { BreakdownList } from "@/components/analytics/BreakdownList";
@@ -61,7 +61,7 @@ export default async function DemoPage() {
   const rows: ScanRow[] = (scans ?? []) as ScanRow[];
   const series = bucketByDay(rows, 30);
   const design = designSchema.parse(code.design ?? {});
-  const shortUrl = `${envClient.APP_URL}/r/${code.slug}`;
+  const shortUrl = getShortUrl(code.slug);
   const svg = renderQRSvg(shortUrl, design);
   const countries = breakdown(rows, "country").map((b) => ({
     ...b,

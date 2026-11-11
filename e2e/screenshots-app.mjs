@@ -45,8 +45,8 @@ try {
       await page.getByRole("button", { name: "Create code" }).click();
       await page.waitForURL("**/dashboard/codes/**");
       // one scan so analytics show something
-      const url = await page.locator("p.font-mono", { hasText: "/r/" }).first().textContent();
-      const slug = url.trim().split("/r/")[1];
+      const url = await page.getByTestId("short-url").textContent();
+      const slug = new URL(url.trim()).pathname.split("/").pop();
       await page.request.get(`${BASE}/r/${slug}`, { maxRedirects: 0 });
       await page.waitForTimeout(2000);
       await page.reload();

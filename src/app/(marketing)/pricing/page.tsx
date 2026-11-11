@@ -5,7 +5,7 @@ import { PRICING } from "@/lib/plans";
 export const metadata: Metadata = {
   title: "Pricing — Free forever plan, Pro at $9/month",
   description:
-    "Scanstone pricing: unlimited free static QR codes, 3 free dynamic codes, and Pro at $9/month for 500 codes with full analytics. Redirects never expire on any plan.",
+    "Scanstone pricing: unlimited static QR codes, 3 free short links or dynamic QR codes, and Pro at $9/month for 500 total with full analytics. Redirects never expire.",
   alternates: { canonical: "/pricing" },
 };
 
@@ -15,15 +15,20 @@ const ROWS: Array<{ label: string; free: string; pro: string }> = [
     free: "Unlimited",
     pro: "Unlimited",
   },
-  { label: "Dynamic codes (editable destination)", free: "3", pro: "500" },
-  { label: "Scans & redirects", free: "Unlimited", pro: "Unlimited" },
+  {
+    label: "Short links + dynamic QR codes (shared limit)",
+    free: "3 total",
+    pro: "500 total",
+  },
+  { label: "Editable destinations", free: "✓", pro: "✓" },
+  { label: "Scans, clicks & redirects", free: "Unlimited", pro: "Unlimited" },
   {
     label: "Redirects if you cancel or lapse",
     free: "Keep working",
     pro: "Keep working",
   },
   {
-    label: "Scan analytics history",
+    label: "Scan & click analytics history",
     free: "30 days",
     pro: "Everything, forever",
   },
@@ -92,6 +97,13 @@ export default function PricingPage() {
       </div>
 
       <div className="mt-10 space-y-4 text-sm leading-relaxed text-ink-soft">
+        <p>
+          <strong>Short links are included.</strong> Create compact scst.one
+          links with editable destinations and click analytics. Short links and
+          dynamic QR codes share your plan&apos;s limit: 3 total on Free, 500 on
+          Pro. A free account is required to create links; opening them is free
+          for everyone.
+        </p>
         <p>
           <strong>Why is the free plan actually free?</strong> Static codes cost
           us nothing to serve — the content is inside the pattern. Dynamic

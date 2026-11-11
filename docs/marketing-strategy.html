@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Scanstone · Growth plan</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #222;
+        --muted: #565656;
+        --line: #ddd;
+        --bg: #f8f7f4;
+        --accent: #285d52;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font:
+          16px/1.6 system-ui,
+          sans-serif;
+      }
+      main {
+        max-width: 1080px;
+        margin: auto;
+        padding: 48px 28px;
+      }
+      h1 {
+        font:
+          600 clamp(36px, 6vw, 64px)/1.1 Georgia,
+          serif;
+        max-width: 800px;
+        letter-spacing: -1px;
+      }
+      h2 {
+        font:
+          600 30px/1.2 Georgia,
+          serif;
+        margin: 0 0 20px;
+      }
+      h3 {
+        font-size: 18px;
+      }
+      p {
+        max-width: 80ch;
+      }
+      a {
+        color: var(--accent);
+      }
+      nav {
+        display: flex;
+        gap: 24px;
+        flex-wrap: wrap;
+        padding: 18px 0;
+        border-block: 1px solid var(--line);
+      }
+      section {
+        padding: 38px 0;
+        border-bottom: 1px solid var(--line);
+      }
+      small,
+      .muted {
+        color: var(--muted);
+      }
+      .eyebrow {
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        font-size: 12px;
+        color: var(--accent);
+      }
+      .lead {
+        font-size: 21px;
+      }
+      .metrics,
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 22px;
+      }
+      .metric {
+        padding: 20px 0;
+        border-top: 3px solid var(--accent);
+      }
+      .metric strong {
+        display: block;
+        font-size: 34px;
+      }
+      .callout {
+        padding: 24px;
+        border-left: 4px solid var(--accent);
+        background: #eaf0ec;
+      }
+      .table {
+        overflow: auto;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        font-size: 14px;
+      }
+      th,
+      td {
+        padding: 14px;
+        text-align: left;
+        border-bottom: 1px solid var(--line);
+        vertical-align: top;
+      }
+      th {
+        background: #eeede8;
+      }
+      li {
+        margin: 8px 0;
+      }
+      code {
+        font-size: 13px;
+        background: #e8e8e5;
+        padding: 2px 5px;
+      }
+      @media (max-width: 700px) {
+        main {
+          padding: 28px 20px;
+        }
+        .metrics,
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        h1 {
+          font-size: 40px;
+        }
+        nav {
+          gap: 16px;
+        }
+        th,
+        td {
+          min-width: 160px;
+        }
+      }
+      @media print {
+        main {
+          padding: 0;
+        }
+        a {
+          color: inherit;
+        }
+        section {
+          break-inside: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p class="eyebrow">Scanstone · Working growth plan · November 4, 2026</p>
+      <h1>
+        Make the printed QR code the thing owners can stop worrying about.
+      </h1>
+      <p class="lead">
+        Lead with a concrete job: change the menu without replacing the table
+        cards. Make the product easy to try, prove the workflow, then repeat
+        what brings activated users.
+      </p>
+      <p class="muted">
+        Confirmed focus: restaurants and cafés first; organic marketing budget
+        of $0–$100/month, excluding owner time. Audience fit still needs
+        validation through actual usage.
+      </p>
+      <nav aria-label="Sections">
+        <a href="#overview">Overview</a><a href="#competitors">Competitors</a
+        ><a href="#guidance">Guidance</a><a href="#sources">Sources</a>
+      </nav>
+      <section id="overview">
+        <h2>Overview</h2>
+        <div class="metrics">
+          <div class="metric">
+            <strong>9 clicks</strong>90 impressions · Oct 5–Nov 1
+          </div>
+          <div class="metric">
+            <strong>5 clicks</strong>53 impressions · Sep 7–Oct 4
+          </div>
+          <div class="metric">
+            <strong>3 free</strong>Dynamic codes or short links per account
+          </div>
+        </div>
+        <p>
+          The measured sample is small. It supports a discovery problem; it does
+          not establish which segment will pay. Current traffic is concentrated
+          on the homepage and free QR generator. Build on those entry points
+          before buying broad “QR code generator” traffic.
+        </p>
+        <div class="callout">
+          <strong>Core message</strong>
+          <p>
+            “Print it once. Update it anytime.”<br />New menu. New offer. Same
+            QR code. Change destinations after printing, count scans, and keep
+            redirects working after cancellation.
+          </p>
+        </div>
+        <p>
+          <strong>Seller baseline:</strong> Scanstone supplies static
+          generators, editable redirects, short links, and scan/click analytics.
+          The free plan includes 3 dynamic codes or links; Pro is $9/month or
+          $79/year for 500. Its cancellation policy does not gate redirects on
+          billing. Source: current repository, pricing, and terms. It does not
+          host restaurant menus, take orders, or provide the enterprise features
+          advertised by larger platforms.
+        </p>
+        <p>
+          <strong>Visual direction:</strong> retain warm paper, green accents,
+          and editorial typography. Put a recognizable table card and an
+          interactive destination example above the fold. Keep one primary
+          signup action and a useful demo. Use real product evidence before
+          adding testimonials or customer logos.
+        </p>
+      </section>
+      <section id="competitors">
+        <h2>Competitors</h2>
+        <p>
+          Focused category comparison for positioning. Public vendor
+          descriptions show buyer appeal; they do not establish comparative
+          reliability, customer satisfaction, or that these vendors are present
+          in any particular deal.
+        </p>
+        <div class="table">
+          <table>
+            <thead>
+              <tr>
+                <th>Alternative</th>
+                <th>Verified signal / buyer appeal</th>
+                <th>Scanstone response</th>
+                <th>Do not claim</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <strong>QRCG by Bitly</strong><br />qr-code-generator.com
+                </td>
+                <td>
+                  Its help center documents dynamic-code deactivation after its
+                  14-day trial; static codes remain active. Upgrading the
+                  original account can reactivate the dynamic codes. Buyers can
+                  evaluate an established trial workflow.
+                </td>
+                <td>
+                  Demonstrate the ongoing free allowance and the written
+                  cancellation policy. Ask what the buyer needs to happen to
+                  existing print if they cancel.
+                </td>
+                <td>
+                  Do not say its static codes expire, that every provider
+                  behaves this way, or that a new Scanstone code can repair an
+                  existing printed pattern.
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Uniqode</strong></td>
+                <td>
+                  Advertises forms/pages, integrations, campaign measurement,
+                  centralized management, and enterprise security features. This
+                  is pressure where buyers need a broader platform.
+                </td>
+                <td>
+                  Qualify for the simple menu/link workflow. Compete on clarity
+                  and low setup effort; demonstrate the narrower job thoroughly.
+                </td>
+                <td>
+                  Do not claim enterprise feature parity, superior uptime, or a
+                  current price advantage; exact competitor prices were not
+                  verified.
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>A static QR code pointing to an owned URL</strong>
+                </td>
+                <td>
+                  Can remain useful as menu content changes at the same URL,
+                  without an external redirect service.
+                </td>
+                <td>
+                  Recommend the free static generator when it fits. Offer
+                  dynamic codes for destination changes or scan analytics.
+                </td>
+                <td>
+                  Do not imply all menu changes require a subscription or a
+                  dynamic code.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          <strong>Positioning read:</strong> lead on the cancellation policy for
+          a simple print workflow. Broader features are a pressure point against
+          platform vendors. Free static generation is useful acquisition, not a
+          unique capability. These are strategic inferences from the documented
+          product scope.
+        </p>
+        <p>
+          <strong>Say:</strong> “If your menu URL changes, update the
+          destination without replacing your printed code.”
+          <strong>Clarify:</strong> whether they control a stable URL, need
+          analytics, and already have printed codes.
+          <strong>Prove:</strong> show the same sample scanning before and after
+          a destination change, with the pricing and terms available.
+        </p>
+      </section>
+      <section id="guidance">
+        <h2>Guidance</h2>
+        <div class="grid">
+          <div>
+            <h3>1. Earn useful traffic</h3>
+            <p>
+              Improve the free generator and the new restaurant page. Explain
+              static versus dynamic, trial expiry, and the actual setup process.
+              Avoid creating a separate page for every keyword variation.
+            </p>
+          </div>
+          <div>
+            <h3>2. Show the product</h3>
+            <p>
+              Publish one original screen recording weekly. Repurpose it into a
+              short video and a useful founder post. Explore permission-based
+              print-shop partnerships after observing real setups.
+            </p>
+          </div>
+          <div>
+            <h3>3. Automate the routine</h3>
+            <p>
+              Weekly Search Console brief → one prioritized improvement → draft
+              content → owner review → publish → measure. Use the existing stack
+              before adding paid software.
+            </p>
+          </div>
+        </div>
+        <div class="table">
+          <table>
+            <thead>
+              <tr>
+                <th>Week</th>
+                <th>Work</th>
+                <th>Evidence to collect</th>
+                <th>Decision</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1 · Foundation</td>
+                <td>
+                  Deploy the reviewed messaging, menu page, SEO changes, and
+                  intent events. Enable the read-only weekly brief.
+                </td>
+                <td>
+                  5 observed menu-code setup sessions; production indexability
+                  and working CTAs.
+                </td>
+                <td>
+                  Fix the step owners struggle with before driving more traffic.
+                </td>
+              </tr>
+              <tr>
+                <td>2 · Proof</td>
+                <td>
+                  Capture a real menu-change demo. Publish approved versions on
+                  owned social accounts. Invite feedback through existing
+                  relationships.
+                </td>
+                <td>
+                  UTM visits, clicks, downloads, feedback; no fake testimonials.
+                </td>
+                <td>Which message helps owners understand the benefit?</td>
+              </tr>
+              <tr>
+                <td>3 · Distribution</td>
+                <td>
+                  Test two permission-based print-shop or agency partnerships;
+                  offer an example table card and setup help. Improve one
+                  article using a real recurring question.
+                </td>
+                <td>
+                  Partner-referred visits and observed activated accounts.
+                </td>
+                <td>Keep the channel with actual use, not only impressions.</td>
+              </tr>
+              <tr>
+                <td>4 · Refine</td>
+                <td>
+                  Review the funnel and customer conversations. Update the
+                  highest-value page and repeat the best demonstration.
+                </td>
+                <td>
+                  10 total owner conversations; first-code/first-scan cohorts
+                  where measurable.
+                </td>
+                <td>
+                  Continue, change segment, or stop a channel. Paid acquisition
+                  waits for a credible activation signal.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          These are experiment targets, not traffic or revenue forecasts.
+          Popularity cannot be guaranteed. A useful early outcome is a small
+          group of owners who create codes, get real scans, and can explain why
+          they chose the product.
+        </p>
+        <h3>SEO and GEO priorities</h3>
+        <ul>
+          <li>
+            Make important explanations visible in HTML, link relevant pages,
+            keep canonicals consistent, and use real content-change dates.
+          </li>
+          <li>
+            Use precise answers, first-hand product demonstrations, current
+            sources, and an honest comparison with a stable static URL.
+          </li>
+          <li>
+            Keep structured data consistent with the visible page. The existing
+            <code>llms.txt</code> is an optional map, not a ranking promise.
+            Google says AI search does not require special markup or AI text
+            files.
+          </li>
+          <li>
+            Track Search Console visibility and actual conversions. Log a fixed
+            set of buyer questions and AI citations monthly as dated
+            observations, not a universal GEO score.
+          </li>
+        </ul>
+        <h3>Automation deliverables</h3>
+        <p>
+          <code>npm run marketing:brief -- --live</code> generates measured
+          search comparisons, a prioritized action, UTM links, and draft
+          distribution copy. The proposed Monday workflow saves a private
+          artifact. Article automation opens one review PR at a time and waits
+          for merge. The source changes are ready locally; this task did not
+          deploy, activate remote schedules, buy ads, or send outreach.
+        </p>
+        <p>
+          <a href="MARKETING.md"
+            >Read the operating runbook and activation steps</a
+          >. Account-level activation attribution remains to be implemented; the
+          new events measure intent, not verified signups or sales.
+        </p>
+      </section>
+      <section id="sources">
+        <h2>Sources</h2>
+        <ol>
+          <li>
+            <a
+              href="https://search.google.com/search-console?resource_id=sc-domain%3Ascanstone.ca"
+              >Scanstone Search Console property</a
+            >
+            — authenticated read on November 4, 2026; aggregate totals for
+            adjacent 28-day periods. Anonymized queries may be absent. No causal
+            conclusions from the small sample.
+          </li>
+          <li>
+            <a href="https://www.scanstone.ca/pricing">Scanstone pricing</a> and
+            <a href="https://www.scanstone.ca/terms">terms</a> — public product
+            baseline, supplemented by current local implementation. Local
+            short-link and marketing changes may differ from the deployed site.
+          </li>
+          <li>
+            <a
+              href="https://support.qr-code-generator.com/hc/en-us/articles/7665013224205-I-received-a-message-saying-that-my-QR-Codes-will-be-deactivated-What-does-that-mean"
+              >QRCG by Bitly trial policy</a
+            >
+            and
+            <a
+              href="https://support.qr-code-generator.com/hc/en-us/articles/7665090677005-How-can-I-reactivate-my-QR-Codes"
+              >reactivation guidance</a
+            >
+            — checked November 4, 2026.
+          </li>
+          <li>
+            <a href="https://www.uniqode.com/pricing"
+              >Uniqode product and pricing page</a
+            >
+            — vendor-advertised platform scope; checked November 4, 2026.
+            Numeric plan prices and real-world performance were not verified.
+          </li>
+          <li>
+            <a
+              href="https://developers.google.com/search/docs/appearance/ai-features"
+              >Google Search Central: AI features and your website</a
+            >
+            — foundational search requirements, visible content, links, and
+            structured-data guidance.
+          </li>
+        </ol>
+        <p>
+          <strong>Source posture:</strong> repository docs supply Knowledge &
+          Files context; Search Console supplies observed search performance;
+          official public sources supply competitive facts. CRM, meeting
+          transcripts, messaging, and sales intelligence are not relevant to
+          this bounded initial product plan. Customer interviews, acquisition
+          economics, and full funnel attribution are missing. Validate the
+          restaurant audience before committing a larger budget.
+        </p>
+      </section>
+      <p class="muted">
+        Next decision: review the local product changes, deploy them, and enable
+        the weekly read-only marketing brief.
+      </p>
+    </main>
+  </body>
+</html>

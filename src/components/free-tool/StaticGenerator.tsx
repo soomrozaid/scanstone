@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { QRPreview } from "@/components/qr/QRPreview";
 import { DesignControls } from "@/components/qr/DesignControls";
@@ -21,12 +21,22 @@ const MODES: Array<{ id: GeneratorMode; label: string }> = [
 ];
 
 const MAX_LEN = 1600;
+const subscribeToHydration = () => () => {};
+const clientReady = () => true;
+const serverReady = () => false;
 
 export function StaticGenerator({
   initialMode = "url",
 }: {
   initialMode?: GeneratorMode;
 }) {
+  // Prevent input before React has attached handlers; otherwise a fast mobile
+  // interaction can change the DOM value without updating the QR payload.
+  const hydrated = useSyncExternalStore(
+    subscribeToHydration,
+    clientReady,
+    serverReady,
+  );
   const [mode, setMode] = useState<GeneratorMode>(initialMode);
   const [design, setDesign] = useState<QRDesign>({
     fg: "#1c1917",
@@ -77,7 +87,15 @@ export function StaticGenerator({
 
   return (
     <div className="grid gap-8 lg:grid-cols-[1fr_320px]">
-      <div className="space-y-6">
+      <fieldset
+        disabled={!hydrated}
+        aria-busy={!hydrated}
+        aria-label="QR code content and design"
+        className="min-w-0 space-y-6"
+      >
+        <noscript>
+          Enable JavaScript to create a QR code in your browser.
+        </noscript>
         <div
           role="tablist"
           aria-label="QR content type"
@@ -229,7 +247,7 @@ export function StaticGenerator({
         ) : null}
 
         <DesignControls design={design} onChange={setDesign} />
-      </div>
+      </fieldset>
 
       <div>
         <Card className="p-5">

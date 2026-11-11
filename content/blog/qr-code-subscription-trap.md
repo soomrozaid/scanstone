@@ -1,65 +1,45 @@
-Search for a QR code generator and the first results are polished, confident, and enormous. They rank at the top of Google, run ads on the term, and call themselves free. Then read their reviews.
+Some QR codes stop working after a free trial because they contain a provider’s redirect link, and the provider deactivates that link when the trial ends. A static QR pattern has no trial expiry, although the website it points to can still disappear. Before printing, check which kind of code you created and what the provider’s cancellation policy actually says.
 
-The most-marketed QR generator on the internet, [qr-code-generator.com](https://www.trustpilot.com/review/www.qr-code-generator.com), sits at roughly **1.6 out of 5 on Trustpilot** — a "Bad" rating — across thousands of reviews (as of July 2026). That is not the score of a product that doesn't work. The tool works fine. It's the score of a product that surprises people with a bill for something they thought they already had.
+## What expires: the redirect, not the printed pattern
 
-The reviews say the same thing over and over: *I made a free QR code, printed it, and two weeks later it stopped working unless I paid.* This isn't a bug or a scattering of unhappy edge cases. It's the design. Once you see how it works, you can't unsee it — and you'll never get caught by it again.
+A static QR code stores its content directly. For a menu URL, the pattern contains that URL; a compatible phone reads it and opens the website. The QR generator does not need to operate a separate redirect for the scan to work. If you own the menu URL and keep it available, you can change the menu content at that address without changing the QR code.
 
-## The one design choice that sets the trap
+A dynamic code stores a redirect URL instead. The redirect service sends the visitor to your chosen destination. This makes it possible to change that destination after printing and count scans, but both the redirect service and the destination website need to remain available.
 
-There are two kinds of QR code, and the difference is the whole story.
+“Free” can describe a static generator, an ongoing free plan, or a limited trial of a dynamic service. Those are different offers. An account requirement alone does not tell you which kind of code you have.
 
-A **static** QR code has your information baked directly into the pattern. If the code points to `example.com/menu`, those characters are physically encoded in the black-and-white squares. Nothing sits between the scan and the destination. No server, no account, no company. A static code works because of physics and math, not because someone keeps a subscription alive. It cannot be switched off, because there is nothing to switch off.
+## One documented example
 
-A **dynamic** QR code encodes a short link to the generator's server, and *that* server redirects the scan to your real destination. This is genuinely useful: you can change where the code points after it's printed, and you get scan analytics. But it introduces a middleman. Every single scan now depends on that company choosing to forward it. The redirect is a service, and a service can be turned off.
+QRCG by Bitly, the service at qr-code-generator.com, [states in its help center](https://support.qr-code-generator.com/hc/en-us/articles/7665013224205-I-received-a-message-saying-that-my-QR-Codes-will-be-deactivated-What-does-that-mean) that dynamic codes created during its 14-day free trial are deactivated when the trial ends. Scans then reach a service page. Its static codes continue working.
 
-Here is the sleight of hand. Many "free" generators hand you a **dynamic** code by default, wrapped in a **14-day trial** — without making it clear that's what's happening. You see "free," you see a working QR code, you download it, and you print it on 500 menus. On day 15 the trial ends. The middleman stops forwarding. Every scan now lands on a paywall demanding payment to "reactivate" a code you already printed.
+That is a specific provider’s documented policy, not a claim that every QR generator behaves the same way. Read the policy for the service you are considering, including any ongoing free plan, scan limits, and cancellation terms. A paid dynamic service may suit your needs; the important question is what happens to material you have already printed when you leave it.
 
-You didn't buy a QR code. You rented one, and the rent came due after the ink dried.
+## Check the code before printing
 
-## What it actually costs
+Start with a sample and follow the entire route from camera to destination:
 
-The trial trap works because the pressure arrives *after* you've committed. Reprinting 500 menus, table tents, flyers, or yard signs costs far more than the subscription — so people pay. Reviewers of qr-code-generator.com report being charged around **£130 (~$165) per year** to keep their printed codes alive, describe accounts that **auto-renew without warning**, and say cancellation and refunds are deliberately difficult.
+1. **Inspect the encoded URL.** Use a QR reader that shows the raw decoded content. Compare its hostname with the website you intended to link to. A provider’s short domain indicates a redirect dependency. A browser’s final address alone can hide that intermediate step.
+2. **Check your account and plan.** Look for trial dates and rules for inactive or paused codes. Ask the provider whether cancellation affects existing redirects, only paid features, or both.
+3. **Test your destination without signing in.** Open it in a private browser window and on mobile data. A working QR code is not useful if guests see a login screen or permission error.
+4. **Print one sample.** Test the real size, paper, lighting, and placement with more than one phone. Keep a clear margin around the pattern and avoid folds and reflections.
+5. **Save the source and plan details.** Keep the destination URL, download, and the policy you relied on so the next person maintaining the menu knows how it works.
 
-Run the math on a code you can't afford to reprint:
+For a restaurant, the [menu QR code guide](/restaurant-menu-qr-code) walks through the choice between a stable URL and an editable redirect. Updating menu items at the same URL does not, by itself, require a dynamic code.
 
-| Years your printed code is in the wild | Annual "reactivation" fee | Total to keep your own code working |
-| --- | --- | --- |
-| 1 year | ~$150 | ~$150 |
-| 3 years | ~$150 | ~$450 |
-| 5 years | ~$150 | ~$750 |
+## If your printed code has already stopped working
 
-That's the cost of a design decision you never knowingly agreed to. And it's not unique to one company — it's the prevailing model across the category. Dynamic-code subscriptions in 2026 run from about **$7/month (QR Tiger)** to **$10/month (Bitly)**, **$15/month (Uniqode)**, **$60/month (Flowcode Pro)**, and past **$250/month** at the top tiers ([Jotform](https://www.jotform.com/blog/qr-code-cost/), [QR Nova](https://qrcodenova.com/en/blog/qr-code-generator-pricing-comparison), 2026). Many of them start with the same "free" code that quietly needs a plan to keep resolving.
+First distinguish a scanning failure from a destination failure. If the camera cannot read the pattern, check print quality, contrast, damage, and lighting. If it reads the URL but the page fails, open that URL directly and check your website, permissions, and redirect provider.
 
-## Why it's built this way
+If a provider reports an expired trial, follow its documented reactivation process. QRCG by Bitly’s [reactivation instructions](https://support.qr-code-generator.com/hc/en-us/articles/7665090677005-How-can-I-reactivate-my-QR-Codes) say to upgrade the original account. They also explain that creating a new account or generating another code with the same content does not reactivate the original.
 
-None of these companies are run by villains. They're responding to an incentive. A static QR code is a one-time transaction with no recurring revenue — you make it, you leave, they earn nothing. A dynamic code that can be switched off is a subscription with the strongest retention mechanism ever invented: **your customers' printed materials are the hostage.** You will pay to keep your own menus working, indefinitely, because the alternative is a reprint.
+A new QR generator cannot change the pattern already on your table cards. Unless you control the URL encoded in that pattern, moving providers normally means replacing the printed code. If you do control that URL, you may be able to change its content or redirect on your own website. Confirm that control before promising a migration without reprinting.
 
-So the product gets optimized in exactly the direction you'd expect. "Free" is placed where it captures the most sign-ups. The trial length is tuned to outlast the moment you print. The distinction between static and dynamic — the one fact that would protect you — is kept quiet. A 1.6-star rating is not a failure of that strategy. It's an acceptable cost of it.
+## Choosing a setup you can maintain
 
-## The 5-second test before you print anything
+A static code is a good fit when you control a stable destination and do not need scan analytics. A dynamic service is useful when destinations may move or you want to compare scans across placements. Evaluate the cancellation policy alongside those features.
 
-You can defuse the trap with one question, asked before you commit a code to paper:
+[Scanstone’s free static generator](/qr-code-generator) produces PNG and SVG codes without an account. For editable codes and short links, the free account includes 3 in total. Its [redirect policy](/terms) does not disable existing redirects because of cancellation, downgrade, or plan limits; [paid plans](/pricing) add capacity and reporting features. Deleting a code or account still removes its redirects, and both the redirect service and the destination must remain available.
 
-1. **Does it require an account or a "trial" to download?** A genuinely static code needs neither. If you must sign up to get your "free" code, you're likely being handed a dynamic one on a timer.
-2. **Does the pricing page mention "active" codes, reactivation, or codes that pause?** Those words mean the redirect can be switched off.
-3. **Is the code short-and-branded** (like `qrco.de/abc123`) **or does it contain your real content?** You can check: paste the decoded value into any QR reader app. If it shows the generator's domain instead of yours, it's dynamic.
-4. **Search the brand name + "expired" or "stopped working."** Thirty seconds of reviews will tell you everything the landing page won't.
-5. **Ask directly: "if I stop paying, does my printed code keep working?"** If the answer is no — or if you can't get a straight answer — walk away before you print.
+Choose the workflow that fits what you print, test a sample, and keep the destination maintained. That preparation matters more than a broad promise that a code will “last forever.”
 
-For a link, WiFi network, or contact card that will never change, you want a **static** code, and you should never pay a recurring fee for one. For a destination you'll edit later, a dynamic code is worth it — but only from someone who promises, in writing, that the redirect survives cancellation.
-
-## What "free" should have meant all along
-
-We built [Scanstone](/) because the trap made us angry, and because it doesn't have to be this way.
-
-Static QR codes here are **free forever** — unlimited, no account, no watermark, no expiration. The content lives in the pattern, so there is nothing we could switch off even if we wanted to. That's not generosity; it's just honesty about what a static code is.
-
-For dynamic codes — the editable, analytics-tracked kind that everyone else uses to hold your printing hostage — we made a promise and wrote it into the terms as a covenant: **the redirect is never disabled by billing state.** Cancel your plan, hit a limit, let it lapse entirely — your printed codes keep resolving. You lose the paid extras (longer analytics history, vector export), never the redirect. Three dynamic codes are free; [Pro is $9/month or $79/year](/pricing) if you need scale, and even then, the covenant is the same.
-
-The difference between a 1.6-star category and a trustworthy one isn't better technology. Everyone can build a redirect. It's a single decision about whether the person who printed the code, or the company that hosts it, holds the power. We think it should be you.
-
-Make your code, [download it](/qr-code-generator), print it, and forget about us. That's the whole point.
-
----
-
-*Sources: [Trustpilot — qr-code-generator.com](https://www.trustpilot.com/review/www.qr-code-generator.com), [Jotform — how much a QR code costs in 2026](https://www.jotform.com/blog/qr-code-cost/), and [QR Nova — 2026 pricing comparison](https://qrcodenova.com/en/blog/qr-code-generator-pricing-comparison). Ratings and prices verified July 2026 and change over time; the mechanism doesn't.*
+_Sources: [QRCG by Bitly — trial deactivation policy](https://support.qr-code-generator.com/hc/en-us/articles/7665013224205-I-received-a-message-saying-that-my-QR-Codes-will-be-deactivated-What-does-that-mean) and [reactivation instructions](https://support.qr-code-generator.com/hc/en-us/articles/7665090677005-How-can-I-reactivate-my-QR-Codes), checked November 4, 2026. Product limits checked against Scanstone’s current implementation on the same date._

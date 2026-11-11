@@ -27,7 +27,9 @@ test("landing page communicates the value proposition @smoke", async ({
   await expect(
     page.getByRole("heading", { name: /Print it once/i }),
   ).toBeVisible();
-  await expect(page.getByText(/never stops working/i).first()).toBeVisible();
+  await expect(
+    page.getByText(/Cancelling never stops your redirects/i),
+  ).toBeVisible();
   await expect(
     page.getByRole("link", { name: /Start free/i }).first(),
   ).toBeVisible();
@@ -40,8 +42,7 @@ test("landing page communicates the value proposition @smoke", async ({
 test("landing renders FAQ structured data @smoke", async ({ page }) => {
   await page.goto("/");
   const jsonLd = await page
-    .locator('script[type="application/ld+json"]')
-    .first()
+    .locator('main script[type="application/ld+json"]')
     .textContent();
   expect(jsonLd).toContain("FAQPage");
 });
@@ -175,4 +176,72 @@ test("keyboard navigation reaches primary CTA", async ({ page }) => {
     if (/Start free/.test(focused)) return;
   }
   throw new Error("CTA not reachable by keyboard");
+});
+
+test("menu preview changes the example without changing the QR @mobile @smoke", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const preview = page.getByTestId("hero-visual");
+  const before = await preview.locator("svg").innerHTML();
+  await preview.getByRole("button", { name: "Summer menu" }).click();
+  await expect(
+    preview.getByRole("button", { name: "Summer menu" }),
+  ).toHaveAttribute("aria-pressed", "true");
+  await expect(
+    preview.getByText("→ Summer menu. Same printed QR code."),
+  ).toBeVisible();
+  expect(await preview.locator("svg").innerHTML()).toBe(before);
+  await page.getByRole("link", { name: /Start free —/ }).click();
+  await expect(page).toHaveURL(/\/signup$/);
+  await expect(
+    page.getByRole("heading", { name: "Create your account" }),
+  ).toBeVisible();
+});
+
+test("restaurant page is discoverable and offers a working free tool @mobile @smoke", async ({
+  page,
+  request,
+}) => {
+  await page.goto("/restaurant-menu-qr-code");
+  await expect(page).toHaveTitle(/Restaurant Menu QR Codes/);
+  await expect(page.locator("h1")).toHaveText(
+    "Change the menu.Keep the QR code.",
+  );
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+    "href",
+    /\/restaurant-menu-qr-code$/,
+  );
+  const data = JSON.parse(
+    await page.locator('main script[type="application/ld+json"]').innerText(),
+  );
+  const faq = data.find(
+    (item: Record<string, unknown>) => item["@type"] === "FAQPage",
+  );
+  for (const question of faq.mainEntity) {
+    await expect(page.getByText(question.name, { exact: true })).toBeVisible();
+    await expect(
+      page.getByText(question.acceptedAnswer.text, { exact: true }),
+    ).toBeVisible();
+  }
+  expect(await (await request.get("/sitemap.xml")).text()).toContain(
+    "/restaurant-menu-qr-code",
+  );
+  expect(await (await request.get("/llms.txt")).text()).toContain(
+    "/restaurant-menu-qr-code",
+  );
+  expect(
+    await page.evaluate(
+      () =>
+        document.documentElement.scrollWidth -
+        document.documentElement.clientWidth,
+    ),
+  ).toBeLessThanOrEqual(1);
+  await page
+    .getByRole("link", { name: "Use a static code", exact: true })
+    .click();
+  await page.getByLabel("Destination link").fill("https://example.com/menu");
+  await expect(
+    page.getByRole("button", { name: "PNG", exact: true }),
+  ).toBeEnabled();
 });

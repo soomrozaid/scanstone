@@ -7,6 +7,7 @@ import { z } from "zod";
  */
 const clientSchema = z.object({
   APP_URL: z.string().url(),
+  SHORT_URL_ORIGIN: z.string().url().optional(),
   SUPABASE_URL: z.string().url(),
   SUPABASE_PUBLISHABLE_KEY: z.string().min(20),
   STRIPE_PUBLISHABLE_KEY: z.string().startsWith("pk_"),
@@ -14,6 +15,7 @@ const clientSchema = z.object({
 
 const parsed = clientSchema.safeParse({
   APP_URL: process.env.NEXT_PUBLIC_APP_URL,
+  SHORT_URL_ORIGIN: process.env.NEXT_PUBLIC_SHORT_URL_ORIGIN || undefined,
   SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
   SUPABASE_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY,
   STRIPE_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,

@@ -40,7 +40,7 @@ export function breakdown(
   for (const row of rows) {
     let label = row[field] ?? "unknown";
     if (field === "referer") {
-      if (!label || label === "unknown") label = "direct scan";
+      if (!label || label === "unknown") label = "direct visit";
       else {
         try {
           label = new URL(label).hostname;

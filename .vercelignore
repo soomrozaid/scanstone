@@ -1,0 +1,27 @@
+# Local secrets and development state must never be uploaded.
+.env*
+!.env.example
+*.pem
+scanstone-503008-96ce486f79f4.json
+.aws
+.agents
+.codex
+.claude
+.git
+.vercel
+.dev
+supabase/.temp
+supabase/.branches
+
+# Dependencies, generated output, and test artifacts.
+node_modules
+.next
+out
+*.tsbuildinfo
+.playwright-mcp
+test-results
+playwright-report
+blob-report
+coverage
+npm-debug.log*
+.DS_Store

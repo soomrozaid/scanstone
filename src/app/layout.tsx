@@ -19,11 +19,11 @@ const plexMono = IBM_Plex_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(envClient.APP_URL),
   title: {
-    default: "Scanstone — QR codes that keep working. Set in stone.",
+    default: "Scanstone — Editable QR codes for print and short links",
     template: "%s · Scanstone",
   },
   description:
-    "Free QR codes that never expire, and dynamic QR codes you can edit after printing — with scan analytics and an ironclad promise: your codes keep redirecting even if you stop paying.",
+    "Create free static QR codes or editable dynamic codes and short links. Update destinations after printing, track scans, and keep redirects working after cancellation.",
   openGraph: {
     siteName: "Scanstone",
     type: "website",

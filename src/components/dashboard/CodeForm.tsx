@@ -9,7 +9,7 @@ import {
 import { Button, Input, Label, FieldError, Card } from "@/components/ui";
 import { QRPreview } from "@/components/qr/QRPreview";
 import { DesignControls } from "@/components/qr/DesignControls";
-import { envClient } from "@/config/env.client";
+import { getShortUrl } from "@/lib/short-url";
 import type { QRDesign } from "@/lib/validate";
 
 const DEFAULT_DESIGN: QRDesign = {
@@ -40,7 +40,7 @@ export function CodeForm({
   );
 
   // Preview target: real slug when editing, a representative one when creating.
-  const previewData = `${envClient.APP_URL}/r/${initial?.slug ?? "yourcode1"}`;
+  const previewData = getShortUrl(initial?.slug ?? "yourcode1");
 
   return (
     <form action={action} className="grid gap-8 md:grid-cols-[1fr_300px]">
@@ -75,8 +75,8 @@ export function CodeForm({
             required
           />
           <p className="mt-1.5 text-xs text-ink-faint">
-            Where scanners land. Change it any time — the printed code stays
-            valid.
+            Where visitors land. Change it any time — the short URL and printed
+            code stay valid.
           </p>
         </div>
 
@@ -85,7 +85,7 @@ export function CodeForm({
         <FieldError>{state?.error}</FieldError>
         {state?.ok && !pending ? (
           <p role="status" className="text-sm text-verdigris-deep">
-            Saved. Scanners now land on the new destination.
+            Saved. Visitors now land on the new destination.
           </p>
         ) : null}
 
@@ -111,8 +111,8 @@ export function CodeForm({
               Your code gets its own permanent short address when you create it.
             </p>
           ) : (
-            <p className="mt-3 font-mono text-xs text-ink-soft">
-              /r/{initial?.slug}
+            <p className="mt-3 break-all font-mono text-xs text-ink-soft">
+              {previewData.replace(/^https?:\/\//, "")}
             </p>
           )}
         </Card>

@@ -44,7 +44,9 @@ test.describe("core workflow", () => {
     await expect(
       page.getByRole("heading", { name: "Your codes" }),
     ).toBeVisible();
-    await expect(page.getByText(/Carve your first code/i)).toBeVisible();
+    await expect(
+      page.getByText(/Create your first code or short URL/i),
+    ).toBeVisible();
 
     // create
     await page
@@ -57,12 +59,9 @@ test.describe("core workflow", () => {
     await page.waitForURL("**/dashboard/codes/**");
     await expect(page.getByText("Set in stone.")).toBeVisible();
 
-    const shortUrl = await page
-      .locator("p.font-mono", { hasText: "/r/" })
-      .first()
-      .textContent();
+    const shortUrl = await page.getByTestId("short-url").textContent();
     expect(shortUrl).toBeTruthy();
-    const slug = shortUrl!.trim().split("/r/")[1]!;
+    const slug = new URL(shortUrl!.trim()).pathname.split("/").pop()!;
 
     // redirect fast path
     const res = await request.get(`/r/${slug}`, { maxRedirects: 0 });
@@ -133,7 +132,7 @@ test.describe("core workflow", () => {
       await expect(page.getByText(/used all 3 free codes/i)).toBeVisible();
       // covenant: existing redirects still resolve
       await page.goto("/dashboard");
-      await expect(page.getByText("3 of 3 dynamic codes")).toBeVisible();
+      await expect(page.getByText("3 of 3 codes and short URLs")).toBeVisible();
     } finally {
       await deleteUser(limited.id);
     }

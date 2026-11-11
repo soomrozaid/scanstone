@@ -18,7 +18,10 @@ export async function SiteNav() {
         >
           <Wordmark />
         </Link>
-        <div className="hidden items-center gap-6 text-sm text-ink-soft sm:flex">
+        <div className="hidden items-center gap-4 text-sm text-ink-soft md:flex lg:gap-6">
+          <Link href="/#short-links" className="hover:text-ink">
+            Short links
+          </Link>
           <Link href="/qr-code-generator" className="hover:text-ink">
             Free generator
           </Link>

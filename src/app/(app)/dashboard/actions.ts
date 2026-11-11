@@ -32,37 +32,63 @@ export async function createCode(
   _prev: CodeActionState,
   formData: FormData,
 ): Promise<CodeActionState> {
-  const { supabase, user, limits } = await requireUserAndPlan();
+  return createRedirect(formData, "code");
+}
 
-  const name = codeNameSchema.safeParse(formData.get("name"));
-  if (!name.success) return { error: name.error.issues[0]?.message };
+export async function createShortUrl(
+  _prev: CodeActionState,
+  formData: FormData,
+): Promise<CodeActionState> {
+  return createRedirect(formData, "link");
+}
+
+async function createRedirect(
+  formData: FormData,
+  kind: "code" | "link",
+): Promise<CodeActionState> {
+  const { supabase, user, limits } = await requireUserAndPlan();
 
   const dest = validateDestinationUrl(
     String(formData.get("destination_url") ?? ""),
   );
   if (!dest.ok) return { error: dest.error };
 
+  const suppliedName = String(formData.get("name") ?? "").trim();
+  const name = codeNameSchema.safeParse(
+    kind === "link" && !suppliedName
+      ? new URL(dest.url).hostname.slice(0, 80)
+      : suppliedName,
+  );
+  if (!name.success) return { error: name.error.issues[0]?.message };
+
   let design;
   try {
-    design = designSchema.parse({
-      fg: formData.get("fg") || undefined,
-      bg: formData.get("bg") || undefined,
-      shape: formData.get("shape") || undefined,
-    });
+    design = designSchema.parse(
+      kind === "link"
+        ? {}
+        : {
+            fg: formData.get("fg") || undefined,
+            bg: formData.get("bg") || undefined,
+            shape: formData.get("shape") || undefined,
+          },
+    );
   } catch {
     return { error: "Invalid design settings." };
   }
 
   // Entitlement: active code count (server-side; RLS scopes the count to the user).
-  const { count } = await supabase
+  const { count, error: countError } = await supabase
     .from("qr_codes")
     .select("id", { count: "exact", head: true });
+  if (countError || count === null) {
+    return { error: "Couldn't check your account limit. Try again." };
+  }
   if ((count ?? 0) >= limits.maxCodes) {
     return {
       error:
         limits.maxCodes <= 3
-          ? "You've used all 3 free codes. Upgrade to Pro for up to 500 — your existing codes keep working either way."
-          : "You've reached the 500-code limit. Contact us if you need more.",
+          ? "You've used all 3 free codes and short URLs. Upgrade to Pro for up to 500 — your existing links keep working either way."
+          : "You've reached the limit of 500 codes and short URLs. Contact us if you need more.",
     };
   }
 
@@ -84,14 +110,21 @@ export async function createCode(
     if (data) codeId = data.id;
     else if (error && error.code !== "23505") {
       log("error", "code_create_failed", { code: error.code });
-      return { error: "Couldn't create the code. Try again." };
+      return {
+        error: `Couldn't create the ${kind === "link" ? "short URL" : "code"}. Try again.`,
+      };
     }
   }
-  if (!codeId) return { error: "Couldn't create the code. Try again." };
+  if (!codeId)
+    return {
+      error: `Couldn't create the ${kind === "link" ? "short URL" : "code"}. Try again.`,
+    };
 
   log("info", "code_created", { user: user.id });
   revalidatePath("/dashboard");
-  redirect(`/dashboard/codes/${codeId}?created=1`);
+  redirect(
+    `/dashboard/codes/${codeId}?created=${kind === "link" ? "link" : "1"}`,
+  );
 }
 
 export async function updateCode(

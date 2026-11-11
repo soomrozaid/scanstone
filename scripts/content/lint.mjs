@@ -1,6 +1,6 @@
 // Quality gate. A draft must pass before it can be published. Deterministic,
-// zero-dep — this is what keeps auto-generated content out of Google's
-// scaled-content-abuse bucket and honest to facts.md.
+// zero-dep. Mechanical checks support editorial review; passing does not prove
+// factual accuracy, usefulness, or compliance with search-engine policies.
 //
 // Usage:
 //   node scripts/content/lint.mjs <slug>                 lint a drafted queue item

@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-export const alt = "Scanstone — QR codes that keep working. Set in stone.";
+export const alt = "Scanstone — Print it once. Update it anytime.";
 
 export default function OGImage() {
   return new ImageResponse(
@@ -74,12 +74,12 @@ export default function OGImage() {
               letterSpacing: "-2px",
             }}
           >
-            Change it forever.
+            Update it anytime.
           </div>
         </div>
 
         <div style={{ fontSize: 30, color: "#4f4a42" }}>
-          QR codes that never expire — free generator + editable dynamic codes
+          Editable QR codes for print. Start with 3 free codes or links.
         </div>
       </div>
 

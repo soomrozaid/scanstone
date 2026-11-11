@@ -8,6 +8,7 @@
 
 ## Environment contract (canonical, framework-neutral)
 Canonical vars: `APP_URL, SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, SUPABASE_SECRET_KEY, STRIPE_PUBLISHABLE_KEY, STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET, STRIPE_MONTHLY_PRICE_ID, STRIPE_YEARLY_PRICE_ID`.
+- Optional `SHORT_URL_ORIGIN` is the dedicated short-link origin (`https://scst.one`). `getShortUrl()` uses `/{slug}` on this domain, or falls back to `APP_URL/r/{slug}`. A host-scoped rewrite sends short-domain requests to the existing redirect handler; `APP_URL` remains the app/auth/billing origin.
 - `src/config/env.server.ts` — zod-validated, server-only (throws if missing; imports `server-only`).
 - `src/config/env.client.ts` — zod-validated allowlist: APP_URL, SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, STRIPE_PUBLISHABLE_KEY.
 - `next.config.ts` maps canonical → `NEXT_PUBLIC_*` build-time aliases (adapter layer only; canonical names remain source of truth in Vercel/local env).
@@ -25,6 +26,7 @@ Canonical vars: `APP_URL, SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, SUPABASE_SECRE
 - `/pricing`, `/demo` (public seeded analytics), `/privacy`, `/terms`.
 - `/login /signup /forgot-password /reset-password /auth/callback /auth/confirm`.
 - `/dashboard` (list/create), `/dashboard/codes/[id]` (edit, design, analytics, export), `/account` (plan, billing portal, data export, delete account).
+- `/dashboard/shorten` creates shareable short URLs through the same authenticated creation flow and `qr_codes` records. Links and QR codes share limits; clicks and scans are counted together. Existing code URLs can also be copied from the dashboard and detail page.
 - `GET /r/[slug]` — redirect fast path: service-role lookup → 302 → `waitUntil(record_scan)`. Never gated.
 - `POST /api/stripe/checkout`, `POST /api/stripe/portal`, `POST /api/stripe/webhook` (sig verify + idempotent), `GET /api/account/export`.
 - `sitemap.ts`, `robots.ts`, `opengraph-image.tsx`, `manifest.ts`.

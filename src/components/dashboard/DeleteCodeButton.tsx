@@ -14,7 +14,7 @@ export function DeleteCodeButton({ id, name }: { id: string; name: string }) {
         variant="danger"
         onClick={() => setConfirming(true)}
       >
-        Delete this code
+        Delete code &amp; link
       </Button>
     );
   }
@@ -22,9 +22,8 @@ export function DeleteCodeButton({ id, name }: { id: string; name: string }) {
   return (
     <div className="rounded-md border border-danger/40 bg-danger/5 p-4">
       <p className="text-sm text-ink">
-        Delete <strong>{name}</strong>? Anything already printed with this code
-        will stop working — permanently. This is the only way a Scanstone code
-        dies.
+        Delete <strong>{name}</strong>? Its shared short URL and anything
+        already printed with this code will stop working — permanently.
       </p>
       <div className="mt-3 flex gap-2">
         <form action={deleteCode}>

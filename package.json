@@ -11,7 +11,9 @@
     "test": "vitest run",
     "test:e2e": "playwright test",
     "test:prod": "PLAYWRIGHT_BASE_URL=$APP_URL playwright test --grep @smoke",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "marketing:brief": "node scripts/marketing/brief.mjs",
+    "test:marketing": "node --test scripts/marketing/brief.test.mjs"
   },
   "dependencies": {
     "@react-three/fiber": "^9.6.1",

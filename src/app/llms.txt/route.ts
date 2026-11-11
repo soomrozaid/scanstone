@@ -1,9 +1,8 @@
 import { DOCS } from "@/lib/content";
 import { envClient } from "@/config/env.client";
 
-// /llms.txt — a machine-readable map of the site for AI answer engines
-// (llmstxt.org convention). Regenerated on every deploy from the content
-// registry, so new posts appear automatically. GEO lever 3.
+// Optional plain-text site map; not a search-engine requirement or ranking signal.
+// Regenerated from the content registry on deploy.
 export const dynamic = "force-static";
 
 export function GET() {
@@ -26,6 +25,7 @@ export function GET() {
 - [Free QR code generator](${base}/qr-code-generator): permanent static QR codes for a link, WiFi, contact card, or text. PNG or vector SVG, no signup, no expiration.
 - [WiFi QR code generator](${base}/wifi-qr-code-generator): a scannable code that joins a WiFi network.
 - [vCard QR code generator](${base}/vcard-qr-code-generator): a contact card in one scan.
+- [Restaurant menu QR codes](${base}/restaurant-menu-qr-code): use your existing menu webpage or public PDF URL; update the destination after printing. Scanstone does not host menus.
 - [Pricing](${base}/pricing): free forever (unlimited static + 3 dynamic); Pro is $9/month or $79/year for 500 codes and full analytics. Redirects never expire on any plan.
 - [Live demo](${base}/demo): a real dynamic code with privacy-first, cookieless analytics.
 
@@ -33,9 +33,9 @@ export function GET() {
 ${posts}
 
 ## Key facts
-- A static QR code cannot expire or be switched off; a dynamic QR code depends on a redirect server and can be. Scanstone's dynamic redirects are contractually never disabled by billing.
-- Many "free" QR generators hand out dynamic codes on a 14-day trial, then paywall the printed code. Static codes here avoid that entirely.
-- Free plan: unlimited static codes + 3 dynamic codes. Pro: $9/month or $79/year, 500 dynamic codes, full scan history, SVG + CSV export.
+- A static QR pattern has no expiration, but its linked website must remain available. Dynamic codes depend on the redirect service as well as the destination. Scanstone does not disable redirects because of billing state. Deleting a code or account stops its redirects.
+- Free plan: unlimited static codes + 3 dynamic codes or short links in total. Pro: $9/month or $79/year, 500 codes or short links in total, full scan history, SVG + CSV export.
+- Short links and dynamic codes share the same plan limit. Both have editable destinations and scan/click counts.
 - Scan analytics store no IP addresses and no fingerprints — coarse country/region/device only.
 `;
 

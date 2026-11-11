@@ -1,29 +1,14 @@
 name: content-publish
 
-# Drafts the next queued post with an LLM, runs it through the quality gate, and
-# publishes it (moves the markdown in, updates the registry, notifies search
-# engines), then commits so Vercel deploys. Runs Mon/Wed/Fri; also on demand.
-#
-# Turn it on with ONE master switch (a deliberate on/off for autopublish):
-#   repo VARIABLE  CONTENT_PIPELINE = true
-# plus repo SECRETS:
-#   ANTHROPIC_API_KEY  (or AI_GATEWAY_API_KEY)   — required to draft
-#   GCP_SA_KEY          — the Search Console service-account JSON (for indexing)
-# While CONTENT_PIPELINE is unset, scheduled runs no-op (no noise).
-#
-# Autonomy (default is the safe one):
-#   - By default this opens a PR you review + merge (Vercel deploys on merge).
-#   - Set variable CONTENT_AUTOPUBLISH = true to commit straight to main instead
-#     (fully hands-off; still gated by the quality lint). Recommended: run in PR
-#     mode for ~2 weeks, then flip to autopublish once you trust the output.
-
+# One reviewed article per week. CONTENT_PIPELINE=true enables this workflow.
+# Lint checks do not replace factual/editorial review. Merge the PR to publish.
 on:
   schedule:
-    - cron: "0 14 * * 1,3,5"
+    - cron: "0 14 * * 3" # Wednesday 08:00 America/Regina
   workflow_dispatch:
     inputs:
       slug:
-        description: "Specific queue slug to draft + publish (optional)"
+        description: "Specific queue slug to draft (optional)"
         required: false
 
 permissions:
@@ -43,57 +28,53 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-      - run: npm ci
-
-      - name: Write Search Console key (empty if the secret is unset — harmless)
-        run: printf '%s' "$GCP_SA_KEY" > "$RUNNER_TEMP/sa.json"
+      - name: Check for a pending review and queued work
+        id: queue
         env:
-          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
-
-      - name: Draft next post
+          GH_TOKEN: ${{ github.token }}
+          SLUG: ${{ github.event.inputs.slug }}
+        run: |
+          if [ "$(gh pr list --state open --limit 100 --json headRefName --jq '[.[] | select(.headRefName | startswith("content/weekly-draft-") or startswith("content/auto-"))] | length')" != "0" ]; then
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          node --input-type=module <<'JS'
+          import { readFileSync, appendFileSync } from 'node:fs';
+          const queue = JSON.parse(readFileSync('content/queue.json', 'utf8'));
+          const item = queue.find(item => item.status === 'queued' && (!process.env.SLUG || item.slug === process.env.SLUG));
+          if (item && !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(item.slug)) throw new Error('Invalid queue slug');
+          appendFileSync(process.env.GITHUB_OUTPUT, `ready=${Boolean(item)}\nslug=${item?.slug ?? ''}\n`);
+          JS
+      - name: Draft one article
+        if: steps.queue.outputs.ready == 'true'
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           AI_GATEWAY_API_KEY: ${{ secrets.AI_GATEWAY_API_KEY }}
-          SLUG: ${{ github.event.inputs.slug }}
-        run: |
-          if [ -n "$SLUG" ]; then
-            node scripts/content/draft.mjs --slug "$SLUG"
-          else
-            node scripts/content/draft.mjs --count 1
-          fi
-
-      - name: Publish (quality gate + registry; notify only when autopublishing)
+          SLUG: ${{ steps.queue.outputs.slug }}
+        run: node scripts/content/draft.mjs --slug "$SLUG"
+      - name: Prepare content for review
+        if: steps.queue.outputs.ready == 'true'
         env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/sa.json
-          AUTOPUBLISH: ${{ vars.CONTENT_AUTOPUBLISH }}
-        run: |
-          if [ "$AUTOPUBLISH" = "true" ]; then
-            node scripts/content/publish.mjs --all
-          else
-            node scripts/content/publish.mjs --all --no-notify
-          fi
-
-      - name: Ship (autopublish to main, or open a review PR)
+          SLUG: ${{ steps.queue.outputs.slug }}
+        run: node scripts/content/publish.mjs "$SLUG" --no-notify
+      - name: Open review PR
+        if: steps.queue.outputs.ready == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
-          AUTOPUBLISH: ${{ vars.CONTENT_AUTOPUBLISH }}
         run: |
           if [ -z "$(git status --porcelain content/)" ]; then
-            echo "nothing new to publish"; exit 0
+            echo "No content changes"; exit 0
           fi
           git config user.name "scanstone-bot"
           git config user.email "bot@scanstone.ca"
-          if [ "$AUTOPUBLISH" = "true" ]; then
-            git add -A content/
-            git commit -m "content: publish scheduled post [skip ci]"
-            git push
-          else
-            BRANCH="content/auto-$(date +%Y%m%d-%H%M%S)"
-            git checkout -b "$BRANCH"
-            git add -A content/
-            git commit -m "content: new post ready for review"
-            git push -u origin "$BRANCH"
-            gh pr create --base main --head "$BRANCH" \
-              --title "Content: new post ready for review" \
-              --body "Auto-drafted and passed the quality gate. Review and merge to publish — Vercel deploys on merge."
-          fi
+          BRANCH="content/weekly-draft-$(date +%Y%m%d-%H%M%S)"
+          git checkout -b "$BRANCH"
+          git add -A content/
+          git commit -m "content: weekly draft for editorial review"
+          git push -u origin "$BRANCH"
+          cat > "$RUNNER_TEMP/content-pr.md" <<'BODY'
+          Review this draft before merging. Verify product behavior, all external claims and their dates, internal links, and whether the page adds original value. Mechanical lint is not fact-checking.
+
+          Merge publishes through the existing Vercel integration. Search-engine notifications must happen only after the deployed URL returns successfully.
+          BODY
+          gh pr create --base "${{ github.event.repository.default_branch }}" --head "$BRANCH" --title "Content: weekly draft for review" --body-file "$RUNNER_TEMP/content-pr.md"

@@ -88,8 +88,8 @@ export default async function AccountPage({
         ) : (
           <div className="mt-3 space-y-4">
             <p className="text-sm text-ink-soft">
-              Free: 3 dynamic codes, 30-day analytics. Pro: up to 500 codes,
-              full history, vector downloads, CSV export.
+              Free: 3 codes and short URLs, 30-day analytics. Pro: up to 500
+              combined, full history, vector downloads, CSV export.
             </p>
             <div className="grid gap-3 sm:grid-cols-2">
               <form action="/api/stripe/checkout" method="POST">

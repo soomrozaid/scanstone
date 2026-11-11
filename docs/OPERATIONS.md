@@ -1,7 +1,7 @@
 # Operations Runbook
 
-Production: **https://scanstone.vercel.app** (Vercel project `fable-proj`,
-domain pinned to the project — new production deploys keep it).
+Production: **https://www.scanstone.ca** (Vercel project `fable-proj`).
+`scanstone.vercel.app` remains assigned and redirects to the main domain.
 
 ## Deploy
 
@@ -50,7 +50,25 @@ secrets into commands). After env changes, redeploy.
 - Local billing testing: `stripe listen --forward-to
   localhost:3000/api/stripe/webhook` + card 4242 4242 4242 4242.
 
-## Changing the domain (when a custom domain is purchased)
+## Dedicated short domain (`scst.one`)
+
+1. Add `scst.one` to the existing Vercel project (serve the app; do not configure
+   a domain-wide redirect).
+2. At the authoritative DNS provider, apply the exact A/CNAME and any ownership
+   verification records Vercel requests. Replace conflicting parking A/AAAA
+   records for this hostname; preserve unrelated records, including mail records.
+3. Verify DNS and HTTPS, then set `SHORT_URL_ORIGIN=https://scst.one` in the
+   Vercel production environment and redeploy. Keep `APP_URL` set to
+   `https://www.scanstone.ca`; auth and billing remain on the main app.
+4. Verify `https://scst.one/{slug}` and the existing
+   `https://scanstone.vercel.app/r/{slug}` both redirect to the same destination.
+   The short domain's homepage redirects to `APP_URL`.
+
+Local testing: start the app with `SHORT_URL_ORIGIN=https://scst.one`, then
+send requests to localhost with `Host: scst.one` to exercise the rewrite.
+Leave this variable unset for ordinary local development.
+
+## Changing the main app domain
 
 1. `vercel domains add <domain>` (project `fable-proj`).
 2. `vercel env` — update `APP_URL` (production) to the new origin; redeploy.

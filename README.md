@@ -10,6 +10,13 @@ Scanstone is a micro-SaaS for people who put QR codes on printed material:
 - **Dynamic codes** — a printed code that redirects through
   `scanstone.vercel.app/r/{slug}`; the destination is editable after printing,
   and every scan is counted (time, country, device — no cookies, no IPs).
+- **Short URLs** (`/dashboard/shorten`) — paste a destination to create a
+  permanent, copyable `/r/{slug}` link with an editable destination and click
+  tracking. Each link includes a QR code; links and codes share the existing
+  plan limit and analytics. No external shortening service or migration needed.
+- **Short domain** — set `SHORT_URL_ORIGIN=https://scst.one` to generate
+  `https://scst.one/{slug}` links and QR codes. Leave it unset for local
+  development. Existing `/r/{slug}` links continue to resolve.
 - **The covenant** — redirects are never disabled by billing state. Downgrade,
   lapse, cancel: printed codes keep working. Only deleting a code stops it.
 

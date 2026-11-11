@@ -1,22 +1,38 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { HeroVisual } from "@/components/hero/Hero";
 import { ButtonLink, Card, Badge } from "@/components/ui";
 import { ScanChart } from "@/components/analytics/ScanChart";
 import { BreakdownList } from "@/components/analytics/BreakdownList";
 import { PRICING } from "@/lib/plans";
 import { envClient } from "@/config/env.client";
+import { MarketingLink } from "@/components/marketing/MarketingLink";
 
 export const metadata: Metadata = {
-  title: { absolute: "Scanstone — QR codes that keep working. Set in stone." },
+  title: { absolute: "Editable QR Codes for Print & Short Links | Scanstone" },
   description:
-    "Free QR codes with no expiration, no trial, no trap — plus dynamic QR codes you can re-point after printing, with scan analytics. Redirects keep working even if you stop paying.",
+    "Change your QR code destination after printing. Track scans, share short links, and keep redirects working after cancellation. Start with 3 free codes or links.",
   alternates: { canonical: "/" },
+  openGraph: {
+    title: "Print it once. Update the destination anytime. | Scanstone",
+    description:
+      "Editable QR codes for menus, packaging, and campaigns. Your redirects keep working after cancellation. Start free.",
+    url: "/",
+  },
 };
 
 const FAQS = [
   {
+    q: "Can I shorten a URL without creating a QR code?",
+    a: "Yes. Choose Shorten a link to create a compact scst.one URL for messages, social posts, emails, or anywhere you share links. You can update its destination and see click analytics from your dashboard.",
+  },
+  {
+    q: "Do I need an account to create short links?",
+    a: "Yes — sign in or create a free account to create and manage short links. The Free plan includes 3 short links or dynamic QR codes in total; Pro includes 500 in total. Anyone can open your short links without an account.",
+  },
+  {
     q: "Do Scanstone QR codes expire?",
-    a: "No. Free static codes contain your content directly — we couldn't turn them off if we wanted to. Dynamic codes redirect through Scanstone, and we commit to keeping every redirect alive: downgrading, exceeding limits, or cancelling never breaks a code. Only deleting a code yourself does.",
+    a: "Static QR patterns have no expiry, though the destination website must stay available. For dynamic codes, cancellation, downgrade, and plan limits do not disable redirects. Deleting a code or your account removes its redirects; dynamic codes also depend on Scanstone and your destination remaining available.",
   },
   {
     q: "What happens to my codes if I stop paying?",
@@ -75,39 +91,102 @@ export default function LandingPage() {
       {/* HERO */}
       <section className="mx-auto grid max-w-6xl items-center gap-12 px-4 pb-20 pt-14 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:pt-20">
         <div>
-          <Badge tone="copper">No trials · No expiring codes · No traps</Badge>
+          <Badge tone="green">Editable QR codes for things you print</Badge>
           <h1 className="engraved mt-5 text-4xl font-semibold leading-[1.08] sm:text-5xl lg:text-6xl">
             Print it once.
             <br />
-            Change it forever.
+            Update it anytime.
           </h1>
           <p className="mt-5 max-w-lg text-lg leading-relaxed text-ink-soft">
-            Scanstone makes QR codes that outlive the paper they&apos;re printed
-            on: free static codes that never expire, and dynamic codes you can
-            re-point after printing — with scan analytics that tell you
-            what&apos;s actually working.
+            New menu. New offer. Same QR code. Change where your printed codes
+            send people, track scans, and share short links from one dashboard.
+            Your redirects keep working even if you cancel.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <ButtonLink
+            <MarketingLink
+              placement="home_hero"
+              action="signup"
               href="/signup"
               variant="accent"
               className="px-6 py-3 text-base"
             >
-              Start free — 3 dynamic codes
-            </ButtonLink>
-            <ButtonLink
-              href="/qr-code-generator"
+              Start free — 3 codes or links
+            </MarketingLink>
+            <MarketingLink
+              placement="home_hero"
+              action="demo"
+              href="/demo"
               variant="ghost"
               className="px-6 py-3 text-base"
             >
-              Just need a quick QR? It&apos;s free
-            </ButtonLink>
+              Explore the live demo
+            </MarketingLink>
           </div>
           <p className="mt-4 text-sm text-ink-faint">
-            No credit card. And if you ever cancel, your codes keep redirecting.
+            No credit card. 3 editable codes or short links. No trial deadline.
           </p>
+          <Link
+            href="/qr-code-generator"
+            className="mt-3 inline-block text-sm text-verdigris-deep underline underline-offset-4"
+          >
+            Just need a static QR code? Create one without signing up.
+          </Link>
         </div>
         <HeroVisual />
+      </section>
+
+      <div className="hairline mx-auto max-w-5xl" />
+
+      {/* SHORT LINKS */}
+      <section
+        id="short-links"
+        aria-labelledby="short-links-h"
+        className="mx-auto grid max-w-6xl scroll-mt-20 items-center gap-10 px-4 py-20 sm:px-6 lg:grid-cols-2"
+      >
+        <div>
+          <Badge tone="copper">URL shortener · scst.one</Badge>
+          <h2
+            id="short-links-h"
+            className="engraved mt-4 text-3xl font-semibold sm:text-4xl"
+          >
+            Long URL. Short link.
+          </h2>
+          <p className="mt-5 leading-relaxed text-ink-soft">
+            Turn a long web address into a compact scst.one link. Share it in a
+            text, email, social post, or bio — then update its destination and
+            track clicks from the same dashboard as your QR codes.
+          </p>
+          <ButtonLink
+            href="/dashboard/shorten"
+            variant="accent"
+            className="mt-6 px-6 py-3"
+          >
+            Create a short link
+          </ButtonLink>
+          <p className="mt-3 text-sm text-ink-faint">
+            Sign in or create a free account. Your first 3 short links or
+            dynamic QR codes are free, with one shared limit.
+          </p>
+        </div>
+        <Card className="min-w-0 p-6 sm:p-8">
+          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">
+            Example
+          </p>
+          <p className="mt-5 text-sm text-ink-soft">Your original URL</p>
+          <p className="mt-2 break-all rounded-md border border-line bg-paper-deep/60 p-4 font-mono text-sm text-ink-soft">
+            https://example.com/summer-menu?utm_source=newsletter
+          </p>
+          <p aria-hidden="true" className="my-4 text-2xl text-copper">
+            ↓
+          </p>
+          <p className="text-sm text-ink-soft">Your short link</p>
+          <p className="mt-2 break-all font-mono text-3xl font-semibold text-verdigris-deep sm:text-4xl">
+            scst.one/summer
+          </p>
+          <p className="mt-5 border-t border-line pt-5 text-sm text-ink-soft">
+            Easy to share · Editable destination · Click analytics
+          </p>
+        </Card>
       </section>
 
       <div className="hairline mx-auto max-w-5xl" />
@@ -119,25 +198,23 @@ export default function LandingPage() {
       >
         <div className="max-w-2xl">
           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-copper">
-            The day-15 problem
+            Before you print
           </p>
           <h2
             id="problem-h"
             className="engraved mt-3 text-3xl font-semibold sm:text-4xl"
           >
-            You printed 500 menus. Then the &ldquo;free&rdquo; QR code died.
+            Know what happens when the trial ends.
           </h2>
           <p className="mt-5 leading-relaxed text-ink-soft">
-            It&apos;s the most common story in QR codes: a generator hands you a
-            &ldquo;free&rdquo; code that is quietly a 14-day trial. The trial
-            lapses, every scan hits a paywall page, and the fix costs $10–15 a
-            month — forever — because the code is already on your tables, your
-            flyers, your packaging. The largest provider in the space holds a{" "}
-            <strong>1.5-star rating</strong> from exactly this pattern.
+            A static QR code stores its destination in the pattern. A dynamic
+            code uses a redirect service so you can change that destination.
+            Before putting one on menus or packaging, check whether the service
+            will still redirect after a trial or subscription ends.
           </p>
           <p className="mt-4 leading-relaxed text-ink-soft">
-            We built Scanstone the other way around. Print is permanent, so the
-            code has to be too.
+            Scanstone does not disable redirects because you cancel, downgrade,
+            or reach your plan limit. You keep control of what you print.
           </p>
         </div>
       </section>
@@ -153,7 +230,7 @@ export default function LandingPage() {
               id="covenant-h"
               className="engraved mt-3 text-3xl font-semibold sm:text-4xl"
             >
-              A Scanstone redirect never stops working.
+              Cancelling never stops your redirects.
             </h2>
             <ul className="mt-8 grid gap-6 sm:grid-cols-3">
               <li className="border-l-2 border-verdigris pl-4">
@@ -178,7 +255,15 @@ export default function LandingPage() {
               </li>
             </ul>
             <p className="mt-8 text-sm text-paper/60">
-              The only way a Scanstone code dies is if you delete it yourself.
+              Deleted codes stop redirecting, and your destination website must
+              remain available.{" "}
+              <Link
+                href="/terms"
+                className="text-paper underline underline-offset-4"
+              >
+                Read our redirect promise
+              </Link>
+              .
             </p>
           </div>
         </div>
@@ -340,8 +425,9 @@ export default function LandingPage() {
             <p className="mt-1 text-3xl font-semibold">$0</p>
             <ul className="mt-5 space-y-2.5 text-sm text-ink-soft">
               <li>✓ Unlimited static QR codes — link, WiFi, contact, text</li>
-              <li>✓ 3 dynamic codes with editable destinations</li>
-              <li>✓ Scan counts with 30 days of history</li>
+              <li>✓ 3 short links or dynamic QR codes in total</li>
+              <li>✓ Editable destinations on scst.one</li>
+              <li>✓ Scan &amp; click counts with 30 days of history</li>
               <li>✓ Print-ready 2048px PNG downloads</li>
               <li>✓ The covenant: redirects never expire</li>
             </ul>
@@ -365,8 +451,8 @@ export default function LandingPage() {
             </p>
             <ul className="mt-5 space-y-2.5 text-sm text-ink-soft">
               <li>✓ Everything in Free</li>
-              <li>✓ Up to 500 dynamic codes</li>
-              <li>✓ Full scan history — every scan you&apos;ve ever had</li>
+              <li>✓ Up to 500 short links or dynamic QR codes in total</li>
+              <li>✓ Full scan &amp; click history</li>
               <li>✓ Vector SVG downloads for professional printing</li>
               <li>✓ CSV export for reports</li>
             </ul>
@@ -376,8 +462,8 @@ export default function LandingPage() {
           </Card>
         </div>
         <p className="mt-6 text-center text-sm text-ink-faint">
-          Cancel anytime, self-serve, from your account page. Codes keep working
-          after — see the covenant above.
+          Cancel anytime, self-serve, from your account page. Codes and links
+          keep working after — see the covenant above.
         </p>
       </section>
 
@@ -408,7 +494,8 @@ export default function LandingPage() {
             The next thing you print deserves a code that lasts.
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-paper/70">
-            Three dynamic codes free. Unlimited static codes free.{" "}
+            Three short links or dynamic QR codes free. Unlimited static codes
+            free.{" "}
             <span className="text-paper">
               {envClient.APP_URL.replace(/^https?:\/\//, "")}
             </span>{" "}

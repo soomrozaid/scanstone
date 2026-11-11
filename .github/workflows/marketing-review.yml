@@ -1,0 +1,44 @@
+name: marketing-review
+
+# Enable MARKETING_REPORTS=true after the reviewed code is merged.
+# GCP_SA_KEY is optional: absent credentials produce an explicitly offline brief.
+on:
+  schedule:
+    - cron: "0 15 * * 1" # Monday 09:00 America/Regina (UTC-6 year-round)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: marketing-review
+  cancel-in-progress: false
+
+jobs:
+  brief:
+    if: ${{ vars.MARKETING_REPORTS == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Generate weekly brief
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/marketing-sa.json
+        shell: bash
+        run: |
+          if [ -n "$GCP_SA_KEY" ]; then
+            umask 077
+            printf '%s' "$GCP_SA_KEY" > "$GOOGLE_APPLICATION_CREDENTIALS"
+            trap 'rm -f "$GOOGLE_APPLICATION_CREDENTIALS"' EXIT
+            node scripts/marketing/brief.mjs --live --output "$RUNNER_TEMP/marketing-brief.md"
+          else
+            node scripts/marketing/brief.mjs --output "$RUNNER_TEMP/marketing-brief.md"
+          fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: marketing-brief
+          path: ${{ runner.temp }}/marketing-brief.md
+          retention-days: 30

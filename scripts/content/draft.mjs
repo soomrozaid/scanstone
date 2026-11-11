@@ -33,7 +33,7 @@ HARD RULES:
 - Include the given internal links as Markdown links, in context, where they genuinely help.
 - Include at least one real external citation (a source URL that appears in the FACTS).
 - Mention the Scanstone product at most once, near the end, as the honest resolution — not the premise.
-- End with a one-line "*Sources: ...*" italic note linking the external sources you used, with "verified July 2026".
+- End with a one-line "*Sources: ...*" italic note linking the external sources you used. Preserve their actual verification dates from FACTS; never claim a source was checked today just because this draft was generated today.
 - 700–1300 words. Banned phrases (never use): ${BANNED_PHRASES.slice(0, 10).join("; ")}.
 
 FACTS (your only source of truth):

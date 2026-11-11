@@ -2,10 +2,11 @@
   {
     "slug": "qr-code-subscription-trap",
     "collection": "blog",
-    "title": "The QR code subscription trap: an investigation",
-    "description": "The most-marketed QR generators are rated 1–2 stars. The reason is a single design choice — and it costs people who print their codes hundreds of dollars. Here's how it works, and how to never fall for it.",
+    "title": "Why some QR codes stop working after a free trial",
+    "description": "Understand static codes, dynamic redirects, and trial expiry. Check a code before printing and learn what you can do if an existing code stops working.",
     "date": "2026-07-24",
-    "category": "Investigation",
-    "featured": true
+    "category": "Explainer",
+    "featured": true,
+    "updated": "2026-11-04"
   }
 ]
