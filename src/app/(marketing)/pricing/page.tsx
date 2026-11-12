@@ -10,6 +10,7 @@ import { DarkHero } from "@/components/cinema/DarkHero";
 import { SplitWords } from "@/components/cinema/SplitWords";
 import { PromiseSeal } from "@/components/cinema/PromiseSeal";
 import { CompareTable } from "@/components/cinema/CompareTable";
+import { VelocityBand } from "@/components/cinema/VelocityBand";
 
 export const metadata: Metadata = {
   title: "Pricing — Free forever plan, Pro at $9 USD/month",
@@ -124,6 +125,8 @@ export default function PricingPage() {
           </ul>
         </Container>
       </section>
+
+      <VelocityBand lines={["Redirects never expire", "Paid or not"]} />
 
       <section aria-labelledby="compare-h" data-nav="dark" className="relative overflow-hidden bg-night py-24 text-paper sm:py-32">
         <div className="aurora pointer-events-none absolute inset-0 opacity-50" aria-hidden="true" />

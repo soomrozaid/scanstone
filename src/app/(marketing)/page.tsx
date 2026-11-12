@@ -6,6 +6,7 @@ import { SplitWords } from "@/components/cinema/SplitWords";
 import { LazyVideo } from "@/components/cinema/LazyVideo";
 import { ChartGrow } from "@/components/cinema/ChartGrow";
 import { TiltIn } from "@/components/cinema/TiltIn";
+import { VelocityBand } from "@/components/cinema/VelocityBand";
 import { LazyScanStory } from "@/components/cinema/LazyScanStory";
 import { VideoType } from "@/components/cinema/VideoType";
 import { HorizontalGallery } from "@/components/cinema/HorizontalGallery";
@@ -375,6 +376,8 @@ export default function LandingPage() {
       </section>
 
       {/* BENTO */}
+      <VelocityBand lines={["Print it once", "Update it anytime"]} />
+
       <section aria-labelledby="bento-h" className="py-24 sm:py-32">
         <Container>
           <Reveal>
