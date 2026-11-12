@@ -27,9 +27,37 @@ export const PLANS: Record<PlanId, PlanLimits> = {
 };
 
 export const PRICING = {
-  monthly: { amount: 9, label: "$9 / month" },
-  yearly: { amount: 79, label: "$79 / year", note: "about 2 months free" },
+  currency: "USD",
+  monthly: { amount: 9, label: "$9 USD/month" },
+  yearly: { amount: 79, label: "$79 USD/year", note: "about 2 months free" },
 } as const;
+
+/** SoftwareApplication + Offer JSON-LD for marketing pages. Prices are USD. */
+export function pricingSoftwareJsonLd(url: string) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Scanstone",
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Web",
+    url,
+    offers: [
+      { "@type": "Offer", name: "Free", price: "0", priceCurrency: "USD" },
+      {
+        "@type": "Offer",
+        name: "Pro monthly",
+        price: String(PRICING.monthly.amount),
+        priceCurrency: PRICING.currency,
+      },
+      {
+        "@type": "Offer",
+        name: "Pro yearly",
+        price: String(PRICING.yearly.amount),
+        priceCurrency: PRICING.currency,
+      },
+    ],
+  };
+}
 
 export function limitsFor(plan: string | null | undefined): PlanLimits {
   return PLANS[plan === "pro" ? "pro" : "free"];

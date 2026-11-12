@@ -4,7 +4,7 @@ import { HeroVisual } from "@/components/hero/Hero";
 import { ButtonLink, Card, Badge } from "@/components/ui";
 import { ScanChart } from "@/components/analytics/ScanChart";
 import { BreakdownList } from "@/components/analytics/BreakdownList";
-import { PRICING } from "@/lib/plans";
+import { PRICING, pricingSoftwareJsonLd } from "@/lib/plans";
 import { envClient } from "@/config/env.client";
 import { MarketingLink } from "@/components/marketing/MarketingLink";
 
@@ -12,12 +12,12 @@ export const metadata: Metadata = {
   title: { absolute: "Editable QR Codes for Print & Short Links | Scanstone" },
   description:
     "Change your QR code destination after printing. Track scans, share short links, and keep redirects working after cancellation. Start with 3 free codes or links.",
-  alternates: { canonical: "/" },
+  alternates: { canonical: `${envClient.APP_URL.replace(/\/$/, "")}/` },
   openGraph: {
     title: "Print it once. Update the destination anytime. | Scanstone",
     description:
       "Editable QR codes for menus, packaging, and campaigns. Your redirects keep working after cancellation. Start free.",
-    url: "/",
+    url: `${envClient.APP_URL.replace(/\/$/, "")}/`,
   },
 };
 
@@ -52,16 +52,20 @@ const FAQS = [
   },
 ];
 
-function FaqJsonLd() {
-  const data = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: FAQS.map((f) => ({
-      "@type": "Question",
-      name: f.q,
-      acceptedAnswer: { "@type": "Answer", text: f.a },
-    })),
-  };
+function HomeJsonLd() {
+  const origin = envClient.APP_URL.replace(/\/$/, "");
+  const data = [
+    pricingSoftwareJsonLd(`${origin}/`),
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: FAQS.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    },
+  ];
   return (
     <script
       type="application/ld+json"
@@ -86,7 +90,7 @@ const DEMO_SERIES = {
 export default function LandingPage() {
   return (
     <main id="main">
-      <FaqJsonLd />
+      <HomeJsonLd />
 
       {/* HERO */}
       <section className="mx-auto grid max-w-6xl items-center gap-12 px-4 pb-20 pt-14 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:pt-20">
@@ -215,6 +219,21 @@ export default function LandingPage() {
           <p className="mt-4 leading-relaxed text-ink-soft">
             Scanstone does not disable redirects because you cancel, downgrade,
             or reach your plan limit. You keep control of what you print.
+          </p>
+          <p className="mt-4 leading-relaxed text-ink-soft">
+            QR Code Generator&apos;s own{" "}
+            <a
+              href="https://support.qr-code-generator.com/hc/en-us/articles/7665046137613-What-happens-to-my-account-and-QR-Codes-when-the-trial-expires"
+              className="text-verdigris-deep underline"
+            >
+              help center
+            </a>{" "}
+            says trial codes are deactivated and point to a service page. We
+            wrote the opposite into{" "}
+            <Link href="/terms" className="text-verdigris-deep underline">
+              our terms
+            </Link>
+            : if you cancel, the code keeps working.
           </p>
         </div>
       </section>
@@ -443,11 +462,19 @@ export default function LandingPage() {
             <p className="mt-1 text-3xl font-semibold">
               $9
               <span className="text-base font-normal text-ink-faint">
-                /month
+                {" "}USD/month
               </span>
             </p>
             <p className="text-sm text-ink-faint">
               or {PRICING.yearly.label} — {PRICING.yearly.note}
+            </p>
+            <p className="mt-3 text-sm leading-relaxed text-ink-soft">
+              If you cancel, printed codes and short links keep working — you
+              only lose the Pro extras. That promise is in{" "}
+              <Link href="/terms" className="text-verdigris-deep underline">
+                our terms
+              </Link>
+              .
             </p>
             <ul className="mt-5 space-y-2.5 text-sm text-ink-soft">
               <li>✓ Everything in Free</li>

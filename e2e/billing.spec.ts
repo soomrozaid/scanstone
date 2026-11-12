@@ -38,7 +38,7 @@ test.describe("billing", () => {
     await page.goto("/account");
     await expect(page.getByRole("button", { name: /Go Pro/ })).toBeVisible();
     await expect(
-      page.getByRole("button", { name: /\$79 \/ year/ }),
+      page.getByRole("button", { name: /\$79 USD\/year/ }),
     ).toBeVisible();
 
     // Submitting the upgrade form must land on a live Stripe Checkout page.
