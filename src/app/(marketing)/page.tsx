@@ -4,6 +4,7 @@ import { HeroStage } from "@/components/hero/HeroStage";
 import { CinemaHero } from "@/components/cinema/CinemaHero";
 import { SplitWords } from "@/components/cinema/SplitWords";
 import { LazyVideo } from "@/components/cinema/LazyVideo";
+import { ChartGrow } from "@/components/cinema/ChartGrow";
 import { LazyScanStory } from "@/components/cinema/LazyScanStory";
 import { VideoType } from "@/components/cinema/VideoType";
 import { HorizontalGallery } from "@/components/cinema/HorizontalGallery";
@@ -450,6 +451,7 @@ export default function LandingPage() {
                   what device. Compare the poster by the door against the table
                   tents.
                 </p>
+                <ChartGrow>
                 <div className="mt-6">
                   <ScanChart series={DEMO_SERIES} title="Last 30 days (demo data)" />
                 </div>
@@ -471,6 +473,7 @@ export default function LandingPage() {
                     ]}
                   />
                 </div>
+                </ChartGrow>
                 <Link href="/demo" className="link-underline mt-6 inline-block text-sm text-verdigris-deep">
                   Explore the live demo →
                 </Link>
