@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Spotlight } from "@/components/site/Spotlight";
 import { renderQRSvg, type ModuleShape } from "@/lib/qr/svg";
 
 const INKS = [
@@ -21,7 +22,49 @@ export function MiniCustomizer() {
   const [ink, setInk] = useState(0);
   const [shape, setShape] = useState<ModuleShape>("rounded");
   const [label, setLabel] = useState("Scan for the menu");
+  // The card's paper under the flood: lags one change behind so the new ink can wash over it.
+  const [base, setBase] = useState(0);
+  const [flood, setFlood] = useState(0);
+  const touched = useRef(false);
+  const inkRef = useRef(0);
+  const card = useRef<HTMLDivElement>(null);
   const c = INKS[ink] ?? INKS[0]!;
+
+  const pick = (n: number) => {
+    if (n === ink) return;
+    inkRef.current = n;
+    setBase(ink);
+    setInk(n);
+    setFlood((f) => f + 1);
+  };
+
+  // Until someone touches the controls, the card cycles through inks on its own while on screen.
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const el = card.current;
+    if (!el) return;
+    let timer = 0;
+    const io = new IntersectionObserver(([e]) => {
+      window.clearInterval(timer);
+      if (!e?.isIntersecting || touched.current) return;
+      timer = window.setInterval(() => {
+        if (touched.current) return window.clearInterval(timer);
+        const cur = inkRef.current;
+        inkRef.current = (cur + 1) % INKS.length;
+        setBase(cur);
+        setInk(inkRef.current);
+        setFlood((f) => f + 1);
+      }, 2600);
+    }, { threshold: 0.5 });
+    io.observe(el);
+    return () => {
+      io.disconnect();
+      window.clearInterval(timer);
+    };
+  }, []);
+  const stop = () => {
+    touched.current = true;
+  };
   const svg = useMemo(
     () =>
       renderQRSvg("https://www.scanstone.ca", {
@@ -33,24 +76,47 @@ export function MiniCustomizer() {
   );
 
   return (
-    <div className="grid items-center gap-10 lg:grid-cols-[1fr_1fr]">
-      <div
-        className="relative mx-auto flex aspect-[4/5] w-full max-w-sm flex-col items-center justify-between rounded-[28px] border border-line p-8 shadow-[var(--shadow-lift)] transition-colors duration-500"
-        style={{ background: c.paper }}
+    <div className="relative grid items-center gap-10 lg:grid-cols-[1fr_1fr]" onPointerDown={stop} onKeyDown={stop}>
+      <p
+        aria-hidden="true"
+        key={`ghost-${ink}`}
+        className="ink-ghost display pointer-events-none absolute -top-10 left-0 hidden select-none text-[12rem] italic leading-none lg:block"
+        style={{ color: c.fg }}
       >
+        {c.name}
+      </p>
+      <div ref={card} className="relative mx-auto w-full max-w-sm">
+      <Spotlight className="rounded-[28px]" max={9}>
+      <div
+        className="relative flex aspect-[4/5] w-full flex-col items-center justify-between overflow-hidden rounded-[28px] border border-line p-8 shadow-[var(--shadow-lift)]"
+        style={{ background: (INKS[base] ?? c).paper }}
+      >
+        {flood > 0 ? (
+          <span
+            key={flood}
+            aria-hidden="true"
+            className="ink-flood pointer-events-none absolute inset-0"
+            style={{ background: c.paper, ["--ink" as string]: c.fg }}
+            onAnimationEnd={() => setBase(ink)}
+          />
+        ) : null}
         <p
-          className="display text-center text-3xl leading-tight transition-colors duration-500"
+          className="relative display text-center text-3xl leading-tight transition-colors duration-500"
           style={{ color: c.fg }}
         >
           {label || "\u00a0"}
         </p>
         <div
-          className="w-[70%] rounded-2xl bg-white p-3 shadow-[var(--shadow-card)] [&>svg]:h-auto [&>svg]:w-full"
+          data-depth
+          key={`${ink}-${shape}`}
+          className="qr-recarve relative w-[70%] rounded-2xl bg-white p-3 shadow-[var(--shadow-card)] [&>svg]:h-auto [&>svg]:w-full"
           dangerouslySetInnerHTML={{ __html: svg }}
         />
-        <p className="font-mono text-xs" style={{ color: c.fg }}>
+        <p className="relative font-mono text-xs transition-colors duration-500" style={{ color: c.fg }}>
           scst.one/yours
         </p>
+      </div>
+      </Spotlight>
       </div>
 
       <div>
@@ -62,7 +128,7 @@ export function MiniCustomizer() {
                 key={it.name}
                 type="button"
                 aria-pressed={n === ink}
-                onClick={() => setInk(n)}
+                onClick={() => pick(n)}
                 className={`flex cursor-pointer items-center gap-2 rounded-full border py-1.5 pl-1.5 pr-3.5 text-sm transition ${n === ink ? "border-ink bg-white text-ink" : "border-line text-ink-soft hover:border-ink-faint"}`}
               >
                 <span
