@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import { track } from "@vercel/analytics";
 import { QRPreview } from "@/components/qr/QRPreview";
-import { envClient } from "@/config/env.client";
 
 type Dest = {
   id: string;
@@ -108,7 +107,14 @@ const QR_OPTIONS = {
   shape: "rounded" as const,
 };
 
-export function HeroStage({ scenes = ["cafe"] }: { scenes?: string[] }) {
+export function HeroStage({
+  scenes = ["cafe"],
+  demoUrl,
+}: {
+  scenes?: string[];
+  /** Passed from the server so the client bundle skips env validation (zod). */
+  demoUrl: string;
+}) {
   const list = SCENES.filter((sc) => scenes.includes(sc.id));
   const [sceneIdx, setSceneIdx] = useState(0);
   const scene = list[sceneIdx] ?? SCENES[0]!;
@@ -192,7 +198,7 @@ export function HeroStage({ scenes = ["cafe"] }: { scenes?: string[] }) {
             </p>
             <div className="relative mx-auto mt-4 max-w-36 sm:max-w-44">
               <QRPreview
-                data={`${envClient.APP_URL}/demo`}
+                data={demoUrl}
                 options={QR_OPTIONS}
                 className="!rounded-xl !border-0 p-1.5"
               />

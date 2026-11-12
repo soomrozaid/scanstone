@@ -140,7 +140,7 @@ export default function RestaurantMenuPage() {
             </p>
           </div>
           <div className="rise [animation-delay:150ms]">
-            <HeroStage />
+            <HeroStage demoUrl={`${envClient.APP_URL}/demo`} />
           </div>
         </Container>
       </section>

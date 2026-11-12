@@ -167,7 +167,7 @@ export default function LandingPage() {
               <span className="rise inline-block italic text-verdigris-deep [animation-delay:200ms]">Update it</span>{" "}
               <span className="rise inline-block [animation-delay:320ms]">anytime.</span>
             </h1>
-            <p className="rise mt-7 max-w-xl text-lead text-ink-soft [animation-delay:420ms]">
+            <p className="mt-7 max-w-xl text-lead text-ink-soft">
               New menu. New offer. Same QR code. Change where your printed
               codes send people, track scans, and share short links from one
               dashboard. Your redirects keep working even if you cancel.
@@ -204,7 +204,10 @@ export default function LandingPage() {
             </Link>
           </div>
           <div className="rise [animation-delay:150ms]">
-            <HeroStage scenes={["cafe", "salon", "realtor", "events"]} />
+            <HeroStage
+              scenes={["cafe", "salon", "realtor", "events"]}
+              demoUrl={`${envClient.APP_URL}/demo`}
+            />
           </div>
         </Container>
       </section>
