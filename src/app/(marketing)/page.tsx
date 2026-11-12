@@ -199,7 +199,7 @@ export default function LandingPage() {
             </Link>
           </div>
           <div className="rise [animation-delay:150ms]">
-            <HeroStage />
+            <HeroStage scenes={["cafe", "salon", "realtor", "events"]} />
           </div>
         </Container>
       </section>

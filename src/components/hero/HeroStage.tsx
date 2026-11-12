@@ -15,7 +15,7 @@ type Dest = {
   lines: Array<[string, string]>;
 };
 
-const DESTS: Dest[] = [
+const CAFE: Dest[] = [
   {
     id: "spring",
     label: "Spring menu",
@@ -74,13 +74,45 @@ const DESTS: Dest[] = [
   },
 ];
 
+
+const SALON: Dest[] = [
+  { id: "book", label: "Book online", url: "yoursalon.ca/book", tint: "#7a4a8c", kicker: "Appointments", title: "Book a chair", lines: [["Cut & style", "Tue 2:30"], ["Colour", "Wed 11:00"], ["Beard trim", "Thu 4:15"], ["Blowout", "Fri 10:00"]] },
+  { id: "prices", label: "Price list", url: "yoursalon.ca/prices", tint: "#2c6e63", kicker: "Services", title: "Prices", lines: [["Women's cut", "65"], ["Men's cut", "40"], ["Full colour", "140"], ["Treatment", "35"]] },
+  { id: "promo", label: "Holiday promo", url: "yoursalon.ca/gift", tint: "#b4642d", kicker: "December only", title: "Gift cards", lines: [["$50 card", "+ $10 free"], ["$100 card", "+ $25 free"], ["Online", "Instant"], ["In store", "Wrapped"]] },
+];
+
+const REALTOR: Dest[] = [
+  { id: "listing", label: "123 Elm St", url: "yourname.ca/123-elm", tint: "#1f5248", kicker: "For sale", title: "123 Elm Street", lines: [["Beds", "3"], ["Baths", "2"], ["Open house", "Sat 1 to 3"], ["Tour", "Book a time"]] },
+  { id: "sold", label: "Sold", url: "yourname.ca/sold", tint: "#161411", kicker: "Update", title: "Sold, thank you", lines: [["123 Elm", "Sold"], ["Selling soon?", "Free valuation"], ["Buying?", "Get alerts"], ["Call", "Any time"]] },
+  { id: "next", label: "Next listing", url: "yourname.ca/48-oak", tint: "#b4642d", kicker: "Just listed", title: "48 Oak Crescent", lines: [["Beds", "4"], ["Baths", "3"], ["Lot", "Corner"], ["Tour", "Book a time"]] },
+];
+
+const EVENTS: Dest[] = [
+  { id: "tickets", label: "Tickets", url: "yourfest.ca/tickets", tint: "#b4642d", kicker: "On sale now", title: "Get tickets", lines: [["Early bird", "25"], ["General", "35"], ["Weekend", "60"], ["Kids", "Free"]] },
+  { id: "schedule", label: "Schedule", url: "yourfest.ca/today", tint: "#2c6e63", kicker: "Today", title: "Schedule", lines: [["Doors", "4:00"], ["Opening act", "5:30"], ["Headliner", "8:00"], ["Fireworks", "10:00"]] },
+  { id: "photos", label: "Photos", url: "yourfest.ca/photos", tint: "#7a4a8c", kicker: "Thanks for coming", title: "See the photos", lines: [["Day 1", "212 photos"], ["Day 2", "180 photos"], ["Survey", "2 minutes"], ["Next year", "Save the date"]] },
+];
+
+type Scene = { id: string; label: string; object: string; head: [string, string]; slug: string; dests: Dest[] };
+
+export const SCENES: Scene[] = [
+  { id: "cafe", label: "Café", object: "Table 04 · Scan me", head: ["Good things", "on the menu."], slug: "scst.one/table04", dests: CAFE },
+  { id: "salon", label: "Salon", object: "Mirror card", head: ["Book your", "next visit."], slug: "scst.one/mirror", dests: SALON },
+  { id: "realtor", label: "Realtor", object: "Yard sign", head: ["Scan for", "the details."], slug: "scst.one/sign", dests: REALTOR },
+  { id: "events", label: "Events", object: "Poster", head: ["Summer", "night market."], slug: "scst.one/fest", dests: EVENTS },
+];
+
 const QR_OPTIONS = {
   fg: "#161411",
   bg: "#ffffff",
   shape: "rounded" as const,
 };
 
-export function HeroStage() {
+export function HeroStage({ scenes = ["cafe"] }: { scenes?: string[] }) {
+  const list = SCENES.filter((sc) => scenes.includes(sc.id));
+  const [sceneIdx, setSceneIdx] = useState(0);
+  const scene = list[sceneIdx] ?? SCENES[0]!;
+  const DESTS = scene.dests;
   const [i, setI] = useState(0);
   const [pulse, setPulse] = useState(0);
   const [auto, setAuto] = useState(true);
@@ -104,7 +136,7 @@ export function HeroStage() {
       window.clearInterval(t);
       io.disconnect();
     };
-  }, [auto]);
+  }, [auto, DESTS.length]);
 
   function pick(n: number) {
     setAuto(false);
@@ -121,17 +153,42 @@ export function HeroStage() {
       aria-label="Interactive example: one printed QR code, four destinations"
       role="group"
     >
+      {list.length > 1 ? (
+        <div
+          role="tablist"
+          aria-label="Example business"
+          className="mb-6 inline-flex rounded-full border border-line bg-white/60 p-1 text-sm backdrop-blur"
+        >
+          {list.map((sc, n) => (
+            <button
+              key={sc.id}
+              type="button"
+              role="tab"
+              aria-selected={n === sceneIdx}
+              onClick={() => {
+                setAuto(false);
+                setSceneIdx(n);
+                setI(0);
+                setPulse((p) => p + 1);
+              }}
+              className={`cursor-pointer rounded-full px-3.5 py-1.5 transition-colors sm:px-4 ${n === sceneIdx ? "bg-ink text-paper" : "text-ink-soft hover:text-ink"}`}
+            >
+              {sc.label}
+            </button>
+          ))}
+        </div>
+      ) : null}
       <div className="relative grid grid-cols-[1fr_auto_0.9fr] items-center gap-0 sm:gap-2">
         {/* Table tent */}
         <div className="relative z-10 [perspective:900px]">
           <div className="origin-bottom rounded-[18px] border border-line bg-[#fbf8f1] p-4 shadow-[var(--shadow-lift)] [transform:rotateX(6deg)] sm:p-6">
             <p className="eyebrow text-center text-[0.58rem] text-ink-faint sm:text-[0.65rem]">
-              Table 04 · Scan me
+              {scene.object}
             </p>
             <p className="display mt-2 text-center text-xl leading-none text-ink sm:text-3xl">
-              Good things
+              {scene.head[0]}
               <br />
-              on the menu.
+              {scene.head[1]}
             </p>
             <div className="relative mx-auto mt-4 max-w-36 sm:max-w-44">
               <QRPreview
@@ -146,7 +203,7 @@ export function HeroStage() {
               />
             </div>
             <p className="mt-3 text-center font-mono text-[0.6rem] text-ink-faint sm:text-[0.7rem]">
-              scst.one/table04
+              {scene.slug}
             </p>
           </div>
           <div className="mx-auto h-2 w-[80%] rounded-b-xl bg-ink/10 blur-[2px]" />
@@ -218,7 +275,7 @@ export function HeroStage() {
       {/* Controls */}
       <div className="mt-8 rounded-2xl border border-line bg-white/60 p-4 backdrop-blur sm:p-5">
         <div className="flex items-center justify-between gap-3">
-          <p className="eyebrow text-ink-faint">Point the code at</p>
+          <p className="eyebrow text-ink-faint">Point the same code at</p>
           <p className="flex items-center gap-1.5 text-xs text-verdigris-deep">
             <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true">
               <path
@@ -255,11 +312,11 @@ export function HeroStage() {
           aria-live="polite"
           aria-atomic="true"
         >
-          scst.one/table04 → {dest.url}
+          {scene.slug} → {dest.url}
         </p>
       </div>
       <p className="mt-3 text-center text-xs text-ink-faint">
-        An example. The code on the tent opens our real live demo.
+        An example. The printed code opens our real live demo.
       </p>
     </div>
   );
