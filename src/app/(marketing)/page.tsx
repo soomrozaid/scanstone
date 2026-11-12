@@ -275,7 +275,7 @@ export default function LandingPage() {
               id="try-h"
               className="mt-6"
               title={<>One code on the table. <em className="text-verdigris-deep">You pick where it goes.</em></>}
-              lead="Switch the business below and watch the same printed code open a different page. That's the whole idea, and it's the part other generators charge you a trial for."
+              lead="Switch the business below and watch the same printed code open a different page. That's the whole idea. Cancelling never stops your redirects, either."
             />
           </Reveal>
           <HeroStage

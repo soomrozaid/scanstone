@@ -15,10 +15,21 @@ const DEFAULT_DESTS: Dest[] = [
   { biz: "Event", url: "yourfest.ca/schedule", note: "Saturday schedule" },
 ];
 
+/**
+ * Only run the 3D scene on a real GPU. Software renderers (SwiftShader,
+ * llvmpipe) turn it into seconds of main-thread work, so they get the poster.
+ * `?gl=1` forces it on for recordings.
+ */
 function canWebGL() {
   try {
+    if (new URLSearchParams(window.location.search).get("gl") === "1") return true;
     const c = document.createElement("canvas");
-    return !!(c.getContext("webgl2") || c.getContext("webgl"));
+    const gl = (c.getContext("webgl2") || c.getContext("webgl")) as WebGLRenderingContext | null;
+    if (!gl) return false;
+    const ext = gl.getExtension("WEBGL_debug_renderer_info");
+    const r = ext ? String(gl.getParameter(ext.UNMASKED_RENDERER_WEBGL)) : "";
+    gl.getExtension("WEBGL_lose_context")?.loseContext();
+    return !/swiftshader|llvmpipe|software|basic render/i.test(r);
   } catch {
     return false;
   }

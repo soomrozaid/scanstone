@@ -101,7 +101,7 @@ export default function PricingPage() {
               reached.
             </p>
           </div>
-          <PromiseSeal className="rise mx-auto w-[min(70vw,360px)] text-verdigris-bright [animation-delay:200ms]" />
+          <PromiseSeal className="mx-auto w-[min(70vw,360px)] text-verdigris-bright" />
         </Container>
       </DarkHero>
       <section className="relative">
