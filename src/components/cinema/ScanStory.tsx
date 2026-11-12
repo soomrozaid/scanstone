@@ -310,7 +310,9 @@ export function ScanStory({ qrUrl }: { qrUrl: string }) {
             "<0.4",
           )
           .to({}, { duration: 0.6 });
-        return () => tl.kill();
+        ScrollTrigger.sort();
+          ScrollTrigger.refresh();
+          return () => tl.kill();
       }),
       "60% 0px",
     );

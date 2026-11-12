@@ -5,6 +5,8 @@ import { CinemaHero } from "@/components/cinema/CinemaHero";
 import { SplitWords } from "@/components/cinema/SplitWords";
 import { ScanStory } from "@/components/cinema/ScanStory";
 import { VideoType } from "@/components/cinema/VideoType";
+import { HorizontalGallery } from "@/components/cinema/HorizontalGallery";
+import { SegmentCard } from "@/components/cinema/SegmentCard";
 import { renderQRSvg } from "@/lib/qr/svg";
 import { ScanChart } from "@/components/analytics/ScanChart";
 import { BreakdownList } from "@/components/analytics/BreakdownList";
@@ -107,32 +109,44 @@ const DEMO_SERIES = {
 const SEGMENTS = [
   {
     who: "Restaurants & cafés",
+    shape: "tent" as const,
+    tint: "rgba(224,138,70,0.35)",
     what: "One code on every table, re-pointed each time the menu changes. No reprints, no laminating day.",
     tag: "Menu → Brunch → Happy hour",
     href: "/restaurant-menu-qr-code",
   },
   {
     who: "Salons & studios",
+    shape: "mirror" as const,
+    tint: "rgba(79,174,155,0.35)",
     what: "Put one code by the mirror. Send it to booking today, your price list tomorrow, a holiday promo in December.",
     tag: "Book → Prices → Promo",
   },
   {
     who: "Realtors",
+    shape: "sign" as const,
+    tint: "rgba(224,138,70,0.3)",
     what: "Print the yard sign once. Point it at the current listing, then the next one. The sign keeps working for years.",
     tag: "Listing → Sold → Next listing",
   },
   {
     who: "Event organizers",
+    shape: "poster" as const,
+    tint: "rgba(79,174,155,0.4)",
     what: "Posters go up weeks early. Point the code at ticketing now, the schedule on the day, photos after.",
     tag: "Tickets → Schedule → Photos",
   },
   {
     who: "Marketers & agencies",
+    shape: "report" as const,
+    tint: "rgba(224,138,70,0.3)",
     what: "Track scans per placement, export CSVs for the client report, swap landing pages mid-campaign.",
     tag: "Per placement · CSV",
   },
   {
     who: "Makers & retail",
+    shape: "box" as const,
+    tint: "rgba(79,174,155,0.35)",
     what: "A code on the packaging that always leads to current instructions, manuals, or reorder pages.",
     tag: "Manual → Reorder",
   },
@@ -523,38 +537,31 @@ export default function LandingPage() {
         </Container>
       </section>
 
-      {/* WHO IT'S FOR */}
-      <section aria-labelledby="who-h" className="border-t border-line bg-paper-deep/40 py-24 sm:py-32">
-        <Container>
-          <Reveal>
-            <Fig n="05">Who it&apos;s for</Fig>
-            <SectionHeading id="who-h" className="mt-6" title="Made for things that get printed" />
-          </Reveal>
-          <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {SEGMENTS.map((seg, k) => {
-              const inner = (
-                <>
-                  <h3 className="display text-2xl">{seg.who}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-ink-soft">{seg.what}</p>
-                  <p className="mt-6 font-mono text-xs text-verdigris-deep">{seg.tag}</p>
-                </>
-              );
-              return (
-                <Reveal key={seg.who} delay={(k % 3) * 70}>
-                  {seg.href ? (
-                    <Link href={seg.href} className="block h-full rounded-[22px] border border-line bg-white/55 p-7 transition hover:-translate-y-0.5 hover:border-ink-faint hover:shadow-[var(--shadow-card)]">
-                      {inner}
-                      <span className="mt-4 block text-sm text-ink">Menu QR codes →</span>
-                    </Link>
-                  ) : (
-                    <div className="h-full rounded-[22px] border border-line bg-white/55 p-7">{inner}</div>
-                  )}
-                </Reveal>
-              );
-            })}
-          </div>
-        </Container>
-      </section>
+      {/* WHO IT'S FOR: sideways gallery */}
+      <HorizontalGallery
+        heading={
+          <>
+            <p className="font-mono text-xs uppercase tracking-[0.2em] text-copper-bright">Fig. 05 / Who it&apos;s for</p>
+            <h2 id="who-h" className="display mt-4 text-[clamp(2.4rem,5.5vw,4.8rem)] leading-[0.95] tracking-[-0.025em]">
+              Made for things that <em className="text-verdigris-bright">get printed</em>
+            </h2>
+          </>
+        }
+      >
+        {SEGMENTS.map((seg, k) => (
+          <SegmentCard
+            key={seg.who}
+            n={k + 1}
+            total={SEGMENTS.length}
+            who={seg.who}
+            what={seg.what}
+            steps={seg.tag.split(/ → | · /)}
+            shape={seg.shape}
+            tint={seg.tint}
+            href={seg.href}
+          />
+        ))}
+      </HorizontalGallery>
 
       {/* PRICING */}
       <section id="pricing" aria-labelledby="pricing-h" className="scroll-mt-20 py-24 sm:py-32">
