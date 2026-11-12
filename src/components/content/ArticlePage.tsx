@@ -1,4 +1,7 @@
 import Link from "next/link";
+import { DarkHero } from "@/components/cinema/DarkHero";
+import { SplitWords } from "@/components/cinema/SplitWords";
+import { ReadProgress } from "@/components/cinema/ReadProgress";
 import { envClient } from "@/config/env.client";
 import { Prose } from "./Prose";
 import { readingMinutes, type DocMeta } from "@/lib/content";
@@ -66,35 +69,39 @@ function JsonLd({ doc, body }: { doc: DocMeta; body: string }) {
 export function ArticlePage({ doc, body }: { doc: DocMeta; body: string }) {
   const minutes = readingMinutes(body);
   return (
-    <main id="main" className="mx-auto max-w-3xl px-5 pb-24 pt-12 sm:px-8 sm:pt-20">
+    <main id="main">
       <JsonLd doc={doc} body={body} />
+      <ReadProgress />
+      <DarkHero glow="50% 0%">
+        <div className="mx-auto max-w-4xl px-5 pb-20 pt-16 sm:px-8 sm:pb-28 sm:pt-24">
+          <nav aria-label="Breadcrumb" className="eyebrow rise text-paper/50">
+            <Link href={`/${doc.collection}`} className="hover:text-paper">
+              {COLLECTION_LABEL[doc.collection]}
+            </Link>
+            <span aria-hidden className="mx-2">
+              /
+            </span>
+            <span className="text-verdigris-bright">{doc.category}</span>
+          </nav>
 
-      <nav aria-label="Breadcrumb" className="eyebrow text-ink-faint">
-        <Link href={`/${doc.collection}`} className="hover:text-ink">
-          {COLLECTION_LABEL[doc.collection]}
-        </Link>
-        <span aria-hidden className="mx-2">
-          /
-        </span>
-        <span className="text-ink-soft">{doc.category}</span>
-      </nav>
-
-      <header className="mt-6">
-        <h1 className="display text-h1">
-          {doc.title}
-        </h1>
-        <p className="mt-6 text-lead text-ink-soft">
-          {doc.description}
-        </p>
-        <p className="mt-6 font-mono text-xs text-ink-faint">
-          <time dateTime={doc.date}>{formatDate(doc.date)}</time>
-          <span aria-hidden className="mx-2">
-            ·
-          </span>
-          {minutes} min read
-        </p>
-      </header>
-
+          <header className="mt-6">
+            <h1 className="display text-[clamp(2.4rem,5.6vw,4.8rem)] leading-[1] tracking-[-0.025em]">
+              <SplitWords text={doc.title} start={40} step={45} />
+            </h1>
+            <p className="rise mt-6 max-w-3xl text-lead text-paper/70 [animation-delay:350ms]">
+              {doc.description}
+            </p>
+            <p className="rise mt-6 font-mono text-xs text-paper/45 [animation-delay:450ms]">
+              <time dateTime={doc.date}>{formatDate(doc.date)}</time>
+              <span aria-hidden className="mx-2">
+                ·
+              </span>
+              {minutes} min read
+            </p>
+          </header>
+        </div>
+      </DarkHero>
+      <div className="mx-auto max-w-3xl px-5 pb-24 sm:px-8">
       <hr className="hairline mt-8 border-0" />
 
       <article className="mt-8">
@@ -125,6 +132,7 @@ export function ArticlePage({ doc, body }: { doc: DocMeta; body: string }) {
           </Link>
         </div>
       </aside>
+      </div>
     </main>
   );
 }

@@ -7,6 +7,9 @@ import { Faq } from "@/components/site/Faq";
 import { CtaBand } from "@/components/site/CtaBand";
 import { Reveal } from "@/components/site/Reveal";
 import { envClient } from "@/config/env.client";
+import { DarkHero } from "@/components/cinema/DarkHero";
+import { SplitWords } from "@/components/cinema/SplitWords";
+import { PromiseSeal } from "@/components/cinema/PromiseSeal";
 
 export const metadata: Metadata = {
   title: "Pricing — Free forever plan, Pro at $9 USD/month",
@@ -82,24 +85,27 @@ export default function PricingPage() {
   return (
     <main id="main">
       <PricingJsonLd />
-      <section className="relative overflow-hidden">
-        <div
-          className="gridlines absolute inset-0 [mask-image:radial-gradient(ellipse_at_top,black_25%,transparent_70%)]"
-          aria-hidden="true"
-        />
-        <Container className="relative max-w-5xl pb-16 pt-14 text-center sm:pt-24">
-          <Eyebrow tone="verdigris" className="rise">Two plans. One promise.</Eyebrow>
-          <h1 className="display rise mt-6 text-display">Pricing</h1>
-          <p className="rise mx-auto mt-7 max-w-2xl text-lead text-ink-soft">
-            Two plans, no fine print. And one promise that applies to both:{" "}
-            <strong className="font-semibold text-ink">
-              a Scanstone redirect never stops working
-            </strong>
-            . Not when you downgrade, not when you cancel, not when a limit is
-            reached.
-          </p>
+      <DarkHero glow="75% 40%">
+        <Container className="grid items-center gap-10 pb-36 pt-16 sm:pt-24 lg:grid-cols-[1.2fr_0.8fr] lg:pb-44">
+          <div>
+            <Eyebrow tone="verdigris" className="rise !text-verdigris-bright">Two plans. One promise.</Eyebrow>
+            <h1 className="display mt-6 text-[clamp(4rem,11vw,10rem)] leading-[0.9] tracking-[-0.035em]">
+              <SplitWords text="Pricing" start={60} />
+            </h1>
+            <p className="rise mt-7 max-w-2xl text-lead text-paper/70 [animation-delay:350ms]">
+              Two plans, no fine print. And one promise that applies to both:{" "}
+              <strong className="font-semibold text-paper">
+                a Scanstone redirect never stops working
+              </strong>
+              . Not when you downgrade, not when you cancel, not when a limit is
+              reached.
+            </p>
+          </div>
+          <PromiseSeal className="rise mx-auto w-[min(70vw,360px)] text-verdigris-bright [animation-delay:200ms]" />
         </Container>
-        <Container className="relative max-w-5xl pb-20">
+      </DarkHero>
+      <section className="relative">
+        <Container className="relative -mt-28 max-w-5xl pb-20">
           <PlanCards headingLevel={2} />
           <ul className="mt-5 grid gap-px overflow-hidden rounded-[24px] border border-line bg-line sm:grid-cols-3">
             {[

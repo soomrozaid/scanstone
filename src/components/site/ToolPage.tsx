@@ -3,6 +3,9 @@ import Link from "next/link";
 import { Container, Eyebrow, Fig } from "./primitives";
 import { Faq } from "./Faq";
 import { CtaBand } from "./CtaBand";
+import { DarkHero } from "@/components/cinema/DarkHero";
+import { SplitWords } from "@/components/cinema/SplitWords";
+import { AssembleQR } from "@/components/cinema/AssembleQR";
 
 const TOOLS = [
   { href: "/qr-code-generator", label: "Link & text", sub: "Any URL or note" },
@@ -31,39 +34,49 @@ export function ToolPage({
 }) {
   return (
     <main id="main">
-      <section className="relative overflow-hidden">
-        <div
-          className="gridlines absolute inset-0 [mask-image:radial-gradient(ellipse_at_top_left,black_20%,transparent_65%)]"
-          aria-hidden="true"
-        />
-        <Container className="relative pb-10 pt-12 sm:pt-20">
-          <Eyebrow tone="verdigris" className="rise">
-            {eyebrow}
-          </Eyebrow>
-          <h1 className="display rise mt-6 max-w-4xl text-h1">
-            {title} <span className="block italic text-verdigris-deep">{accent}</span>
-          </h1>
-          <p className="rise mt-6 max-w-2xl text-lead text-ink-soft">{lead}</p>
-          <nav aria-label="Free tools" className="rise mt-8 flex flex-wrap gap-2">
-            {TOOLS.map((t) => {
-              const on = t.href === current;
-              return (
-                <Link
-                  key={t.href}
-                  href={t.href}
-                  aria-current={on ? "page" : undefined}
-                  className={`rounded-full border px-4 py-2 text-sm transition ${on ? "border-ink bg-ink text-paper" : "border-line bg-white/50 text-ink-soft hover:border-ink-faint hover:text-ink"}`}
-                >
-                  {t.label}
-                  <span className={`ml-2 hidden text-xs sm:inline ${on ? "text-paper/60" : "text-ink-faint"}`}>
-                    {t.sub}
-                  </span>
-                </Link>
-              );
-            })}
-          </nav>
+      <DarkHero glow="80% 30%">
+        <Container className="grid items-center gap-10 pb-40 pt-14 sm:pt-20 lg:grid-cols-[1.25fr_0.75fr]">
+          <div>
+            <Eyebrow tone="verdigris" className="rise !text-verdigris-bright">
+              {eyebrow}
+            </Eyebrow>
+            <h1 className="display mt-6 max-w-4xl text-[clamp(2.8rem,6.4vw,5.8rem)] leading-[0.95] tracking-[-0.03em]">
+              <SplitWords text={title} start={60} />{" "}
+              <span className="block">
+                <SplitWords text={accent} start={260} wordClass="italic text-verdigris-bright" />
+              </span>
+            </h1>
+            <p className="rise mt-6 max-w-2xl text-lead text-paper/70 [animation-delay:400ms]">{lead}</p>
+            <nav aria-label="Free tools" className="rise mt-8 flex flex-wrap gap-2 [animation-delay:500ms]">
+              {TOOLS.map((t) => {
+                const on = t.href === current;
+                return (
+                  <Link
+                    key={t.href}
+                    href={t.href}
+                    aria-current={on ? "page" : undefined}
+                    className={`rounded-full border px-4 py-2 text-sm transition ${on ? "border-paper bg-paper text-ink" : "border-white/15 bg-white/5 text-paper/70 hover:border-white/40 hover:text-paper"}`}
+                  >
+                    {t.label}
+                    <span className={`ml-2 hidden text-xs sm:inline ${on ? "text-ink-faint" : "text-paper/45"}`}>
+                      {t.sub}
+                    </span>
+                  </Link>
+                );
+              })}
+            </nav>
+          </div>
+          <div className="hidden lg:block">
+            <AssembleQR
+              data="https://www.scanstone.ca"
+              label="Example QR code for scanstone.ca"
+              className="mx-auto w-[300px] rotate-[-4deg] shadow-[0_40px_120px_-20px_rgba(79,174,155,0.45)]"
+            />
+          </div>
         </Container>
-        <Container className="relative pb-20">{tool}</Container>
+      </DarkHero>
+      <section className="relative">
+        <Container className="relative -mt-28 pb-20">{tool}</Container>
       </section>
 
       <section aria-labelledby="tool-faq" className="border-t border-line bg-paper-deep/40 py-24">

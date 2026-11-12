@@ -18,15 +18,27 @@ export function NavBar({ signedIn }: { signedIn: boolean }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [overDark, setOverDark] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    // The bar turns light-on-dark whenever it sits over a [data-nav="dark"] section.
+    const onScroll = () => {
+      setScrolled(window.scrollY > 8);
+      const hit = document
+        .elementsFromPoint(window.innerWidth / 2, 32)
+        .some((el) => el.closest("[data-nav='dark']"));
+      setOverDark(hit);
+    };
     onScroll();
+    const t = setTimeout(onScroll, 50);
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    return () => {
+      clearTimeout(t);
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, [pathname]);
 
-  const dark = pathname === "/" && !scrolled && !open;
+  const dark = overDark && !open;
 
   const [lastPath, setLastPath] = useState(pathname);
   if (lastPath !== pathname) {
@@ -47,7 +59,7 @@ export function NavBar({ signedIn }: { signedIn: boolean }) {
   return (
     <>
       <header
-        className={`sticky top-0 z-40 transition-[background-color,border-color,backdrop-filter] duration-300 ${scrolled || open ? "border-b border-line/80 bg-paper/80 backdrop-blur-xl" : "border-b border-transparent bg-paper/0"}`}
+        className={`sticky top-0 z-40 transition-[background-color,border-color,backdrop-filter] duration-300 ${dark ? (scrolled ? "border-b border-white/10 bg-night/60 backdrop-blur-xl" : "border-b border-transparent bg-night/0") : scrolled || open ? "border-b border-line/80 bg-paper/80 backdrop-blur-xl" : "border-b border-transparent bg-paper/0"}`}
       >
         <a
           href="#main"

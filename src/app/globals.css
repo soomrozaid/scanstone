@@ -530,3 +530,58 @@ html.has-cursor .cursor-ring {
   to { opacity: 1; transform: none; }
 }
 .tick-in { animation: tick-in 600ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+/* Assembling QR */
+@keyframes cell-drop {
+  from { opacity: 0; transform: translateY(-40%) scale(0.2) rotate(30deg); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes cell-wave {
+  0%, 88%, 100% { background-color: var(--color-ink); transform: none; }
+  92% { background-color: var(--color-verdigris); transform: scale(0.8); }
+}
+.assemble-cell {
+  animation:
+    cell-drop 700ms cubic-bezier(0.16, 1, 0.3, 1) var(--d) both,
+    cell-wave 5s ease-in-out calc(2s + var(--w)) infinite;
+}
+
+/* Promise seal */
+@keyframes seal-spin { to { transform: rotate(360deg); } }
+@keyframes seal-bob { 50% { transform: translateY(-4px); } }
+.seal-spin { animation: seal-spin 24s linear infinite; }
+.seal-bob { animation: seal-bob 4s ease-in-out infinite; }
+
+/* Pro card: a slow conic sheen around the edge */
+@property --sheen {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+@keyframes sheen { to { --sheen: 360deg; } }
+.pro-sheen {
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(from var(--sheen), transparent 0 70%, rgba(79, 174, 155, 0.9) 82%, rgba(224, 138, 70, 0.9) 90%, transparent 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: sheen 6s linear infinite;
+}
+
+/* Radar rings pulsing out of the live demo code */
+@keyframes radar {
+  from { transform: scale(1); opacity: 0.55; }
+  to { transform: scale(1.6); opacity: 0; }
+}
+.radar::before,
+.radar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid var(--color-verdigris-bright);
+  animation: radar 2.8s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  pointer-events: none;
+}
+.radar::after { animation-delay: 1.4s; }

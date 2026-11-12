@@ -5,7 +5,9 @@ import { useEffect, useRef, useState } from "react";
 
 const TileQR = dynamic(() => import("./TileQR"), { ssr: false });
 
-const DESTS = [
+export type Dest = { biz: string; url: string; note: string };
+
+const DEFAULT_DESTS: Dest[] = [
   { biz: "Café", url: "yourcafe.ca/menu", note: "Lunch menu" },
   { biz: "Café", url: "yourcafe.ca/brunch", note: "Weekend brunch" },
   { biz: "Salon", url: "book.yoursalon.ca", note: "Booking page" },
@@ -31,7 +33,9 @@ export function CinemaHero({
   url,
   poster,
   children,
+  dests: DESTS = DEFAULT_DESTS,
 }: {
+  dests?: Dest[];
   url: string;
   poster: React.ReactNode;
   children: React.ReactNode;
@@ -59,7 +63,7 @@ export function CinemaHero({
       setIdx((i) => (i + 1) % DESTS.length);
     }, 4200);
     return () => clearInterval(id);
-  }, []);
+  }, [DESTS.length]);
 
   const d = DESTS[idx] ?? DESTS[0]!;
 

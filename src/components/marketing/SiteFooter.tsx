@@ -34,7 +34,7 @@ const columns = [
 
 export function SiteFooter() {
   return (
-    <footer className="relative overflow-hidden bg-night text-paper">
+    <footer data-nav="dark" className="relative overflow-hidden bg-night text-paper">
       <div className="gridlines-night absolute inset-0" aria-hidden="true" />
       <div className="relative mx-auto max-w-7xl px-5 pt-20 sm:px-8">
         <div className="grid gap-12 lg:grid-cols-[1.3fr_1fr_1fr_1fr]">

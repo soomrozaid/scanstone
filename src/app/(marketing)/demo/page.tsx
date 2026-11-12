@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import { DarkHero } from "@/components/cinema/DarkHero";
+import { SplitWords } from "@/components/cinema/SplitWords";
+import { CountUp } from "@/components/cinema/CountUp";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import {
   bucketByDay,
@@ -78,33 +81,31 @@ export default async function DemoPage() {
 
   return (
     <main id="main">
-      <section className="relative overflow-hidden">
-        <div
-          className="gridlines absolute inset-0 [mask-image:radial-gradient(ellipse_at_top,black_25%,transparent_70%)]"
-          aria-hidden="true"
-        />
-        <Container className="relative pb-16 pt-12 sm:pt-20">
-          <p className="eyebrow inline-flex items-center gap-2 text-copper">
+      <DarkHero glow="30% 20%">
+        <Container className="relative pb-40 pt-16 sm:pt-24">
+          <p className="eyebrow rise inline-flex items-center gap-2 text-copper-bright">
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full rounded-full bg-copper opacity-60 motion-safe:animate-ping" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-copper" />
             </span>
             Live demo · public
           </p>
-          <h1 className="display mt-6 max-w-4xl text-h1">
-            This is a real code. <span className="italic text-verdigris-deep">Scan it.</span>
+          <h1 className="display mt-6 max-w-5xl text-[clamp(3rem,8vw,7.5rem)] leading-[0.92] tracking-[-0.03em]">
+            <SplitWords text="This is a real code." start={60} />{" "}
+            <SplitWords text="Scan it." start={380} wordClass="italic text-verdigris-bright" />
           </h1>
-          <p className="mt-6 max-w-2xl text-lead text-ink-soft">
+          <p className="rise mt-6 max-w-2xl text-lead text-paper/70 [animation-delay:500ms]">
             Below is an actual dynamic code from a Scanstone account, with its
             actual analytics. Scan it with your phone and refresh, and your
             scan shows up in the counts. Older history was seeded so the charts
             aren&apos;t empty; new scans are real.
           </p>
         </Container>
-
-        <Container className="relative grid gap-5 pb-24 lg:grid-cols-[380px_1fr]">
-          <div className="h-fit rounded-[28px] bg-night p-6 text-paper shadow-[var(--shadow-lift)] lg:sticky lg:top-24">
-            <div className="rounded-2xl bg-white p-4">
+      </DarkHero>
+      <section className="relative">
+        <Container className="relative -mt-28 grid gap-5 pb-24 lg:grid-cols-[380px_1fr]">
+          <div className="h-fit rounded-[28px] bg-night-raised p-6 text-paper shadow-[var(--shadow-lift)] ring-1 ring-white/10 lg:sticky lg:top-24">
+            <div className="radar relative rounded-2xl bg-white p-4">
               <div
                 className="overflow-hidden [&>svg]:h-auto [&>svg]:w-full"
                 dangerouslySetInnerHTML={{ __html: svg }}
@@ -129,7 +130,7 @@ export default async function DemoPage() {
             </a>
           </div>
 
-          <div className="rounded-[28px] border border-line bg-white/60 p-6 shadow-[var(--shadow-card)] sm:p-8">
+          <div className="rounded-[28px] border border-line bg-paper p-6 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.45)] sm:p-8">
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div>
                 <Fig n="01">Dashboard view</Fig>
@@ -138,11 +139,11 @@ export default async function DemoPage() {
               <dl className="flex gap-6 text-right">
                 <div>
                   <dt className="eyebrow text-ink-faint">Last 30 days</dt>
-                  <dd className="display mt-1 text-3xl">{last30}</dd>
+                  <dd className="display mt-1 text-3xl"><CountUp value={Number(last30) || 0} /></dd>
                 </div>
                 <div>
                   <dt className="eyebrow text-ink-faint">Scans all-time</dt>
-                  <dd className="display mt-1 text-3xl">{code.scan_count}</dd>
+                  <dd className="display mt-1 text-3xl"><CountUp value={Number(code.scan_count) || 0} /></dd>
                 </div>
               </dl>
             </div>

@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { HeroStage } from "@/components/hero/HeroStage";
+import { CinemaHero } from "@/components/cinema/CinemaHero";
+import { SplitWords } from "@/components/cinema/SplitWords";
+import { renderQRSvg } from "@/lib/qr/svg";
 import { MarketingLink } from "@/components/marketing/MarketingLink";
 import { Container, Eyebrow, Fig } from "@/components/site/primitives";
 import { Reveal } from "@/components/site/Reveal";
@@ -89,59 +92,77 @@ export default function RestaurantMenuPage() {
           __html: JSON.stringify(data).replace(/</g, "\\u003c"),
         }}
       />
-      <section className="relative overflow-hidden">
-        <div
-          className="gridlines absolute inset-0 [mask-image:radial-gradient(ellipse_at_top,black_30%,transparent_75%)]"
-          aria-hidden="true"
-        />
-        <Container className="relative grid items-center gap-14 pb-20 pt-10 sm:pt-16 lg:grid-cols-[1.05fr_0.95fr] lg:pb-28 lg:pt-20">
-          <div className="rise">
-            <nav aria-label="Breadcrumb" className="eyebrow text-ink-faint">
-              <Link href="/" className="hover:text-ink">Home</Link>
+      <CinemaHero
+        url={`${envClient.APP_URL}/demo`}
+        dests={[
+          { biz: "Lunch", url: "yourcafe.ca/menu", note: "" },
+          { biz: "Weekend", url: "yourcafe.ca/brunch", note: "" },
+          { biz: "Happy hour", url: "yourcafe.ca/drinks", note: "" },
+          { biz: "Holidays", url: "yourcafe.ca/holiday.pdf", note: "" },
+        ]}
+        poster={
+          <div
+            className="aspect-square w-full [&>svg]:h-full [&>svg]:w-full"
+            dangerouslySetInnerHTML={{
+              __html: renderQRSvg(`${envClient.APP_URL}/demo`, { fg: "#171512", bg: "#efe7d6", quietZone: 3 }),
+            }}
+          />
+        }
+      >
+        <Container className="pb-14 pt-[56svh] sm:pb-20 lg:pt-40">
+          <div className="max-w-3xl">
+            <nav aria-label="Breadcrumb" className="eyebrow rise text-paper/50">
+              <Link href="/" className="hover:text-paper">Home</Link>
               <span className="mx-2" aria-hidden="true">/</span>
-              <span className="text-verdigris">For restaurants &amp; cafés</span>
+              <span className="text-verdigris-bright">For restaurants &amp; cafés</span>
             </nav>
-            <h1 className="display mt-6 text-display">
-              Change the menu.
+            <h1 className="display mt-6 text-[clamp(3rem,7.4vw,6.8rem)] leading-[0.92] tracking-[-0.03em] text-paper">
+              <SplitWords text="Change the menu." start={80} />
               <br />
-              <span className="italic text-verdigris-deep">Keep the QR code.</span>
+              <SplitWords text="Keep the QR code." start={320} wordClass="italic text-verdigris-bright" />
             </h1>
-            <p className="mt-7 max-w-xl text-lead text-ink-soft">
+            <p className="mt-7 max-w-xl text-lead text-paper/70">
               A dynamic restaurant menu QR code lets you change the menu link
               after printing. Keep the same table cards, update the
               destination, and see how often guests scan.
             </p>
-            <div className="mt-9 flex flex-wrap gap-3">
-              <MarketingLink
-                placement="restaurant_hero"
-                action="signup"
-                href="/signup"
-                variant="accent"
-                className="!rounded-full px-7 py-3.5 text-base"
-              >
-                Create a free menu code
-              </MarketingLink>
-              <MarketingLink
-                placement="restaurant_hero"
-                action="static_generator"
-                href="/qr-code-generator"
-                variant="ghost"
-                className="!rounded-full px-7 py-3.5 text-base"
-              >
-                Use a static code
-              </MarketingLink>
+            <div className="rise mt-9 flex flex-wrap gap-3 [animation-delay:650ms]">
+              <span data-magnetic className="inline-block">
+                <MarketingLink
+                  placement="restaurant_hero"
+                  action="signup"
+                  href="/signup"
+                  variant="accent"
+                  className="!rounded-full !bg-verdigris-bright px-7 py-3.5 text-base !text-night hover:!bg-paper"
+                >
+                  Create a free menu code
+                </MarketingLink>
+              </span>
+              <span data-magnetic className="inline-block">
+                <MarketingLink
+                  placement="restaurant_hero"
+                  action="static_generator"
+                  href="/qr-code-generator"
+                  variant="ghost"
+                  className="!rounded-full border border-paper/25 px-7 py-3.5 text-base !text-paper hover:!bg-paper/10"
+                >
+                  Use a static code
+                </MarketingLink>
+              </span>
             </div>
-            <p className="mt-5 text-sm text-ink-faint">
-              3 editable codes or short links free. No credit card.
-            </p>
-            <p className="mt-2 text-sm text-ink-faint">
-              Bring your existing menu webpage or public PDF link. Scanstone
-              does not host your menu.
+            <p className="mt-5 text-sm text-paper/55">
+              3 editable codes or short links free. No credit card. Bring your
+              existing menu webpage or public PDF link. Scanstone does not host
+              your menu.
             </p>
           </div>
-          <div className="rise [animation-delay:150ms]">
-            <HeroStage demoUrl={`${envClient.APP_URL}/demo`} />
-          </div>
+        </Container>
+      </CinemaHero>
+
+      <section aria-label="Try it" className="relative overflow-hidden py-20 sm:py-28">
+        <div className="gridlines absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_70%)]" aria-hidden="true" />
+        <Container className="relative max-w-3xl">
+          <HeroStage demoUrl={`${envClient.APP_URL}/demo`} />
         </Container>
       </section>
 

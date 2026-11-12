@@ -50,7 +50,7 @@ export function PlanCards({ headingLevel = 3 }: { headingLevel?: 2 | 3 }) {
         <div
           role="radiogroup"
           aria-label="Billing period"
-          className="relative inline-grid grid-cols-2 rounded-full border border-line bg-white/60 p-1 text-sm"
+          className="relative inline-grid grid-cols-2 rounded-full border border-line bg-paper p-1 text-sm shadow-[0_10px_30px_-10px_rgba(0,0,0,0.4)]"
         >
           <span
             aria-hidden="true"
@@ -76,7 +76,7 @@ export function PlanCards({ headingLevel = 3 }: { headingLevel?: 2 | 3 }) {
       </div>
 
       <div className="mt-10 grid gap-5 lg:grid-cols-2">
-        <div className="flex flex-col rounded-[28px] border border-line bg-white/60 p-8 shadow-[var(--shadow-card)] sm:p-10">
+        <div className="flex flex-col rounded-[28px] border border-line bg-paper p-8 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.45)] sm:p-10">
           <H className="display text-h3">Free</H>
           <p className="mt-2 text-sm text-ink-soft">
             For your first menu, sign or card. No card needed.
@@ -101,7 +101,8 @@ export function PlanCards({ headingLevel = 3 }: { headingLevel?: 2 | 3 }) {
           </Link>
         </div>
 
-        <div className="relative flex flex-col overflow-hidden rounded-[28px] bg-night p-8 text-paper shadow-[var(--shadow-lift)] sm:p-10">
+        <div className="pro-card relative flex flex-col overflow-hidden rounded-[28px] bg-night p-8 text-paper shadow-[var(--shadow-lift)] ring-1 ring-white/10 sm:p-10">
+          <div className="pro-sheen pointer-events-none absolute inset-0" aria-hidden="true" />
           <div className="gridlines-night absolute inset-0" aria-hidden="true" />
           <div className="relative flex items-center justify-between">
             <H className="display text-h3">Pro</H>

@@ -92,7 +92,7 @@ export function StaticGenerator({
         disabled={!hydrated}
         aria-busy={!hydrated}
         aria-label="QR code content and design"
-        className="min-w-0 space-y-7 self-start rounded-[28px] border border-line bg-white/60 p-5 shadow-[var(--shadow-card)] sm:p-8"
+        className="min-w-0 space-y-7 self-start rounded-[28px] border border-line bg-paper p-5 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.45)] sm:p-8"
       >
         <noscript>
           Enable JavaScript to create a QR code in your browser.
@@ -251,7 +251,7 @@ export function StaticGenerator({
       </fieldset>
 
       <div className="lg:sticky lg:top-24 lg:self-start">
-        <Card className="!rounded-[28px] p-5 sm:p-6">
+        <Card className="!rounded-[28px] !bg-paper p-5 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.45)] sm:p-6">
           <div className="mb-4 flex items-center justify-between">
             <p className="eyebrow text-ink-faint">Your code</p>
             <p

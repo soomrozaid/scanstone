@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { DarkHero } from "@/components/cinema/DarkHero";
+import { SplitWords } from "@/components/cinema/SplitWords";
 import Link from "next/link";
 import { Container, Eyebrow, Fig } from "@/components/site/primitives";
 import { Reveal } from "@/components/site/Reveal";
@@ -33,29 +35,27 @@ const PRINCIPLES = [
 export default function AboutPage() {
   return (
     <main id="main">
-      <section className="relative overflow-hidden">
-        <div
-          className="gridlines absolute inset-0 [mask-image:radial-gradient(ellipse_at_top_left,black_20%,transparent_65%)]"
-          aria-hidden="true"
-        />
-        <Container className="relative pb-20 pt-12 sm:pb-28 sm:pt-20">
-          <Eyebrow tone="verdigris" className="rise">About Scanstone</Eyebrow>
-          <h1 className="display rise mt-6 max-w-5xl text-display">About</h1>
+      <DarkHero glow="20% 30%">
+        <Container className="relative pb-24 pt-16 sm:pb-32 sm:pt-24">
+          <Eyebrow tone="verdigris" className="rise !text-verdigris-bright">About Scanstone</Eyebrow>
+          <h1 className="display mt-6 max-w-5xl text-[clamp(4rem,12vw,11rem)] leading-[0.9] tracking-[-0.035em]">
+            <SplitWords text="About" start={60} />
+          </h1>
           <div className="rise mt-10 grid gap-10 lg:grid-cols-[1.2fr_0.8fr]">
-            <p className="display max-w-3xl text-[clamp(1.6rem,1.2rem+1.4vw,2.6rem)] leading-[1.15] text-ink">
+            <p className="display max-w-3xl text-[clamp(1.6rem,1.2rem+1.4vw,2.6rem)] leading-[1.15] text-paper">
               Scanstone is a small, independent product built in Saskatchewan,
               Canada. We built it because printed QR codes{" "}
-              <span className="italic text-verdigris-deep">
+              <span className="italic text-verdigris-bright">
                 shouldn&apos;t stop working
               </span>{" "}
               when a subscription lapses.
             </p>
-            <div className="self-end text-ink-soft lg:border-l lg:border-line lg:pl-10">
+            <div className="self-end text-paper/65 lg:border-l lg:border-white/10 lg:pl-10">
               <p>
                 Questions, or just want to say hello? Write to{" "}
                 <a
                   href="mailto:hello@scanstone.ca"
-                  className="text-verdigris-deep underline underline-offset-2"
+                  className="text-verdigris-bright underline underline-offset-2"
                 >
                   hello@scanstone.ca
                 </a>
@@ -64,7 +64,7 @@ export default function AboutPage() {
             </div>
           </div>
         </Container>
-      </section>
+      </DarkHero>
 
       <section aria-labelledby="principles-h" className="border-t border-line bg-paper-deep/40 py-24 sm:py-32">
         <Container>

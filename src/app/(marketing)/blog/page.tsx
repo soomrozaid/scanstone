@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { DarkHero } from "@/components/cinema/DarkHero";
+import { SplitWords } from "@/components/cinema/SplitWords";
 import Link from "next/link";
 import { docsIn } from "@/lib/content";
 import { Container, Eyebrow } from "@/components/site/primitives";
@@ -24,21 +26,27 @@ export default function BlogIndex() {
   const [first, ...rest] = docs;
   return (
     <main id="main">
-      <Container className="pb-24 pt-12 sm:pt-20">
-        <header className="max-w-3xl">
-          <Eyebrow tone="verdigris" className="rise">Straight answers about QR codes</Eyebrow>
-          <h1 className="display rise mt-6 text-display">Blog</h1>
-          <p className="rise mt-6 text-lead text-ink-soft">
-            Straight answers about QR codes: what expires, what doesn&apos;t,
-            and how to keep your printed codes working without paying anyone
-            forever.
-          </p>
-        </header>
+      <DarkHero glow="50% 0%">
+        <Container className="pb-40 pt-16 sm:pt-24">
+          <header className="max-w-3xl">
+            <Eyebrow tone="verdigris" className="rise !text-verdigris-bright">Straight answers about QR codes</Eyebrow>
+            <h1 className="display mt-6 text-[clamp(4rem,12vw,11rem)] leading-[0.9] tracking-[-0.035em]">
+              <SplitWords text="Blog" start={60} />
+            </h1>
+            <p className="rise mt-6 text-lead text-paper/70 [animation-delay:300ms]">
+              Straight answers about QR codes: what expires, what doesn&apos;t,
+              and how to keep your printed codes working without paying anyone
+              forever.
+            </p>
+          </header>
+        </Container>
+      </DarkHero>
+      <Container className="relative -mt-28 pb-24">
 
         {first ? (
           <Link
             href={`/blog/${first.slug}`}
-            className="group mt-16 grid gap-8 overflow-hidden rounded-[28px] bg-night p-8 text-paper transition sm:p-12 lg:grid-cols-[1.4fr_0.6fr]"
+            className="group relative grid gap-8 overflow-hidden rounded-[28px] bg-night-raised p-8 text-paper shadow-[0_40px_100px_-30px_rgba(0,0,0,0.6)] ring-1 ring-white/10 transition sm:p-12 lg:grid-cols-[1.4fr_0.6fr]"
           >
             <div>
               <p className="eyebrow text-paper/50">Latest · {first.category}</p>

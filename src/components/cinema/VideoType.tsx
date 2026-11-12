@@ -56,7 +56,7 @@ export function VideoType({ lines, label }: { lines: string[]; label: string }) 
   }, []);
 
   return (
-    <section ref={root} aria-label={label} className="relative overflow-hidden bg-night">
+    <section ref={root} data-nav="dark" aria-label={label} className="relative overflow-hidden bg-night">
       <video
         ref={video}
         className="absolute inset-0 h-full w-full object-cover"
