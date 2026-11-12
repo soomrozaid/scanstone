@@ -916,3 +916,24 @@ details[open] > .faq-row::before { transform: scaleX(1); }
 @keyframes press-ink { from { clip-path: inset(0 0 100% 0) } to { clip-path: inset(0 0 0 0) } }
 @keyframes press-head { 0% { opacity: 0; top: 0 } 8% { opacity: 1 } 92% { opacity: 1 } 100% { opacity: 0; top: 100% } }
 @media (prefers-reduced-motion: reduce) { .press-slot { display: none; } }
+
+/* Trial time machine (iteration 78) */
+.ts-phone { transition: box-shadow .6s ease; box-shadow: 0 30px 60px -30px rgb(0 0 0 / .8); }
+.ts-alive { box-shadow: 0 0 0 1px rgb(79 174 155 / .35), 0 0 46px -6px rgb(79 174 155 / .45), 0 30px 60px -30px rgb(0 0 0 / .8); }
+.ts-dead { box-shadow: 0 0 0 1px rgb(255 122 107 / .35), 0 0 46px -6px rgb(255 90 70 / .4), 0 30px 60px -30px rgb(0 0 0 / .8); }
+.ts-screen { transform-origin: 50% 50%; }
+.ts-screen.ts-off { animation: ts-crt .55s cubic-bezier(.6,0,.8,.4) both; }
+.ts-deadpage.ts-on { animation: ts-wake .7s ease .6s both; }
+.ts-dead .ts-deadpage::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, rgb(0 0 0 / .05) 0 2px, transparent 2px 4px); animation: ts-flicker 3s steps(1) 1.3s infinite; pointer-events: none; }
+.ts-note { animation: ts-note .5s cubic-bezier(.2,.8,.2,1) both; }
+@keyframes ts-crt { 0% { transform: none; filter: none; opacity: 1 } 45% { transform: scale(1, .012); filter: brightness(3); opacity: 1 } 80% { transform: scale(.02, .012); filter: brightness(4); opacity: 1 } 100% { transform: scale(0, 0); opacity: 0 } }
+@keyframes ts-wake { from { opacity: 0; filter: blur(4px) } to { opacity: 1; filter: none } }
+@keyframes ts-flicker { 0%, 100% { opacity: 1 } 4% { opacity: .3 } 6% { opacity: 1 } 50% { opacity: .85 } 52% { opacity: 1 } }
+@keyframes ts-note { from { opacity: 0; transform: translateY(8px) } to { opacity: 1; transform: none } }
+.ts-range { appearance: none; -webkit-appearance: none; height: 22px; background: transparent; }
+.ts-range::-webkit-slider-runnable-track { height: 4px; border-radius: 4px; background: linear-gradient(90deg, var(--color-verdigris-bright, #4fae9b) 0 var(--p), rgb(244 239 228 / .16) var(--p)); }
+.ts-range::-moz-range-track { height: 4px; border-radius: 4px; background: linear-gradient(90deg, var(--color-verdigris-bright, #4fae9b) 0 var(--p), rgb(244 239 228 / .16) var(--p)); }
+.ts-range::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; margin-top: -9px; border-radius: 50%; background: #f4efe4; box-shadow: 0 0 0 5px rgb(79 174 155 / .28), 0 0 22px 4px rgb(79 174 155 / .55); }
+.ts-range::-moz-range-thumb { width: 22px; height: 22px; border: 0; border-radius: 50%; background: #f4efe4; box-shadow: 0 0 0 5px rgb(79 174 155 / .28), 0 0 22px 4px rgb(79 174 155 / .55); }
+.ts-range:focus-visible { outline: 2px solid var(--color-verdigris-bright, #4fae9b); outline-offset: 6px; border-radius: 8px; }
+@media (prefers-reduced-motion: reduce) { .ts-screen.ts-off { animation: none; opacity: 0; } .ts-deadpage.ts-on { animation: none; } .ts-dead .ts-deadpage::after { animation: none; } }
