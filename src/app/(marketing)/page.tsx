@@ -14,6 +14,7 @@ import { FlowDiagram } from "@/components/home/FlowDiagram";
 import { TrialSim } from "@/components/home/TrialSim";
 import { ShortLinkDemo } from "@/components/home/ShortLinkDemo";
 import { CtaBand } from "@/components/site/CtaBand";
+import { PrintArtifacts } from "@/components/home/PrintArtifacts";
 
 export const metadata: Metadata = {
   title: { absolute: "Editable QR Codes for Print & Short Links | Scanstone" },
@@ -461,6 +462,7 @@ export default function LandingPage() {
                 <div className="rounded-[28px] border border-line bg-white/60 p-6 sm:p-8">
                   <Eyebrow>Print-ready</Eyebrow>
                   <h3 className="display mt-4 text-3xl">PNG for the office printer. SVG for the print shop.</h3>
+                  <PrintArtifacts />
                   <div className="mt-6 flex flex-wrap gap-2">
                     {["2048px PNG", "Vector SVG (Pro)", "Ink colours", "Cut · Worn · Pebble"].map((t) => (
                       <span key={t} className="rounded-full border border-line bg-paper px-3 py-1.5 font-mono text-xs text-ink-soft">

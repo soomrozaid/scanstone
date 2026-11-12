@@ -19,7 +19,7 @@ function Phone({
 }) {
   return (
     <div className="mx-auto w-full max-w-[190px] rounded-[26px] bg-ink p-1.5 shadow-[var(--shadow-lift)]">
-      <div className="relative aspect-[9/16] overflow-hidden rounded-[20px] bg-white">
+      <div className="relative aspect-[9/14] overflow-hidden rounded-[20px] bg-white">
         <div
           className={`absolute inset-0 flex flex-col p-4 transition-opacity duration-500 ${dead ? "opacity-0" : "opacity-100"}`}
         >
@@ -74,7 +74,7 @@ export function TrialSim() {
     <div className="rounded-[28px] border border-line bg-white/55 p-5 shadow-[var(--shadow-card)] sm:p-8">
       <div className="grid grid-cols-2 gap-4 sm:gap-10">
         <div>
-          <p className="eyebrow text-center text-ink-faint">Typical trial generator</p>
+          <p className="eyebrow min-h-[2.6em] text-center text-ink-faint">Typical trial generator</p>
           <div className="mt-4">
             <Phone dead={trialDead} brand="trial" />
           </div>
@@ -85,7 +85,7 @@ export function TrialSim() {
           </p>
         </div>
         <div>
-          <p className="eyebrow text-center text-verdigris">Scanstone</p>
+          <p className="eyebrow min-h-[2.6em] text-center text-verdigris">Scanstone</p>
           <div className="mt-4">
             <Phone dead={false} brand="scanstone" />
           </div>
