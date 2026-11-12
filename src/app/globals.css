@@ -5,7 +5,7 @@
   --color-paper: #f7f3ea;
   --color-paper-deep: #efe8d8;
   --color-paper-dim: #e6ddc8;
-  --color-ink: #1c1917;
+  --color-ink: #161411;
   --color-ink-soft: #4f4a42;
   --color-ink-faint: #7d766a;
   --color-line: #d9d0bc;
@@ -13,6 +13,30 @@
   --color-verdigris-deep: #1f5248;
   --color-copper: #b4642d;
   --color-danger: #a03e2d;
+  --color-verdigris-bright: #4fae9b;
+  --color-copper-bright: #e08a46;
+  --color-night: #0f0e0c;
+  --color-night-raised: #1b1916;
+  --color-night-line: #2e2a25;
+  --color-mist: #c9c1b0;
+
+  --ease-settle: cubic-bezier(0.2, 0.7, 0.1, 1);
+  --ease-swift: cubic-bezier(0.4, 0, 0.2, 1);
+
+  --text-display: clamp(3.1rem, 1.6rem + 6.4vw, 8rem);
+  --text-display--line-height: 0.94;
+  --text-h1: clamp(2.6rem, 1.7rem + 3.9vw, 5.5rem);
+  --text-h1--line-height: 0.98;
+  --text-h2: clamp(2.1rem, 1.5rem + 2.6vw, 3.9rem);
+  --text-h2--line-height: 1.02;
+  --text-h3: clamp(1.3rem, 1.15rem + 0.5vw, 1.7rem);
+  --text-h3--line-height: 1.15;
+  --text-lead: clamp(1.08rem, 1rem + 0.3vw, 1.3rem);
+  --text-lead--line-height: 1.55;
+
+  --shadow-lift:
+    0 1px 1px rgb(22 20 17 / 0.04), 0 4px 10px -2px rgb(22 20 17 / 0.08),
+    0 30px 60px -30px rgb(22 20 17 / 0.35);
 
   --shadow-press:
     inset 0 1px 0 rgb(255 255 255 / 0.14), 0 1px 2px rgb(28 25 23 / 0.35);
@@ -103,4 +127,158 @@ body {
 .btn-press:active {
   transform: translateY(1px);
   box-shadow: inset 0 1px 2px rgb(0 0 0 / 0.3);
+}
+
+/* ---------- Overhaul v2 primitives ---------- */
+
+.display {
+  font-family: var(--font-fraunces), "Georgia", serif;
+  font-variation-settings: "opsz" 144, "SOFT" 30, "WONK" 0;
+  font-weight: 520;
+  letter-spacing: -0.035em;
+}
+
+.eyebrow {
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.gridlines {
+  background-image:
+    linear-gradient(to right, rgb(22 20 17 / 0.055) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(22 20 17 / 0.055) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+.gridlines-night {
+  background-image:
+    linear-gradient(to right, rgb(247 243 234 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(247 243 234 / 0.05) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* Scroll reveal: CSS scroll-driven where supported, IO fallback adds .is-in */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 800ms var(--ease-settle),
+    transform 800ms var(--ease-settle);
+}
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 300ms var(--ease-settle);
+}
+.link-underline:hover,
+.link-underline:focus-visible {
+  background-size: 100% 1px;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  animation: marquee 40s linear infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes pulse-travel {
+  0% {
+    offset-distance: 0%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    offset-distance: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes caret {
+  50% {
+    opacity: 0;
+  }
+}
+.caret {
+  animation: caret 1s steps(1) infinite;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.rise {
+  animation: rise 900ms var(--ease-settle) both;
+}
+
+@keyframes wire {
+  from {
+    left: 0;
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  to {
+    left: calc(100% - 10px);
+    opacity: 0;
+  }
+}
+@keyframes qr-ping {
+  0% {
+    box-shadow: 0 0 0 0 rgb(44 110 99 / 0.45);
+  }
+  100% {
+    box-shadow: 0 0 0 18px rgb(44 110 99 / 0);
+  }
+}
+
+@keyframes flow {
+  0% {
+    left: 0;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    left: calc(100% - 11px);
+    opacity: 0;
+  }
+}
+.flow-packet {
+  animation: flow 3.2s var(--ease-swift) infinite;
 }

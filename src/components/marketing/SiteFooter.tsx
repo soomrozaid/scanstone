@@ -17,6 +17,7 @@ const columns = [
       { href: "/restaurant-menu-qr-code", label: "Restaurant menus" },
       { href: "/demo", label: "Live demo" },
       { href: "/pricing", label: "Pricing" },
+      { href: "/blog", label: "Blog" },
       { href: "/signup", label: "Create account" },
     ],
   },
@@ -33,36 +34,57 @@ const columns = [
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-line bg-paper-deep/60">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:grid-cols-[1.4fr_1fr_1fr_1fr] sm:px-6">
-        <div>
-          <Wordmark />
-          <p className="mt-3 max-w-xs text-sm leading-relaxed text-ink-soft">
-            QR codes for print. Short scst.one links for sharing. Free static
-            codes forever, and redirects that keep working even if you stop
-            paying.
-          </p>
-        </div>
-        {columns.map((col) => (
-          <div key={col.title}>
-            <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">
-              {col.title}
-            </h3>
-            <ul className="mt-3 space-y-2 text-sm">
-              {col.links.map((l) => (
-                <li key={l.href}>
-                  <Link href={l.href} className="text-ink-soft hover:text-ink">
-                    {l.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+    <footer className="relative overflow-hidden bg-night text-paper">
+      <div className="gridlines-night absolute inset-0" aria-hidden="true" />
+      <div className="relative mx-auto max-w-7xl px-5 pt-20 sm:px-8">
+        <div className="grid gap-12 lg:grid-cols-[1.3fr_1fr_1fr_1fr]">
+          <div>
+            <Wordmark tone="paper" />
+            <p className="mt-5 max-w-xs text-sm leading-relaxed text-paper/60">
+              QR codes for print. Short scst.one links for sharing. Free static
+              codes forever, and redirects that keep working even if you stop
+              paying.
+            </p>
+            <p className="mt-6 inline-flex items-center gap-2 rounded-full border border-night-line px-3 py-1.5 text-xs text-paper/70">
+              <span
+                className="h-1.5 w-1.5 rounded-full bg-verdigris-bright"
+                aria-hidden="true"
+              />
+              Redirects never expire. It&apos;s in{" "}
+              <Link href="/terms" className="underline underline-offset-2">
+                our terms
+              </Link>
+              .
+            </p>
           </div>
-        ))}
-      </div>
-      <div className="border-t border-line/60 py-5 text-center text-xs text-ink-faint">
-        © {new Date().getFullYear()} Scanstone · Printed codes deserve
-        permanence.
+          {columns.map((col) => (
+            <div key={col.title}>
+              <h3 className="eyebrow text-paper/40">{col.title}</h3>
+              <ul className="mt-4 space-y-2.5 text-sm">
+                {col.links.map((l) => (
+                  <li key={l.href}>
+                    <Link
+                      href={l.href}
+                      className="link-underline text-paper/75 hover:text-paper"
+                    >
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+        <p
+          aria-hidden="true"
+          className="display pointer-events-none mt-20 select-none whitespace-nowrap text-center text-[22vw] leading-[0.8] text-paper/[0.06] lg:text-[17rem]"
+        >
+          Scanstone
+        </p>
+        <div className="flex flex-col items-center justify-between gap-2 border-t border-night-line py-6 text-xs text-paper/45 sm:flex-row">
+          <span>© {new Date().getFullYear()} Scanstone. Made in Saskatchewan.</span>
+          <span>Printed codes deserve permanence.</span>
+        </div>
       </div>
     </footer>
   );
