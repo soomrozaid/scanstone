@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { Container, Eyebrow, Fig } from "./primitives";
+import { Container, Eyebrow } from "./primitives";
 import { Faq } from "./Faq";
 import { CtaBand } from "./CtaBand";
 import { DarkHero } from "@/components/cinema/DarkHero";
@@ -79,18 +79,19 @@ export function ToolPage({
         <Container className="relative -mt-28 pb-20">{tool}</Container>
       </section>
 
-      <section aria-labelledby="tool-faq" className="border-t border-line bg-paper-deep/40 py-24">
-        <Container className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
-          <div>
-            <Fig n="01">FAQ</Fig>
+      <section aria-labelledby="tool-faq" data-nav="dark" className="relative overflow-hidden bg-night py-24 text-paper sm:py-32">
+        <div className="aurora pointer-events-none absolute inset-0 opacity-50" aria-hidden="true" />
+        <Container className="relative grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
+          <div className="lg:sticky lg:top-28 lg:self-start">
+            <p className="font-mono text-xs uppercase tracking-[0.2em] text-copper-bright">Fig. 01 / FAQ</p>
             <h2 id="tool-faq" className="display mt-6 text-h2">
               Straight answers
             </h2>
             {related ? (
-              <div className="mt-6 text-sm leading-relaxed text-ink-soft">{related}</div>
+              <div className="mt-6 text-sm leading-relaxed text-paper/70 [&_a]:!text-verdigris-bright">{related}</div>
             ) : null}
           </div>
-          <Faq items={faqs} />
+          <Faq items={faqs} tone="night" />
         </Container>
       </section>
 
@@ -115,6 +116,22 @@ export function ToolPage({
                 key={h}
                 className={`rounded-[22px] p-6 ${k ? "bg-night text-paper" : "border border-line bg-white/60"}`}
               >
+                <div aria-hidden="true" className="relative mb-5 w-24">
+                  <AssembleQR lite data={k ? "https://scst.one/yours" : "https://www.scanstone.ca"} label="" className={`!rounded-[10px] !p-[9%] ${k ? "shadow-[0_0_40px_rgba(79,174,155,0.35)]" : ""}`} />
+                  {k ? (
+                    <span className="sd-chip absolute -bottom-3 left-1/2 h-6 w-36 -translate-x-1/2 overflow-hidden rounded-full border border-paper/15 bg-night font-mono text-[10px] text-paper/85">
+                      {["→ menu", "→ brunch", "→ events"].map((d, i) => (
+                        <span key={d} className="sd-dest absolute inset-0 flex items-center justify-center" style={{ animationDelay: `${i * 2}s` }}>
+                          {d}
+                        </span>
+                      ))}
+                    </span>
+                  ) : (
+                    <span className="absolute -bottom-3 left-1/2 -translate-x-1/2 rounded-full border border-line bg-paper px-2.5 py-1 font-mono text-[10px] text-ink-soft">
+                      carved in
+                    </span>
+                  )}
+                </div>
                 <p className="display text-2xl">{h}</p>
                 <ul className={`mt-4 space-y-2.5 ${k ? "text-paper/75" : "text-ink-soft"}`}>
                   {rows.map((r) => (

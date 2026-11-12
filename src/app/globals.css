@@ -811,3 +811,15 @@ details[open] > .faq-row::before { transform: scaleX(1); }
 .cg-armed.cg-in svg rect.cg-tick { animation: cg-tick 900ms cubic-bezier(0.16, 1, 0.3, 1); }
 @keyframes cg-pop { 0% { opacity: 0; transform: translateY(8px) scale(0.8); } 20% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translateY(-22px); } }
 .cg-pop { animation: cg-pop 1.6s ease-out both; }
+
+/* Tool pages: the dynamic card's destination keeps changing. */
+@keyframes sd-dest {
+  0% { transform: translateY(100%); opacity: 0; }
+  5%, 30% { transform: none; opacity: 1; }
+  36%, 100% { transform: translateY(-100%); opacity: 0; }
+}
+.sd-dest { opacity: 0; animation: sd-dest 6s cubic-bezier(0.16, 1, 0.3, 1) infinite both; }
+@media (prefers-reduced-motion: reduce) {
+  .sd-dest { animation: none; }
+  .sd-dest:first-child { opacity: 1; }
+}
