@@ -15,6 +15,9 @@ import { TrialSim } from "@/components/home/TrialSim";
 import { ShortLinkDemo } from "@/components/home/ShortLinkDemo";
 import { CtaBand } from "@/components/site/CtaBand";
 import { PrintArtifacts } from "@/components/home/PrintArtifacts";
+import { MiniCustomizer } from "@/components/home/MiniCustomizer";
+import { CovenantStory } from "@/components/home/CovenantStory";
+import { StickyCta } from "@/components/site/StickyCta";
 
 export const metadata: Metadata = {
   title: { absolute: "Editable QR Codes for Print & Short Links | Scanstone" },
@@ -146,6 +149,7 @@ export default function LandingPage() {
   return (
     <main id="main">
       <HomeJsonLd />
+      <StickyCta />
 
       {/* HERO */}
       <section className="relative overflow-hidden">
@@ -315,34 +319,9 @@ export default function LandingPage() {
               Cancelling never stops your redirects.
             </h2>
           </Reveal>
-          <ul className="mt-16 grid gap-px overflow-hidden rounded-[24px] border border-night-line bg-night-line sm:grid-cols-3">
-            {[
-              {
-                t: "Cancel your plan",
-                d: "Your codes keep redirecting. You lose the extras, not the code.",
-              },
-              {
-                t: "Blow past your limits",
-                d: "Scans never get blocked. Limits gate creating codes, never scanning them.",
-              },
-              {
-                t: "Never log in again",
-                d: "Codes don't rot with inactivity. Print it and forget it.",
-              },
-            ].map((c, k) => (
-              <Reveal as="li" key={c.t} delay={k * 90} className="bg-night p-8 sm:p-10">
-                <span className="flex items-center gap-2 font-mono text-xs text-verdigris-bright">
-                  <span className="relative flex h-2 w-2">
-                    <span className="absolute inline-flex h-full w-full rounded-full bg-verdigris-bright opacity-60 motion-safe:animate-ping" />
-                    <span className="relative inline-flex h-2 w-2 rounded-full bg-verdigris-bright" />
-                  </span>
-                  Still redirecting
-                </span>
-                <h3 className="display mt-6 text-2xl">{c.t}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-paper/65">{c.d}</p>
-              </Reveal>
-            ))}
-          </ul>
+          <div className="mt-16">
+            <CovenantStory />
+          </div>
           <p className="mt-8 text-sm text-paper/55">
             Deleted codes stop redirecting, and your destination website must
             remain available.{" "}
@@ -491,11 +470,29 @@ export default function LandingPage() {
         </Container>
       </section>
 
+      {/* CUSTOMIZER */}
+      <section aria-labelledby="custom-h" className="border-t border-line py-24 sm:py-32">
+        <Container>
+          <Reveal>
+            <Fig n="04">Make it yours</Fig>
+            <SectionHeading
+              id="custom-h"
+              className="mt-6"
+              title="Your colours. Still scans."
+              lead="Pick an ink and a carving style. Low-contrast combos get blocked in the real generator, so what you print always works."
+            />
+          </Reveal>
+          <Reveal className="mt-14">
+            <MiniCustomizer />
+          </Reveal>
+        </Container>
+      </section>
+
       {/* WHO IT'S FOR */}
       <section aria-labelledby="who-h" className="border-t border-line bg-paper-deep/40 py-24 sm:py-32">
         <Container>
           <Reveal>
-            <Fig n="04">Who it&apos;s for</Fig>
+            <Fig n="05">Who it&apos;s for</Fig>
             <SectionHeading id="who-h" className="mt-6" title="Made for things that get printed" />
           </Reveal>
           <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -550,7 +547,7 @@ export default function LandingPage() {
       <section aria-labelledby="faq-h" className="border-t border-line py-24 sm:py-32">
         <Container className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
           <div>
-            <Fig n="05">FAQ</Fig>
+            <Fig n="06">FAQ</Fig>
             <h2 id="faq-h" className="display mt-6 text-h2">
               Questions, answered straight
             </h2>
