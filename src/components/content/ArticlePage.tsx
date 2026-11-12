@@ -104,7 +104,7 @@ export function ArticlePage({ doc, body }: { doc: DocMeta; body: string }) {
       <div className="mx-auto max-w-3xl px-5 pb-24 sm:px-8">
       <hr className="hairline mt-8 border-0" />
 
-      <article className="mt-8">
+      <article className="article-ink mt-8">
         <Prose>{body}</Prose>
       </article>
 
