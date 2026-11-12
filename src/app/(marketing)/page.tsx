@@ -36,7 +36,7 @@ const FAQS = [
   },
   {
     q: "Do I need an account to create short links?",
-    a: "Yes — sign in or create a free account to create and manage short links. The Free plan includes 3 short links or dynamic QR codes in total; Pro includes 500 in total. Anyone can open your short links without an account.",
+    a: "Yes. Sign in or create a free account to create and manage short links. The Free plan includes 3 short links or dynamic QR codes in total; Pro includes 500 in total. Anyone can open your short links without an account.",
   },
   {
     q: "Do Scanstone QR codes expire?",
@@ -44,19 +44,19 @@ const FAQS = [
   },
   {
     q: "What happens to my codes if I stop paying?",
-    a: "They keep redirecting. You lose the Pro extras — full analytics history, vector downloads, CSV export — but every printed code keeps working. We think anything else is holding your print materials hostage.",
+    a: "They keep redirecting. You lose the Pro extras (full analytics history, vector downloads, CSV export), but every printed code keeps working. We think anything else is holding your print materials hostage.",
   },
   {
     q: "Can I change where a printed QR code points?",
-    a: "Yes — that's what a dynamic code is for. The printed pattern encodes a permanent short link; you change its destination from the dashboard any time, and every existing print instantly points to the new page.",
+    a: "Yes, that's what a dynamic code is for. The printed pattern encodes a permanent short link; you change its destination from the dashboard any time, and every existing print instantly points to the new page.",
   },
   {
     q: "What's the difference between static and dynamic codes?",
-    a: "A static code embeds the content itself (URL, WiFi login, contact card) — free, unlimited, and permanent, but not editable after printing. A dynamic code embeds a short redirect link, so you can edit the destination later and see scan counts, locations, and devices.",
+    a: "A static code embeds the content itself (URL, WiFi login, contact card). It's free, unlimited, and permanent, but not editable after printing. A dynamic code embeds a short redirect link, so you can edit the destination later and see scan counts, locations, and devices.",
   },
   {
     q: "Do you track the people who scan?",
-    a: "Minimally and anonymously. We record the scan's country, device type, and time — no cookies, no IP addresses stored, no fingerprinting, no consent banner needed. Enough for you to know what's working; nothing that follows anyone around.",
+    a: "Minimally and anonymously. We record the scan's country, device type, and time. No cookies, no IP addresses stored, no fingerprinting, no consent banner needed. Enough for you to know what's working; nothing that follows anyone around.",
   },
 ];
 

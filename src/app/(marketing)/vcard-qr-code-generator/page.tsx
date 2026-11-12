@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 const FAQS = [
   {
     q: "What does a vCard QR code do?",
-    a: "It encodes a standard vCard (VERSION 3.0) with your name, company, phone, email, and website. When someone scans it, their phone offers to save you as a contact — every field filled in, no typos.",
+    a: "It encodes a standard vCard (VERSION 3.0) with your name, company, phone, email, and website. When someone scans it, their phone offers to save you as a contact, every field filled in, no typos.",
   },
   {
     q: "Does it work on iPhone and Android?",
@@ -25,7 +25,7 @@ const FAQS = [
   },
   {
     q: "What if my phone number changes?",
-    a: "A static vCard code can't be edited after printing. If your details change often, a Scanstone dynamic code pointing at a personal page may serve you better — you can re-point it anytime, free.",
+    a: "A static vCard code can't be edited after printing. If your details change often, a Scanstone dynamic code pointing at a personal page may serve you better. You can re-point it anytime, free.",
   },
 ];
 

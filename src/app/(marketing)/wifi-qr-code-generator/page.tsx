@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 const FAQS = [
   {
     q: "How does a WiFi QR code work?",
-    a: "The code embeds your network name and password in a standard format (WIFI:). iPhones and Android phones recognize it natively: point the camera, tap the prompt, and the device joins — no typing, no app.",
+    a: "The code embeds your network name and password in a standard format (WIFI:). iPhones and Android phones recognize it natively: point the camera, tap the prompt, and the device joins. No typing, no app.",
   },
   {
     q: "Is my WiFi password sent to your servers?",
@@ -21,11 +21,11 @@ const FAQS = [
   },
   {
     q: "Does the code stop working if I change my password?",
-    a: "The printed code always contains the credentials it was made with — so if you change your password, print a new code. (Codes never expire on their own.)",
+    a: "The printed code always contains the credentials it was made with, so if you change your password, print a new code. (Codes never expire on their own.)",
   },
   {
     q: "Where do people put these?",
-    a: "Table tents and menus in cafés, guest-room welcome cards, waiting rooms, coworking desks, Airbnb binders — anywhere guests ask 'what's the WiFi?'",
+    a: "Table tents and menus in cafés, guest-room welcome cards, waiting rooms, coworking desks, Airbnb binders. Anywhere guests ask 'what's the WiFi?'",
   },
 ];
 
