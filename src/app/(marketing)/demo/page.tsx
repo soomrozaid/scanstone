@@ -130,10 +130,10 @@ export default async function DemoPage() {
               {shortUrl}
             </p>
             <div className="mt-5 rounded-2xl border border-night-line p-4 text-sm">
-              <p className="eyebrow text-paper/45">Currently pointing at</p>
+              <p className="eyebrow text-paper/60">Currently pointing at</p>
               <p className="mt-2 font-mono text-verdigris-bright">{host}</p>
             </div>
-            <p className="mt-4 hidden text-center text-xs text-paper/45 lg:block">
+            <p className="mt-4 hidden text-center text-xs text-paper/60 lg:block">
               Point your phone camera at the code.
             </p>
             <a

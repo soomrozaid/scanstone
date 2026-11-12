@@ -82,7 +82,7 @@ export function SiteFooter() {
             Scanstone
           </p>
         </div>
-        <div className="flex flex-col items-center justify-between gap-2 border-t border-night-line py-6 text-xs text-paper/45 sm:flex-row">
+        <div className="flex flex-col items-center justify-between gap-2 border-t border-night-line py-6 text-xs text-paper/60 sm:flex-row">
           <span>© {new Date().getFullYear()} Scanstone. Made in Saskatchewan.</span>
           <span>Printed codes deserve permanence.</span>
         </div>

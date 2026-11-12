@@ -545,6 +545,18 @@ html.has-cursor .cursor-ring {
     cell-wave 5s ease-in-out calc(2s + var(--w)) infinite;
 }
 
+/* Lite assemble: the code opens from the centre, then a verdigris band sweeps through the modules. */
+@keyframes qr-reveal {
+  from { clip-path: circle(0% at 50% 50%); transform: scale(0.85) rotate(-6deg); opacity: 0.2; }
+  to { clip-path: circle(75% at 50% 50%); transform: none; opacity: 1; }
+}
+@keyframes qr-sweep {
+  0%, 12% { transform: translateX(0); }
+  62%, 100% { transform: translateX(140%); }
+}
+.qr-reveal { animation: qr-reveal 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both; }
+.qr-sweep { transform-box: view-box; animation: qr-sweep 5s cubic-bezier(0.65, 0, 0.35, 1) 1.4s infinite; }
+
 /* Promise seal */
 @keyframes seal-spin { to { transform: rotate(360deg); } }
 @keyframes seal-bob { 50% { transform: translateY(-4px); } }

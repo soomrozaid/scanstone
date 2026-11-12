@@ -35,7 +35,7 @@ export function ScanTicker() {
             <span className={`h-1.5 w-1.5 rounded-full ${k === 0 ? "animate-pulse bg-verdigris-bright" : "bg-paper/30"}`} />
             {r[0]} · {r[1]}
           </span>
-          <span className="text-paper/45">{r[2]}</span>
+          <span className="text-paper/60">{r[2]}</span>
         </div>
       ))}
       <p className="pt-1 font-mono text-[10px] text-paper/35">Sample feed. No IPs, no cookies.</p>

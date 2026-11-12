@@ -505,7 +505,7 @@ export function ScanStory({ qrUrl }: { qrUrl: string }) {
                 className={`invisible absolute inset-0 grid opacity-0 ${L.trial}`}
               >
                 <div className="flex flex-col items-center">
-                  <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-paper/45">
+                  <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-paper/60">
                     A typical free-trial code
                   </p>
                   <div
@@ -527,7 +527,7 @@ export function ScanStory({ qrUrl }: { qrUrl: string }) {
                       <p className="mt-1 text-sm text-[#ff8a7a]">
                         This QR code has been deactivated.
                       </p>
-                      <p className="text-xs text-paper/45">
+                      <p className="text-xs text-paper/60">
                         Upgrade to reactivate it.
                       </p>
                     </div>
@@ -550,7 +550,7 @@ export function ScanStory({ qrUrl }: { qrUrl: string }) {
                     <p className="mt-1 text-sm text-verdigris-bright">
                       Still redirecting to yourcafe.ca/menu
                     </p>
-                    <p className="text-xs text-paper/45">
+                    <p className="text-xs text-paper/60">
                       Paid, downgraded or cancelled.
                     </p>
                   </div>

@@ -58,7 +58,7 @@ export function ToolPage({
                     className={`rounded-full border px-4 py-2 text-sm transition ${on ? "border-paper bg-paper text-ink" : "border-white/15 bg-white/5 text-paper/70 hover:border-white/40 hover:text-paper"}`}
                   >
                     {t.label}
-                    <span className={`ml-2 hidden text-xs sm:inline ${on ? "text-ink-faint" : "text-paper/45"}`}>
+                    <span className={`ml-2 hidden text-xs sm:inline ${on ? "text-ink-faint" : "text-paper/60"}`}>
                       {t.sub}
                     </span>
                   </Link>

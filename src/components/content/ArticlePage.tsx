@@ -91,7 +91,7 @@ export function ArticlePage({ doc, body }: { doc: DocMeta; body: string }) {
             <p className="rise mt-6 max-w-3xl text-lead text-paper/70 [animation-delay:350ms]">
               {doc.description}
             </p>
-            <p className="rise mt-6 font-mono text-xs text-paper/45 [animation-delay:450ms]">
+            <p className="rise mt-6 font-mono text-xs text-paper/60 [animation-delay:450ms]">
               <time dateTime={doc.date}>{formatDate(doc.date)}</time>
               <span aria-hidden className="mx-2">
                 ·

@@ -36,7 +36,7 @@ export function SegmentCard({
       className="group relative grid h-[min(68svh,560px)] w-[86vw] shrink-0 snap-start overflow-hidden rounded-[32px] border border-white/10 bg-night-raised sm:w-[min(72vw,980px)] sm:grid-cols-[1fr_0.9fr]"
     >
       <div className="relative z-10 flex flex-col p-7 sm:p-10">
-        <p className="font-mono text-xs tracking-[0.2em] text-paper/45">
+        <p className="font-mono text-xs tracking-[0.2em] text-paper/60">
           {String(n).padStart(2, "0")} / {String(total).padStart(2, "0")}
         </p>
         <h3 className="display mt-4 text-[clamp(2rem,4.4vw,3.8rem)] leading-[0.95] tracking-[-0.02em]">{who}</h3>
@@ -60,7 +60,7 @@ export function SegmentCard({
         <div className="absolute inset-0" style={{ background: `radial-gradient(circle at 50% 55%, ${tint}, transparent 65%)` }} />
         <div data-par className="relative flex w-full items-center justify-center">
           <div className={`relative flex items-center justify-center bg-[#efe7d6] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.7)] transition-transform duration-700 group-hover:-rotate-2 group-hover:scale-[1.03] ${SHAPES[shape]}`}>
-            <AssembleQR data={`https://scst.one/${shape}`} label="" className="w-[58%] !bg-transparent !p-0" />
+            <AssembleQR lite data={`https://scst.one/${shape}`} label="" className="w-[58%] !bg-transparent !p-0" />
           </div>
         </div>
       </div>
