@@ -227,7 +227,9 @@ export default function TileQR({
   flipAt,
   onReady,
   onSettled,
+  active = true,
 }: {
+  active?: boolean;
   url: string;
   flipAt: React.RefObject<number>;
   onReady: () => void;
@@ -235,6 +237,7 @@ export default function TileQR({
 }) {
   return (
     <Canvas
+      frameloop={active ? "always" : "never"}
       dpr={[1, 1.75]}
       camera={{ position: [0, 0, 5], fov: 35 }}
       gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}

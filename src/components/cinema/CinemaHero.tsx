@@ -56,6 +56,17 @@ export function CinemaHero({
   const [settled, setSettled] = useState(false);
   const [idx, setIdx] = useState(0);
   const flipAt = useRef(-99);
+  const sectionRef = useRef<HTMLElement>(null);
+  const [onScreen, setOnScreen] = useState(true);
+
+  // Stop rendering the 3D scene once the hero is scrolled away.
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => setOnScreen(!!e?.isIntersecting));
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -80,6 +91,7 @@ export function CinemaHero({
 
   return (
     <section
+      ref={sectionRef}
       data-nav="dark"
       className="relative -mt-16 flex min-h-[100svh] flex-col overflow-hidden bg-night text-paper"
     >
@@ -104,6 +116,7 @@ export function CinemaHero({
         <div className="absolute inset-0" aria-hidden="true">
           <TileQR
             url={url}
+            active={onScreen}
             flipAt={flipAt}
             onReady={() => setReady(true)}
             onSettled={() => setSettled(true)}

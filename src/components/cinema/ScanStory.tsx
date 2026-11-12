@@ -11,8 +11,34 @@ import { whenNear } from "./idle";
 
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
 
-const W = 960;
-const H = 600;
+const LAYOUTS = {
+  wide: {
+    W: 960,
+    H: 600,
+    path: "M190 300 C 300 140, 380 140, 470 300 S 640 460, 755 300",
+    grad: [190, 0, 755, 0],
+    tent: [40, 110],
+    node: [410, 240],
+    label: [330, 380],
+    phone: [640, 70],
+    from: { x: 420, y: 260 },
+    scan: { x: -330, y: 40 },
+    trial: "grid-cols-2 gap-10 px-6",
+  },
+  tall: {
+    W: 600,
+    H: 1000,
+    path: "M190 200 C 260 70, 380 70, 440 200 S 455 420, 445 520",
+    grad: [190, 200, 445, 520],
+    tent: [40, 20],
+    node: [380, 140],
+    label: [300, 275],
+    phone: [330, 500],
+    from: { x: 240, y: 520 },
+    scan: { x: -255, y: -500 },
+    trial: "grid-cols-1 content-center gap-8",
+  },
+} as const;
 
 const CAPTIONS = [
   {
@@ -123,13 +149,19 @@ export function ScanStory({ qrUrl }: { qrUrl: string }) {
   const root = useRef<HTMLDivElement>(null);
   const stageWrap = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
+  const [tall, setTall] = useState(false);
+  const L = tall ? LAYOUTS.tall : LAYOUTS.wide;
+  const { W, H } = L;
 
   useEffect(() => {
     const el = stageWrap.current;
     if (!el) return;
     const ro = new ResizeObserver(([e]) => {
       const r = e!.contentRect;
-      setScale(Math.min(r.width / W, r.height / H));
+      const t = window.innerWidth < 640;
+      const lay = t ? LAYOUTS.tall : LAYOUTS.wide;
+      setTall(t);
+      setScale(Math.min(r.width / lay.W, r.height / lay.H));
     });
     ro.observe(el);
     return () => ro.disconnect();
@@ -196,8 +228,8 @@ export function ScanStory({ qrUrl }: { qrUrl: string }) {
         // 1. phone sweeps over to the tent and scans
         tl.fromTo(
           q("[data-phone]"),
-          { x: 420, y: 260, rotate: 18 },
-          { x: -330, y: 40, rotate: -14, scale: 0.8, duration: 1 },
+          { ...L.from, rotate: 18 },
+          { ...L.scan, rotate: -14, scale: 0.8, duration: 1 },
         )
           .to(q("[data-beam]"), { autoAlpha: 1, duration: 0.1 })
           .to(q("[data-beam]"), { top: "86%", duration: 0.7, ease: "none" })
@@ -286,7 +318,8 @@ export function ScanStory({ qrUrl }: { qrUrl: string }) {
       cancel();
       mm.revert();
     };
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tall]);
 
   const trialData = "https://example.com/trial/7f3k";
 
@@ -362,13 +395,13 @@ export function ScanStory({ qrUrl }: { qrUrl: string }) {
                 >
                   <path
                     id="scan-route"
-                    d="M190 300 C 300 140, 380 140, 470 300 S 640 460, 755 300"
+                    d={L.path}
                     stroke="rgba(255,255,255,0.08)"
                     strokeWidth="2"
                   />
                   <path
                     data-path
-                    d="M190 300 C 300 140, 380 140, 470 300 S 640 460, 755 300"
+                    d={L.path}
                     stroke="url(#route-g)"
                     strokeWidth="3"
                     strokeLinecap="round"
@@ -376,10 +409,10 @@ export function ScanStory({ qrUrl }: { qrUrl: string }) {
                   <defs>
                     <linearGradient
                       id="route-g"
-                      x1="190"
-                      x2="755"
-                      y1="0"
-                      y2="0"
+                      x1={L.grad[0]}
+                      y1={L.grad[1]}
+                      x2={L.grad[2]}
+                      y2={L.grad[3]}
                       gradientUnits="userSpaceOnUse"
                     >
                       <stop stopColor="#e08a46" />
@@ -393,7 +426,7 @@ export function ScanStory({ qrUrl }: { qrUrl: string }) {
                 />
 
                 {/* table tent */}
-                <div className="absolute left-[40px] top-[110px] [perspective:900px]">
+                <div className="absolute [perspective:900px]" style={{ left: L.tent[0], top: L.tent[1] }}>
                   <div
                     data-tent
                     className="relative h-[380px] w-[300px] [transform-style:preserve-3d]"
@@ -429,14 +462,15 @@ export function ScanStory({ qrUrl }: { qrUrl: string }) {
                 {/* scanstone node */}
                 <div
                   data-node
-                  className="absolute left-[410px] top-[240px] flex h-[120px] w-[120px] flex-col items-center justify-center rounded-full border border-white/15 bg-night-raised shadow-[0_0_60px_-10px_rgba(79,174,155,0.5)]"
+                  style={{ left: L.node[0], top: L.node[1] }}
+                  className="absolute flex h-[120px] w-[120px] flex-col items-center justify-center rounded-full border border-white/15 bg-night-raised shadow-[0_0_60px_-10px_rgba(79,174,155,0.5)]"
                 >
                   <span className="display text-lg">Scanstone</span>
                   <span className="mt-1 font-mono text-[9px] text-paper/50">
                     lookup + count
                   </span>
                 </div>
-                <div className="absolute left-[330px] top-[380px] w-[280px] text-center font-mono text-[11px] text-paper/60">
+                <div style={{ left: L.label[0], top: L.label[1] }} className="absolute w-[280px] text-center font-mono text-[11px] text-paper/60">
                   scst.one/table04 →{" "}
                   <span data-dest className="text-verdigris-bright">
                     yourcafe.ca/menu
@@ -446,7 +480,8 @@ export function ScanStory({ qrUrl }: { qrUrl: string }) {
                 {/* phone */}
                 <div
                   data-phone
-                  className="absolute left-[640px] top-[70px] h-[460px] w-[230px]"
+                  style={{ left: L.phone[0], top: L.phone[1] }}
+                  className="absolute h-[460px] w-[230px]"
                 >
                   <Phone className="left-0 top-0">
                     {SCREENS.map((s, i) => (
@@ -465,7 +500,7 @@ export function ScanStory({ qrUrl }: { qrUrl: string }) {
               {/* trial vs scanstone */}
               <div
                 data-trial
-                className="invisible absolute inset-0 opacity-0 grid grid-cols-2 gap-10 px-6"
+                className={`invisible absolute inset-0 grid opacity-0 ${L.trial}`}
               >
                 <div className="flex flex-col items-center">
                   <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-paper/45">
