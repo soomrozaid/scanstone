@@ -506,3 +506,27 @@ html.has-cursor .cursor-dot,
 html.has-cursor .cursor-ring {
   display: block;
 }
+
+/* Hover depth for cards */
+.tilt {
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transform-style: preserve-3d;
+  transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 500ms;
+  will-change: transform;
+}
+.tilt:hover {
+  box-shadow: 0 40px 80px -40px rgba(22, 20, 17, 0.35);
+}
+.tilt [data-depth] {
+  transform: translateZ(40px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .tilt { transform: none !important; }
+}
+
+/* Live ticker rows */
+@keyframes tick-in {
+  from { opacity: 0; transform: translateY(-14px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+.tick-in { animation: tick-in 600ms cubic-bezier(0.16, 1, 0.3, 1) both; }

@@ -4,6 +4,7 @@ import { HeroStage } from "@/components/hero/HeroStage";
 import { CinemaHero } from "@/components/cinema/CinemaHero";
 import { SplitWords } from "@/components/cinema/SplitWords";
 import { ScanStory } from "@/components/cinema/ScanStory";
+import { VideoType } from "@/components/cinema/VideoType";
 import { renderQRSvg } from "@/lib/qr/svg";
 import { ScanChart } from "@/components/analytics/ScanChart";
 import { BreakdownList } from "@/components/analytics/BreakdownList";
@@ -17,6 +18,7 @@ import { Faq } from "@/components/site/Faq";
 import { FlowDiagram } from "@/components/home/FlowDiagram";
 import { TrialSim } from "@/components/home/TrialSim";
 import { ShortLinkDemo } from "@/components/home/ShortLinkDemo";
+import { ScanTicker } from "@/components/home/ScanTicker";
 import { CtaBand } from "@/components/site/CtaBand";
 import { PrintArtifacts } from "@/components/home/PrintArtifacts";
 import { MiniCustomizer } from "@/components/home/MiniCustomizer";
@@ -101,19 +103,6 @@ const DEMO_SERIES = {
   })),
   total: 731,
 };
-
-const USES = [
-  "Café menus",
-  "Salon price lists",
-  "Open house signs",
-  "Event posters",
-  "Table tents",
-  "Business cards",
-  "Packaging",
-  "Window decals",
-  "Flyers",
-  "Wedding signs",
-];
 
 const SEGMENTS = [
   {
@@ -229,21 +218,11 @@ export default function LandingPage() {
         </Container>
       </CinemaHero>
 
-      {/* USES MARQUEE */}
-      <section aria-label="Things people print codes on" className="marquee overflow-hidden border-y border-line bg-paper-deep/50 py-5">
-        <div className="marquee-track flex w-max gap-10 motion-reduce:flex-wrap">
-          {[...USES, ...USES].map((u, n) => (
-            <span
-              key={`${u}-${n}`}
-              aria-hidden={n >= USES.length}
-              className={`display flex items-center gap-10 whitespace-nowrap text-2xl text-ink-soft ${n >= USES.length ? "motion-reduce:hidden" : ""}`}
-            >
-              {u}
-              <span className="text-copper" aria-hidden="true">✦</span>
-            </span>
-          ))}
-        </div>
-      </section>
+      {/* KINETIC TYPE OVER VIDEO */}
+      <VideoType
+        label="Things people print codes on"
+        lines={["Menus", "Table tents", "Packaging", "Open house signs", "Event posters"]}
+      />
 
       {/* HOW IT WORKS */}
       <ScanStory qrUrl={`${envClient.APP_URL}/demo`} />
@@ -400,7 +379,8 @@ export default function LandingPage() {
           <div className="mt-16 grid gap-4 lg:grid-cols-6">
             {/* Short links */}
             <Reveal className="lg:col-span-4" >
-              <div id="short-links" className="scroll-mt-24 h-full rounded-[28px] border border-line bg-paper-deep/50 p-6 sm:p-10">
+              <Spotlight className="rounded-[28px] border border-line bg-paper-deep/50 p-6 sm:p-10" max={4}>
+              <div id="short-links" className="scroll-mt-24">
                 <Eyebrow>URL shortener · scst.one</Eyebrow>
                 <div className="mt-5 grid gap-8 md:grid-cols-[0.8fr_1.2fr] md:items-center">
                   <div>
@@ -423,14 +403,17 @@ export default function LandingPage() {
                       limit.
                     </p>
                   </div>
-                  <ShortLinkDemo />
+                  <div data-depth>
+                    <ShortLinkDemo />
+                  </div>
                 </div>
               </div>
+              </Spotlight>
             </Reveal>
 
             {/* Privacy */}
             <Reveal className="lg:col-span-2" delay={80}>
-              <div className="flex h-full flex-col justify-between rounded-[28px] bg-night p-8 text-paper">
+              <Spotlight className="flex flex-col justify-between rounded-[28px] bg-night p-8 text-paper">
                 <Eyebrow tone="paper">Privacy</Eyebrow>
                 <div className="mt-10">
                   <h3 className="display text-3xl">Anonymous counts, not surveillance.</h3>
@@ -439,7 +422,8 @@ export default function LandingPage() {
                     scan&apos;s country, device type, and time. That&apos;s it.
                   </p>
                 </div>
-              </div>
+                <ScanTicker />
+              </Spotlight>
             </Reveal>
 
             {/* Analytics */}
@@ -492,7 +476,7 @@ export default function LandingPage() {
                 <Spotlight className="rounded-[28px] border border-line bg-white/60 p-6 sm:p-8">
                   <Eyebrow>Print-ready</Eyebrow>
                   <h3 className="display mt-4 text-3xl">PNG for the office printer. SVG for the print shop.</h3>
-                  <PrintArtifacts />
+                  <div data-depth><PrintArtifacts /></div>
                   <div className="mt-6 flex flex-wrap gap-2">
                     {["2048px PNG", "Vector SVG (Pro)", "Ink colours", "Cut · Worn · Pebble"].map((t) => (
                       <span key={t} className="rounded-full border border-line bg-paper px-3 py-1.5 font-mono text-xs text-ink-soft">
