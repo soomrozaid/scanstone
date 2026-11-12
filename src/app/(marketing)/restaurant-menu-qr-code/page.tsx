@@ -8,6 +8,7 @@ import { MarketingLink } from "@/components/marketing/MarketingLink";
 import { Container, Eyebrow, Fig } from "@/components/site/primitives";
 import { Reveal } from "@/components/site/Reveal";
 import { Faq } from "@/components/site/Faq";
+import { StackCards } from "@/components/cinema/StackCards";
 import { CtaBand } from "@/components/site/CtaBand";
 import { TrialSim } from "@/components/home/TrialSim";
 import { envClient } from "@/config/env.client";
@@ -172,19 +173,15 @@ export default function RestaurantMenuPage() {
             <Fig n="01">Setup</Fig>
             <h2 id="steps-h" className="display mt-6 text-h2">From menu link to table card</h2>
           </Reveal>
-          <ol className="mt-14 grid gap-4 md:grid-cols-3">
-            {[
-              ["01", "Link your menu", "Open your menu URL in a private browser window. It should load without asking guests to sign in. Use that URL as the destination for a new dynamic code."],
-              ["02", "Test the printed version", "Download the PNG, print a sample at its intended size, and scan it on more than one phone. Keep a clear margin around the code and check it in your dining-room lighting."],
-              ["03", "Update without reprinting", "When your menu moves to a new URL, edit the code’s destination in your dashboard. Use separate codes for tables and takeaway bags if you want to compare their scan counts."],
-            ].map(([n, heading, body], k) => (
-              <Reveal as="li" key={n} delay={k * 80} className="relative rounded-[24px] border border-line bg-white/60 p-7 sm:p-8">
-                <span className="display text-6xl text-verdigris/25">{n}</span>
-                <h3 className="display mt-4 text-2xl">{heading}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-ink-soft">{body}</p>
-              </Reveal>
-            ))}
-          </ol>
+          <div className="mt-14">
+            <StackCards
+              items={[
+                { verdict: "Link.", q: "Link your menu", a: "Open your menu URL in a private browser window. It should load without asking guests to sign in. Use that URL as the destination for a new dynamic code." },
+                { verdict: "Test.", q: "Test the printed version", a: "Download the PNG, print a sample at its intended size, and scan it on more than one phone. Keep a clear margin around the code and check it in your dining-room lighting." },
+                { verdict: "Update.", q: "Update without reprinting", a: "When your menu moves to a new URL, edit the code’s destination in your dashboard. Use separate codes for tables and takeaway bags if you want to compare their scan counts." },
+              ]}
+            />
+          </div>
         </Container>
       </section>
 
@@ -223,20 +220,21 @@ export default function RestaurantMenuPage() {
         </Container>
       </section>
 
-      <section aria-labelledby="menu-faq" className="border-t border-line bg-paper-deep/40 py-24 sm:py-32">
-        <Container className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
-          <div>
-            <Fig n="03">FAQ</Fig>
+      <section aria-labelledby="menu-faq" data-nav="dark" className="relative overflow-hidden bg-night py-24 text-paper sm:py-32">
+        <div className="aurora pointer-events-none absolute inset-0 opacity-50" aria-hidden="true" />
+        <Container className="relative grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
+          <div className="lg:sticky lg:top-28 lg:self-start">
+            <p className="font-mono text-xs uppercase tracking-[0.2em] text-copper-bright">Fig. 03 / FAQ</p>
             <h2 id="menu-faq" className="display mt-6 text-h2">Restaurant menu QR codes, explained</h2>
-            <p className="mt-6 text-ink-soft">
+            <p className="mt-6 text-paper/70">
               Start free, then upgrade if you need more codes, full scan
               history, or vector downloads.{" "}
-              <Link href="/pricing" className="text-verdigris-deep underline underline-offset-2">Compare plans</Link>{" "}
+              <Link href="/pricing" className="text-verdigris-bright underline underline-offset-2">Compare plans</Link>{" "}
               or{" "}
-              <Link href="/demo" className="text-verdigris-deep underline underline-offset-2">explore the live demo</Link>.
+              <Link href="/demo" className="text-verdigris-bright underline underline-offset-2">explore the live demo</Link>.
             </p>
           </div>
-          <Faq items={questions} allOpen />
+          <Faq items={questions} allOpen tone="night" />
         </Container>
       </section>
 
