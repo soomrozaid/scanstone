@@ -330,6 +330,7 @@ export function ScanStory({ qrUrl }: { qrUrl: string }) {
       id="how-it-works"
       aria-labelledby="how-h"
       data-nav="dark"
+      data-cursor="Scroll"
       className="relative scroll-mt-0 bg-night text-paper motion-reduce:hidden"
     >
       <h2 id="how-h" className="sr-only">

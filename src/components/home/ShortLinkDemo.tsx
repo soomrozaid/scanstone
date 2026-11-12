@@ -77,10 +77,10 @@ export function ShortLinkDemo() {
 
         {/* The long URL, one span per character so it can fall apart. */}
         <p
-          aria-label={LONG}
           className={`sl-long mt-3 min-h-[3.5rem] break-all font-mono text-sm leading-relaxed ${phase === "short" ? "sl-gone" : ""}`}
           data-phase={phase}
         >
+          <span className="sr-only">{LONG}</span>
           {LONG.split("").map((ch, i) => {
             const keep = i >= KEEP_AT && i < KEEP_AT + KEEP.length;
             return (
@@ -110,8 +110,8 @@ export function ShortLinkDemo() {
         <div className="flex flex-wrap items-center justify-between gap-3">
           <p
             className={`whitespace-nowrap font-mono text-[1.65rem] font-medium tracking-tight sm:text-4xl ${done ? "sl-glow" : ""}`}
-            aria-label={`${PREFIX}${KEEP}`}
           >
+            <span className="sr-only">{`${PREFIX}${KEEP}`}</span>
             <span aria-hidden="true" className="text-paper">
               {phase === "short" ? PREFIX.slice(0, typed) : ""}
             </span>

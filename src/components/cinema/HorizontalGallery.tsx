@@ -74,7 +74,7 @@ export function HorizontalGallery({
   }, []);
 
   return (
-    <section data-nav="dark" className="relative bg-night text-paper">
+    <section data-nav="dark" data-cursor="Scroll" className="relative bg-night text-paper">
       <div ref={root} className="relative flex h-[100svh] flex-col justify-center overflow-hidden motion-reduce:h-auto motion-reduce:py-24">
         <div className="aurora pointer-events-none absolute inset-0 opacity-60" aria-hidden="true" />
         <div className="relative mx-auto w-full max-w-7xl px-5 pt-16 sm:px-8">{heading}</div>

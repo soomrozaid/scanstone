@@ -64,7 +64,7 @@ export function CarvePrinciples({ items }: { items: Item[] }) {
   }, [items.length]);
 
   return (
-    <div ref={root} className="relative h-[100svh] overflow-hidden">
+    <div ref={root} data-cursor="Scroll" className="relative h-[100svh] overflow-hidden">
       <div className="aurora pointer-events-none absolute inset-0 opacity-60" aria-hidden="true" />
       <div className="gridlines-night pointer-events-none absolute inset-0 opacity-40" aria-hidden="true" />
       <div className="absolute inset-x-0 top-24 z-10 mx-auto flex max-w-6xl gap-2 px-5 sm:px-8" aria-hidden="true">

@@ -48,6 +48,7 @@ export default function BlogIndex() {
         {first ? (
           <Link
             href={`/blog/${first.slug}`}
+            data-cursor="Read"
             className="group relative grid gap-8 overflow-hidden rounded-[28px] bg-night-raised p-8 text-paper shadow-[0_40px_100px_-30px_rgba(0,0,0,0.6)] ring-1 ring-white/10 transition sm:p-12 lg:grid-cols-[1.4fr_0.6fr]"
           >
             <div>
@@ -78,6 +79,7 @@ export default function BlogIndex() {
               <Spotlight className="rounded-[24px]" max={5}>
               <Link
                 href={`/blog/${doc.slug}`}
+                data-cursor="Read"
                 className="group relative flex h-full flex-col overflow-hidden rounded-[24px] border border-line bg-paper p-7 transition hover:border-ink-faint hover:shadow-[var(--shadow-card)]"
               >
                 <div data-depth aria-hidden="true" className="pointer-events-none absolute -right-6 -top-6 w-28 rotate-[8deg] opacity-[0.16] transition duration-700 ease-[var(--ease-settle)] group-hover:right-4 group-hover:top-4 group-hover:rotate-0 group-hover:opacity-100">

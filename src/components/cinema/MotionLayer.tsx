@@ -99,7 +99,21 @@ export function MotionLayer() {
       const hover = t.closest(
         "a, button, [role='radio'], label, summary, input",
       );
-      r.classList.toggle("is-hover", !!hover);
+      // Contextual label: explicit [data-cursor], codes say "Scan", FAQ rows "Open".
+      const near = t.closest<HTMLElement>("[data-cursor]");
+      // A link inside a labelled section keeps the normal hover ring.
+      const ctx = near && hover && hover !== near && near.contains(hover) ? null : near;
+      const label =
+        ctx?.dataset.cursor ??
+        (t.closest(".assemble, .qr-recarve") ? "Scan" : t.closest("summary") ? "Open" : "");
+      if (label !== r.dataset.label) {
+        r.dataset.label = label;
+        const span = r.firstElementChild as HTMLElement | null;
+        if (span) span.textContent = label;
+      }
+      r.classList.toggle("is-label", !!label);
+      d.classList.toggle("is-hidden", !!label);
+      r.classList.toggle("is-hover", !!hover && !label);
       const m = t.closest("[data-magnetic]") as HTMLElement | null;
       if (mag && mag !== m) {
         gsap.to(mag, {
@@ -137,7 +151,9 @@ export function MotionLayer() {
     <>
       <div className="film-grain" aria-hidden="true" />
       <div ref={dot} className="cursor-dot" aria-hidden="true" />
-      <div ref={ring} className="cursor-ring" aria-hidden="true" />
+      <div ref={ring} className="cursor-ring" aria-hidden="true">
+        <span className="cursor-label" />
+      </div>
     </>
   );
 }

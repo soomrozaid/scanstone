@@ -439,6 +439,29 @@ body {
   background: rgba(224, 138, 70, 0.12);
   border-color: transparent;
 }
+.cursor-ring { display: flex; align-items: center; justify-content: center; }
+.cursor-label {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-night);
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 0.25s, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+.cursor-ring.is-label {
+  width: 92px;
+  height: 92px;
+  margin: -46px 0 0 -46px;
+  background: var(--color-copper-bright);
+  border-color: transparent;
+  box-shadow: 0 0 40px rgb(224 138 70 / 0.45);
+}
+.cursor-ring.is-label .cursor-label { opacity: 1; transform: none; }
+.cursor-dot { transition: opacity 0.2s; }
+.cursor-dot.is-hidden { opacity: 0; }
 @media (hover: hover) and (pointer: fine) {
   html.has-cursor,
   html.has-cursor a,
