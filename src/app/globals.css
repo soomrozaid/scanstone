@@ -983,3 +983,14 @@ details[open] > .faq-row::before { transform: scaleX(1); }
 }
 @keyframes cta-open { from { clip-path: inset(0 var(--gut) round 32px) } to { clip-path: inset(0 0 round 0) } }
 @keyframes cta-rise { from { transform: translateY(60px) scale(.94); opacity: .4 } to { transform: none; opacity: 1 } }
+
+/* About contours (iteration 83) */
+.contour { fill: none; stroke: rgb(244 239 228 / .11); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.contour-major { stroke: rgb(79 174 155 / .32); stroke-width: 1.4; }
+@media (prefers-reduced-motion: no-preference) {
+  .contour { stroke-dasharray: 1; stroke-dashoffset: 1; animation: contour-draw 2.4s cubic-bezier(.3,.7,.2,1) calc(var(--i) * 70ms + 200ms) forwards; }
+  .motion-ready .contour-g { animation: contour-breathe 18s ease-in-out infinite alternate; }
+  .contour-g + .contour-g { animation-delay: -6s; }
+}
+@keyframes contour-draw { to { stroke-dashoffset: 0 } }
+@keyframes contour-breathe { from { transform: rotate(-2deg) scale(1) } to { transform: rotate(3deg) scale(1.05) } }

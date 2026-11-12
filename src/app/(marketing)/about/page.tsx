@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { DarkHero } from "@/components/cinema/DarkHero";
 import { SplitWords } from "@/components/cinema/SplitWords";
 import { CarvePrinciples } from "@/components/cinema/CarvePrinciples";
+import { Contours } from "@/components/cinema/Contours";
 import Link from "next/link";
 import { Container, Eyebrow, Fig } from "@/components/site/primitives";
 import { Reveal } from "@/components/site/Reveal";
@@ -40,6 +41,7 @@ export default function AboutPage() {
   return (
     <main id="main">
       <DarkHero glow="20% 30%">
+        <Contours />
         <Container className="relative pb-24 pt-16 sm:pb-32 sm:pt-24">
           <Eyebrow tone="verdigris" className="rise !text-verdigris-bright">About Scanstone</Eyebrow>
           <h1 className="display mt-6 max-w-5xl text-[clamp(4rem,12vw,11rem)] leading-[0.9] tracking-[-0.035em]">
