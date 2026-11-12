@@ -5,6 +5,7 @@ import { CinemaHero } from "@/components/cinema/CinemaHero";
 import { SplitWords } from "@/components/cinema/SplitWords";
 import { LazyVideo } from "@/components/cinema/LazyVideo";
 import { ChartGrow } from "@/components/cinema/ChartGrow";
+import { TiltIn } from "@/components/cinema/TiltIn";
 import { LazyScanStory } from "@/components/cinema/LazyScanStory";
 import { VideoType } from "@/components/cinema/VideoType";
 import { HorizontalGallery } from "@/components/cinema/HorizontalGallery";
@@ -295,10 +296,12 @@ export default function LandingPage() {
               lead="Switch the business below and watch the same printed code open a different page. That's the whole idea. Cancelling never stops your redirects, either."
             />
           </Reveal>
-          <HeroStage
-            scenes={["cafe", "salon", "realtor", "events"]}
-            demoUrl={`${envClient.APP_URL}/demo`}
-          />
+          <TiltIn>
+            <HeroStage
+              scenes={["cafe", "salon", "realtor", "events"]}
+              demoUrl={`${envClient.APP_URL}/demo`}
+            />
+          </TiltIn>
         </Container>
       </section>
 
@@ -527,9 +530,9 @@ export default function LandingPage() {
               lead="Pick an ink and a carving style. Low-contrast combos get blocked in the real generator, so what you print always works."
             />
           </Reveal>
-          <Reveal className="mt-14">
+          <TiltIn className="mt-14" from={18}>
             <MiniCustomizer />
-          </Reveal>
+          </TiltIn>
         </Container>
       </section>
 
@@ -571,9 +574,9 @@ export default function LandingPage() {
               lead="Start free. Upgrade when you need more codes or the full history."
             />
           </Reveal>
-          <Reveal className="mt-12">
+          <TiltIn className="mt-12" from={20}>
             <PlanCards />
-          </Reveal>
+          </TiltIn>
           <p className="mt-8 text-center text-sm text-ink-faint">
             Cancel anytime, self-serve, from your account page. Codes and links
             keep working after. See the covenant above.
