@@ -11,7 +11,13 @@ export function StickyCta() {
       const y = window.scrollY;
       const nearEnd =
         window.innerHeight + y > document.documentElement.scrollHeight - 900;
-      setShow(y > 700 && !nearEnd);
+      // Stay out of the way of the dark cinematic sections (pinned story,
+      // gallery, CTA band): they carry their own calls to action.
+      const probe = document
+        .elementsFromPoint(window.innerWidth / 2, window.innerHeight - 36)
+        .find((el) => !el.closest("[data-sticky-cta]"));
+      const overDark = !!probe?.closest('[data-nav="dark"]');
+      setShow(y > 700 && !nearEnd && !overDark);
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -19,6 +25,7 @@ export function StickyCta() {
   }, []);
   return (
     <div
+      data-sticky-cta
       aria-hidden={!show}
       className={`fixed inset-x-3 bottom-3 z-30 transition-all duration-300 ease-[var(--ease-settle)] md:hidden ${show ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-24 opacity-0"}`}
     >
