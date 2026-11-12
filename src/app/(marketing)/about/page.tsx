@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { DarkHero } from "@/components/cinema/DarkHero";
 import { SplitWords } from "@/components/cinema/SplitWords";
+import { CarvePrinciples } from "@/components/cinema/CarvePrinciples";
 import Link from "next/link";
 import { Container, Eyebrow, Fig } from "@/components/site/primitives";
 import { Reveal } from "@/components/site/Reveal";
@@ -16,16 +17,19 @@ export const metadata: Metadata = {
 
 const PRINCIPLES = [
   {
+    word: "Permanent.",
     t: "Printed things should keep working",
     d: "A menu, a sign or a box of business cards costs real money. The code on it shouldn't die because a trial ended or a card expired. So our redirects don't stop when you stop paying, and that's written into our terms.",
     link: { href: "/terms", label: "Read the covenant" },
   },
   {
+    word: "Private.",
     t: "Count scans, not people",
     d: "We record the country, device type and time of a scan. No cookies, no stored IP addresses, no fingerprinting. Enough to know the poster by the door works.",
     link: { href: "/privacy", label: "Read the privacy policy" },
   },
   {
+    word: "Plain.",
     t: "Prices you can read in one breath",
     d: "Free for 3 editable codes and unlimited static ones. Pro is $9 USD a month or $79 USD a year. No sales calls, no setup fees.",
     link: { href: "/pricing", label: "See pricing" },
@@ -66,11 +70,15 @@ export default function AboutPage() {
         </Container>
       </DarkHero>
 
-      <section aria-labelledby="principles-h" className="border-t border-line bg-paper-deep/40 py-24 sm:py-32">
+      <section aria-labelledby="principles-h" data-nav="dark" className="relative bg-night text-paper motion-reduce:hidden">
+        <h2 id="principles-h" className="sr-only">Three things we won&apos;t budge on</h2>
+        <CarvePrinciples items={PRINCIPLES} />
+      </section>
+      <section aria-labelledby="principles-static-h" className="hidden motion-reduce:block border-t border-line bg-paper-deep/40 py-24 sm:py-32">
         <Container>
           <Reveal>
             <Fig n="01">What we care about</Fig>
-            <h2 id="principles-h" className="display mt-6 text-h2">Three things we won&apos;t budge on</h2>
+            <h2 id="principles-static-h" className="display mt-6 text-h2">Three things we won&apos;t budge on</h2>
           </Reveal>
           <ol className="mt-14 grid gap-4 lg:grid-cols-3">
             {PRINCIPLES.map((p, k) => (
