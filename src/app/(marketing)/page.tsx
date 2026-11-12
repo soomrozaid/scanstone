@@ -3,6 +3,7 @@ import Link from "next/link";
 import { HeroStage } from "@/components/hero/HeroStage";
 import { CinemaHero } from "@/components/cinema/CinemaHero";
 import { SplitWords } from "@/components/cinema/SplitWords";
+import { LazyVideo } from "@/components/cinema/LazyVideo";
 import { LazyScanStory } from "@/components/cinema/LazyScanStory";
 import { VideoType } from "@/components/cinema/VideoType";
 import { HorizontalGallery } from "@/components/cinema/HorizontalGallery";
@@ -578,22 +579,28 @@ export default function LandingPage() {
       </section>
 
       {/* FAQ */}
-      <section aria-labelledby="faq-h" className="cv-auto border-t border-line py-24 sm:py-32">
-        <Container className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
-          <div>
-            <Fig n="06">FAQ</Fig>
+      <section aria-labelledby="faq-h" data-nav="dark" className="cv-auto relative overflow-hidden bg-night py-24 text-paper sm:py-32">
+        <div className="aurora pointer-events-none absolute inset-0 opacity-50" aria-hidden="true" />
+        <Container className="relative grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
+          <div className="lg:sticky lg:top-28 lg:self-start">
+            <p className="font-mono text-xs uppercase tracking-[0.2em] text-copper-bright">Fig. 06 / FAQ</p>
             <h2 id="faq-h" className="display mt-6 text-h2">
-              Questions, answered straight
+              <SplitWords text="Questions, answered straight" />
             </h2>
-            <p className="mt-5 text-ink-soft">
+            <p className="mt-5 text-paper/70">
               Something else? Email{" "}
-              <a href="mailto:hello@scanstone.ca" className="text-verdigris-deep underline underline-offset-2">
+              <a href="mailto:hello@scanstone.ca" className="text-verdigris-bright underline underline-offset-2">
                 hello@scanstone.ca
               </a>
               . A person reads it.
             </p>
+            {/* A giant question mark with the tile light playing inside it. */}
+            <div aria-hidden="true" className="q-float relative mt-10 hidden w-fit select-none overflow-hidden rounded-[2rem] [mask-image:radial-gradient(closest-side,black_70%,transparent)] lg:block">
+              <LazyVideo className="absolute inset-0 h-full w-full" />
+              <p className="display pointer-events-none relative bg-black px-10 text-[19rem] italic leading-[0.95] text-white mix-blend-multiply">?</p>
+            </div>
           </div>
-          <Faq items={FAQS} />
+          <Faq items={FAQS} tone="night" />
         </Container>
       </section>
 
