@@ -16,11 +16,11 @@ export function CtaBand({
 }) {
   return (
     <section className="pb-24 sm:pb-32">
-      <Container>
-        <div data-nav="dark" className="relative overflow-hidden rounded-[32px] bg-night px-6 py-20 text-center text-paper sm:px-16 sm:py-32">
+      <div className="cta-portal">
+        <div data-nav="dark" className="cta-portal-card relative overflow-hidden bg-night px-6 py-20 text-center text-paper sm:px-16 sm:py-32">
           <LazyVideo className="absolute inset-0 h-full w-full opacity-70" />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(15,14,12,0.55),rgba(15,14,12,0.92)_70%)]" aria-hidden="true" />
-          <div className="relative">
+          <Container className="cta-portal-inner relative">
             <h2 className="display mx-auto max-w-4xl text-[clamp(2.4rem,5.5vw,5rem)] leading-[0.98] tracking-[-0.025em]">{title}</h2>
             {body ? (
               <p className="mx-auto mt-6 max-w-xl text-paper/75">{body}</p>
@@ -41,9 +41,9 @@ export function CtaBand({
                 {secondary.label}
               </Link>
             </div>
-          </div>
+          </Container>
         </div>
-      </Container>
+      </div>
     </section>
   );
 }
