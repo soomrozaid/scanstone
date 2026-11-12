@@ -122,9 +122,9 @@ function Tiles({
   const wide = size.width >= 900;
   const scale = wide
     ? Math.min(viewport.height * 0.66, viewport.width * 0.34)
-    : Math.min(viewport.width * 0.66, viewport.height * 0.36);
+    : Math.min(viewport.width * 0.5, viewport.height * 0.25);
   const cx = wide ? viewport.width * 0.27 : 0;
-  const cy = wide ? viewport.height * 0.02 : viewport.height * 0.22;
+  const cy = wide ? viewport.height * 0.02 : viewport.height * 0.29;
   const tile = 1 / span;
 
   useFrame(({ clock }) => {

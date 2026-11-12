@@ -109,7 +109,7 @@ export default function RestaurantMenuPage() {
           />
         }
       >
-        <Container className="pb-14 pt-[56svh] sm:pb-20 lg:pt-40">
+        <Container className="pb-14 pt-[calc(33.5svh+84px)] sm:pb-20 lg:pt-40">
           <div className="max-w-3xl">
             <nav aria-label="Breadcrumb" className="eyebrow rise text-paper/50">
               <Link href="/" className="hover:text-paper">Home</Link>

@@ -18,9 +18,10 @@ export function StackCards({ items }: { items: Array<{ q: string; verdict: strin
       mm.add("(prefers-reduced-motion: no-preference)", () => {
         const cards = gsap.utils.toArray<HTMLElement>("[data-stack]", el);
         cards.slice(0, -1).forEach((c, i) => {
-          gsap.to(c, {
+          // Explicit start value: tweening filter from "none" starts at brightness(0).
+          gsap.fromTo(c, { scale: 1, filter: "brightness(1)" }, {
             scale: 0.9 + i * 0.02,
-            filter: "brightness(0.82)",
+            filter: "brightness(0.85)",
             ease: "none",
             scrollTrigger: { trigger: cards[i + 1], start: "top bottom", end: "top 20%", scrub: true },
           });

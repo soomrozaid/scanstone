@@ -105,7 +105,7 @@ export function CinemaHero({
       {/* poster: same code, static */}
       <div
         aria-hidden="true"
-        className={`pointer-events-none absolute left-1/2 top-[28svh] w-[66vw] -translate-x-1/2 -translate-y-1/2 transition-opacity duration-[1400ms] lg:left-[77%] lg:top-[48%] lg:w-[min(30vw,58svh)] ${ready ? "opacity-0" : "opacity-100"}`}
+        className={`pointer-events-none absolute left-1/2 top-[21svh] w-[min(50vw,25svh)] -translate-x-1/2 -translate-y-1/2 transition-opacity duration-[1400ms] lg:left-[77%] lg:top-[48%] lg:w-[min(30vw,58svh)] ${ready ? "opacity-0" : "opacity-100"}`}
       >
         <div className="poster-tilt rounded-[6px] bg-[#efe7d6] shadow-[0_40px_120px_-20px_rgba(79,174,155,0.35)]">
           {poster}
@@ -125,7 +125,7 @@ export function CinemaHero({
       )}
 
       {/* destination readout */}
-      <div className="pointer-events-none absolute left-1/2 top-[calc(28svh+34vw+46px)] z-10 -translate-x-1/2 lg:left-[77%] lg:top-auto lg:bottom-[7svh]">
+      <div className="pointer-events-none absolute left-1/2 top-[calc(21svh+min(25vw,12.5svh)+34px)] z-10 -translate-x-1/2 lg:left-[77%] lg:top-auto lg:bottom-[7svh]">
         <div
           key={idx}
           className={`dest-swap flex items-center gap-2 whitespace-nowrap rounded-full border border-night-line bg-night-raised/80 px-4 py-2 font-mono text-[11px] text-paper/80 backdrop-blur transition-opacity sm:text-xs ${settled || !use3D ? "opacity-100" : "opacity-0"}`}

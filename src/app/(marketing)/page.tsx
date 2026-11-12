@@ -176,12 +176,12 @@ export default function LandingPage() {
           />
         }
       >
-        <Container className="pb-14 pt-[56svh] sm:pb-20 lg:pt-40">
+        <Container className="pb-14 pt-[calc(33.5svh+84px)] sm:pb-20 lg:pt-40">
           <div className="max-w-3xl">
             <Eyebrow tone="verdigris" className="rise !text-verdigris-bright">
               Editable QR codes for things you print
             </Eyebrow>
-            <h1 className="display mt-6 text-[clamp(3.1rem,8vw,7.25rem)] leading-[0.92] tracking-[-0.03em] text-paper">
+            <h1 className="display mt-5 text-[clamp(3.1rem,8vw,7.25rem)] sm:mt-6 leading-[0.92] tracking-[-0.03em] text-paper">
               <SplitWords text="Print it once." start={80} />
               <br />
               <SplitWords
@@ -191,12 +191,12 @@ export default function LandingPage() {
               />{" "}
               <SplitWords text="anytime." start={440} />
             </h1>
-            <p className="mt-8 max-w-xl text-lead text-paper/70">
+            <p className="mt-6 max-w-xl text-lead text-paper/70 sm:mt-8">
               New menu. New offer. Same QR code. Change where your printed
               codes send people, track scans, and share short links from one
               dashboard. Your redirects keep working even if you cancel.
             </p>
-            <div className="rise mt-9 flex flex-wrap items-center gap-3 [animation-delay:700ms]">
+            <div className="rise mt-7 flex flex-wrap items-center gap-3 [animation-delay:700ms] sm:mt-9">
               <span data-magnetic className="inline-block">
                 <MarketingLink
                   placement="home_hero"
