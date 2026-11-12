@@ -76,10 +76,14 @@ export function SiteFooter() {
             </div>
           ))}
         </div>
-        <div aria-hidden="true" className="relative mt-20 select-none overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]">
+        <div aria-hidden="true" className="wm relative mt-20 select-none overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]">
           <LazyVideo className="absolute inset-0 h-full w-full" />
-          <p className="display pointer-events-none relative whitespace-nowrap bg-black pb-[0.06em] text-center text-[22vw] font-semibold leading-[0.85] tracking-[-0.04em] text-white mix-blend-multiply lg:text-[17rem]">
-            Scanstone
+          <p className="display pointer-events-none relative whitespace-nowrap bg-night pb-[0.06em] text-center text-[22vw] font-semibold leading-[0.85] tracking-[-0.04em] text-white mix-blend-multiply lg:text-[17rem]">
+            {"Scanstone".split("").map((ch, i) => (
+              <span key={i} className="wm-l inline-block" style={{ ["--i" as string]: i }}>
+                {ch}
+              </span>
+            ))}
           </p>
         </div>
         <div className="flex flex-col items-center justify-between gap-2 border-t border-night-line py-6 text-xs text-paper/60 sm:flex-row">

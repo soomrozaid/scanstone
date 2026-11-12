@@ -1018,3 +1018,12 @@ details[open] > .faq-row::before { transform: scaleX(1); }
 @keyframes seal-squash { 0% { transform: scale(1.12, .9) } 100% { transform: none } }
 @keyframes seal-wave { 0% { opacity: .9; transform: scale(1) } 100% { opacity: 0; transform: scale(2.3) } }
 @keyframes seal-speck { 0% { opacity: 1; transform: translate(-50%, -50%) } 70% { opacity: .9 } 100% { opacity: 0; transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(.4) } }
+
+/* Footer wordmark rises letter by letter (iteration 87) */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .wm { view-timeline-name: --wm; }
+    .wm-l { animation: wm-rise linear both; animation-timeline: --wm; animation-range: entry calc(5% + var(--i) * 5%) entry calc(75% + var(--i) * 3%); }
+  }
+}
+@keyframes wm-rise { from { transform: translateY(70%) rotate(6deg); } to { transform: none; } }
