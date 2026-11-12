@@ -183,16 +183,17 @@ test("menu preview changes the example without changing the QR @mobile @smoke", 
 }) => {
   await page.goto("/");
   const preview = page.getByTestId("hero-visual");
-  const before = await preview.locator("svg").innerHTML();
-  await preview.getByRole("button", { name: "Summer menu" }).click();
+  const qr = preview.locator("svg[role='img'][aria-label='QR code']").first();
+  const before = await qr.innerHTML();
+  await preview.getByRole("radio", { name: "Weekend brunch" }).click();
   await expect(
-    preview.getByRole("button", { name: "Summer menu" }),
-  ).toHaveAttribute("aria-pressed", "true");
+    preview.getByRole("radio", { name: "Weekend brunch" }),
+  ).toHaveAttribute("aria-checked", "true");
   await expect(
-    preview.getByText("→ Summer menu. Same printed QR code."),
+    preview.getByText("scst.one/table04 → yourcafe.ca/brunch"),
   ).toBeVisible();
-  expect(await preview.locator("svg").innerHTML()).toBe(before);
-  await page.getByRole("link", { name: /Start free —/ }).click();
+  expect(await qr.innerHTML()).toBe(before);
+  await page.getByRole("link", { name: /Start free, 3 codes/ }).click();
   await expect(page).toHaveURL(/\/signup$/);
   await expect(
     page.getByRole("heading", { name: "Create your account" }),

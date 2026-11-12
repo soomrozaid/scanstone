@@ -134,7 +134,7 @@ export default async function DemoPage() {
                   <dd className="display mt-1 text-3xl">{last30}</dd>
                 </div>
                 <div>
-                  <dt className="eyebrow text-ink-faint">All-time</dt>
+                  <dt className="eyebrow text-ink-faint">Scans all-time</dt>
                   <dd className="display mt-1 text-3xl">{code.scan_count}</dd>
                 </div>
               </dl>

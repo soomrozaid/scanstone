@@ -215,7 +215,7 @@ export default function RestaurantMenuPage() {
               <Link href="/demo" className="text-verdigris-deep underline underline-offset-2">explore the live demo</Link>.
             </p>
           </div>
-          <Faq items={questions} />
+          <Faq items={questions} allOpen />
         </Container>
       </section>
 

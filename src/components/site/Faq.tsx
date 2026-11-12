@@ -1,9 +1,15 @@
 /** Native details/summary: works without JS, all answers stay in the HTML for search engines. */
-export function Faq({ items }: { items: Array<{ q: string; a: string }> }) {
+export function Faq({
+  items,
+  allOpen = false,
+}: {
+  items: Array<{ q: string; a: string }>;
+  allOpen?: boolean;
+}) {
   return (
     <div className="divide-y divide-line border-y border-line">
       {items.map((f, k) => (
-        <details key={f.q} className="group py-1" open={k === 0}>
+        <details key={f.q} className="group py-1" open={allOpen || k === 0}>
           <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-5 text-left text-lg font-medium text-ink [&::-webkit-details-marker]:hidden">
             {f.q}
             <span
