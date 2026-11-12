@@ -101,6 +101,21 @@ export default function PricingPage() {
         </Container>
         <Container className="relative max-w-5xl pb-20">
           <PlanCards headingLevel={2} />
+          <ul className="mt-5 grid gap-px overflow-hidden rounded-[24px] border border-line bg-line sm:grid-cols-3">
+            {[
+              ["You cancel Pro", "Every code keeps redirecting"],
+              ["You hit 3 codes on Free", "Scans keep working, you just can't add a 4th"],
+              ["You forget we exist", "Codes don't expire from inactivity"],
+            ].map(([a, b]) => (
+              <li key={a} className="flex items-start gap-3 bg-paper p-5 text-sm">
+                <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-verdigris" aria-hidden="true" />
+                <span>
+                  <span className="block font-medium text-ink">{a}</span>
+                  <span className="text-ink-soft">{b}</span>
+                </span>
+              </li>
+            ))}
+          </ul>
         </Container>
       </section>
 

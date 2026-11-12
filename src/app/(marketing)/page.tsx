@@ -18,6 +18,7 @@ import { PrintArtifacts } from "@/components/home/PrintArtifacts";
 import { MiniCustomizer } from "@/components/home/MiniCustomizer";
 import { CovenantStory } from "@/components/home/CovenantStory";
 import { StickyCta } from "@/components/site/StickyCta";
+import { Spotlight } from "@/components/site/Spotlight";
 
 export const metadata: Metadata = {
   title: { absolute: "Editable QR Codes for Print & Short Links | Scanstone" },
@@ -158,20 +159,20 @@ export default function LandingPage() {
           aria-hidden="true"
         />
         <Container className="relative grid items-center gap-14 pb-20 pt-10 sm:pt-16 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10 lg:pb-28 lg:pt-20">
-          <div className="rise">
-            <Eyebrow tone="verdigris">Editable QR codes for things you print</Eyebrow>
+          <div>
+            <Eyebrow tone="verdigris" className="rise">Editable QR codes for things you print</Eyebrow>
             <h1 className="display mt-6 text-display text-ink">
-              Print it once.
+              <span className="rise inline-block [animation-delay:60ms]">Print it once.</span>
               <br />
-              <span className="italic text-verdigris-deep">Update it</span>{" "}
-              anytime.
+              <span className="rise inline-block italic text-verdigris-deep [animation-delay:200ms]">Update it</span>{" "}
+              <span className="rise inline-block [animation-delay:320ms]">anytime.</span>
             </h1>
-            <p className="mt-7 max-w-xl text-lead text-ink-soft">
+            <p className="rise mt-7 max-w-xl text-lead text-ink-soft [animation-delay:420ms]">
               New menu. New offer. Same QR code. Change where your printed
               codes send people, track scans, and share short links from one
               dashboard. Your redirects keep working even if you cancel.
             </p>
-            <div className="mt-9 flex flex-wrap items-center gap-3">
+            <div className="rise mt-9 flex flex-wrap items-center gap-3 [animation-delay:520ms]">
               <MarketingLink
                 placement="home_hero"
                 action="signup"
@@ -426,7 +427,7 @@ export default function LandingPage() {
 
             {/* Analytics */}
             <Reveal className="lg:col-span-3">
-              <div className="h-full rounded-[28px] border border-line bg-white/60 p-6 sm:p-8">
+              <Spotlight className="h-full rounded-[28px] border border-line bg-white/60 p-6 sm:p-8">
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <Eyebrow>Know what the paper is doing</Eyebrow>
@@ -465,13 +466,13 @@ export default function LandingPage() {
                 <Link href="/demo" className="link-underline mt-6 inline-block text-sm text-verdigris-deep">
                   Explore the live demo →
                 </Link>
-              </div>
+              </Spotlight>
             </Reveal>
 
             {/* Print + free generator */}
             <Reveal className="lg:col-span-3" delay={80}>
               <div className="grid h-full gap-4">
-                <div className="rounded-[28px] border border-line bg-white/60 p-6 sm:p-8">
+                <Spotlight className="rounded-[28px] border border-line bg-white/60 p-6 sm:p-8">
                   <Eyebrow>Print-ready</Eyebrow>
                   <h3 className="display mt-4 text-3xl">PNG for the office printer. SVG for the print shop.</h3>
                   <PrintArtifacts />
@@ -482,7 +483,7 @@ export default function LandingPage() {
                       </span>
                     ))}
                   </div>
-                </div>
+                </Spotlight>
                 <Link
                   href="/qr-code-generator"
                   className="group flex items-center justify-between gap-6 rounded-[28px] bg-verdigris p-6 text-paper transition hover:bg-verdigris-deep sm:p-8"

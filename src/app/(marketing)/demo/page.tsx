@@ -117,9 +117,16 @@ export default async function DemoPage() {
               <p className="eyebrow text-paper/45">Currently pointing at</p>
               <p className="mt-2 font-mono text-verdigris-bright">{host}</p>
             </div>
-            <p className="mt-4 text-center text-xs text-paper/45">
+            <p className="mt-4 hidden text-center text-xs text-paper/45 lg:block">
               Point your phone camera at the code.
             </p>
+            <a
+              href={shortUrl}
+              className="mt-4 flex items-center justify-center gap-2 rounded-full bg-verdigris px-5 py-3 text-sm font-medium text-paper lg:hidden"
+            >
+              On your phone? Open the code&apos;s link
+              <span aria-hidden="true">→</span>
+            </a>
           </div>
 
           <div className="rounded-[28px] border border-line bg-white/60 p-6 shadow-[var(--shadow-card)] sm:p-8">
