@@ -3,7 +3,7 @@ import Link from "next/link";
 import { HeroStage } from "@/components/hero/HeroStage";
 import { CinemaHero } from "@/components/cinema/CinemaHero";
 import { SplitWords } from "@/components/cinema/SplitWords";
-import { ScanStory } from "@/components/cinema/ScanStory";
+import { LazyScanStory } from "@/components/cinema/LazyScanStory";
 import { VideoType } from "@/components/cinema/VideoType";
 import { HorizontalGallery } from "@/components/cinema/HorizontalGallery";
 import { SegmentCard } from "@/components/cinema/SegmentCard";
@@ -240,7 +240,7 @@ export default function LandingPage() {
       />
 
       {/* HOW IT WORKS */}
-      <ScanStory qrUrl={`${envClient.APP_URL}/demo`} />
+      <LazyScanStory qrUrl={`${envClient.APP_URL}/demo`} />
       <section id="how-it-works-static" aria-labelledby="how-h-static" className="hidden scroll-mt-20 py-24 motion-reduce:block sm:py-32">
         <Container>
           <Reveal>
@@ -556,7 +556,7 @@ export default function LandingPage() {
       </HorizontalGallery>
 
       {/* PRICING */}
-      <section id="pricing" aria-labelledby="pricing-h" className="scroll-mt-20 py-24 sm:py-32">
+      <section id="pricing" aria-labelledby="pricing-h" className="cv-auto scroll-mt-20 py-24 sm:py-32">
         <Container className="max-w-5xl">
           <Reveal>
             <SectionHeading
@@ -578,7 +578,7 @@ export default function LandingPage() {
       </section>
 
       {/* FAQ */}
-      <section aria-labelledby="faq-h" className="border-t border-line py-24 sm:py-32">
+      <section aria-labelledby="faq-h" className="cv-auto border-t border-line py-24 sm:py-32">
         <Container className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
           <div>
             <Fig n="06">FAQ</Fig>

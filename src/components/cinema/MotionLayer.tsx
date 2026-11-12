@@ -24,6 +24,8 @@ export function MotionLayer() {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     let off = () => {};
     const cancel = onIdle(() => {
+      // Ambient loops (aurora drift, grain) start once the page has settled.
+      document.documentElement.classList.add("motion-ready");
       const lenis = new Lenis({ duration: 1.15, smoothWheel: true });
       (window as Window & { __lenis?: Lenis }).__lenis = lenis;
       lenis.on("scroll", ScrollTrigger.update);

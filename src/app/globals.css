@@ -631,3 +631,24 @@ html.has-cursor .cursor-ring {
   animation: carve-beam 900ms ease-in-out both;
   pointer-events: none;
 }
+
+/* Below-the-fold sections after the last pin: skip their style and layout until near. */
+.cv-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 1100px;
+}
+
+/* AnimGate: off-screen sections hold their animations. */
+[data-off],
+[data-off] *,
+[data-off] *::before,
+[data-off] *::after {
+  animation-play-state: paused !important;
+}
+
+/* Ambient loops hold still until MotionLayer marks the page settled. */
+html:not(.motion-ready) .aurora::before,
+html:not(.motion-ready) .aurora::after,
+html:not(.motion-ready) .film-grain {
+  animation-play-state: paused;
+}
