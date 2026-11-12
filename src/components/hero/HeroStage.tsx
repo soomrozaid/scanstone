@@ -181,7 +181,7 @@ export function HeroStage({ scenes = ["cafe"] }: { scenes?: string[] }) {
       <div className="relative grid grid-cols-[1fr_auto_0.9fr] items-center gap-0 sm:gap-2">
         {/* Table tent */}
         <div className="relative z-10 [perspective:900px]">
-          <div className="origin-bottom rounded-[18px] border border-line bg-[#fbf8f1] p-4 shadow-[var(--shadow-lift)] [transform:rotateX(6deg)] sm:p-6">
+          <div className="origin-bottom rounded-[18px] border border-line bg-[#fbf8f1] p-4 shadow-[var(--shadow-lift)] transition-transform duration-500 ease-[var(--ease-settle)] [transform:rotateX(6deg)] hover:[transform:rotateX(0deg)_translateY(-4px)] sm:p-6">
             <p className="eyebrow text-center text-[0.58rem] text-ink-faint sm:text-[0.65rem]">
               {scene.object}
             </p>

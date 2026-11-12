@@ -309,6 +309,39 @@ export default function LandingPage() {
         </Container>
       </section>
 
+      {/* CHECKLIST */}
+      <section aria-labelledby="ask-h" className="bg-paper-deep/40 pb-24 sm:pb-32">
+        <Container>
+          <div className="rounded-[28px] border border-line bg-white/55 p-6 sm:p-10">
+            <div className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr]">
+              <div>
+                <Eyebrow>Checklist</Eyebrow>
+                <h2 id="ask-h" className="display mt-4 text-3xl sm:text-4xl">
+                  Four questions to ask any QR generator
+                </h2>
+                <p className="mt-4 text-sm leading-relaxed text-ink-soft">
+                  Ask these before you print, wherever you make your codes.
+                  Here&apos;s how we answer them.
+                </p>
+              </div>
+              <dl className="grid gap-px overflow-hidden rounded-[20px] border border-line bg-line sm:grid-cols-2">
+                {[
+                  ["Does the code stop if I stop paying?", "No. Cancelling, downgrading or going over your limit never turns off a redirect."],
+                  ["Is there a scan cap?", "No. Limits only apply to creating codes, never to scanning them."],
+                  ["Can I change where it points after printing?", "Yes, on dynamic codes and short links. Static codes are fixed by design."],
+                  ["Who sees my scanners' data?", "Nobody but you, and only country, device and time. No cookies or stored IPs."],
+                ].map(([q, a]) => (
+                  <div key={q} className="bg-paper p-6">
+                    <dt className="font-medium text-ink">{q}</dt>
+                    <dd className="mt-2 text-sm leading-relaxed text-ink-soft">{a}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          </div>
+        </Container>
+      </section>
+
       {/* THE COVENANT */}
       <section aria-labelledby="covenant-h" className="relative overflow-hidden bg-night text-paper">
         <div className="gridlines-night absolute inset-0" aria-hidden="true" />
