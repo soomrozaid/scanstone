@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { LegalShell } from "@/components/cinema/LegalShell";
 
 export const metadata: Metadata = {
   title: "Terms of Service",
@@ -9,12 +10,8 @@ export const metadata: Metadata = {
 
 export default function TermsPage() {
   return (
-    <main id="main" className="mx-auto max-w-3xl px-5 pb-24 pt-12 sm:px-8 sm:pt-20">
-      <p className="eyebrow rise text-verdigris">Legal</p>
-      <h1 className="display rise mt-6 text-h1">Terms of Service</h1>
-      <p className="mt-4 font-mono text-xs text-ink-faint">Effective July 12, 2026</p>
-
-      <div className="mt-12 space-y-10 border-t border-line pt-10 text-[1.02rem] leading-[1.75] text-ink-soft">
+    <LegalShell title="Terms of Service" effective="Effective July 12, 2026" ghost="Terms" lead="The rules for using Scanstone, including the redirect covenant in writing.">
+      <div className="space-y-10 text-[1.02rem] leading-[1.75] text-ink-soft">
         <section>
           <h2 className="display text-2xl text-ink">1. The service</h2>
           <p className="mt-2">
@@ -112,6 +109,6 @@ export default function TermsPage() {
           </p>
         </section>
       </div>
-    </main>
+    </LegalShell>
   );
 }

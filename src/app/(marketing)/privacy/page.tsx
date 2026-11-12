@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { LegalShell } from "@/components/cinema/LegalShell";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -9,12 +10,8 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <main id="main" className="mx-auto max-w-3xl px-5 pb-24 pt-12 sm:px-8 sm:pt-20">
-      <p className="eyebrow rise text-verdigris">Legal</p>
-      <h1 className="display rise mt-6 text-h1">Privacy Policy</h1>
-      <p className="mt-4 font-mono text-xs text-ink-faint">Effective July 12, 2026</p>
-
-      <div className="prose-scanstone mt-8 space-y-6 text-[15px] leading-relaxed text-ink-soft">
+    <LegalShell title="Privacy Policy" effective="Effective July 12, 2026" ghost="Privacy" lead="What we keep, what we never collect, and who can see it.">
+      <div className="prose-scanstone space-y-6 text-[15px] leading-relaxed text-ink-soft">
         <section>
           <h2 className="display text-2xl text-ink">The short version</h2>
           <p className="mt-2">
@@ -125,6 +122,6 @@ export default function PrivacyPage() {
           </p>
         </section>
       </div>
-    </main>
+    </LegalShell>
   );
 }
