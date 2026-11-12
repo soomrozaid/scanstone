@@ -23,7 +23,7 @@ export function DeleteCodeButton({ id, name }: { id: string; name: string }) {
     <div className="rounded-md border border-danger/40 bg-danger/5 p-4">
       <p className="text-sm text-ink">
         Delete <strong>{name}</strong>? Its shared short URL and anything
-        already printed with this code will stop working — permanently.
+        already printed with this code will stop working for good.
       </p>
       <div className="mt-3 flex gap-2">
         <form action={deleteCode}>

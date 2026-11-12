@@ -173,7 +173,7 @@ export default async function CodeDetailPage({
             {!isPro ? (
               <p className="mt-2 text-xs text-ink-faint">
                 Free plan shows the last 30 days. Every scan and click is still
-                being recorded —{" "}
+                being recorded, so{" "}
                 <Link href="/account#upgrade" className="underline">
                   upgrade
                 </Link>{" "}
@@ -198,7 +198,7 @@ export default async function CodeDetailPage({
               Edit
             </h2>
             <p className="mt-1 text-sm text-ink-soft">
-              Change the destination — your short URL and printed code keep
+              Change the destination. Your short URL and printed code keep
               working.
             </p>
             <div className="mt-5">
