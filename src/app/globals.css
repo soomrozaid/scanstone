@@ -897,3 +897,22 @@ details[open] > .faq-row::before { transform: scaleX(1); }
     .article-ink blockquote { animation: ink-quote linear both; animation-timeline: view(); animation-range: entry 10% cover 40%; }
   }
 }
+
+/* Print press (home bento, iteration 76): a slot, sheets feeding out, ink laid down by a printhead. */
+.press { position: relative; }
+.press-slot { position: relative; height: 10px; margin: 1.75rem 6% -1.6rem; border-radius: 999px; background: linear-gradient(#2a2620, #161411); box-shadow: inset 0 2px 3px rgb(0 0 0 / .5), 0 1px 0 rgb(255 255 255 / .6); opacity: 0; }
+.press-slot > span { position: absolute; inset: 3px 8%; border-radius: 999px; background: linear-gradient(90deg, transparent, var(--color-copper, #b4642d), transparent); opacity: 0; }
+.press-feed { transform-origin: 50% 0; }
+.press-head { position: absolute; left: -8%; right: -8%; top: 0; height: 2px; border-radius: 2px; background: var(--color-copper, #b4642d); box-shadow: 0 0 10px 2px rgb(180 100 45 / .55); opacity: 0; pointer-events: none; }
+.press-armed .press-slot { opacity: 1; }
+.press-armed .press-feed { clip-path: inset(0 -20% 100% -20%); transform: translateY(-24px); }
+.press-armed .press-ink > span:first-child { clip-path: inset(0 0 100% 0); }
+.press-run .press-slot > span { animation: press-glow 2.4s ease-in-out both; }
+.press-run .press-feed { animation: press-feed .9s cubic-bezier(.2,.8,.2,1) calc(var(--i) * .32s + .15s) both; }
+.press-run .press-ink > span:first-child { animation: press-ink 1s steps(14, end) calc(var(--i) * .32s + .75s) both; }
+.press-run .press-head { animation: press-head 1s linear calc(var(--i) * .32s + .75s) both; }
+@keyframes press-glow { 0%,100% { opacity: 0 } 15%,80% { opacity: 1 } }
+@keyframes press-feed { from { clip-path: inset(0 -20% 100% -20%); transform: translateY(-24px) } to { clip-path: inset(0 -20% -20% -20%); transform: none } }
+@keyframes press-ink { from { clip-path: inset(0 0 100% 0) } to { clip-path: inset(0 0 0 0) } }
+@keyframes press-head { 0% { opacity: 0; top: 0 } 8% { opacity: 1 } 92% { opacity: 1 } 100% { opacity: 0; top: 100% } }
+@media (prefers-reduced-motion: reduce) { .press-slot { display: none; } }

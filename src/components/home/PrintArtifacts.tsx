@@ -1,4 +1,5 @@
 import { renderQRSvg } from "@/lib/qr/svg";
+import { PressIn } from "./PressIn";
 
 /** Three printed objects carrying the same code, rendered server-side as inline SVG. */
 export function PrintArtifacts() {
@@ -10,20 +11,24 @@ export function PrintArtifacts() {
     { label: "Poster", cls: "w-[26%] aspect-[3/4.2] -rotate-1", fg: "#b4642d", shape: "square" as const, title: "Tickets" },
   ];
   return (
+    <PressIn>
+    <div className="press-slot" aria-hidden="true"><span /></div>
     <div className="mt-8 flex items-end justify-center gap-3 sm:gap-5" aria-hidden="true">
-      {items.map((it) => (
+      {items.map((it, i) => (
+        <div key={it.label} className={`press-feed ${it.cls.split(" ")[0]}`} style={{ "--i": i } as React.CSSProperties}>
         <div
-          key={it.label}
-          className={`${it.cls} flex flex-col items-center justify-between rounded-lg border border-line bg-[#fbf8f1] p-2.5 shadow-[var(--shadow-card)] transition-transform duration-500 hover:rotate-0 sm:p-3`}
+          className={`${it.cls.split(" ").slice(1).join(" ")} w-full press-sheet flex flex-col items-center justify-between rounded-lg border border-line bg-[#fbf8f1] p-2.5 shadow-[var(--shadow-card)] transition-transform duration-500 hover:rotate-0 sm:p-3`}
         >
           <span className="eyebrow text-center text-[0.5rem] text-ink-faint">{it.title}</span>
-          <span
-            className="block w-[62%] max-w-24 [&>svg]:h-auto [&>svg]:w-full"
-            dangerouslySetInnerHTML={{ __html: qr(it.fg, it.shape) }}
-          />
+          <span className="press-ink relative block w-[62%] max-w-24">
+            <span className="block [&>svg]:h-auto [&>svg]:w-full" dangerouslySetInnerHTML={{ __html: qr(it.fg, it.shape) }} />
+            <span className="press-head" />
+          </span>
           <span className="font-mono text-[0.5rem] text-ink-faint">{it.label}</span>
+        </div>
         </div>
       ))}
     </div>
+    </PressIn>
   );
 }
