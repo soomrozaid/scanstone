@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { RollingNumber } from "@/components/cinema/RollingNumber";
 import { useState } from "react";
 import { PRICING } from "@/lib/plans";
 
@@ -114,8 +115,8 @@ export function PlanCards({ headingLevel = 3 }: { headingLevel?: 2 | 3 }) {
             For a whole location, a busy agent, or a season of events.
           </p>
           <p className="relative mt-8 flex items-baseline gap-2">
-            <span className="display text-6xl">
-              ${yearly ? PRICING.yearly.amount : PRICING.monthly.amount}
+            <span className="display flex text-6xl leading-none">
+              $<RollingNumber minDigits={2} value={yearly ? PRICING.yearly.amount : PRICING.monthly.amount} />
             </span>
             <span className="text-sm text-paper/50">
               USD/{yearly ? "year" : "month"}

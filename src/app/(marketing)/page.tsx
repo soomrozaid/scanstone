@@ -7,6 +7,7 @@ import { ScanStory } from "@/components/cinema/ScanStory";
 import { VideoType } from "@/components/cinema/VideoType";
 import { HorizontalGallery } from "@/components/cinema/HorizontalGallery";
 import { SegmentCard } from "@/components/cinema/SegmentCard";
+import { StackCards } from "@/components/cinema/StackCards";
 import { renderQRSvg } from "@/lib/qr/svg";
 import { ScanChart } from "@/components/analytics/ScanChart";
 import { BreakdownList } from "@/components/analytics/BreakdownList";
@@ -344,36 +345,27 @@ export default function LandingPage() {
         </Container>
       </section>
 
-      {/* CHECKLIST */}
-      <section aria-labelledby="ask-h" className="bg-paper-deep/40 pb-24 sm:pb-32">
-        <Container>
-          <div className="rounded-[28px] border border-line bg-white/55 p-6 sm:p-10">
-            <div className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr]">
-              <div>
-                <Eyebrow>Checklist</Eyebrow>
-                <h2 id="ask-h" className="display mt-4 text-3xl sm:text-4xl">
-                  Four questions to ask any QR generator
-                </h2>
-                <p className="mt-4 text-sm leading-relaxed text-ink-soft">
-                  Ask these before you print, wherever you make your codes.
-                  Here&apos;s how we answer them.
-                </p>
-              </div>
-              <dl className="grid gap-px overflow-hidden rounded-[20px] border border-line bg-line sm:grid-cols-2">
-                {[
-                  ["Does the code stop if I stop paying?", "No. Cancelling, downgrading or going over your limit never turns off a redirect."],
-                  ["Is there a scan cap?", "No. Limits only apply to creating codes, never to scanning them."],
-                  ["Can I change where it points after printing?", "Yes, on dynamic codes and short links. Static codes are fixed by design."],
-                  ["Who sees my scanners' data?", "Nobody but you, and only country, device and time. No cookies or stored IPs."],
-                ].map(([q, a]) => (
-                  <div key={q} className="bg-paper p-6">
-                    <dt className="font-medium text-ink">{q}</dt>
-                    <dd className="mt-2 text-sm leading-relaxed text-ink-soft">{a}</dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
+      {/* CHECKLIST: stacking cards */}
+      <section aria-labelledby="ask-h" className="bg-paper-deep/40 py-24 sm:py-32">
+        <Container className="grid gap-12 lg:grid-cols-[0.75fr_1.25fr]">
+          <div className="lg:sticky lg:top-28 lg:self-start">
+            <Eyebrow>Checklist</Eyebrow>
+            <h2 id="ask-h" className="display mt-4 text-[clamp(2.2rem,4.4vw,3.8rem)] leading-[1] tracking-[-0.02em]">
+              Four questions to ask any QR generator
+            </h2>
+            <p className="mt-5 max-w-sm text-base leading-relaxed text-ink-soft">
+              Ask these before you print, wherever you make your codes.
+              Here&apos;s how we answer them.
+            </p>
           </div>
+          <StackCards
+            items={[
+              { q: "Does the code stop if I stop paying?", verdict: "No.", a: "Cancelling, downgrading or going over your limit never turns off a redirect." },
+              { q: "Is there a scan cap?", verdict: "No.", a: "Limits only apply to creating codes, never to scanning them." },
+              { q: "Can I change where it points after printing?", verdict: "Yes.", a: "On dynamic codes and short links. Static codes are fixed by design." },
+              { q: "Who sees my scanners' data?", verdict: "You.", a: "Nobody but you, and only country, device and time. No cookies or stored IPs." },
+            ]}
+          />
         </Container>
       </section>
 
