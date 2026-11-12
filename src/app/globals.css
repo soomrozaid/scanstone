@@ -7,7 +7,7 @@
   --color-paper-dim: #e6ddc8;
   --color-ink: #161411;
   --color-ink-soft: #4f4a42;
-  --color-ink-faint: #7d766a;
+  --color-ink-faint: #6b645a;
   --color-line: #d9d0bc;
   --color-verdigris: #2c6e63;
   --color-verdigris-deep: #1f5248;
@@ -227,9 +227,10 @@ body {
   animation: caret 1s steps(1) infinite;
 }
 
+/* Starts at 0.01 (not 0) so the hero text still counts as painted for LCP. */
 @keyframes rise {
   from {
-    opacity: 0;
+    opacity: 0.01;
     transform: translateY(18px);
   }
   to {

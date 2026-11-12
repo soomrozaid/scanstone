@@ -67,7 +67,7 @@ export function NavBar({ signedIn }: { signedIn: boolean }) {
                 <Link
                   href={l.href}
                   aria-current={active ? "page" : undefined}
-                  className={`rounded-full px-3.5 py-2 transition-colors ${active ? "bg-ink/[0.06] text-ink" : "text-ink-soft hover:bg-ink/[0.04] hover:text-ink"}`}
+                  className={`inline-flex rounded-full px-3.5 py-2 transition-colors ${active ? "bg-ink/[0.06] text-ink" : "text-ink-soft hover:bg-ink/[0.04] hover:text-ink"}`}
                 >
                   {l.label}
                 </Link>
