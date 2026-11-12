@@ -2,6 +2,7 @@ import Link from "next/link";
 import { DarkHero } from "@/components/cinema/DarkHero";
 import { SplitWords } from "@/components/cinema/SplitWords";
 import { ReadProgress } from "@/components/cinema/ReadProgress";
+import { ReadingDial } from "@/components/cinema/ReadingDial";
 import { envClient } from "@/config/env.client";
 import { Prose } from "./Prose";
 import { readingMinutes, type DocMeta } from "@/lib/content";
@@ -72,7 +73,19 @@ export function ArticlePage({ doc, body }: { doc: DocMeta; body: string }) {
     <main id="main">
       <JsonLd doc={doc} body={body} />
       <ReadProgress />
+      <ReadingDial minutes={minutes} />
       <DarkHero glow="50% 0%">
+        <div aria-hidden="true" className="pointer-events-none absolute right-[6%] top-1/2 hidden w-[220px] -translate-y-1/2 text-verdigris-bright/80 xl:block">
+          <svg viewBox="0 0 200 200" className="seal-spin block w-full">
+            <defs>
+              <path id="read-ring" d="M100,100 m-80,0 a80,80 0 1,1 160,0 a80,80 0 1,1 -160,0" />
+            </defs>
+            <text className="fill-current font-mono text-[12px] tracking-[0.3em]">
+              <textPath href="#read-ring">{`${minutes} MINUTE READ \u2022 ${doc.category.toUpperCase()} \u2022 ${minutes} MINUTE READ \u2022 `}</textPath>
+            </text>
+          </svg>
+          <p className="display absolute inset-0 flex items-center justify-center text-7xl italic text-paper">{minutes}</p>
+        </div>
         <div className="mx-auto max-w-4xl px-5 pb-20 pt-16 sm:px-8 sm:pb-28 sm:pt-24">
           <nav aria-label="Breadcrumb" className="eyebrow rise text-paper/50">
             <Link href={`/${doc.collection}`} className="hover:text-paper">
@@ -104,7 +117,7 @@ export function ArticlePage({ doc, body }: { doc: DocMeta; body: string }) {
       <div className="mx-auto max-w-3xl px-5 pb-24 sm:px-8">
       <hr className="hairline mt-8 border-0" />
 
-      <article className="article-ink mt-8">
+      <article data-article className="article-ink mt-8">
         <Prose>{body}</Prose>
       </article>
 
