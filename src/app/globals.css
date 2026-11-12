@@ -592,3 +592,30 @@ html.has-cursor .cursor-ring {
   34% { background: transparent; color: rgba(247, 243, 234, 0.7); border-color: rgba(255, 255, 255, 0.15); }
 }
 .seg-step { animation: seg-step 3.6s ease-in-out infinite both; }
+
+/* Generator: the code re-carves when its content changes */
+@keyframes recarve {
+  0% { filter: blur(6px); transform: scale(0.94); opacity: 0.4; }
+  100% { filter: none; transform: none; opacity: 1; }
+}
+@keyframes carve-beam {
+  0% { top: -10%; opacity: 0; }
+  10% { opacity: 1; }
+  100% { top: 110%; opacity: 0; }
+}
+.qr-recarve {
+  position: relative;
+  animation: recarve 650ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.qr-recarve::after {
+  content: "";
+  position: absolute;
+  left: -4%;
+  right: -4%;
+  height: 3px;
+  border-radius: 9999px;
+  background: var(--color-verdigris-bright);
+  box-shadow: 0 0 24px 6px rgba(79, 174, 155, 0.6);
+  animation: carve-beam 900ms ease-in-out both;
+  pointer-events: none;
+}

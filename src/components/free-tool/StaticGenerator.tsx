@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useSyncExternalStore } from "react";
+import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { QRPreview } from "@/components/qr/QRPreview";
 import { DesignControls } from "@/components/qr/DesignControls";
@@ -85,6 +85,12 @@ export function StaticGenerator({
   const tooLong = payload.length > MAX_LEN;
   const scannable = isScannableCombo(design.fg, design.bg);
   const ready = payload.length > 0 && !tooLong && scannable;
+  // Re-carve animation: settles 250ms after the last keystroke.
+  const [carveKey, setCarveKey] = useState("example");
+  useEffect(() => {
+    const t = setTimeout(() => setCarveKey(ready ? payload : "example"), 250);
+    return () => clearTimeout(t);
+  }, [ready, payload]);
 
   return (
     <div className="grid gap-6 lg:grid-cols-[1fr_380px] lg:gap-8">
@@ -261,12 +267,14 @@ export function StaticGenerator({
               {ready ? "Ready to download" : "Example"}
             </p>
           </div>
-          <div className="relative rounded-2xl bg-paper-deep/60 p-5 sm:p-7">
+          <div className="relative overflow-hidden rounded-2xl bg-paper-deep/60 p-5 sm:p-7">
+            <div key={carveKey} className="qr-recarve">
             <QRPreview
               data={ready ? payload : EXAMPLE}
               options={design}
               className={`!rounded-xl transition-opacity duration-300 ${ready ? "opacity-100" : "opacity-35"}`}
             />
+            </div>
             {!ready ? (
               <p className="absolute inset-0 flex items-center justify-center p-6 text-center text-sm font-medium text-ink">
                 <span className="rounded-full bg-paper/95 px-4 py-2 shadow-[var(--shadow-card)]">
