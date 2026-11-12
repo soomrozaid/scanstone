@@ -1,0 +1,119 @@
+"use client";
+
+import dynamic from "next/dynamic";
+import { useEffect, useRef, useState } from "react";
+
+const TileQR = dynamic(() => import("./TileQR"), { ssr: false });
+
+const DESTS = [
+  { biz: "Café", url: "yourcafe.ca/menu", note: "Lunch menu" },
+  { biz: "Café", url: "yourcafe.ca/brunch", note: "Weekend brunch" },
+  { biz: "Salon", url: "book.yoursalon.ca", note: "Booking page" },
+  { biz: "Realtor", url: "listings.ca/412-elm", note: "Open house" },
+  { biz: "Event", url: "yourfest.ca/schedule", note: "Saturday schedule" },
+];
+
+function canWebGL() {
+  try {
+    const c = document.createElement("canvas");
+    return !!(c.getContext("webgl2") || c.getContext("webgl"));
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Full-bleed hero. Text is server-rendered (children) so LCP never waits on
+ * WebGL. The 3D tile code loads after the page is idle; until then, and for
+ * reduced motion or no WebGL, a static SVG poster of the same code shows.
+ */
+export function CinemaHero({
+  url,
+  poster,
+  children,
+}: {
+  url: string;
+  poster: React.ReactNode;
+  children: React.ReactNode;
+}) {
+  const [use3D, setUse3D] = useState(false);
+  const [ready, setReady] = useState(false);
+  const [settled, setSettled] = useState(false);
+  const [idx, setIdx] = useState(0);
+  const flipAt = useRef(-99);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!canWebGL()) return;
+    const go = () => setUse3D(true);
+    const w = window as Window & {
+      requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number;
+    };
+    if (w.requestIdleCallback) w.requestIdleCallback(go, { timeout: 1800 });
+    else setTimeout(go, 600);
+  }, []);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      flipAt.current = performance.now() / 1000;
+      setIdx((i) => (i + 1) % DESTS.length);
+    }, 4200);
+    return () => clearInterval(id);
+  }, []);
+
+  const d = DESTS[idx] ?? DESTS[0]!;
+
+  return (
+    <section
+      data-nav="dark"
+      className="relative -mt-16 flex min-h-[100svh] flex-col overflow-hidden bg-night text-paper"
+    >
+      {/* moving light + grain */}
+      <div className="aurora pointer-events-none absolute inset-0" aria-hidden="true" />
+      <div
+        className="gridlines-night pointer-events-none absolute inset-0 opacity-60 [mask-image:radial-gradient(ellipse_at_70%_40%,black_20%,transparent_70%)]"
+        aria-hidden="true"
+      />
+
+      {/* poster: same code, static */}
+      <div
+        aria-hidden="true"
+        className={`pointer-events-none absolute left-1/2 top-[28svh] w-[66vw] -translate-x-1/2 -translate-y-1/2 transition-opacity duration-[1400ms] lg:left-[77%] lg:top-[48%] lg:w-[min(30vw,58svh)] ${ready ? "opacity-0" : "opacity-100"}`}
+      >
+        <div className="poster-tilt rounded-[6px] bg-[#efe7d6] shadow-[0_40px_120px_-20px_rgba(79,174,155,0.35)]">
+          {poster}
+        </div>
+      </div>
+
+      {use3D && (
+        <div className="absolute inset-0" aria-hidden="true">
+          <TileQR
+            url={url}
+            flipAt={flipAt}
+            onReady={() => setReady(true)}
+            onSettled={() => setSettled(true)}
+          />
+        </div>
+      )}
+
+      {/* destination readout */}
+      <div className="pointer-events-none absolute left-1/2 top-[calc(28svh+34vw+46px)] z-10 -translate-x-1/2 lg:left-[77%] lg:top-auto lg:bottom-[7svh]">
+        <div
+          key={idx}
+          className={`dest-swap flex items-center gap-2 whitespace-nowrap rounded-full border border-night-line bg-night-raised/80 px-4 py-2 font-mono text-[11px] text-paper/80 backdrop-blur transition-opacity sm:text-xs ${settled || !use3D ? "opacity-100" : "opacity-0"}`}
+        >
+          <span className="h-1.5 w-1.5 rounded-full bg-verdigris-bright shadow-[0_0_10px_2px_rgba(79,174,155,0.8)]" />
+          <span className="text-paper/50">{d.biz}</span>
+          <span aria-hidden="true">→</span>
+          <span className="text-paper">{d.url}</span>
+        </div>
+      </div>
+      <p className="sr-only" aria-live="off">
+        One printed code, pointed at a café menu, a booking page, a listing or
+        an event schedule.
+      </p>
+
+      <div className="relative z-10 mt-auto">{children}</div>
+    </section>
+  );
+}

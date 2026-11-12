@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { HeroStage } from "@/components/hero/HeroStage";
+import { CinemaHero } from "@/components/cinema/CinemaHero";
+import { SplitWords } from "@/components/cinema/SplitWords";
+import { ScanStory } from "@/components/cinema/ScanStory";
+import { renderQRSvg } from "@/lib/qr/svg";
 import { ScanChart } from "@/components/analytics/ScanChart";
 import { BreakdownList } from "@/components/analytics/BreakdownList";
 import { pricingSoftwareJsonLd } from "@/lib/plans";
@@ -16,7 +20,6 @@ import { ShortLinkDemo } from "@/components/home/ShortLinkDemo";
 import { CtaBand } from "@/components/site/CtaBand";
 import { PrintArtifacts } from "@/components/home/PrintArtifacts";
 import { MiniCustomizer } from "@/components/home/MiniCustomizer";
-import { CovenantStory } from "@/components/home/CovenantStory";
 import { StickyCta } from "@/components/site/StickyCta";
 import { Spotlight } from "@/components/site/Spotlight";
 
@@ -153,64 +156,78 @@ export default function LandingPage() {
       <StickyCta />
 
       {/* HERO */}
-      <section className="relative overflow-hidden">
-        <div
-          className="gridlines absolute inset-0 [mask-image:radial-gradient(ellipse_at_top,black_30%,transparent_75%)]"
-          aria-hidden="true"
-        />
-        <Container className="relative grid items-center gap-14 pb-20 pt-10 sm:pt-16 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10 lg:pb-28 lg:pt-20">
-          <div>
-            <Eyebrow tone="verdigris" className="rise">Editable QR codes for things you print</Eyebrow>
-            <h1 className="display mt-6 text-display text-ink">
-              <span className="rise inline-block [animation-delay:60ms]">Print it once.</span>
+      <CinemaHero
+        url={`${envClient.APP_URL}/demo`}
+        poster={
+          <div
+            className="aspect-square w-full [&>svg]:h-full [&>svg]:w-full"
+            dangerouslySetInnerHTML={{
+              __html: renderQRSvg(`${envClient.APP_URL}/demo`, {
+                fg: "#171512",
+                bg: "#efe7d6",
+                quietZone: 3,
+              }),
+            }}
+          />
+        }
+      >
+        <Container className="pb-14 pt-[56svh] sm:pb-20 lg:pt-40">
+          <div className="max-w-3xl">
+            <Eyebrow tone="verdigris" className="rise !text-verdigris-bright">
+              Editable QR codes for things you print
+            </Eyebrow>
+            <h1 className="display mt-6 text-[clamp(3.1rem,8vw,7.25rem)] leading-[0.92] tracking-[-0.03em] text-paper">
+              <SplitWords text="Print it once." start={80} />
               <br />
-              <span className="rise inline-block italic text-verdigris-deep [animation-delay:200ms]">Update it</span>{" "}
-              <span className="rise inline-block [animation-delay:320ms]">anytime.</span>
+              <SplitWords
+                text="Update it"
+                start={300}
+                wordClass="italic text-verdigris-bright"
+              />{" "}
+              <SplitWords text="anytime." start={440} />
             </h1>
-            <p className="mt-7 max-w-xl text-lead text-ink-soft">
+            <p className="mt-8 max-w-xl text-lead text-paper/70">
               New menu. New offer. Same QR code. Change where your printed
               codes send people, track scans, and share short links from one
               dashboard. Your redirects keep working even if you cancel.
             </p>
-            <div className="rise mt-9 flex flex-wrap items-center gap-3 [animation-delay:520ms]">
-              <MarketingLink
-                placement="home_hero"
-                action="signup"
-                href="/signup"
-                variant="accent"
-                className="!rounded-full px-7 py-3.5 text-base"
-              >
-                Start free, 3 codes or links
-              </MarketingLink>
-              <MarketingLink
-                placement="home_hero"
-                action="demo"
-                href="/demo"
-                variant="ghost"
-                className="!rounded-full px-7 py-3.5 text-base"
-              >
-                Explore the live demo
-              </MarketingLink>
+            <div className="rise mt-9 flex flex-wrap items-center gap-3 [animation-delay:700ms]">
+              <span data-magnetic className="inline-block">
+                <MarketingLink
+                  placement="home_hero"
+                  action="signup"
+                  href="/signup"
+                  variant="accent"
+                  className="!rounded-full !bg-verdigris-bright px-7 py-3.5 text-base !text-night hover:!bg-paper"
+                >
+                  Start free, 3 codes or links
+                </MarketingLink>
+              </span>
+              <span data-magnetic className="inline-block">
+                <MarketingLink
+                  placement="home_hero"
+                  action="demo"
+                  href="/demo"
+                  variant="ghost"
+                  className="!rounded-full border border-paper/25 px-7 py-3.5 text-base !text-paper hover:!bg-paper/10"
+                >
+                  Explore the live demo
+                </MarketingLink>
+              </span>
             </div>
-            <p className="mt-5 text-sm text-ink-faint">
+            <p className="mt-5 text-sm text-paper/55">
               No credit card. 3 editable codes or short links. No trial
-              deadline.
+              deadline.{" "}
+              <Link
+                href="/qr-code-generator"
+                className="link-underline text-verdigris-bright"
+              >
+                Just need a static QR code? Create one without signing up →
+              </Link>
             </p>
-            <Link
-              href="/qr-code-generator"
-              className="link-underline mt-2 inline-block text-sm text-verdigris-deep"
-            >
-              Just need a static QR code? Create one without signing up →
-            </Link>
-          </div>
-          <div className="rise [animation-delay:150ms]">
-            <HeroStage
-              scenes={["cafe", "salon", "realtor", "events"]}
-              demoUrl={`${envClient.APP_URL}/demo`}
-            />
           </div>
         </Container>
-      </section>
+      </CinemaHero>
 
       {/* USES MARQUEE */}
       <section aria-label="Things people print codes on" className="marquee overflow-hidden border-y border-line bg-paper-deep/50 py-5">
@@ -229,12 +246,13 @@ export default function LandingPage() {
       </section>
 
       {/* HOW IT WORKS */}
-      <section id="how-it-works" aria-labelledby="how-h" className="scroll-mt-20 py-24 sm:py-32">
+      <ScanStory qrUrl={`${envClient.APP_URL}/demo`} />
+      <section id="how-it-works-static" aria-labelledby="how-h-static" className="hidden scroll-mt-20 py-24 motion-reduce:block sm:py-32">
         <Container>
           <Reveal>
             <Fig n="01">How it works</Fig>
             <SectionHeading
-              id="how-h"
+              id="how-h-static"
               className="mt-6"
               title={<>Three steps, one stone</>}
               lead="A dynamic code prints a short link instead of your web address. You decide where that link goes, and you can change your mind as often as you like."
@@ -265,6 +283,26 @@ export default function LandingPage() {
               </div>
             ))}
           </Reveal>
+        </Container>
+      </section>
+
+      {/* TRY IT */}
+      <section aria-labelledby="try-h" className="relative overflow-hidden py-24 sm:py-32">
+        <div className="gridlines absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_70%)]" aria-hidden="true" />
+        <Container className="relative grid items-center gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+          <Reveal>
+            <Fig n="00">Try it</Fig>
+            <SectionHeading
+              id="try-h"
+              className="mt-6"
+              title={<>One code on the table. <em className="text-verdigris-deep">You pick where it goes.</em></>}
+              lead="Switch the business below and watch the same printed code open a different page. That's the whole idea, and it's the part other generators charge you a trial for."
+            />
+          </Reveal>
+          <HeroStage
+            scenes={["cafe", "salon", "realtor", "events"]}
+            demoUrl={`${envClient.APP_URL}/demo`}
+          />
         </Container>
       </section>
 
@@ -343,30 +381,6 @@ export default function LandingPage() {
               </dl>
             </div>
           </div>
-        </Container>
-      </section>
-
-      {/* THE COVENANT */}
-      <section aria-labelledby="covenant-h" className="relative overflow-hidden bg-night text-paper">
-        <div className="gridlines-night absolute inset-0" aria-hidden="true" />
-        <Container className="relative py-24 sm:py-36">
-          <Reveal>
-            <Eyebrow tone="paper">The covenant</Eyebrow>
-            <h2 id="covenant-h" className="display mt-6 max-w-4xl text-h1">
-              Cancelling never stops your redirects.
-            </h2>
-          </Reveal>
-          <div className="mt-16">
-            <CovenantStory />
-          </div>
-          <p className="mt-8 text-sm text-paper/55">
-            Deleted codes stop redirecting, and your destination website must
-            remain available.{" "}
-            <Link href="/terms" className="text-paper underline underline-offset-4">
-              Read our redirect promise
-            </Link>
-            .
-          </p>
         </Container>
       </section>
 

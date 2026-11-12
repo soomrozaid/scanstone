@@ -327,3 +327,182 @@ body {
 .spotlight:hover::after {
   opacity: 1;
 }
+
+/* ---------- Cinema layer ---------- */
+
+/* Kinetic word reveal */
+@keyframes kin {
+  from {
+    transform: translateY(110%) rotate(4deg);
+  }
+  to {
+    transform: none;
+  }
+}
+.kin {
+  animation: kin 1100ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  transform-origin: 0 100%;
+}
+
+/* Drifting verdigris/copper light behind dark heroes */
+@keyframes aurora-a {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(-12%, 8%, 0) scale(1.25); }
+}
+@keyframes aurora-b {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1.1); }
+  50% { transform: translate3d(10%, -10%, 0) scale(0.9); }
+}
+.aurora::before,
+.aurora::after {
+  content: "";
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(90px);
+  will-change: transform;
+}
+.aurora::before {
+  width: 60vmax;
+  height: 60vmax;
+  right: -14vmax;
+  top: -18vmax;
+  background: radial-gradient(circle, rgba(79, 174, 155, 0.38), transparent 62%);
+  animation: aurora-a 18s ease-in-out infinite;
+}
+.aurora::after {
+  width: 48vmax;
+  height: 48vmax;
+  left: -12vmax;
+  bottom: -20vmax;
+  background: radial-gradient(circle, rgba(224, 138, 70, 0.26), transparent 62%);
+  animation: aurora-b 22s ease-in-out infinite;
+}
+
+/* Film grain over the whole site */
+@keyframes film-grain {
+  0%, 100% { transform: translate(0, 0); }
+  20% { transform: translate(-3%, 2%); }
+  40% { transform: translate(2%, -3%); }
+  60% { transform: translate(-2%, -1%); }
+  80% { transform: translate(3%, 3%); }
+}
+.film-grain {
+  pointer-events: none;
+  position: fixed;
+  inset: -20%;
+  z-index: 60;
+  opacity: 0.07;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  animation: film-grain 900ms steps(5) infinite;
+}
+
+.poster-tilt {
+  transform: perspective(1200px) rotateY(-12deg) rotateX(6deg);
+}
+
+@keyframes dest-swap {
+  from { opacity: 0; transform: translateY(8px); filter: blur(6px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+.dest-swap {
+  animation: dest-swap 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Custom cursor */
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 70;
+  pointer-events: none;
+  border-radius: 9999px;
+  will-change: transform;
+}
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  background: var(--color-copper-bright);
+}
+.cursor-ring {
+  width: 38px;
+  height: 38px;
+  margin: -19px 0 0 -19px;
+  border: 1px solid rgba(224, 138, 70, 0.7);
+  transition: width 0.3s, height 0.3s, margin 0.3s, background-color 0.3s, border-color 0.3s;
+}
+.cursor-ring.is-hover {
+  width: 72px;
+  height: 72px;
+  margin: -36px 0 0 -36px;
+  background: rgba(224, 138, 70, 0.12);
+  border-color: transparent;
+}
+@media (hover: hover) and (pointer: fine) {
+  html.has-cursor,
+  html.has-cursor a,
+  html.has-cursor button {
+    cursor: none;
+  }
+}
+
+/* Route transition curtain */
+@keyframes curtain {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-101%); }
+}
+@keyframes page-in {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: none; }
+}
+.curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 65;
+  background: var(--color-night);
+  animation: curtain 800ms cubic-bezier(0.76, 0, 0.24, 1) 80ms both;
+  pointer-events: none;
+}
+.page-in {
+  animation: page-in 900ms cubic-bezier(0.16, 1, 0.3, 1) 300ms both;
+}
+
+/* Glitch for the dying trial code */
+@keyframes glitch {
+  0%, 100% { transform: none; clip-path: inset(0 0 0 0); }
+  20% { transform: translate(-6px, 2px); clip-path: inset(10% 0 60% 0); }
+  40% { transform: translate(5px, -3px); clip-path: inset(50% 0 20% 0); }
+  60% { transform: translate(-3px, 1px); clip-path: inset(30% 0 40% 0); }
+  80% { transform: translate(4px, 2px); clip-path: inset(70% 0 5% 0); }
+}
+.glitch-on {
+  animation: glitch 260ms steps(2) infinite;
+}
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .film-grain,
+  .curtain,
+  .cursor-dot,
+  .cursor-ring {
+    display: none !important;
+  }
+  .kin {
+    transform: none !important;
+  }
+}
+.cursor-dot,
+.cursor-ring {
+  display: none;
+}
+html.has-cursor .cursor-dot,
+html.has-cursor .cursor-ring {
+  display: block;
+}

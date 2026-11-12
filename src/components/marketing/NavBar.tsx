@@ -26,6 +26,8 @@ export function NavBar({ signedIn }: { signedIn: boolean }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const dark = pathname === "/" && !scrolled && !open;
+
   const [lastPath, setLastPath] = useState(pathname);
   if (lastPath !== pathname) {
     setLastPath(pathname);
@@ -58,7 +60,7 @@ export function NavBar({ signedIn }: { signedIn: boolean }) {
           className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-8"
         >
           <Link href="/" aria-label="Scanstone home" className="relative z-50">
-            <Wordmark />
+            <Wordmark tone={dark ? "paper" : "ink"} />
           </Link>
           <ul className="hidden items-center gap-1 text-sm lg:flex">
             {LINKS.map((l) => {
@@ -68,7 +70,7 @@ export function NavBar({ signedIn }: { signedIn: boolean }) {
                   <Link
                     href={l.href}
                     aria-current={active ? "page" : undefined}
-                    className={`inline-flex rounded-full px-3.5 py-2 transition-colors ${active ? "bg-ink/[0.06] text-ink" : "text-ink-soft hover:bg-ink/[0.04] hover:text-ink"}`}
+                    className={`inline-flex rounded-full px-3.5 py-2 transition-colors ${dark ? "text-paper/75 hover:bg-paper/10 hover:text-paper" : active ? "bg-ink/[0.06] text-ink" : "text-ink-soft hover:bg-ink/[0.04] hover:text-ink"}`}
                   >
                     {l.label}
                   </Link>
@@ -88,13 +90,14 @@ export function NavBar({ signedIn }: { signedIn: boolean }) {
               <>
                 <Link
                   href="/login"
-                  className="hidden rounded-full px-4 py-2 text-sm text-ink-soft transition hover:text-ink sm:inline-flex"
+                  className={`hidden rounded-full px-4 py-2 text-sm transition sm:inline-flex ${dark ? "text-paper/75 hover:text-paper" : "text-ink-soft hover:text-ink"}`}
                 >
                   Log in
                 </Link>
                 <Link
                   href="/signup"
-                  className="group inline-flex items-center gap-1.5 rounded-full bg-ink px-4 py-2 text-sm font-medium text-paper transition hover:bg-verdigris-deep"
+                  data-magnetic
+                  className={`group inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition-colors ${dark ? "bg-paper text-ink hover:bg-verdigris-bright" : "bg-ink text-paper hover:bg-verdigris-deep"}`}
                 >
                   Start free
                   <span
@@ -112,7 +115,7 @@ export function NavBar({ signedIn }: { signedIn: boolean }) {
               aria-controls="mobile-menu"
               aria-label={open ? "Close menu" : "Open menu"}
               onClick={() => setOpen((v) => !v)}
-              className="relative z-50 -mr-2 inline-flex h-11 w-11 items-center justify-center rounded-full text-ink lg:hidden"
+              className={`relative z-50 -mr-2 inline-flex h-11 w-11 items-center justify-center rounded-full lg:hidden ${dark ? "text-paper" : "text-ink"}`}
             >
               <span className="relative block h-3 w-5" aria-hidden="true">
                 <span
