@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
+import { onIdle } from "./idle";
 
 const TileQR = dynamic(() => import("./TileQR"), { ssr: false });
 
@@ -79,6 +80,30 @@ export function CinemaHero({
     else setTimeout(go, 600);
   }, []);
 
+  // Scroll-out: the hero shrinks into a rounded slab and drops back while the
+  // copy lifts away and the code leans toward you. GSAP loads after idle.
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let kill = () => {};
+    const cancel = onIdle(async () => {
+      const [{ gsap }, { ScrollTrigger }] = await Promise.all([import("gsap"), import("gsap/ScrollTrigger")]);
+      gsap.registerPlugin(ScrollTrigger);
+      const ctx = gsap.context(() => {
+        const st = { trigger: el, start: "top top", end: "bottom top", scrub: 0.4 };
+        gsap.fromTo(el, { scale: 1, borderRadius: 0, yPercent: 0 }, { scale: 0.84, borderRadius: 48, yPercent: 10, ease: "none", scrollTrigger: st });
+        gsap.fromTo(el.querySelectorAll("[data-hero-art]"), { scale: 1, rotate: 0 }, { scale: 1.28, rotate: -6, ease: "none", scrollTrigger: st });
+        gsap.fromTo(el.querySelector("[data-hero-copy]"), { y: 0, opacity: 1 }, { y: -140, opacity: 0, ease: "power1.in", scrollTrigger: { ...st, end: "70% top" } });
+        gsap.fromTo(el.querySelector("[data-hero-shade]"), { opacity: 0 }, { opacity: 0.6, ease: "none", scrollTrigger: st });
+      }, el);
+      kill = () => ctx.revert();
+    });
+    return () => {
+      cancel();
+      kill();
+    };
+  }, []);
+
   useEffect(() => {
     const id = setInterval(() => {
       flipAt.current = performance.now() / 1000;
@@ -93,7 +118,7 @@ export function CinemaHero({
     <section
       ref={sectionRef}
       data-nav="dark"
-      className="relative -mt-16 flex min-h-[100svh] flex-col overflow-hidden bg-night text-paper"
+      className="relative -mt-16 flex min-h-[100svh] origin-[50%_100%] flex-col overflow-hidden bg-night text-paper [transform-style:flat]"
     >
       {/* moving light + grain */}
       <div className="aurora pointer-events-none absolute inset-0" aria-hidden="true" />
@@ -103,6 +128,7 @@ export function CinemaHero({
       />
 
       {/* poster: same code, static */}
+      <div data-hero-art className="pointer-events-none absolute inset-0" aria-hidden="true">
       <div
         aria-hidden="true"
         className={`pointer-events-none absolute left-1/2 top-[21svh] w-[min(50vw,25svh)] -translate-x-1/2 -translate-y-1/2 transition-opacity duration-[1400ms] lg:left-[77%] lg:top-[48%] lg:w-[min(30vw,58svh)] ${ready ? "opacity-0" : "opacity-100"}`}
@@ -111,9 +137,10 @@ export function CinemaHero({
           {poster}
         </div>
       </div>
+      </div>
 
       {use3D && (
-        <div className="absolute inset-0" aria-hidden="true">
+        <div data-hero-art className="absolute inset-0" aria-hidden="true">
           <TileQR
             url={url}
             active={onScreen}
@@ -141,7 +168,8 @@ export function CinemaHero({
         an event schedule.
       </p>
 
-      <div className="relative z-10 mt-auto">{children}</div>
+      <div data-hero-copy className="relative z-10 mt-auto">{children}</div>
+      <div data-hero-shade className="pointer-events-none absolute inset-0 z-20 bg-night opacity-0" aria-hidden="true" />
     </section>
   );
 }
