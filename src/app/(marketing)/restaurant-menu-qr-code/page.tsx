@@ -9,6 +9,8 @@ import { Container, Eyebrow, Fig } from "@/components/site/primitives";
 import { Reveal } from "@/components/site/Reveal";
 import { Faq } from "@/components/site/Faq";
 import { StackCards } from "@/components/cinema/StackCards";
+import { DayCycle } from "@/components/cinema/DayCycle";
+import { AssembleQR } from "@/components/cinema/AssembleQR";
 import { CtaBand } from "@/components/site/CtaBand";
 import { TrialSim } from "@/components/home/TrialSim";
 import { envClient } from "@/config/env.client";
@@ -166,6 +168,8 @@ export default function RestaurantMenuPage() {
           <HeroStage demoUrl={`${envClient.APP_URL}/demo`} />
         </Container>
       </section>
+
+      <DayCycle qr={<AssembleQR lite data="https://www.scanstone.ca/restaurant-menu-qr-code" label="" className="!rounded-md !p-[4%]" />} />
 
       <section aria-labelledby="steps-h" className="border-y border-line bg-paper-deep/40 py-24 sm:py-32">
         <Container>
