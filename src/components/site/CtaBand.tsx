@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Container } from "./primitives";
+import { LazyVideo } from "@/components/cinema/LazyVideo";
 
 export function CtaBand({
   title,
@@ -16,27 +17,26 @@ export function CtaBand({
   return (
     <section className="pb-24 sm:pb-32">
       <Container>
-        <div className="relative overflow-hidden rounded-[32px] bg-verdigris-deep px-6 py-16 text-center text-paper sm:px-16 sm:py-24">
-          <div className="gridlines-night absolute inset-0 opacity-70" aria-hidden="true" />
-          <div
-            aria-hidden="true"
-            className="absolute -bottom-40 left-1/2 h-80 w-[60rem] -translate-x-1/2 rounded-full bg-verdigris-bright/30 blur-3xl"
-          />
+        <div data-nav="dark" className="relative overflow-hidden rounded-[32px] bg-night px-6 py-20 text-center text-paper sm:px-16 sm:py-32">
+          <LazyVideo className="absolute inset-0 h-full w-full opacity-70" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(15,14,12,0.55),rgba(15,14,12,0.92)_70%)]" aria-hidden="true" />
           <div className="relative">
-            <h2 className="display mx-auto max-w-3xl text-h2">{title}</h2>
+            <h2 className="display mx-auto max-w-4xl text-[clamp(2.4rem,5.5vw,5rem)] leading-[0.98] tracking-[-0.025em]">{title}</h2>
             {body ? (
               <p className="mx-auto mt-6 max-w-xl text-paper/75">{body}</p>
             ) : null}
             <div className="mt-10 flex flex-wrap justify-center gap-3">
               <Link
+                data-magnetic
                 href={primary.href}
-                className="rounded-full bg-paper px-7 py-3.5 font-medium text-ink transition hover:bg-white"
+                className="rounded-full bg-verdigris-bright px-8 py-4 font-medium text-night transition-colors hover:bg-paper"
               >
                 {primary.label}
               </Link>
               <Link
+                data-magnetic
                 href={secondary.href}
-                className="rounded-full border border-paper/30 px-7 py-3.5 font-medium text-paper transition hover:bg-paper/10"
+                className="rounded-full border border-paper/30 bg-night/40 px-8 py-4 font-medium text-paper backdrop-blur transition-colors hover:bg-paper/10"
               >
                 {secondary.label}
               </Link>
