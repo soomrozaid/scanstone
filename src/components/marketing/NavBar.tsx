@@ -38,7 +38,7 @@ export function NavBar({ signedIn }: { signedIn: boolean }) {
     };
   }, [pathname]);
 
-  const dark = overDark && !open;
+  const dark = overDark || open;
 
   const [lastPath, setLastPath] = useState(pathname);
   if (lastPath !== pathname) {
@@ -144,33 +144,40 @@ export function NavBar({ signedIn }: { signedIn: boolean }) {
       <div
         id="mobile-menu"
         hidden={!open}
-        className="fixed inset-x-0 top-16 bottom-0 z-40 overflow-y-auto border-t border-line bg-paper px-5 pb-10 pt-4 lg:hidden"
+        className="menu-iris fixed inset-0 z-30 overflow-y-auto bg-night px-5 pb-10 pt-20 text-paper lg:hidden"
       >
-        <ul className="divide-y divide-line border-y border-line">
-          {LINKS.map((l, i) => (
-            <li
-              key={l.href}
-              className="rise"
-              style={{ animationDelay: `${i * 40}ms` }}
-            >
-              <Link
-                href={l.href}
-                onClick={() => setOpen(false)}
-                className="display flex items-center justify-between py-4 text-3xl text-ink"
-              >
-                {l.label}
-                <span aria-hidden="true" className="text-xl text-ink-faint">
-                  →
-                </span>
-              </Link>
-            </li>
-          ))}
+        <div className="aurora pointer-events-none absolute inset-0 opacity-70" aria-hidden="true" />
+        <div className="gridlines-night pointer-events-none absolute inset-0 opacity-40" aria-hidden="true" />
+        <ul className="relative divide-y divide-white/10 border-y border-white/10">
+          {LINKS.map((l, i) => {
+            const active = !l.href.includes("#") && pathname === l.href;
+            return (
+              <li key={l.href} className="menu-item overflow-hidden" style={{ ["--i" as string]: i }}>
+                <Link
+                  href={l.href}
+                  onClick={() => setOpen(false)}
+                  aria-current={active ? "page" : undefined}
+                  className="menu-link flex items-baseline gap-4 py-4"
+                >
+                  <span aria-hidden="true" className="font-mono text-[11px] text-copper-bright">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className={`display text-[2.6rem] leading-none ${active ? "italic text-verdigris-bright" : "text-paper"}`}>
+                    {l.label}
+                  </span>
+                  <span aria-hidden="true" className="ml-auto text-xl text-paper/50">
+                    →
+                  </span>
+                </Link>
+              </li>
+            );
+          })}
         </ul>
-        <div className="mt-8 grid gap-3">
+        <div className="menu-foot relative mt-8 grid gap-3">
           {signedIn ? (
             <Link
               href="/dashboard"
-              className="rounded-full bg-ink py-3.5 text-center font-medium text-paper"
+              className="rounded-full bg-paper py-3.5 text-center font-medium text-ink"
             >
               Dashboard
             </Link>
@@ -178,20 +185,20 @@ export function NavBar({ signedIn }: { signedIn: boolean }) {
             <>
               <Link
                 href="/signup"
-                className="rounded-full bg-verdigris py-3.5 text-center font-medium text-paper"
+                className="rounded-full bg-verdigris-bright py-3.5 text-center font-medium text-night"
               >
                 Start free, 3 codes
               </Link>
               <Link
                 href="/login"
-                className="rounded-full border border-line py-3.5 text-center font-medium text-ink"
+                className="rounded-full border border-paper/30 py-3.5 text-center font-medium text-paper"
               >
                 Log in
               </Link>
             </>
           )}
         </div>
-        <p className="mt-8 text-sm text-ink-faint">
+        <p className="menu-foot relative mt-8 text-sm text-paper/60">
           Redirects that keep working, even if you stop paying.
         </p>
       </div>
