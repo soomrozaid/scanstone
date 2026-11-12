@@ -5,11 +5,11 @@ import { Container, Eyebrow, Fig } from "@/components/site/primitives";
 import { PlanCards } from "@/components/site/PlanCards";
 import { Faq } from "@/components/site/Faq";
 import { CtaBand } from "@/components/site/CtaBand";
-import { Reveal } from "@/components/site/Reveal";
 import { envClient } from "@/config/env.client";
 import { DarkHero } from "@/components/cinema/DarkHero";
 import { SplitWords } from "@/components/cinema/SplitWords";
 import { PromiseSeal } from "@/components/cinema/PromiseSeal";
+import { CompareTable } from "@/components/cinema/CompareTable";
 
 export const metadata: Metadata = {
   title: "Pricing — Free forever plan, Pro at $9 USD/month",
@@ -125,40 +125,15 @@ export default function PricingPage() {
         </Container>
       </section>
 
-      <section aria-labelledby="compare-h" className="border-t border-line bg-paper-deep/40 py-24">
-        <Container className="max-w-5xl">
-          <Reveal>
-            <Fig n="01">Side by side</Fig>
-            <h2 id="compare-h" className="display mt-6 text-h2">What you get</h2>
-          </Reveal>
-          <div className="mt-12 overflow-x-auto rounded-[24px] border border-line bg-white/60">
-            <table className="w-full min-w-[34rem] border-collapse text-sm">
-              <thead>
-                <tr className="text-left">
-                  <th scope="col" className="px-6 py-5 font-medium text-ink-faint">Feature</th>
-                  <th scope="col" className="w-36 px-6 py-5 font-medium">Free</th>
-                  <th scope="col" className="w-44 bg-night px-6 py-5 font-medium text-paper">Pro</th>
-                </tr>
-              </thead>
-              <tbody>
-                {ROWS.map((row) => {
-                  const covenant = row.label.startsWith("Redirects if");
-                  return (
-                    <tr key={row.label} className={`border-t border-line ${covenant ? "bg-verdigris/[0.07]" : ""}`}>
-                      <th scope="row" className="px-6 py-4 text-left font-normal text-ink-soft">
-                        {row.label}
-                        {covenant ? (
-                          <span className="eyebrow ml-2 text-verdigris">The covenant</span>
-                        ) : null}
-                      </th>
-                      <td className="px-6 py-4">{row.free}</td>
-                      <td className="bg-night/[0.03] px-6 py-4 font-medium">{row.pro}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
+      <section aria-labelledby="compare-h" data-nav="dark" className="relative overflow-hidden bg-night py-24 text-paper sm:py-32">
+        <div className="aurora pointer-events-none absolute inset-0 opacity-50" aria-hidden="true" />
+        <div className="gridlines-night pointer-events-none absolute inset-0 opacity-40" aria-hidden="true" />
+        <Container className="relative max-w-5xl">
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-copper-bright">Fig. 01 / Side by side</p>
+          <h2 id="compare-h" className="display mt-6 text-h2">
+            <SplitWords text="What you get" />
+          </h2>
+          <CompareTable rows={ROWS} />
         </Container>
       </section>
 
