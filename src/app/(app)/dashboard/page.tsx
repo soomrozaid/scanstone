@@ -64,8 +64,8 @@ export default async function DashboardPage() {
             </h2>
             <p className="mt-2 text-sm leading-relaxed text-ink-soft">
               Share a short link or print a QR code for a menu, a booking page,
-              a portfolio — then change the destination any time. Your link and
-              printed code keep working.
+              or a portfolio, then change the destination any time. Your link
+              and printed code keep working.
             </p>
             <div className="mt-5 flex flex-wrap justify-center gap-3">
               <ButtonLink href="/dashboard/shorten" variant="ghost">
@@ -121,7 +121,7 @@ export default async function DashboardPage() {
         <Card className="mt-6 flex flex-wrap items-center justify-between gap-3 border-copper/40 bg-copper/5 p-5">
           <p className="text-sm text-ink-soft">
             You&apos;ve used all {limits.maxCodes} free codes and short URLs.
-            Pro raises the limit to 500 — and your existing links keep working
+            Pro raises the limit to 500, and your existing links keep working
             either way.
           </p>
           <ButtonLink href="/account#upgrade" variant="accent">

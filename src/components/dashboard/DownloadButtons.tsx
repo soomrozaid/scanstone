@@ -29,7 +29,7 @@ export function DownloadButtons({
             try {
               await downloadPng(data, design, filename);
             } catch {
-              setError("Download failed — try a different browser.");
+              setError("Download failed. Try a different browser.");
             }
           }}
         >
@@ -44,7 +44,7 @@ export function DownloadButtons({
               try {
                 downloadSvg(data, design, filename);
               } catch {
-                setError("Download failed — try a different browser.");
+                setError("Download failed. Try a different browser.");
               }
             }}
           >
@@ -58,7 +58,7 @@ export function DownloadButtons({
         </p>
       ) : null}
       <p className="text-center text-xs text-ink-faint">
-        PNG is 2048px — sharp up to poster size.
+        PNG is 2048px, sharp enough for a poster.
       </p>
     </div>
   );

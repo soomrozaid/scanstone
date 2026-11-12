@@ -30,7 +30,39 @@ export const revalidate = 60;
 /** Public, read-only view of the seeded demo code. Slug is fixed server-side. */
 const DEMO_SLUG = "cafemenu";
 
+function DemoWarmingUp() {
+  return (
+    <main id="main">
+      <DarkHero glow="50% 20%">
+        <Container className="max-w-3xl pb-32 pt-20 text-center sm:pb-40 sm:pt-28">
+          <Eyebrow tone="verdigris" className="rise !text-verdigris-bright">Live demo</Eyebrow>
+          <h1 className="display mt-6 text-[clamp(3rem,8vw,6.5rem)] leading-[0.95] tracking-[-0.03em]">
+            <SplitWords text="Demo warming up" start={60} />
+          </h1>
+          <p className="rise mx-auto mt-6 max-w-xl text-lead text-paper/70 [animation-delay:300ms]">
+            The demo code is being prepared. Meanwhile, the free generator
+            works right now.
+          </p>
+          <Link
+            data-magnetic
+            href="/qr-code-generator"
+            className="rise mt-10 inline-flex rounded-full bg-verdigris-bright px-8 py-4 font-medium text-night transition-colors hover:bg-paper [animation-delay:400ms]"
+          >
+            Open the free generator
+          </Link>
+        </Container>
+      </DarkHero>
+    </main>
+  );
+}
+
 export default async function DemoPage() {
+  // Preview builds may not have database credentials. Show the existing
+  // fallback instead of failing static generation.
+  if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SECRET_KEY) {
+    return <DemoWarmingUp />;
+  }
+
   const admin = createSupabaseAdminClient();
   const { data: code } = await admin
     .from("qr_codes")
@@ -39,24 +71,7 @@ export default async function DemoPage() {
     .single();
 
   if (!code) {
-    return (
-      <main id="main">
-        <Container className="max-w-3xl py-24 text-center sm:py-32">
-          <Eyebrow tone="verdigris">Live demo</Eyebrow>
-          <h1 className="display mt-6 text-h1">Demo warming up</h1>
-          <p className="mx-auto mt-6 max-w-xl text-lead text-ink-soft">
-            The demo code is being prepared. Meanwhile, the free generator
-            works right now.
-          </p>
-          <Link
-            href="/qr-code-generator"
-            className="mt-10 inline-flex rounded-full bg-ink px-7 py-3.5 font-medium text-paper transition hover:bg-verdigris-deep"
-          >
-            Open the free generator
-          </Link>
-        </Container>
-      </main>
-    );
+    return <DemoWarmingUp />;
   }
 
   const { data: scans } = await admin

@@ -56,7 +56,7 @@ export function CodeForm({
             id="name"
             name="name"
             defaultValue={initial?.name}
-            placeholder="Spring menu — table tents"
+            placeholder="Spring menu, table tents"
             maxLength={80}
             required
           />
@@ -75,7 +75,7 @@ export function CodeForm({
             required
           />
           <p className="mt-1.5 text-xs text-ink-faint">
-            Where visitors land. Change it any time — the short URL and printed
+            Where visitors land. Change it any time. The short URL and printed
             code stay valid.
           </p>
         </div>
