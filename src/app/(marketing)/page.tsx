@@ -215,7 +215,7 @@ export default function LandingPage() {
             <span
               key={`${u}-${n}`}
               aria-hidden={n >= USES.length}
-              className="display flex items-center gap-10 whitespace-nowrap text-2xl text-ink-soft"
+              className={`display flex items-center gap-10 whitespace-nowrap text-2xl text-ink-soft ${n >= USES.length ? "motion-reduce:hidden" : ""}`}
             >
               {u}
               <span className="text-copper" aria-hidden="true">✦</span>
