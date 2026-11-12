@@ -951,3 +951,22 @@ details[open] > .faq-row::before { transform: scaleX(1); }
 @keyframes sr-laser { 0% { top: 8%; opacity: 0 } 10% { opacity: 1 } 50% { top: 90%; opacity: 1 } 60% { opacity: 0 } 100% { top: 8%; opacity: 0 } }
 @keyframes sr-blink { 50% { opacity: 0 } }
 @media (prefers-reduced-motion: reduce) { .sr-c { animation: none; } .sr-laser { display: none; } .sr-caret { animation: none; } }
+
+/* Headings ink in as they cross the screen (iteration 80): paint only, no layout. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    main h2.display:not([data-no-ink]) {
+      background-image: linear-gradient(100deg, currentColor 0 46%, color-mix(in srgb, currentColor 22%, transparent) 54% 100%);
+      background-size: 240% 100%;
+      background-repeat: no-repeat;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: h-ink linear both;
+      animation-timeline: view();
+      animation-range: entry 40% cover 42%;
+    }
+    main h2.display:not([data-no-ink]) :is(em, i, .italic, [class*="text-"]) { -webkit-text-fill-color: currentColor; }
+  }
+}
+@keyframes h-ink { from { background-position: 100% 0 } to { background-position: 0% 0 } }
