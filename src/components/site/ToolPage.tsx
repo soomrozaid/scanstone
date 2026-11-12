@@ -6,6 +6,14 @@ import { CtaBand } from "./CtaBand";
 import { DarkHero } from "@/components/cinema/DarkHero";
 import { SplitWords } from "@/components/cinema/SplitWords";
 import { AssembleQR } from "@/components/cinema/AssembleQR";
+import { ScanReadout } from "@/components/cinema/ScanReadout";
+
+/** What the hero code really encodes on each tool page (example data). */
+const HERO_PAYLOAD: Record<string, { data: string; kind: string; label: string }> = {
+  "/qr-code-generator": { data: "https://www.scanstone.ca", kind: "URL", label: "Example QR code for scanstone.ca" },
+  "/wifi-qr-code-generator": { data: "WIFI:T:WPA;S:Corner Cafe Guest;P:example-pass;;", kind: "WiFi", label: "Example WiFi QR code for a sample network" },
+  "/vcard-qr-code-generator": { data: "BEGIN:VCARD\nVERSION:3.0\nFN:Alex Rivera\nTEL:+1-306-555-0123\nEND:VCARD", kind: "vCard", label: "Example contact card QR code for a sample person" },
+};
 
 const TOOLS = [
   { href: "/qr-code-generator", label: "Link & text", sub: "Any URL or note" },
@@ -67,11 +75,18 @@ export function ToolPage({
             </nav>
           </div>
           <div className="hidden lg:block">
-            <AssembleQR
-              data="https://www.scanstone.ca"
-              label="Example QR code for scanstone.ca"
-              className="mx-auto w-[300px] rotate-[-4deg] shadow-[0_40px_120px_-20px_rgba(79,174,155,0.45)]"
-            />
+            {(() => {
+              const h = HERO_PAYLOAD[current] ?? HERO_PAYLOAD["/qr-code-generator"]!;
+              return (
+                <ScanReadout payload={h.data} kind={h.kind}>
+                  <AssembleQR
+                    data={h.data}
+                    label={h.label}
+                    className="mx-auto w-[300px] shadow-[0_40px_120px_-20px_rgba(79,174,155,0.45)]"
+                  />
+                </ScanReadout>
+              );
+            })()}
           </div>
         </Container>
       </DarkHero>
