@@ -25,7 +25,31 @@ export const revalidate = 60;
 /** Public, read-only view of the seeded demo code. Slug is fixed server-side. */
 const DEMO_SLUG = "cafemenu";
 
+function DemoWarmingUp() {
+  return (
+    <main
+      id="main"
+      className="mx-auto max-w-3xl px-4 py-16 text-center sm:px-6"
+    >
+      <h1 className="engraved text-3xl font-semibold">Demo warming up</h1>
+      <p className="mt-3 text-ink-soft">
+        The demo code is being prepared. Meanwhile, the free generator works
+        right now.
+      </p>
+      <ButtonLink href="/qr-code-generator" className="mt-6">
+        Open the free generator
+      </ButtonLink>
+    </main>
+  );
+}
+
 export default async function DemoPage() {
+  // Preview builds may not have database credentials. Show the existing
+  // fallback instead of failing static generation.
+  if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SECRET_KEY) {
+    return <DemoWarmingUp />;
+  }
+
   const admin = createSupabaseAdminClient();
   const { data: code } = await admin
     .from("qr_codes")
@@ -34,21 +58,7 @@ export default async function DemoPage() {
     .single();
 
   if (!code) {
-    return (
-      <main
-        id="main"
-        className="mx-auto max-w-3xl px-4 py-16 text-center sm:px-6"
-      >
-        <h1 className="engraved text-3xl font-semibold">Demo warming up</h1>
-        <p className="mt-3 text-ink-soft">
-          The demo code is being prepared. Meanwhile, the free generator works
-          right now.
-        </p>
-        <ButtonLink href="/qr-code-generator" className="mt-6">
-          Open the free generator
-        </ButtonLink>
-      </main>
-    );
+    return <DemoWarmingUp />;
   }
 
   const { data: scans } = await admin

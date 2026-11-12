@@ -31,6 +31,9 @@ export async function createSupabaseServerClient() {
 
 /** Convenience: current authenticated user or null (verified with the auth server). */
 export async function getUser() {
+  if (!process.env.SUPABASE_URL || !process.env.SUPABASE_PUBLISHABLE_KEY) {
+    return null;
+  }
   const supabase = await createSupabaseServerClient();
   const {
     data: { user },
