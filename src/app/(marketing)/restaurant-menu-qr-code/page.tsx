@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { HeroVisual } from "@/components/hero/Hero";
+import { HeroStage } from "@/components/hero/HeroStage";
 import { MarketingLink } from "@/components/marketing/MarketingLink";
-import { Badge, Card } from "@/components/ui";
+import { Container, Eyebrow, Fig } from "@/components/site/primitives";
+import { Reveal } from "@/components/site/Reveal";
+import { Faq } from "@/components/site/Faq";
+import { CtaBand } from "@/components/site/CtaBand";
+import { TrialSim } from "@/components/home/TrialSim";
 import { envClient } from "@/config/env.client";
 
 const title = "Restaurant Menu QR Codes You Can Update After Printing";
@@ -85,148 +89,144 @@ export default function RestaurantMenuPage() {
           __html: JSON.stringify(data).replace(/</g, "\\u003c"),
         }}
       />
-      <section className="mx-auto grid max-w-6xl items-center gap-12 px-4 py-14 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:py-20">
-        <div>
-          <Badge tone="green">For restaurants & cafés</Badge>
-          <h1 className="engraved mt-5 text-4xl font-semibold leading-[1.08] sm:text-5xl">
-            Change the menu.
-            <br />
-            Keep the QR code.
-          </h1>
-          <p className="mt-5 max-w-lg text-lg leading-relaxed text-ink-soft">
-            A dynamic restaurant menu QR code lets you change the menu link
-            after printing. Keep the same table cards, update the destination,
-            and see how often guests scan.
-          </p>
-          <div className="mt-7 flex flex-wrap gap-3">
-            <MarketingLink
-              placement="restaurant_hero"
-              action="signup"
-              href="/signup"
-              variant="accent"
-              className="px-5 py-3"
-            >
-              Create a free menu code
-            </MarketingLink>
-            <MarketingLink
-              placement="restaurant_hero"
-              action="static_generator"
-              href="/qr-code-generator"
-              variant="ghost"
-              className="px-5 py-3"
-            >
-              Use a static code
-            </MarketingLink>
+      <section className="relative overflow-hidden">
+        <div
+          className="gridlines absolute inset-0 [mask-image:radial-gradient(ellipse_at_top,black_30%,transparent_75%)]"
+          aria-hidden="true"
+        />
+        <Container className="relative grid items-center gap-14 pb-20 pt-10 sm:pt-16 lg:grid-cols-[1.05fr_0.95fr] lg:pb-28 lg:pt-20">
+          <div className="rise">
+            <nav aria-label="Breadcrumb" className="eyebrow text-ink-faint">
+              <Link href="/" className="hover:text-ink">Home</Link>
+              <span className="mx-2" aria-hidden="true">/</span>
+              <span className="text-verdigris">For restaurants &amp; cafés</span>
+            </nav>
+            <h1 className="display mt-6 text-display">
+              Change the menu.
+              <br />
+              <span className="italic text-verdigris-deep">Keep the QR code.</span>
+            </h1>
+            <p className="mt-7 max-w-xl text-lead text-ink-soft">
+              A dynamic restaurant menu QR code lets you change the menu link
+              after printing. Keep the same table cards, update the
+              destination, and see how often guests scan.
+            </p>
+            <div className="mt-9 flex flex-wrap gap-3">
+              <MarketingLink
+                placement="restaurant_hero"
+                action="signup"
+                href="/signup"
+                variant="accent"
+                className="!rounded-full px-7 py-3.5 text-base"
+              >
+                Create a free menu code
+              </MarketingLink>
+              <MarketingLink
+                placement="restaurant_hero"
+                action="static_generator"
+                href="/qr-code-generator"
+                variant="ghost"
+                className="!rounded-full px-7 py-3.5 text-base"
+              >
+                Use a static code
+              </MarketingLink>
+            </div>
+            <p className="mt-5 text-sm text-ink-faint">
+              3 editable codes or short links free. No credit card.
+            </p>
+            <p className="mt-2 text-sm text-ink-faint">
+              Bring your existing menu webpage or public PDF link. Scanstone
+              does not host your menu.
+            </p>
           </div>
-          <p className="mt-4 text-sm text-ink-soft">
-            3 editable codes or short links free. No credit card.
-          </p>
-          <p className="mt-3 text-sm text-ink-soft">
-            Bring your existing menu webpage or public PDF link. Scanstone does
-            not host your menu.
-          </p>
-        </div>
-        <HeroVisual />
+          <div className="rise [animation-delay:150ms]">
+            <HeroStage />
+          </div>
+        </Container>
       </section>
-      <section className="border-y border-line bg-paper-deep/50">
-        <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
-          <h2 className="engraved text-3xl font-semibold">
-            From menu link to table card
-          </h2>
-          <ol className="mt-8 grid gap-6 md:grid-cols-3">
+
+      <section aria-labelledby="steps-h" className="border-y border-line bg-paper-deep/40 py-24 sm:py-32">
+        <Container>
+          <Reveal>
+            <Fig n="01">Setup</Fig>
+            <h2 id="steps-h" className="display mt-6 text-h2">From menu link to table card</h2>
+          </Reveal>
+          <ol className="mt-14 grid gap-4 md:grid-cols-3">
             {[
-              [
-                "01",
-                "Link your menu",
-                "Open your menu URL in a private browser window. It should load without asking guests to sign in. Use that URL as the destination for a new dynamic code.",
-              ],
-              [
-                "02",
-                "Test the printed version",
-                "Download the PNG, print a sample at its intended size, and scan it on more than one phone. Keep a clear margin around the code and check it in your dining-room lighting.",
-              ],
-              [
-                "03",
-                "Update without reprinting",
-                "When your menu moves to a new URL, edit the code’s destination in your dashboard. Use separate codes for tables and takeaway bags if you want to compare their scan counts.",
-              ],
-            ].map(([n, heading, body]) => (
-              <li key={n}>
-                <Card className="h-full p-6">
-                  <span className="font-mono text-sm text-verdigris-deep">
-                    {n}
-                  </span>
-                  <h3 className="mt-3 text-lg font-semibold">{heading}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-ink-soft">
-                    {body}
-                  </p>
-                </Card>
-              </li>
+              ["01", "Link your menu", "Open your menu URL in a private browser window. It should load without asking guests to sign in. Use that URL as the destination for a new dynamic code."],
+              ["02", "Test the printed version", "Download the PNG, print a sample at its intended size, and scan it on more than one phone. Keep a clear margin around the code and check it in your dining-room lighting."],
+              ["03", "Update without reprinting", "When your menu moves to a new URL, edit the code’s destination in your dashboard. Use separate codes for tables and takeaway bags if you want to compare their scan counts."],
+            ].map(([n, heading, body], k) => (
+              <Reveal as="li" key={n} delay={k * 80} className="relative rounded-[24px] border border-line bg-white/60 p-7 sm:p-8">
+                <span className="display text-6xl text-verdigris/25">{n}</span>
+                <h3 className="display mt-4 text-2xl">{heading}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-ink-soft">{body}</p>
+              </Reveal>
             ))}
           </ol>
-        </div>
+        </Container>
       </section>
-      <section className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-        <h2 className="engraved text-3xl font-semibold">
-          Before you print the whole batch
-        </h2>
-        <ul className="mt-6 list-disc space-y-3 pl-5 text-ink-soft">
-          <li>
-            Use dark marks on a light background and leave the code’s clear
-            border intact.
-          </li>
-          <li>
-            Check the menu on a phone over mobile data, not only your staff
-            WiFi.
-          </li>
-          <li>
-            Put “Scan for our menu” beside it, plus a readable menu URL for
-            guests who cannot scan.
-          </li>
-          <li>
-            Keep a printed menu available and avoid placing codes across folds
-            or reflective surfaces.
-          </li>
-        </ul>
-        <p className="mt-6 text-sm text-ink-soft">
-          Need a guest network code too? Use the{" "}
-          <Link
-            href="/wifi-qr-code-generator"
-            className="text-verdigris-deep underline"
-          >
-            free WiFi QR generator
-          </Link>
-          .
-        </p>
-      </section>
-      <section
-        className="mx-auto max-w-3xl px-4 pb-16 sm:px-6"
-        aria-labelledby="menu-faq"
-      >
-        <h2 id="menu-faq" className="engraved text-3xl font-semibold">
-          Restaurant menu QR codes, explained
-        </h2>
-        <dl className="mt-8 space-y-6">
-          {questions.map(({ q, a }) => (
-            <div key={q} className="border-b border-line pb-6">
-              <dt className="font-semibold">{q}</dt>
-              <dd className="mt-2 leading-relaxed text-ink-soft">{a}</dd>
+
+      <section aria-labelledby="print-h" className="py-24 sm:py-32">
+        <Container className="grid items-start gap-14 lg:grid-cols-2">
+          <Reveal>
+            <Fig n="02">Checklist</Fig>
+            <h2 id="print-h" className="display mt-6 text-h2">Before you print the whole batch</h2>
+            <ul className="mt-10 space-y-4">
+              {[
+                "Use dark marks on a light background and leave the code’s clear border intact.",
+                "Check the menu on a phone over mobile data, not only your staff WiFi.",
+                "Put “Scan for our menu” beside it, plus a readable menu URL for guests who cannot scan.",
+                "Keep a printed menu available and avoid placing codes across folds or reflective surfaces.",
+              ].map((t, k) => (
+                <li key={t} className="flex gap-4 border-b border-line pb-4 text-ink-soft">
+                  <span className="font-mono text-xs text-copper">0{k + 1}</span>
+                  <span>{t}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-6 text-sm text-ink-soft">
+              Need a guest network code too? Use the{" "}
+              <Link href="/wifi-qr-code-generator" className="text-verdigris-deep underline underline-offset-2">
+                free WiFi QR generator
+              </Link>
+              .
+            </p>
+          </Reveal>
+          <Reveal delay={100}>
+            <Eyebrow>What if you stop paying?</Eyebrow>
+            <div className="mt-5">
+              <TrialSim />
             </div>
-          ))}
-        </dl>
-        <p className="mt-8 text-ink-soft">
-          Start free, then upgrade if you need more codes, full scan history, or
-          vector downloads.{" "}
-          <Link href="/pricing" className="text-verdigris-deep underline">
-            Compare plans
-          </Link>{" "}
-          or{" "}
-          <Link href="/demo" className="text-verdigris-deep underline">
-            explore the live demo
-          </Link>
-          .
-        </p>
+          </Reveal>
+        </Container>
       </section>
+
+      <section aria-labelledby="menu-faq" className="border-t border-line bg-paper-deep/40 py-24 sm:py-32">
+        <Container className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
+          <div>
+            <Fig n="03">FAQ</Fig>
+            <h2 id="menu-faq" className="display mt-6 text-h2">Restaurant menu QR codes, explained</h2>
+            <p className="mt-6 text-ink-soft">
+              Start free, then upgrade if you need more codes, full scan
+              history, or vector downloads.{" "}
+              <Link href="/pricing" className="text-verdigris-deep underline underline-offset-2">Compare plans</Link>{" "}
+              or{" "}
+              <Link href="/demo" className="text-verdigris-deep underline underline-offset-2">explore the live demo</Link>.
+            </p>
+          </div>
+          <Faq items={questions} />
+        </Container>
+      </section>
+
+      <div className="pt-24 sm:pt-32">
+        <CtaBand
+          title="Your next menu change shouldn't mean a reprint."
+          body="Make one free menu code, put it on every table, and point it wherever you like."
+          primary={{ href: "/signup", label: "Create a free menu code" }}
+          secondary={{ href: "/demo", label: "See the live demo" }}
+        />
+      </div>
     </main>
   );
 }
