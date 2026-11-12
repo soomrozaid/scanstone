@@ -115,10 +115,10 @@ export default function PrivacyPage() {
           <p className="mt-2">
             Privacy questions: email{" "}
             <a
-              href="mailto:soomrozaid@gmail.com"
+              href="mailto:hello@scanstone.ca"
               className="text-verdigris-deep underline"
             >
-              soomrozaid@gmail.com
+              hello@scanstone.ca
             </a>
             . We&apos;ll answer plainly.
           </p>
