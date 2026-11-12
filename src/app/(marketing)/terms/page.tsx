@@ -9,13 +9,14 @@ export const metadata: Metadata = {
 
 export default function TermsPage() {
   return (
-    <main id="main" className="mx-auto max-w-2xl px-4 py-14 sm:px-6">
-      <h1 className="engraved text-3xl font-semibold">Terms of Service</h1>
-      <p className="mt-2 text-sm text-ink-faint">Effective July 12, 2026</p>
+    <main id="main" className="mx-auto max-w-3xl px-5 pb-24 pt-12 sm:px-8 sm:pt-20">
+      <p className="eyebrow rise text-verdigris">Legal</p>
+      <h1 className="display rise mt-6 text-h1">Terms of Service</h1>
+      <p className="mt-4 font-mono text-xs text-ink-faint">Effective July 12, 2026</p>
 
-      <div className="mt-8 space-y-6 text-[15px] leading-relaxed text-ink-soft">
+      <div className="mt-12 space-y-10 border-t border-line pt-10 text-[1.02rem] leading-[1.75] text-ink-soft">
         <section>
-          <h2 className="text-lg font-semibold text-ink">1. The service</h2>
+          <h2 className="display text-2xl text-ink">1. The service</h2>
           <p className="mt-2">
             Scanstone provides QR code generation (static and dynamic), redirect
             hosting for dynamic codes, and scan analytics. Free static codes are
@@ -24,7 +25,7 @@ export default function TermsPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-ink">
+          <h2 className="display text-2xl text-ink">
             2. The redirect covenant
           </h2>
           <p className="mt-2">
@@ -39,7 +40,7 @@ export default function TermsPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-ink">
+          <h2 className="display text-2xl text-ink">
             3. Plans and billing
           </h2>
           <p className="mt-2">
@@ -52,7 +53,7 @@ export default function TermsPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-ink">4. Acceptable use</h2>
+          <h2 className="display text-2xl text-ink">4. Acceptable use</h2>
           <p className="mt-2">
             You may not use Scanstone codes to link to or distribute:
           </p>
@@ -69,7 +70,7 @@ export default function TermsPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-ink">5. Your content</h2>
+          <h2 className="display text-2xl text-ink">5. Your content</h2>
           <p className="mt-2">
             You retain all rights to your destination URLs and content. You
             grant us only the technical license needed to store them and serve
@@ -78,7 +79,7 @@ export default function TermsPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-ink">
+          <h2 className="display text-2xl text-ink">
             6. Warranty & liability
           </h2>
           <p className="mt-2">
@@ -90,7 +91,7 @@ export default function TermsPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-ink">7. Changes</h2>
+          <h2 className="display text-2xl text-ink">7. Changes</h2>
           <p className="mt-2">
             We may update these terms; material changes will be announced to
             account emails at least 14 days in advance. Continued use after the
@@ -99,7 +100,7 @@ export default function TermsPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-ink">8. Contact</h2>
+          <h2 className="display text-2xl text-ink">8. Contact</h2>
           <p className="mt-2">
             Questions:{" "}
             <a

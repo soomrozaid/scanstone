@@ -9,13 +9,14 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <main id="main" className="mx-auto max-w-2xl px-4 py-14 sm:px-6">
-      <h1 className="engraved text-3xl font-semibold">Privacy Policy</h1>
-      <p className="mt-2 text-sm text-ink-faint">Effective July 12, 2026</p>
+    <main id="main" className="mx-auto max-w-3xl px-5 pb-24 pt-12 sm:px-8 sm:pt-20">
+      <p className="eyebrow rise text-verdigris">Legal</p>
+      <h1 className="display rise mt-6 text-h1">Privacy Policy</h1>
+      <p className="mt-4 font-mono text-xs text-ink-faint">Effective July 12, 2026</p>
 
       <div className="prose-scanstone mt-8 space-y-6 text-[15px] leading-relaxed text-ink-soft">
         <section>
-          <h2 className="text-lg font-semibold text-ink">The short version</h2>
+          <h2 className="display text-2xl text-ink">The short version</h2>
           <p className="mt-2">
             We store what we need to run your account and count scans of your
             codes — nothing more. We don&apos;t sell data, we don&apos;t run ad
@@ -26,7 +27,7 @@ export default function PrivacyPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-ink">
+          <h2 className="display text-2xl text-ink">
             Data we hold about you (account holders)
           </h2>
           <ul className="mt-2 list-disc space-y-1.5 pl-5">
@@ -48,7 +49,7 @@ export default function PrivacyPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-ink">
+          <h2 className="display text-2xl text-ink">
             Data recorded when someone scans a code
           </h2>
           <p className="mt-2">For each scan of a dynamic code we record:</p>
@@ -72,7 +73,7 @@ export default function PrivacyPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-ink">
+          <h2 className="display text-2xl text-ink">
             Free generator tools
           </h2>
           <p className="mt-2">
@@ -83,7 +84,7 @@ export default function PrivacyPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-ink">
+          <h2 className="display text-2xl text-ink">
             Processors we rely on
           </h2>
           <ul className="mt-2 list-disc space-y-1.5 pl-5">
@@ -96,7 +97,7 @@ export default function PrivacyPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-ink">Your controls</h2>
+          <h2 className="display text-2xl text-ink">Your controls</h2>
           <ul className="mt-2 list-disc space-y-1.5 pl-5">
             <li>
               Export everything (codes + scan data) from your account page, any
@@ -111,7 +112,7 @@ export default function PrivacyPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-ink">Contact</h2>
+          <h2 className="display text-2xl text-ink">Contact</h2>
           <p className="mt-2">
             Privacy questions: email{" "}
             <a

@@ -9,7 +9,9 @@ import {
 import { designSchema } from "@/lib/validate";
 import { renderQRSvg } from "@/lib/qr/svg";
 import { getShortUrl } from "@/lib/short-url";
-import { Card, Badge, ButtonLink } from "@/components/ui";
+import Link from "next/link";
+import { Container, Eyebrow, Fig } from "@/components/site/primitives";
+import { CtaBand } from "@/components/site/CtaBand";
 import { ScanChart } from "@/components/analytics/ScanChart";
 import { BreakdownList } from "@/components/analytics/BreakdownList";
 
@@ -35,18 +37,21 @@ export default async function DemoPage() {
 
   if (!code) {
     return (
-      <main
-        id="main"
-        className="mx-auto max-w-3xl px-4 py-16 text-center sm:px-6"
-      >
-        <h1 className="engraved text-3xl font-semibold">Demo warming up</h1>
-        <p className="mt-3 text-ink-soft">
-          The demo code is being prepared. Meanwhile, the free generator works
-          right now.
-        </p>
-        <ButtonLink href="/qr-code-generator" className="mt-6">
-          Open the free generator
-        </ButtonLink>
+      <main id="main">
+        <Container className="max-w-3xl py-24 text-center sm:py-32">
+          <Eyebrow tone="verdigris">Live demo</Eyebrow>
+          <h1 className="display mt-6 text-h1">Demo warming up</h1>
+          <p className="mx-auto mt-6 max-w-xl text-lead text-ink-soft">
+            The demo code is being prepared. Meanwhile, the free generator
+            works right now.
+          </p>
+          <Link
+            href="/qr-code-generator"
+            className="mt-10 inline-flex rounded-full bg-ink px-7 py-3.5 font-medium text-paper transition hover:bg-verdigris-deep"
+          >
+            Open the free generator
+          </Link>
+        </Container>
       </main>
     );
   }
@@ -68,62 +73,94 @@ export default async function DemoPage() {
     label: countryName(b.label),
   }));
 
+  const last30 = series.days.reduce((n, d) => n + d.count, 0);
+  const host = new URL(code.destination_url).hostname;
+
   return (
-    <main id="main" className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-      <div className="max-w-2xl">
-        <Badge tone="copper">Live demo — public</Badge>
-        <h1 className="engraved mt-3 text-3xl font-semibold sm:text-4xl">
-          This is a real code. Scan it.
-        </h1>
-        <p className="mt-3 leading-relaxed text-ink-soft">
-          Below is an actual dynamic code from a Scanstone account, with its
-          actual analytics. Scan it with your phone and refresh — your scan
-          appears in the counts. (Seeded history is marked; new scans are real.)
-        </p>
-      </div>
-
-      <div className="mt-10 grid gap-8 lg:grid-cols-[300px_1fr]">
-        <Card className="h-fit p-5">
-          <div
-            className="overflow-hidden rounded-md border border-line bg-white"
-            dangerouslySetInnerHTML={{ __html: svg }}
-          />
-          <p className="mt-3 break-all text-center font-mono text-sm text-ink-soft">
-            {shortUrl}
+    <main id="main">
+      <section className="relative overflow-hidden">
+        <div
+          className="gridlines absolute inset-0 [mask-image:radial-gradient(ellipse_at_top,black_25%,transparent_70%)]"
+          aria-hidden="true"
+        />
+        <Container className="relative pb-16 pt-12 sm:pt-20">
+          <p className="eyebrow inline-flex items-center gap-2 text-copper">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full rounded-full bg-copper opacity-60 motion-safe:animate-ping" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-copper" />
+            </span>
+            Live demo · public
           </p>
-          <p className="mt-2 text-center text-xs text-ink-faint">
-            Currently pointing at: {new URL(code.destination_url).hostname}
+          <h1 className="display mt-6 max-w-4xl text-h1">
+            This is a real code. <span className="italic text-verdigris-deep">Scan it.</span>
+          </h1>
+          <p className="mt-6 max-w-2xl text-lead text-ink-soft">
+            Below is an actual dynamic code from a Scanstone account, with its
+            actual analytics. Scan it with your phone and refresh, and your
+            scan shows up in the counts. Older history was seeded so the charts
+            aren&apos;t empty; new scans are real.
           </p>
-        </Card>
+        </Container>
 
-        <div>
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <h2 className="engraved text-xl font-semibold">{code.name}</h2>
-            <Badge tone="green">{code.scan_count} scans all-time</Badge>
+        <Container className="relative grid gap-5 pb-24 lg:grid-cols-[380px_1fr]">
+          <div className="h-fit rounded-[28px] bg-night p-6 text-paper shadow-[var(--shadow-lift)] lg:sticky lg:top-24">
+            <div className="rounded-2xl bg-white p-4">
+              <div
+                className="overflow-hidden [&>svg]:h-auto [&>svg]:w-full"
+                dangerouslySetInnerHTML={{ __html: svg }}
+              />
+            </div>
+            <p className="mt-5 break-all text-center font-mono text-sm text-paper/80">
+              {shortUrl}
+            </p>
+            <div className="mt-5 rounded-2xl border border-night-line p-4 text-sm">
+              <p className="eyebrow text-paper/45">Currently pointing at</p>
+              <p className="mt-2 font-mono text-verdigris-bright">{host}</p>
+            </div>
+            <p className="mt-4 text-center text-xs text-paper/45">
+              Point your phone camera at the code.
+            </p>
           </div>
-          <div className="mt-4">
-            <ScanChart series={series} title="Last 30 days" />
-          </div>
-          <div className="mt-6 grid gap-6 sm:grid-cols-3">
-            <BreakdownList title="Countries" items={countries} />
-            <BreakdownList title="Devices" items={breakdown(rows, "device")} />
-            <BreakdownList
-              title="Operating systems"
-              items={breakdown(rows, "os")}
-            />
-          </div>
-        </div>
-      </div>
 
-      <Card className="mt-12 flex flex-wrap items-center justify-between gap-4 p-6">
-        <p className="max-w-xl text-sm leading-relaxed text-ink-soft">
-          Your own dashboard looks exactly like this — three dynamic codes free,
-          no card required, and the covenant applies from day one.
-        </p>
-        <ButtonLink href="/signup" variant="accent">
-          Make one like it
-        </ButtonLink>
-      </Card>
+          <div className="rounded-[28px] border border-line bg-white/60 p-6 shadow-[var(--shadow-card)] sm:p-8">
+            <div className="flex flex-wrap items-start justify-between gap-4">
+              <div>
+                <Fig n="01">Dashboard view</Fig>
+                <h2 className="display mt-4 text-3xl">{code.name}</h2>
+              </div>
+              <dl className="flex gap-6 text-right">
+                <div>
+                  <dt className="eyebrow text-ink-faint">Last 30 days</dt>
+                  <dd className="display mt-1 text-3xl">{last30}</dd>
+                </div>
+                <div>
+                  <dt className="eyebrow text-ink-faint">All-time</dt>
+                  <dd className="display mt-1 text-3xl">{code.scan_count}</dd>
+                </div>
+              </dl>
+            </div>
+            <div className="mt-8">
+              <ScanChart series={series} title="Last 30 days" />
+            </div>
+            <div className="mt-8 grid gap-6 sm:grid-cols-3">
+              <BreakdownList title="Countries" items={countries} />
+              <BreakdownList title="Devices" items={breakdown(rows, "device")} />
+              <BreakdownList title="Operating systems" items={breakdown(rows, "os")} />
+            </div>
+            <p className="mt-6 text-xs text-ink-faint">
+              All-time and breakdowns include the seeded history. Country,
+              device and OS only. No cookies, no stored IPs.
+            </p>
+          </div>
+        </Container>
+      </section>
+
+      <CtaBand
+        title="Your own dashboard looks exactly like this."
+        body="Three dynamic codes free, no card required, and the covenant applies from day one."
+        primary={{ href: "/signup", label: "Make one like it" }}
+        secondary={{ href: "/pricing", label: "See pricing" }}
+      />
     </main>
   );
 }

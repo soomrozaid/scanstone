@@ -13,13 +13,13 @@ import type { Components } from "react-markdown";
  */
 const components: Components = {
   h2: ({ node, ...props }) => (
-    <h2 className="engraved mt-12 text-2xl font-semibold text-ink" {...props} />
+    <h2 className="display mt-14 text-3xl text-ink sm:text-4xl" {...props} />
   ),
   h3: ({ node, ...props }) => (
-    <h3 className="mt-8 text-lg font-semibold text-ink" {...props} />
+    <h3 className="mt-10 text-xl font-semibold text-ink" {...props} />
   ),
   p: ({ node, ...props }) => (
-    <p className="mt-4 leading-relaxed text-ink-soft" {...props} />
+    <p className="mt-5 leading-[1.75] text-ink-soft" {...props} />
   ),
   a: ({ node, href = "", ...props }) =>
     href.startsWith("/") ? (
@@ -56,7 +56,7 @@ const components: Components = {
   em: ({ node, ...props }) => <em className="italic" {...props} />,
   blockquote: ({ node, ...props }) => (
     <blockquote
-      className="my-6 border-l-2 border-verdigris pl-5 font-display text-lg leading-relaxed text-ink italic"
+      className="display my-10 border-l-2 border-verdigris pl-6 text-2xl leading-snug text-ink italic"
       {...props}
     />
   ),
@@ -91,7 +91,7 @@ const components: Components = {
 
 export function Prose({ children }: { children: string }) {
   return (
-    <div className="text-[1.05rem]">
+    <div className="text-[1.08rem]">
       <Markdown remarkPlugins={[remarkGfm]} components={components}>
         {children}
       </Markdown>
