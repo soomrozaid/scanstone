@@ -78,7 +78,7 @@ export function DesignControls({
         </div>
         {!scannable ? (
           <p role="alert" className="mt-2 text-xs text-danger">
-            Low contrast — scanners need dark ink on light paper. Adjust the
+            Low contrast. Scanners need dark ink on light paper. Adjust the
             colors.
           </p>
         ) : null}

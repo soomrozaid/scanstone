@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ToolPage } from "@/components/site/ToolPage";
 import { StaticGenerator } from "@/components/free-tool/StaticGenerator";
 
 export const metadata: Metadata = {
@@ -64,56 +65,37 @@ function JsonLd() {
 
 export default function FreeQRGeneratorPage() {
   return (
-    <main id="main" className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+    <>
       <JsonLd />
-      <div className="max-w-2xl">
-        <h1 className="engraved text-3xl font-semibold sm:text-4xl">
-          Free QR code generator — no expiration, ever
-        </h1>
-        <p className="mt-3 leading-relaxed text-ink-soft">
-          Make a QR code for a link, WiFi network, contact card, or any text.
-          Download it as PNG or vector SVG. No account, no watermark, no 14-day
-          surprise: static codes are permanent by design, because the content
-          lives inside the pattern itself.
-        </p>
-      </div>
-
-      <div className="mt-10">
-        <StaticGenerator initialMode="url" />
-      </div>
-
-      <section className="mt-16 max-w-2xl" aria-labelledby="static-faq">
-        <h2 id="static-faq" className="engraved text-2xl font-semibold">
-          Straight answers
-        </h2>
-        <dl className="mt-6 space-y-5">
-          {FAQS.map((f) => (
-            <div key={f.q} className="border-b border-line pb-5">
-              <dt className="font-medium">{f.q}</dt>
-              <dd className="mt-1.5 text-sm leading-relaxed text-ink-soft">
-                {f.a}
-              </dd>
-            </div>
-          ))}
-        </dl>
-        <p className="mt-8 text-sm text-ink-soft">
-          Need WiFi or contact codes specifically? Use the dedicated{" "}
-          <Link
-            href="/wifi-qr-code-generator"
-            className="text-verdigris-deep underline"
-          >
-            WiFi QR generator
-          </Link>{" "}
-          or{" "}
-          <Link
-            href="/vcard-qr-code-generator"
-            className="text-verdigris-deep underline"
-          >
-            vCard QR generator
-          </Link>
-          .
-        </p>
-      </section>
-    </main>
+      <ToolPage
+        current="/qr-code-generator"
+        eyebrow="Free tool · no sign-up"
+        title="Free QR code generator."
+        accent="No expiration, ever."
+        lead={
+          <>
+            Make a QR code for a link, WiFi network, contact card, or any text.
+            Download it as PNG or vector SVG. No account, no watermark, no
+            14-day surprise: static codes are permanent by design, because the
+            content lives inside the pattern itself.
+          </>
+        }
+        tool={<StaticGenerator initialMode="url" />}
+        faqs={FAQS}
+        related={
+          <>
+                Need WiFi or contact codes specifically? Use the dedicated{" "}
+                <Link href="/wifi-qr-code-generator" className="text-verdigris-deep underline">
+                  WiFi QR generator
+                </Link>{" "}
+                or{" "}
+                <Link href="/vcard-qr-code-generator" className="text-verdigris-deep underline">
+                  vCard QR generator
+                </Link>
+                .
+              </>
+        }
+      />
+    </>
   );
 }

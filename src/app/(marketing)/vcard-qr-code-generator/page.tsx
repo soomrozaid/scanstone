@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ToolPage } from "@/components/site/ToolPage";
 import { StaticGenerator } from "@/components/free-tool/StaticGenerator";
 
 export const metadata: Metadata = {
@@ -48,55 +49,36 @@ function JsonLd() {
 
 export default function VcardQRPage() {
   return (
-    <main id="main" className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+    <>
       <JsonLd />
-      <div className="max-w-2xl">
-        <h1 className="engraved text-3xl font-semibold sm:text-4xl">
-          vCard QR code generator — one scan, saved contact
-        </h1>
-        <p className="mt-3 leading-relaxed text-ink-soft">
-          Put it on your business card, badge, booth banner, or email signature.
-          One scan opens &ldquo;add contact&rdquo; with everything filled in.
-          Free, no account, and it never expires.
-        </p>
-      </div>
-
-      <div className="mt-10">
-        <StaticGenerator initialMode="vcard" />
-      </div>
-
-      <section className="mt-16 max-w-2xl" aria-labelledby="vcard-faq">
-        <h2 id="vcard-faq" className="engraved text-2xl font-semibold">
-          Straight answers
-        </h2>
-        <dl className="mt-6 space-y-5">
-          {FAQS.map((f) => (
-            <div key={f.q} className="border-b border-line pb-5">
-              <dt className="font-medium">{f.q}</dt>
-              <dd className="mt-1.5 text-sm leading-relaxed text-ink-soft">
-                {f.a}
-              </dd>
-            </div>
-          ))}
-        </dl>
-        <p className="mt-8 text-sm text-ink-soft">
-          More free tools: the{" "}
-          <Link
-            href="/qr-code-generator"
-            className="text-verdigris-deep underline"
-          >
-            QR code generator
-          </Link>{" "}
-          and the{" "}
-          <Link
-            href="/wifi-qr-code-generator"
-            className="text-verdigris-deep underline"
-          >
-            WiFi QR generator
-          </Link>
-          .
-        </p>
-      </section>
-    </main>
+      <ToolPage
+        current="/vcard-qr-code-generator"
+        eyebrow="Free tool · contact cards"
+        title="vCard QR code generator."
+        accent="One scan, saved contact."
+        lead={
+          <>
+            Put it on your business card, badge, booth banner, or email
+            signature. One scan opens &ldquo;add contact&rdquo; with everything
+            filled in. Free, no account, and it never expires.
+          </>
+        }
+        tool={<StaticGenerator initialMode="vcard" />}
+        faqs={FAQS}
+        related={
+          <>
+                More free tools: the{" "}
+                <Link href="/qr-code-generator" className="text-verdigris-deep underline">
+                  QR code generator
+                </Link>{" "}
+                and the{" "}
+                <Link href="/wifi-qr-code-generator" className="text-verdigris-deep underline">
+                  WiFi QR generator
+                </Link>
+                .
+              </>
+        }
+      />
+    </>
   );
 }
