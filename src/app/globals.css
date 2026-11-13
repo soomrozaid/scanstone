@@ -981,6 +981,15 @@ details[open] > .faq-row::before { transform: scaleX(1); }
     .cta-portal-inner { animation: cta-rise linear both; animation-timeline: view(); animation-range: entry 0% cover 50%; }
   }
 }
+/* Iteration 98: the CTA is the last scene, so it opens straight into the
+   footer instead of leaving a strip of paper between two night blocks. */
+.cta-close { position: relative; }
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .cta-horizon { transform-origin: center; animation: cta-horizon linear both; animation-timeline: view(); animation-range: entry 40% cover 60%; }
+  }
+}
+@keyframes cta-horizon { from { transform: scaleX(0); opacity: 0 } to { transform: scaleX(1); opacity: 1 } }
 @keyframes cta-open { from { clip-path: inset(0 var(--gut) round 32px) } to { clip-path: inset(0 0 round 0) } }
 @keyframes cta-rise { from { transform: translateY(60px) scale(.94); opacity: .4 } to { transform: none; opacity: 1 } }
 
