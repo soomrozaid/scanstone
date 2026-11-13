@@ -9,7 +9,7 @@ const LINKS = [
   { href: "/#qr", label: "Create QR" },
   { href: "/#short-link", label: "Short links" },
   { href: "/pricing", label: "Pricing" },
-  { href: "/#faq", label: "Help" },
+  { href: "/help", label: "Help" },
 ];
 
 export function NavBar({ signedIn }: { signedIn: boolean }) {
@@ -42,17 +42,11 @@ export function NavBar({ signedIn }: { signedIn: boolean }) {
   if (lastPath !== pathname) {
     setLastPath(pathname);
     setOpen(false);
+    if (typeof document !== "undefined") {
+      document.getElementById("mobile-menu")?.hidePopover();
+    }
   }
 
-  useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
-    window.addEventListener("keydown", onKey);
-    return () => {
-      document.body.style.overflow = "";
-      window.removeEventListener("keydown", onKey);
-    };
-  }, [open]);
 
   return (
     <>
@@ -121,10 +115,11 @@ export function NavBar({ signedIn }: { signedIn: boolean }) {
             )}
             <button
               type="button"
+              popoverTarget="mobile-menu"
+              popoverTargetAction="toggle"
               aria-expanded={open}
               aria-controls="mobile-menu"
               aria-label={open ? "Close menu" : "Open menu"}
-              onClick={() => setOpen((v) => !v)}
               className={`relative z-50 -mr-2 inline-flex h-11 w-11 items-center justify-center rounded-full lg:hidden ${dark ? "text-paper" : "text-ink"}`}
             >
               <span className="relative block h-3 w-5" aria-hidden="true">
@@ -141,8 +136,12 @@ export function NavBar({ signedIn }: { signedIn: boolean }) {
       </header>
       <div
         id="mobile-menu"
-        hidden={!open}
-        className="menu-iris fixed inset-0 z-30 overflow-y-auto bg-night px-5 pb-10 pt-20 text-paper lg:hidden"
+        popover="auto"
+        className="menu-iris z-30 bg-night px-5 pb-10 pt-20 text-paper lg:hidden"
+        onToggle={(event) => {
+          const el = event.currentTarget;
+          setOpen(el.matches(":popover-open"));
+        }}
       >
         <div className="aurora pointer-events-none absolute inset-0 opacity-70" aria-hidden="true" />
         <div className="gridlines-night pointer-events-none absolute inset-0 opacity-40" aria-hidden="true" />
@@ -153,7 +152,10 @@ export function NavBar({ signedIn }: { signedIn: boolean }) {
               <li key={l.href} className="menu-item overflow-hidden" style={{ ["--i" as string]: i }}>
                 <Link
                   href={l.href}
-                  onClick={() => setOpen(false)}
+                  onClick={() => {
+                    setOpen(false);
+                    document.getElementById("mobile-menu")?.hidePopover();
+                  }}
                   aria-current={active ? "page" : undefined}
                   className="menu-link flex items-baseline gap-4 py-4"
                 >
