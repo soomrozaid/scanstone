@@ -38,8 +38,8 @@ export function SiteFooter() {
     <footer data-nav="dark" className="relative overflow-hidden bg-night text-paper">
       <div className="gridlines-night absolute inset-0" aria-hidden="true" />
       <div className="relative mx-auto max-w-7xl px-5 pt-20 sm:px-8">
-        <div className="grid gap-12 lg:grid-cols-[1.3fr_1fr_1fr_1fr]">
-          <div>
+        <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-[1.3fr_1fr_1fr_1fr] lg:gap-12">
+          <div className="col-span-2 sm:col-span-3 lg:col-span-1">
             <Wordmark tone="paper" />
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-paper/60">
               QR codes for print. Short scst.one links for sharing. Free static

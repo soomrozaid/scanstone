@@ -134,7 +134,7 @@ export function ToolPage({
                 <div aria-hidden="true" className="relative mb-5 w-24">
                   <AssembleQR lite data={k ? "https://scst.one/yours" : "https://www.scanstone.ca"} label="" className={`!rounded-[10px] !p-[9%] ${k ? "shadow-[0_0_40px_rgba(79,174,155,0.35)]" : ""}`} />
                   {k ? (
-                    <span className="sd-chip absolute -bottom-3 left-1/2 h-6 w-36 -translate-x-1/2 overflow-hidden rounded-full border border-paper/15 bg-night font-mono text-[10px] text-paper/85">
+                    <span className="sd-chip absolute -bottom-3 left-1/2 h-6 w-28 sm:w-36 -translate-x-1/2 overflow-hidden rounded-full border border-paper/15 bg-night font-mono text-[10px] text-paper/85">
                       {["→ menu", "→ brunch", "→ events"].map((d, i) => (
                         <span key={d} className="sd-dest absolute inset-0 flex items-center justify-center" style={{ animationDelay: `${i * 2}s` }}>
                           {d}
@@ -142,7 +142,7 @@ export function ToolPage({
                       ))}
                     </span>
                   ) : (
-                    <span className="absolute -bottom-3 left-1/2 -translate-x-1/2 rounded-full border border-line bg-paper px-2.5 py-1 font-mono text-[10px] text-ink-soft">
+                    <span className="absolute -bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-line bg-paper px-2.5 py-1 font-mono text-[10px] text-ink-soft">
                       carved in
                     </span>
                   )}

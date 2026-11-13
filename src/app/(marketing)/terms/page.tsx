@@ -26,7 +26,7 @@ export default function TermsPage() {
             <span className="covenant-ring absolute inset-2 rounded-full border border-dashed border-copper/40" />
             In writing
           </span>
-          <h2 className="display text-2xl text-paper">
+          <h2 className="display pr-20 text-2xl text-paper sm:pr-16">
             2. The redirect covenant
           </h2>
           <p className="mt-2">

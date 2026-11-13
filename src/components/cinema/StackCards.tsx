@@ -46,9 +46,9 @@ export function StackCards({ items }: { items: Array<{ q: string; verdict: strin
         >
           <div className="flex items-start justify-between gap-6">
             <span className="font-mono text-xs tracking-[0.2em] text-copper">Q{i + 1} / {items.length}</span>
-            <span className="display text-[clamp(3rem,7vw,6rem)] italic leading-none text-verdigris">{it.verdict}</span>
+            <span className="display text-[clamp(2.6rem,7vw,6rem)] italic leading-none text-verdigris">{it.verdict}</span>
           </div>
-          <h3 className="display -mt-4 max-w-xl text-[clamp(1.6rem,3vw,2.6rem)] leading-[1.05] tracking-[-0.015em] text-ink">
+          <h3 className="display mt-3 max-w-xl text-[clamp(1.6rem,3vw,2.6rem)] lg:-mt-4 lg:max-w-[min(36rem,58%)] leading-[1.05] tracking-[-0.015em] text-ink">
             {it.q}
           </h3>
           <p className="mt-5 max-w-xl text-base leading-relaxed text-ink-soft">{it.a}</p>
