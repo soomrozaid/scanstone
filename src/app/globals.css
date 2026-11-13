@@ -1073,3 +1073,9 @@ details[open] > .faq-row::before { transform: scaleX(1); }
 @keyframes cov-in { from { transform: translateY(40px) scale(.97); box-shadow: 0 0 0 0 rgb(180 100 45 / 0) } to { transform: none; box-shadow: 0 30px 80px -30px rgb(180 100 45 / .45) } }
 @keyframes cov-sign { from { transform: scaleX(0) } to { transform: scaleX(1) } }
 @keyframes cov-seal { 0% { transform: scale(2) rotate(-20deg); opacity: 0 } 70% { transform: scale(.94) rotate(4deg); opacity: 1 } 100% { transform: scale(1) rotate(0); opacity: 1 } }
+
+/* Iteration 100: the generator's empty state reads as waiting, not as a broken code. */
+@media (prefers-reduced-motion: no-preference) {
+  .gen-wait-dot { animation: gen-wait 1.6s ease-in-out infinite; box-shadow: 0 0 0 0 rgb(79 174 155 / .5); }
+}
+@keyframes gen-wait { 0% { box-shadow: 0 0 0 0 rgb(79 174 155 / .5) } 70% { box-shadow: 0 0 0 8px rgb(79 174 155 / 0) } 100% { box-shadow: 0 0 0 0 rgb(79 174 155 / 0) } }

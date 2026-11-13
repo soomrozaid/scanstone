@@ -272,12 +272,13 @@ export function StaticGenerator({
             <QRPreview
               data={ready ? payload : EXAMPLE}
               options={design}
-              className={`!rounded-xl transition-opacity duration-300 ${ready ? "opacity-100" : "opacity-35"}`}
+              className={`!rounded-xl transition-opacity duration-300 ${ready ? "opacity-100" : "opacity-25 blur-[3px] grayscale"}`}
             />
             </div>
             {!ready ? (
               <p className="absolute inset-0 flex items-center justify-center p-6 text-center text-sm font-medium text-ink">
-                <span className="rounded-full bg-paper/95 px-4 py-2 shadow-[var(--shadow-card)]">
+                <span className="gen-wait inline-flex items-center gap-2.5 rounded-full bg-paper/95 px-4 py-2 shadow-[var(--shadow-card)]">
+                  <span aria-hidden="true" className="gen-wait-dot h-2 w-2 shrink-0 rounded-full bg-verdigris" />
                   Type above and your code appears here
                 </span>
               </p>
