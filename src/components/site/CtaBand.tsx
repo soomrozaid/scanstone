@@ -20,7 +20,7 @@ export function CtaBand({
         <div data-nav="dark" className="cta-portal-card relative overflow-hidden bg-night px-6 py-20 text-center text-paper sm:px-16 sm:py-32">
           <LazyVideo className="absolute inset-0 h-full w-full opacity-70" />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(15,14,12,0.55),rgba(15,14,12,0.92)_70%)]" aria-hidden="true" />
-          <div className="cta-horizon pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-verdigris-bright/50 to-transparent" aria-hidden="true" />
+          <div className="cta-horizon pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-verdigris-bright/80 to-transparent shadow-[0_0_24px_4px_rgba(79,174,155,0.35)]" aria-hidden="true" />
           <Container className="cta-portal-inner relative">
             <h2 className="display mx-auto max-w-4xl text-[clamp(2.4rem,5.5vw,5rem)] leading-[0.98] tracking-[-0.025em]">{title}</h2>
             {body ? (

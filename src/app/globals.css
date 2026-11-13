@@ -986,7 +986,8 @@ details[open] > .faq-row::before { transform: scaleX(1); }
 .cta-close { position: relative; }
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
-    .cta-horizon { transform-origin: center; animation: cta-horizon linear both; animation-timeline: view(); animation-range: entry 40% cover 60%; }
+    .cta-close .cta-portal { view-timeline: --cta block; }
+    .cta-horizon { transform-origin: center; animation: cta-horizon linear both; animation-timeline: --cta; animation-range: cover 25% cover 50%; }
   }
 }
 @keyframes cta-horizon { from { transform: scaleX(0); opacity: 0 } to { transform: scaleX(1); opacity: 1 } }
