@@ -31,6 +31,7 @@ import { PrintArtifacts } from "@/components/home/PrintArtifacts";
 import { MiniCustomizer } from "@/components/home/MiniCustomizer";
 import { StickyCta } from "@/components/site/StickyCta";
 import { Spotlight } from "@/components/site/Spotlight";
+import { ChapterRail } from "@/components/cinema/ChapterRail";
 
 export const metadata: Metadata = {
   title: { absolute: "Editable QR Codes for Print & Short Links | Scanstone" },
@@ -98,6 +99,17 @@ function HomeJsonLd() {
   );
 }
 
+const CHAPTERS = [
+  { sel: "#how-it-works", label: "How it works" },
+  { sel: "section[aria-labelledby='try-h']", label: "Try it" },
+  { sel: "#before-you-print", label: "Before you print" },
+  { sel: "section[aria-labelledby='bento-h']", label: "Features" },
+  { sel: "section[aria-labelledby='custom-h']", label: "Make it yours" },
+  { sel: "#who-its-for", label: "Who it's for" },
+  { sel: "#pricing", label: "Pricing" },
+  { sel: "section[aria-labelledby='faq-h']", label: "Questions" },
+];
+
 const DEMO_SERIES = {
   days: [
     3, 5, 4, 9, 12, 8, 14, 11, 17, 13, 21, 18, 16, 24, 19, 26, 22, 31, 27, 25,
@@ -162,6 +174,7 @@ export default function LandingPage() {
     <main id="main">
       <HomeJsonLd />
       <StickyCta />
+      <ChapterRail chapters={CHAPTERS} />
 
       {/* HERO */}
       <CinemaHero
