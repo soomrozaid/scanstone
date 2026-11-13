@@ -100,7 +100,7 @@ async function makeQr(page, isMobile) {
         await qrTab.click();
       }
     }
-    const input = homeTool.getByLabel(/destination link/i);
+    const input = homeTool.getByLabel(/your link|destination link/i);
     await input.fill("example.com/menu");
     // Instant preview or an explicit create button.
     const create = homeTool.getByRole("button", { name: /create qr/i });
@@ -131,7 +131,7 @@ async function makeShortLink(page, isMobile) {
     if (await tab.isVisible().catch(() => false)) {
       await tab.click();
     }
-    await homeTool.getByLabel(/destination link/i).fill("example.com/your-long-link");
+    await homeTool.getByLabel(/your link|destination link/i).fill("example.com/your-long-link");
     const create = homeTool.getByRole("button", { name: /create short link/i });
     if (await create.isVisible().catch(() => false)) await create.click();
     // Success is: signup prompt, or a created short link, or a validation message.
@@ -164,29 +164,42 @@ async function findPricing(page, isMobile) {
   ]);
 }
 
+const EXPIRE_ANSWER =
+  /never expire|do not expire|don't expire|don’t expire|keeps? working|no expiry|no expiration|not expire|cancellation.*not disable|do not disable redirects/i;
+
 async function findExpire(page, isMobile) {
   await gotoHome(page);
   await dismissIfNeeded(page);
-  // Prefer a one-click nav/footer answer.
-  const direct = page.getByRole("link", { name: /do codes expire|codes expire|never expire|help|faq/i });
+  // The first-screen tool should already say codes don't expire.
+  const already = page.getByText(EXPIRE_ANSWER);
+  if (await already.filter({ visible: true }).first().isVisible().catch(() => false)) {
+    return;
+  }
+  const expireLink = page.getByRole("link", { name: /do codes expire/i });
   if (isMobile) {
+    const visibleDirect = await expireLink.first().isVisible().catch(() => false);
     const open = page.getByRole("button", { name: /open menu/i });
-    const visibleDirect = await page.getByRole("link", { name: /do codes expire|codes expire|never expire|help|faq/i }).first().isVisible().catch(() => false);
     if (!visibleDirect && (await open.isVisible().catch(() => false))) {
       await open.click();
     }
   }
-  const candidate = page.getByRole("link", { name: /do codes expire|codes expire|never expire|help|faq/i }).first();
-  if (await candidate.isVisible().catch(() => false)) {
-    await candidate.click();
+  if (await expireLink.first().isVisible().catch(() => false)) {
+    await expireLink.first().click();
   } else {
-    // it100: scroll to the homepage FAQ and open the expiry question.
-    const faq = page.getByText(/Do Scanstone QR codes expire\?/i).first();
-    await faq.scrollIntoViewIfNeeded();
-    await faq.click();
+    const help = page.getByRole("link", { name: /^help$/i }).first();
+    if (await help.isVisible().catch(() => false)) {
+      await help.click();
+    } else {
+      const faq = page.getByText(/Do Scanstone QR codes expire\?/i).first();
+      await faq.scrollIntoViewIfNeeded();
+      await faq.click();
+    }
   }
-  const answer = page.getByText(/never expire|do not expire|don't expire|keeps? working|no expiry|no expiration|not expire|cancellation.*not disable|do not disable redirects/i).first();
-  await answer.waitFor({ state: "visible", timeout: 8000 });
+  await page
+    .getByText(EXPIRE_ANSWER)
+    .filter({ visible: true })
+    .first()
+    .waitFor({ state: "visible", timeout: 8000 });
 }
 
 async function findSignup(page, isMobile) {
