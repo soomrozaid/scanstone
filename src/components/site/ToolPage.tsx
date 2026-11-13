@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { Container, Eyebrow } from "./primitives";
+import { Breadcrumbs } from "./Breadcrumbs";
 import { Faq } from "./Faq";
 import { CtaBand } from "./CtaBand";
 import { DarkHero } from "@/components/cinema/DarkHero";
@@ -45,6 +46,10 @@ export function ToolPage({
       <DarkHero glow="80% 30%">
         <Container className="grid items-center gap-10 pb-40 pt-14 sm:pt-20 lg:grid-cols-[1.25fr_0.75fr]">
           <div>
+            <Breadcrumbs
+              tone="night"
+              items={[{ href: "/qr-code-generator", label: "Free tools" }, { label: title }]}
+            />
             <Eyebrow tone="verdigris" className="rise !text-verdigris-bright">
               {eyebrow}
             </Eyebrow>

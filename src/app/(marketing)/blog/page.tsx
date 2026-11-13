@@ -6,6 +6,7 @@ import { HoverIndex } from "@/components/cinema/HoverIndex";
 import { CtaBand } from "@/components/site/CtaBand";
 import { docsIn } from "@/lib/content";
 import { Container, Eyebrow } from "@/components/site/primitives";
+import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { Spotlight } from "@/components/site/Spotlight";
 import { AssembleQR } from "@/components/cinema/AssembleQR";
 
@@ -43,6 +44,7 @@ export default function BlogIndex() {
       <DarkHero glow="50% 0%">
         <Container className="pb-40 pt-16 sm:pt-24">
           <header className="max-w-3xl">
+            <Breadcrumbs tone="night" items={[{ label: "Blog" }]} />
             <Eyebrow tone="verdigris" className="rise !text-verdigris-bright">Straight answers about QR codes</Eyebrow>
             <h1 className="display mt-6 text-[clamp(4rem,12vw,11rem)] leading-[0.9] tracking-[-0.035em]">
               <SplitWords text="Blog" start={60} />

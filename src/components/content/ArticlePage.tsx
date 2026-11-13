@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { DarkHero } from "@/components/cinema/DarkHero";
+import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { SplitWords } from "@/components/cinema/SplitWords";
 import { ReadProgress } from "@/components/cinema/ReadProgress";
 import { ReadingDial } from "@/components/cinema/ReadingDial";
@@ -130,15 +131,13 @@ export function ArticlePage({ doc, body }: { doc: DocMeta; body: string }) {
           <p className="display absolute inset-0 flex items-center justify-center text-7xl italic text-paper">{minutes}</p>
         </div>
         <div className="mx-auto max-w-4xl px-5 pb-20 pt-16 sm:px-8 sm:pb-28 sm:pt-24">
-          <nav aria-label="Breadcrumb" className="eyebrow rise text-paper/50">
-            <Link href={`/${doc.collection}`} className="hover:text-paper">
-              {COLLECTION_LABEL[doc.collection]}
-            </Link>
-            <span aria-hidden className="mx-2">
-              /
-            </span>
-            <span className="text-verdigris-bright">{doc.category}</span>
-          </nav>
+          <Breadcrumbs
+            tone="night"
+            items={[
+              { href: `/${doc.collection}`, label: COLLECTION_LABEL[doc.collection] },
+              { label: doc.title },
+            ]}
+          />
 
           <header className="mt-6">
             <h1 className="display text-[clamp(2.4rem,5.6vw,4.8rem)] leading-[1] tracking-[-0.025em]">

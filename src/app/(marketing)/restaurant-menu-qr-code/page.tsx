@@ -6,6 +6,7 @@ import { SplitWords } from "@/components/cinema/SplitWords";
 import { renderQRSvg } from "@/lib/qr/svg";
 import { MarketingLink } from "@/components/marketing/MarketingLink";
 import { Container, Eyebrow, Fig } from "@/components/site/primitives";
+import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { Reveal } from "@/components/site/Reveal";
 import { Faq } from "@/components/site/Faq";
 import { StackCards } from "@/components/cinema/StackCards";
@@ -119,11 +120,7 @@ export default function RestaurantMenuPage() {
       >
         <Container className="pb-14 pt-[calc(33.5svh+84px)] sm:pb-20 lg:pt-40">
           <div className="max-w-3xl">
-            <nav aria-label="Breadcrumb" className="eyebrow rise text-paper/50">
-              <Link href="/" className="hover:text-paper">Home</Link>
-              <span className="mx-2" aria-hidden="true">/</span>
-              <span className="text-verdigris-bright">For restaurants &amp; cafés</span>
-            </nav>
+            <Breadcrumbs tone="night" items={[{ label: "For restaurants and cafés" }]} />
             <h1 className="display mt-6 text-[clamp(3rem,7.4vw,6.8rem)] leading-[0.92] tracking-[-0.03em] text-paper">
               <SplitWords text="Change the menu." start={80} />
               <br />

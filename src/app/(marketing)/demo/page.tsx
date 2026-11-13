@@ -13,6 +13,7 @@ import { designSchema } from "@/lib/validate";
 import { renderQRSvg } from "@/lib/qr/svg";
 import { getShortUrl } from "@/lib/short-url";
 import { Container, Fig } from "@/components/site/primitives";
+import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { CtaBand } from "@/components/site/CtaBand";
 import { ScanChart } from "@/components/analytics/ScanChart";
 import { BreakdownList } from "@/components/analytics/BreakdownList";
@@ -53,6 +54,7 @@ function DemoWarmingUp() {
     <main id="main">
       <DarkHero glow="30% 20%">
         <Container className="relative pb-40 pt-16 sm:pt-24">
+          <Breadcrumbs tone="night" items={[{ label: "Live demo" }]} />
           <p className="eyebrow rise inline-flex items-center gap-2 text-paper/60">
             <span className="relative inline-flex h-2 w-2 rounded-full bg-paper/40" />
             Live demo · offline, showing sample data
@@ -203,6 +205,7 @@ export default async function DemoPage() {
     <main id="main">
       <DarkHero glow="30% 20%">
         <Container className="relative pb-40 pt-16 sm:pt-24">
+          <Breadcrumbs tone="night" items={[{ label: "Live demo" }]} />
           <p className="eyebrow rise inline-flex items-center gap-2 text-copper-bright">
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full rounded-full bg-copper opacity-60 motion-safe:animate-ping" />

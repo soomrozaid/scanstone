@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { pricingSoftwareJsonLd } from "@/lib/plans";
 import { Container, Eyebrow, Fig } from "@/components/site/primitives";
+import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { PlanCards } from "@/components/site/PlanCards";
 import { Faq } from "@/components/site/Faq";
 import { CtaBand } from "@/components/site/CtaBand";
@@ -89,6 +90,7 @@ export default function PricingPage() {
       <DarkHero glow="75% 40%">
         <Container className="grid items-center gap-10 pb-36 pt-16 sm:pt-24 lg:grid-cols-[1.2fr_0.8fr] lg:pb-44">
           <div>
+            <Breadcrumbs tone="night" items={[{ label: "Pricing" }]} />
             <Eyebrow tone="verdigris" className="rise !text-verdigris-bright">Two plans. One promise.</Eyebrow>
             <h1 className="display mt-6 text-[clamp(4rem,11vw,10rem)] leading-[0.9] tracking-[-0.035em]">
               <SplitWords text="Pricing" start={60} />

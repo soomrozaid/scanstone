@@ -2,6 +2,7 @@ import { DarkHero } from "./DarkHero";
 import { SplitWords } from "./SplitWords";
 import { ReadProgress } from "./ReadProgress";
 import { LegalToc } from "./LegalToc";
+import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 
 /** Night header with a kinetic title, then the document with a live contents rail. */
 export function LegalShell({
@@ -28,7 +29,7 @@ export function LegalShell({
           >
             {ghost}
           </p>
-          <p className="rise font-mono text-xs uppercase tracking-[0.2em] text-copper-bright">Legal</p>
+          <Breadcrumbs tone="night" items={[{ label: title }]} />
           <h1 className="display mt-6 text-[clamp(3rem,8vw,6.5rem)] leading-[0.95] tracking-[-0.03em]">
             <SplitWords text={title} start={60} />
           </h1>
