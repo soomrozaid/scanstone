@@ -25,7 +25,11 @@ test("landing page communicates the value proposition @smoke", async ({
   const errors = collectConsoleErrors(page);
   await page.goto("/");
   await expect(
-    page.getByRole("heading", { name: /Print it once/i }),
+    page.getByRole("heading", { name: /Make a QR code or a short link/i }),
+  ).toBeVisible();
+  await expect(page.getByTestId("home-tool")).toBeVisible();
+  await expect(
+    page.getByRole("button", { name: "Create QR code" }),
   ).toBeVisible();
   await expect(
     page.getByText(/Cancelling never stops your redirects/i),
@@ -33,9 +37,7 @@ test("landing page communicates the value proposition @smoke", async ({
   await expect(
     page.getByRole("link", { name: /Start free/i }).first(),
   ).toBeVisible();
-  // hero visual mounts (canvas or fallback)
-  await expect(page.getByTestId("hero-visual")).toBeVisible();
-  await page.waitForTimeout(1500);
+  await page.waitForTimeout(500);
   expect(realErrors(errors)).toEqual([]);
 });
 
@@ -120,23 +122,56 @@ test("seo plumbing responds @smoke", async ({ request }) => {
   expect(og.headers()["content-type"]).toContain("image/png");
 });
 
-test("landing is usable on mobile @mobile @smoke", async ({ page }) => {
-  const errors = collectConsoleErrors(page);
+test("homepage tool sits above the fold on a phone-sized screen @smoke", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/");
-  await expect(
-    page.getByRole("heading", { name: /Print it once/i }),
-  ).toBeVisible();
-  // no horizontal overflow
   const overflow = await page.evaluate(
     () =>
       document.documentElement.scrollWidth -
       document.documentElement.clientWidth,
   );
   expect(overflow).toBeLessThanOrEqual(1);
+  const urlBox = await page.getByLabel("Destination link").boundingBox();
+  const buttonBox = await page
+    .getByRole("button", { name: "Create QR code" })
+    .boundingBox();
+  expect(urlBox).toBeTruthy();
+  expect(buttonBox).toBeTruthy();
+  expect((urlBox?.y ?? 0) + (urlBox?.height ?? 0)).toBeLessThanOrEqual(844);
+  expect((buttonBox?.y ?? 0) + (buttonBox?.height ?? 0)).toBeLessThanOrEqual(
+    844,
+  );
+});
+
+test("landing is usable on mobile @mobile @smoke", async ({ page }) => {
+  const errors = collectConsoleErrors(page);
+  await page.goto("/");
   await expect(
-    page.getByRole("link", { name: /Start free/i }).first(),
+    page.getByRole("heading", { name: /Make a QR code or a short link/i }),
   ).toBeVisible();
-  await page.waitForTimeout(1200);
+  const overflow = await page.evaluate(
+    () =>
+      document.documentElement.scrollWidth -
+      document.documentElement.clientWidth,
+  );
+  expect(overflow).toBeLessThanOrEqual(1);
+  const viewport = page.viewportSize();
+  if (!viewport) throw new Error("missing viewport");
+  const urlBox = await page.getByLabel("Destination link").boundingBox();
+  const buttonBox = await page
+    .getByRole("button", { name: "Create QR code" })
+    .boundingBox();
+  expect(urlBox).toBeTruthy();
+  expect(buttonBox).toBeTruthy();
+  expect((urlBox?.y ?? 0) + (urlBox?.height ?? 0)).toBeLessThanOrEqual(
+    viewport.height,
+  );
+  expect((buttonBox?.y ?? 0) + (buttonBox?.height ?? 0)).toBeLessThanOrEqual(
+    viewport.height,
+  );
+  await page.waitForTimeout(300);
   expect(realErrors(errors)).toEqual([]);
 });
 
@@ -159,44 +194,84 @@ test("reduced motion falls back gracefully", async ({ browser }) => {
   const page = await context.newPage();
   await page.goto("/");
   await expect(
-    page.getByRole("heading", { name: /Print it once/i }),
+    page.getByRole("heading", { name: /Make a QR code or a short link/i }),
   ).toBeVisible();
-  await expect(page.getByTestId("hero-visual")).toBeVisible();
+  await expect(page.getByTestId("home-tool")).toBeVisible();
   await context.close();
 });
 
 test("keyboard navigation reaches primary CTA", async ({ page }) => {
   await page.goto("/");
-  // Tab through header links to the CTA
-  for (let i = 0; i < 12; i++) {
+  for (let i = 0; i < 16; i++) {
     await page.keyboard.press("Tab");
-    const focused = await page.evaluate(
-      () => document.activeElement?.textContent ?? "",
-    );
-    if (/Start free/.test(focused)) return;
+    const focused = await page.evaluate(() => {
+      const el = document.activeElement as HTMLElement | null;
+      return {
+        text: el?.textContent ?? "",
+        id: el?.id ?? "",
+        name: el?.getAttribute("aria-label") ?? "",
+      };
+    });
+    if (
+      focused.id === "home-tool-url" ||
+      /Create QR code/.test(focused.text) ||
+      /QR code/.test(focused.text)
+    ) {
+      return;
+    }
   }
-  throw new Error("CTA not reachable by keyboard");
+  throw new Error("Homepage tool not reachable by keyboard");
 });
 
-test("menu preview changes the example without changing the QR @mobile @smoke", async ({
+test("homepage tool makes a static QR without an account @mobile @smoke", async ({
   page,
 }) => {
   await page.goto("/");
-  const preview = page.getByTestId("hero-visual");
-  const before = await preview.locator("svg").innerHTML();
-  await preview.getByRole("button", { name: "Summer menu" }).click();
+  const tool = page.getByTestId("home-tool");
+  await tool.getByLabel("Destination link").fill("https://example.com/menu");
+  await tool.getByRole("button", { name: "Create QR code" }).click();
   await expect(
-    preview.getByRole("button", { name: "Summer menu" }),
-  ).toHaveAttribute("aria-pressed", "true");
-  await expect(
-    preview.getByText("→ Summer menu. Same printed QR code."),
+    tool.locator("svg[role='img'][aria-label='QR code']").first(),
   ).toBeVisible();
-  expect(await preview.locator("svg").innerHTML()).toBe(before);
-  await page.getByRole("link", { name: /Start free —/ }).click();
-  await expect(page).toHaveURL(/\/signup$/);
+  const downloadPromise = page.waitForEvent("download");
+  await tool.getByRole("button", { name: "Download PNG" }).click();
+  const download = await downloadPromise;
+  expect(download.suggestedFilename()).toBe("scanstone-qr.png");
   await expect(
-    page.getByRole("heading", { name: "Create your account" }),
+    tool.getByText(/holds your link itself, with nothing in between/i),
   ).toBeVisible();
+  await expect(
+    tool.getByRole("link", { name: /Create a free account/i }),
+  ).toHaveAttribute("href", "/signup");
+});
+
+test("homepage short link tab asks for an account instead of inventing a link @smoke", async ({
+  page,
+}) => {
+  await page.goto("/#short-link");
+  const tool = page.getByTestId("home-tool");
+  await expect(tool.getByRole("tab", { name: "Short link" })).toHaveAttribute(
+    "aria-selected",
+    "true",
+  );
+  await tool
+    .getByLabel("Destination link")
+    .fill("https://example.com/summer-menu");
+  await tool.getByRole("button", { name: "Create short link" }).click();
+  await expect(tool.getByText("https://example.com/summer-menu")).toBeVisible();
+  await expect(
+    tool.getByText(
+      /needs a free account, because we have to store the redirect/i,
+    ),
+  ).toBeVisible();
+  await expect(
+    tool.getByRole("link", { name: "Create a free account" }),
+  ).toHaveAttribute("href", "/signup");
+  await expect(tool.getByRole("link", { name: "Log in" })).toHaveAttribute(
+    "href",
+    /\/login\?next=/,
+  );
+  await expect(tool.getByText(/scst\.one\//)).toHaveCount(0);
 });
 
 test("restaurant page is discoverable and offers a working free tool @mobile @smoke", async ({
