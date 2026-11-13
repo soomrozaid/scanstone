@@ -50,7 +50,7 @@ export function ScanChart({
                 rx={1.5}
                 fill="#2c6e63"
               >
-                <title>{`${d.date}: ${d.count} ${eventLabel}`}</title>
+                <title>{`${d.date}: ${d.count} ${d.count === 1 ? singularLabel(eventLabel) : eventLabel}`}</title>
               </rect>
               {i === 0 || i === days.length - 1 ? (
                 <text
@@ -69,4 +69,10 @@ export function ScanChart({
       </svg>
     </figure>
   );
+}
+
+function singularLabel(label: string): string {
+  if (label === "scans") return "scan";
+  if (label === "scans and clicks") return "scan or click";
+  return label;
 }
