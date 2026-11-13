@@ -17,7 +17,7 @@ const TOPICS = [
   {
     q: "Do Scanstone QR codes expire?",
     a: "Static codes never expire, because the link lives in the pattern itself. Dynamic codes and short links keep redirecting even if you cancel, downgrade, or hit a plan limit. They only stop if you delete the code or your account, or if the destination website itself goes down.",
-    href: "/#faq",
+    href: "/terms#covenant",
   },
   {
     q: "How do I make a QR code?",
