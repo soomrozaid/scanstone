@@ -101,7 +101,11 @@ export default function PricingPage() {
                 a Scanstone redirect never stops working
               </strong>
               . Not when you downgrade, not when you cancel, not when a limit is
-              reached.
+              reached.{" "}
+              <Link href="/help" className="link-underline text-verdigris-bright">
+                Read more in Help
+              </Link>
+              .
             </p>
           </div>
           <PromiseSeal className="mx-auto w-[min(70vw,360px)] text-verdigris-bright" />
