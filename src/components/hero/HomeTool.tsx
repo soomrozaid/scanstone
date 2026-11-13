@@ -1,6 +1,13 @@
 "use client";
 
-import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
+import {
+  useId,
+  useMemo,
+  useRef,
+  useState,
+  useSyncExternalStore,
+  type KeyboardEvent,
+} from "react";
 import Link from "next/link";
 import { useActionState } from "react";
 import { track } from "@vercel/analytics";
@@ -8,7 +15,7 @@ import { createShortUrl } from "@/app/(app)/dashboard/actions";
 import { QRPreview } from "@/components/qr/QRPreview";
 import { DesignControls } from "@/components/qr/DesignControls";
 import { downloadPng, downloadSvg } from "@/components/qr/download";
-import { Button, ButtonLink, Card, FieldError, Input } from "@/components/ui";
+import { Button, ButtonLink, FieldError, Input } from "@/components/ui";
 import { isScannableCombo } from "@/lib/qr/contrast";
 import { validateDestinationUrl, type QRDesign } from "@/lib/validate";
 import { rememberPendingDestination } from "@/lib/pending-destination";
@@ -37,13 +44,29 @@ function accountReturnPath(kind: "link" | "code", url: string): string {
   return `${path}?url=${encodeURIComponent(url)}`;
 }
 
+function hashForMode(mode: Mode) {
+  return mode === "link" ? "#short-link" : "#qr";
+}
+
+function getHashMode(): Mode {
+  const hash = window.location.hash;
+  if (hash === "#short-link" || hash === "#short-links") return "link";
+  return "qr";
+}
+
+function subscribeHash(onStoreChange: () => void) {
+  window.addEventListener("hashchange", onStoreChange);
+  return () => window.removeEventListener("hashchange", onStoreChange);
+}
+
 export function HomeTool({ signedIn }: { signedIn: boolean }) {
   const hydrated = useSyncExternalStore(
     subscribeToHydration,
     clientReady,
     serverReady,
   );
-  const [mode, setMode] = useState<Mode>("qr");
+  const labelId = useId();
+  const errorId = useId();
   const [url, setUrl] = useState("");
   const [design, setDesign] = useState<QRDesign>(DEFAULT_DESIGN);
   const [qrPayload, setQrPayload] = useState("");
@@ -54,20 +77,19 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
     createShortUrl,
     null,
   );
+  const inputRef = useRef<HTMLInputElement>(null);
+  const tabRefs = useRef<Record<Mode, HTMLButtonElement | null>>({
+    qr: null,
+    link: null,
+  });
 
-  useEffect(() => {
-    const applyHash = () => {
-      const hash = window.location.hash;
-      if (hash === "#short-link" || hash === "#short-links") {
-        setMode("link");
-      } else if (hash === "#qr") {
-        setMode("qr");
-      }
-    };
-    applyHash();
-    window.addEventListener("hashchange", applyHash);
-    return () => window.removeEventListener("hashchange", applyHash);
-  }, []);
+  const modeFromHash = useSyncExternalStore(
+    subscribeHash,
+    getHashMode,
+    () => "qr" as Mode,
+  );
+  const [mode, setMode] = useState<Mode | null>(null);
+  const currentMode = mode ?? modeFromHash;
 
   const scannable = isScannableCombo(design.fg, design.bg);
   const qrReady =
@@ -78,23 +100,21 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
     return `/login?next=${encodeURIComponent(accountReturnPath("link", pendingLink))}`;
   }, [pendingLink]);
 
-  function selectMode(next: Mode) {
+  function selectMode(next: Mode, updateHash = true) {
     setMode(next);
     setError(null);
     setDownloadError(null);
-    if (next === "qr") {
-      history.replaceState(null, "", "#qr");
-    } else {
-      history.replaceState(null, "", "#short-link");
+    if (updateHash) {
+      history.replaceState(null, "", hashForMode(next));
     }
   }
 
-  function makeQr(raw: string = url) {
+  function makeQr(raw: string = url, announce = false) {
     setDownloadError(null);
     const payload = normalizeStaticUrl(raw);
     if (!payload) {
       setQrPayload("");
-      setError("Enter a link first.");
+      if (announce) setError("Enter a link first.");
       return false;
     }
     if (payload.length > MAX_LEN) {
@@ -107,7 +127,7 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
     setError(null);
     setQrPayload(payload);
     setPendingLink("");
-    track("home_tool_used", { mode: "qr" });
+    if (announce) track("home_tool_used", { mode: "qr" });
     return true;
   }
 
@@ -116,6 +136,7 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
     if (!dest.ok) {
       setPendingLink("");
       setError(dest.error);
+      inputRef.current?.focus();
       return false;
     }
     setError(null);
@@ -126,22 +147,56 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
     return true;
   }
 
+  function onUrlChange(value: string) {
+    setUrl(value);
+    if (error) setError(null);
+    if (currentMode === "qr") {
+      // Live preview as the visitor types; errors wait for blur or submit.
+      const payload = normalizeStaticUrl(value);
+      if (payload && payload.length <= MAX_LEN) {
+        setQrPayload(payload);
+        setPendingLink("");
+      } else {
+        setQrPayload("");
+      }
+    }
+  }
+
+  function onUrlBlur() {
+    if (currentMode !== "qr" || !url.trim()) return;
+    makeQr(url, false);
+  }
+
+  function onTabKey(event: KeyboardEvent<HTMLDivElement>) {
+    const keys = ["ArrowLeft", "ArrowRight", "Home", "End"];
+    if (!keys.includes(event.key)) return;
+    event.preventDefault();
+    const order: Mode[] = ["qr", "link"];
+    const i = order.indexOf(currentMode);
+    let next = currentMode;
+    if (event.key === "ArrowRight") next = order[(i + 1) % order.length]!;
+    if (event.key === "ArrowLeft") next = order[(i - 1 + order.length) % order.length]!;
+    if (event.key === "Home") next = "qr";
+    if (event.key === "End") next = "link";
+    // Hash updates are a side effect, so selection is by activation, not
+    // by focus alone. Arrow keys still select here because the panel is instant.
+    selectMode(next);
+    tabRefs.current[next]?.focus();
+  }
+
   return (
-    <section
-      id="tool"
-      data-testid="home-tool"
-      className="mx-auto max-w-xl px-4 pb-12 pt-6 sm:px-6 sm:pt-10"
-    >
-      <div id="short-link" className="scroll-mt-20" />
-      <h1 className="engraved text-[1.75rem] font-semibold leading-tight sm:text-4xl">
+    <div id="tool" data-testid="home-tool" className="home-tool w-full max-w-xl">
+      <div id="qr" className="scroll-mt-24" />
+      <div id="short-link" className="scroll-mt-24" />
+      <h1 className="display text-[clamp(2rem,5.4vw,3.6rem)] leading-[0.96] tracking-[-0.03em] text-paper">
         Make a QR code or a short link
       </h1>
-      <p className="mt-2 text-sm leading-relaxed text-ink-soft sm:text-base">
-        Paste a URL. Download a QR code right away, or save a short link you can
-        edit later.
+      <p className="mt-2 max-w-md text-sm leading-relaxed text-paper/80 sm:mt-4 sm:text-lg">
+        Paste a URL. A QR code appears as you type, ready to download. Or save
+        a short link you can edit later.
       </p>
 
-      <Card className="mt-5 p-4 sm:p-6">
+      <div className="mt-6 rounded-[22px] border border-white/10 bg-[#f4ecdc] p-4 text-ink shadow-[0_30px_80px_-28px_rgba(0,0,0,0.55)] sm:mt-7 sm:p-6">
         <fieldset
           disabled={!hydrated}
           aria-busy={!hydrated}
@@ -154,10 +209,12 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
             </a>
             .
           </noscript>
+
           <div
             role="tablist"
             aria-label="What to make"
-            className="grid grid-cols-2 gap-2"
+            onKeyDown={onTabKey}
+            className="grid grid-cols-2 gap-1 rounded-full border border-line bg-paper p-1"
           >
             {(
               [
@@ -170,146 +227,170 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
                 type="button"
                 role="tab"
                 id={`home-tool-tab-${tab.id}`}
-                aria-selected={mode === tab.id}
-                aria-controls="home-tool-panel"
+                ref={(el) => {
+                  tabRefs.current[tab.id] = el;
+                }}
+                aria-selected={currentMode === tab.id}
+                tabIndex={currentMode === tab.id ? 0 : -1}
                 onClick={() => selectMode(tab.id)}
-                className={`rounded-md border px-3 py-2 text-sm font-medium ${
-                  mode === tab.id
-                    ? "border-ink bg-ink text-paper"
-                    : "border-line text-ink-soft hover:border-ink-faint"
-                }`}
+                className="home-tool-tab relative min-h-11 rounded-full px-3 text-sm font-medium text-ink-soft transition-colors hover:text-ink aria-selected:text-ink"
               >
                 {tab.label}
               </button>
             ))}
           </div>
+          <p className="mt-3 text-sm text-ink-soft">
+            Codes don&apos;t expire.{" "}
+            <Link href="/help" className="font-medium text-verdigris-deep underline underline-offset-4">
+              Do codes expire?
+            </Link>
+            {" · "}
+            <Link href="/pricing" className="font-medium text-verdigris-deep underline underline-offset-4">
+              See pricing
+            </Link>
+          </p>
 
           <div
             id="home-tool-panel"
             role="tabpanel"
-            aria-labelledby={`home-tool-tab-${mode}`}
+            aria-labelledby={`home-tool-tab-${currentMode}`}
             className="mt-4"
           >
-            {mode === "qr" ? (
-              <form
-                onSubmit={(event) => {
-                  event.preventDefault();
-                  makeQr();
-                }}
-                className="flex flex-col gap-2 sm:flex-row sm:items-stretch"
+            <div className="flex flex-col gap-2">
+              <label
+                htmlFor="home-tool-url"
+                id={labelId}
+                className="text-sm font-medium text-ink"
               >
-                <label htmlFor="home-tool-url" className="sr-only">
-                  Destination link
-                </label>
-                <Input
-                  id="home-tool-url"
-                  type="url"
-                  inputMode="url"
-                  autoCapitalize="none"
-                  autoCorrect="off"
-                  spellCheck={false}
-                  placeholder="example.com/menu"
-                  value={url}
-                  onChange={(event) => setUrl(event.target.value)}
-                  autoFocus
-                  className="py-2.5"
-                />
-                <Button
-                  type="submit"
-                  variant="accent"
-                  className="shrink-0 px-5 py-2.5 sm:min-w-40"
+                Your link
+              </label>
+              {currentMode === "qr" ? (
+                <form
+                  onSubmit={(event) => {
+                    event.preventDefault();
+                    makeQr(url, true);
+                  }}
+                  className="flex flex-col gap-2 sm:flex-row sm:items-stretch"
                 >
-                  Create QR code
-                </Button>
-              </form>
-            ) : signedIn ? (
-              <form
-                action={linkAction}
-                onSubmit={() => {
-                  const dest = validateDestinationUrl(url);
-                  if (dest.ok) rememberPendingDestination(dest.url, "link");
-                }}
-                className="space-y-2"
-              >
-                <div className="flex flex-col gap-2 sm:flex-row sm:items-stretch">
-                  <label htmlFor="home-tool-url" className="sr-only">
-                    Destination link
-                  </label>
                   <Input
+                    ref={inputRef}
                     id="home-tool-url"
-                    name="destination_url"
-                    type="url"
+                    type="text"
                     inputMode="url"
+                    autoComplete="url"
                     autoCapitalize="none"
                     autoCorrect="off"
                     spellCheck={false}
-                    placeholder="example.com/your-long-link"
+                    enterKeyHint="done"
+                    placeholder="example.com/menu"
                     value={url}
-                    onChange={(event) => setUrl(event.target.value)}
-                    required
-                    maxLength={2048}
-                    className="py-2.5"
+                    onChange={(event) => onUrlChange(event.target.value)}
+                    onBlur={onUrlBlur}
+                    aria-invalid={error ? true : undefined}
+                    aria-describedby={error ? errorId : undefined}
+                    className="min-h-11 py-2.5"
                   />
                   <Button
                     type="submit"
                     variant="accent"
-                    className="shrink-0 px-5 py-2.5 sm:min-w-40"
-                    disabled={linkPending}
+                    className="min-h-11 shrink-0 px-5 sm:min-w-40"
                   >
-                    {linkPending ? "Saving…" : "Create short link"}
+                    Create QR code
                   </Button>
-                </div>
-                <FieldError>{linkState?.error}</FieldError>
-              </form>
-            ) : (
-              <form
-                onSubmit={(event) => {
-                  event.preventDefault();
-                  startShortLink();
-                }}
-                className="flex flex-col gap-2 sm:flex-row sm:items-stretch"
-              >
-                <label htmlFor="home-tool-url" className="sr-only">
-                  Destination link
-                </label>
-                <Input
-                  id="home-tool-url"
-                  type="url"
-                  inputMode="url"
-                  autoCapitalize="none"
-                  autoCorrect="off"
-                  spellCheck={false}
-                  placeholder="example.com/your-long-link"
-                  value={url}
-                  onChange={(event) => setUrl(event.target.value)}
-                  className="py-2.5"
-                />
-                <Button
-                  type="submit"
-                  variant="accent"
-                  className="shrink-0 px-5 py-2.5 sm:min-w-40"
+                </form>
+              ) : signedIn ? (
+                <form
+                  action={linkAction}
+                  onSubmit={() => {
+                    const dest = validateDestinationUrl(url);
+                    if (dest.ok) rememberPendingDestination(dest.url, "link");
+                  }}
+                  className="space-y-2"
                 >
-                  Create short link
-                </Button>
-              </form>
-            )}
+                  <div className="flex flex-col gap-2 sm:flex-row sm:items-stretch">
+                    <Input
+                      ref={inputRef}
+                      id="home-tool-url"
+                      name="destination_url"
+                      type="text"
+                      inputMode="url"
+                      autoComplete="url"
+                      autoCapitalize="none"
+                      autoCorrect="off"
+                      spellCheck={false}
+                      enterKeyHint="go"
+                      placeholder="example.com/your-long-link"
+                      value={url}
+                      onChange={(event) => onUrlChange(event.target.value)}
+                      required
+                      maxLength={2048}
+                      aria-invalid={error || linkState?.error ? true : undefined}
+                      aria-describedby={error || linkState?.error ? errorId : undefined}
+                      className="min-h-11 py-2.5"
+                    />
+                    <Button
+                      type="submit"
+                      variant="accent"
+                      className="min-h-11 shrink-0 px-5 sm:min-w-40"
+                      disabled={linkPending}
+                    >
+                      {linkPending ? "Saving…" : "Create short link"}
+                    </Button>
+                  </div>
+                </form>
+              ) : (
+                <form
+                  onSubmit={(event) => {
+                    event.preventDefault();
+                    startShortLink();
+                  }}
+                  className="flex flex-col gap-2 sm:flex-row sm:items-stretch"
+                >
+                  <Input
+                    ref={inputRef}
+                    id="home-tool-url"
+                    type="text"
+                    inputMode="url"
+                    autoComplete="url"
+                    autoCapitalize="none"
+                    autoCorrect="off"
+                    spellCheck={false}
+                    enterKeyHint="go"
+                    placeholder="example.com/your-long-link"
+                    value={url}
+                    onChange={(event) => onUrlChange(event.target.value)}
+                    aria-invalid={error ? true : undefined}
+                    aria-describedby={error ? errorId : undefined}
+                    className="min-h-11 py-2.5"
+                  />
+                  <Button
+                    type="submit"
+                    variant="accent"
+                    className="min-h-11 shrink-0 px-5 sm:min-w-40"
+                  >
+                    Create short link
+                  </Button>
+                </form>
+              )}
+              <div id={errorId}>
+                <FieldError>{error || (currentMode === "link" ? linkState?.error : null)}</FieldError>
+              </div>
+            </div>
           </div>
-          <FieldError>{error}</FieldError>
         </fieldset>
 
-        {mode === "qr" && qrReady ? (
-          <div className="mt-6 border-t border-line pt-5">
-            <p className="mb-3 text-xs font-medium uppercase tracking-[0.12em] text-ink-soft">
-              Your QR code
-            </p>
+        {currentMode === "qr" && qrReady ? (
+          <div className="mt-5 border-t border-line pt-5">
+            <p className="mb-3 text-sm font-medium text-ink">Your QR code</p>
             <QRPreview
               data={qrPayload}
               options={design}
-              className="mx-auto max-w-56"
+              className="mx-auto max-w-44 sm:max-w-52"
             />
             <div className="mt-4 flex flex-wrap justify-center gap-2">
               <Button
                 type="button"
+                className="min-h-11"
                 onClick={async () => {
                   setDownloadError(null);
                   try {
@@ -325,6 +406,7 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
               <Button
                 type="button"
                 variant="ghost"
+                className="min-h-11"
                 onClick={() => {
                   setDownloadError(null);
                   try {
@@ -344,7 +426,7 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
               </p>
             ) : null}
             <details className="mt-4">
-              <summary className="cursor-pointer text-sm text-ink-soft hover:text-ink">
+              <summary className="flex min-h-11 cursor-pointer items-center text-sm text-ink-soft hover:text-ink">
                 Customize colors
               </summary>
               <div className="mt-3">
@@ -367,27 +449,22 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
                   Save it as an editable code
                 </Link>
               ) : (
-                <>
-                  <Link
-                    href="/signup"
-                    className="font-medium text-verdigris-deep underline underline-offset-4"
-                    onClick={() =>
-                      rememberPendingDestination(qrPayload, "code")
-                    }
-                  >
-                    Create a free account
-                  </Link>{" "}
-                  and save it as an editable code
-                </>
+                <Link
+                  href="/signup"
+                  className="font-medium text-verdigris-deep underline underline-offset-4"
+                  onClick={() => rememberPendingDestination(qrPayload, "code")}
+                >
+                  Create a free account and save it as an editable code
+                </Link>
               )}
-              . You get 3 free. No credit card.
+              . You get 3 free, and no credit card.
             </p>
           </div>
         ) : null}
 
-        {mode === "link" && pendingLink && !signedIn ? (
-          <div className="mt-6 border-t border-line pt-5">
-            <p className="text-sm font-medium">Save this as a short link</p>
+        {currentMode === "link" && pendingLink && !signedIn ? (
+          <div className="mt-5 border-t border-line pt-5">
+            <p className="text-sm font-medium text-ink">Save this as a short link</p>
             <p className="mt-2 break-all rounded-md border border-line bg-paper-deep/60 p-3 font-mono text-sm text-ink">
               {pendingLink}
             </p>
@@ -397,10 +474,10 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
               You get 3 free codes or short links, and no credit card.
             </p>
             <div className="mt-4 flex flex-wrap gap-2">
-              <ButtonLink href="/signup" variant="accent">
+              <ButtonLink href="/signup" variant="accent" className="min-h-11">
                 Create a free account
               </ButtonLink>
-              <ButtonLink href={loginHref} variant="ghost">
+              <ButtonLink href={loginHref} variant="ghost" className="min-h-11">
                 Log in
               </ButtonLink>
             </div>
@@ -410,9 +487,8 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
                 type="button"
                 className="font-medium text-verdigris-deep underline underline-offset-4"
                 onClick={() => {
-                  setMode("qr");
-                  history.replaceState(null, "", "#qr");
-                  makeQr(pendingLink);
+                  selectMode("qr");
+                  makeQr(pendingLink, true);
                 }}
               >
                 Make a static one from this link
@@ -421,7 +497,11 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
             </p>
           </div>
         ) : null}
-      </Card>
-    </section>
+      </div>
+
+      <p className="mt-4 text-sm text-paper/70">
+        No account needed for a static QR code.
+      </p>
+    </div>
   );
 }

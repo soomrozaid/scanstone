@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useSyncExternalStore } from "react";
+import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { QRPreview } from "@/components/qr/QRPreview";
 import { DesignControls } from "@/components/qr/DesignControls";
@@ -21,6 +21,7 @@ const MODES: Array<{ id: GeneratorMode; label: string }> = [
 ];
 
 const MAX_LEN = 1600;
+const EXAMPLE = "https://www.scanstone.ca";
 const subscribeToHydration = () => () => {};
 const clientReady = () => true;
 const serverReady = () => false;
@@ -84,14 +85,20 @@ export function StaticGenerator({
   const tooLong = payload.length > MAX_LEN;
   const scannable = isScannableCombo(design.fg, design.bg);
   const ready = payload.length > 0 && !tooLong && scannable;
+  // Re-carve animation: settles 250ms after the last keystroke.
+  const [carveKey, setCarveKey] = useState("example");
+  useEffect(() => {
+    const t = setTimeout(() => setCarveKey(ready ? payload : "example"), 250);
+    return () => clearTimeout(t);
+  }, [ready, payload]);
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[1fr_320px]">
+    <div className="grid gap-6 lg:grid-cols-[1fr_380px] lg:gap-8">
       <fieldset
         disabled={!hydrated}
         aria-busy={!hydrated}
         aria-label="QR code content and design"
-        className="min-w-0 space-y-6"
+        className="min-w-0 space-y-7 self-start rounded-[28px] border border-line bg-paper p-5 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.45)] sm:p-8"
       >
         <noscript>
           Enable JavaScript to create a QR code in your browser.
@@ -99,7 +106,7 @@ export function StaticGenerator({
         <div
           role="tablist"
           aria-label="QR content type"
-          className="flex flex-wrap gap-2"
+          className="inline-flex flex-wrap gap-1 rounded-full border border-line bg-paper p-1"
         >
           {MODES.map((m) => (
             <button
@@ -107,10 +114,10 @@ export function StaticGenerator({
               role="tab"
               aria-selected={mode === m.id}
               onClick={() => setMode(m.id)}
-              className={`rounded-md border px-4 py-2 text-sm font-medium ${
+              className={`cursor-pointer rounded-full px-4 py-2 text-sm font-medium transition-colors ${
                 mode === m.id
-                  ? "border-ink bg-ink text-paper"
-                  : "border-line text-ink-soft hover:border-ink-faint"
+                  ? "bg-ink text-paper"
+                  : "text-ink-soft hover:text-ink"
               }`}
             >
               {m.label}
@@ -142,7 +149,7 @@ export function StaticGenerator({
               onChange={(e) => setText(e.target.value)}
               rows={3}
               maxLength={MAX_LEN}
-              placeholder="Any text — a message, a serial number, a note"
+              placeholder="Any text: a message, a serial number, a note"
               className="w-full rounded-md border border-line bg-white/70 px-3 py-2 text-sm text-ink placeholder:text-ink-faint focus:border-verdigris"
             />
           </div>
@@ -169,7 +176,7 @@ export function StaticGenerator({
               />
             </div>
             <p className="text-xs text-ink-faint sm:col-span-2">
-              Guests point their camera and join — no typing. The password is
+              Guests point their camera and join. No typing. The password is
               embedded in the code itself and never sent to us.
             </p>
           </div>
@@ -241,7 +248,7 @@ export function StaticGenerator({
 
         {tooLong ? (
           <p role="alert" className="text-sm text-danger">
-            That&apos;s too much content for a reliable QR code — shorten it
+            That&apos;s too much content for a reliable QR code. Shorten it
             below {MAX_LEN} characters.
           </p>
         ) : null}
@@ -249,15 +256,38 @@ export function StaticGenerator({
         <DesignControls design={design} onChange={setDesign} />
       </fieldset>
 
-      <div>
-        <Card className="p-5">
-          <p className="mb-3 text-xs font-medium uppercase tracking-[0.12em] text-ink-soft">
-            Your code
-          </p>
-          <QRPreview data={ready ? payload : ""} options={design} />
-          <div className="mt-4 flex justify-center gap-2">
+      <div className="lg:sticky lg:top-24 lg:self-start">
+        <Card className="!rounded-[28px] !bg-paper p-5 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.45)] sm:p-6">
+          <div className="mb-4 flex items-center justify-between">
+            <p className="eyebrow text-ink-faint">Your code</p>
+            <p
+              className={`eyebrow ${ready ? "text-verdigris" : "text-ink-faint"}`}
+              aria-live="polite"
+            >
+              {ready ? "Ready to download" : "Example"}
+            </p>
+          </div>
+          <div className="relative overflow-hidden rounded-2xl bg-paper-deep/60 p-5 sm:p-7">
+            <div key={carveKey} className="qr-recarve">
+            <QRPreview
+              data={ready ? payload : EXAMPLE}
+              options={design}
+              className={`!rounded-xl transition-opacity duration-300 ${ready ? "opacity-100" : "opacity-25 blur-[3px] grayscale"}`}
+            />
+            </div>
+            {!ready ? (
+              <p className="absolute inset-0 flex items-center justify-center p-6 text-center text-sm font-medium text-ink">
+                <span className="gen-wait inline-flex items-center gap-2.5 rounded-full bg-paper/95 px-4 py-2 shadow-[var(--shadow-card)]">
+                  <span aria-hidden="true" className="gen-wait-dot h-2 w-2 shrink-0 rounded-full bg-verdigris" />
+                  Type above and your code appears here
+                </span>
+              </p>
+            ) : null}
+          </div>
+          <div className="mt-5 grid grid-cols-2 gap-2">
             <Button
               type="button"
+              className="!rounded-full py-3"
               disabled={!ready}
               onClick={async () => {
                 setDownloadError(null);
@@ -274,6 +304,7 @@ export function StaticGenerator({
             <Button
               type="button"
               variant="ghost"
+              className="!rounded-full py-3"
               disabled={!ready}
               onClick={() => {
                 setDownloadError(null);
@@ -301,9 +332,9 @@ export function StaticGenerator({
         </Card>
 
         {mode === "url" ? (
-          <Card className="mt-4 border-verdigris/30 bg-verdigris/5 p-5">
+          <Card className="mt-4 !rounded-[22px] border-verdigris/30 bg-verdigris/5 p-5">
             <p className="text-sm leading-relaxed text-ink">
-              <strong>Printing this?</strong> A static code can&apos;t be edited
+              <strong>Printing this?</strong>{" "}A static code can&apos;t be edited
               later. A{" "}
               <Link
                 href="/signup"
@@ -312,7 +343,7 @@ export function StaticGenerator({
                 dynamic code
               </Link>{" "}
               lets you change the destination after printing and counts your
-              scans — and it keeps redirecting even if you cancel. 3 free.
+              scans, and it keeps redirecting even if you cancel. 3 free.
             </p>
           </Card>
         ) : null}

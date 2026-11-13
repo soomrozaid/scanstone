@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { LegalShell } from "@/components/cinema/LegalShell";
 
 export const metadata: Metadata = {
   title: "Terms of Service",
@@ -9,13 +10,10 @@ export const metadata: Metadata = {
 
 export default function TermsPage() {
   return (
-    <main id="main" className="mx-auto max-w-2xl px-4 py-14 sm:px-6">
-      <h1 className="engraved text-3xl font-semibold">Terms of Service</h1>
-      <p className="mt-2 text-sm text-ink-faint">Effective July 12, 2026</p>
-
-      <div className="mt-8 space-y-6 text-[15px] leading-relaxed text-ink-soft">
+    <LegalShell title="Terms of Service" effective="Effective July 12, 2026" ghost="Terms" lead="The rules for using Scanstone, including the redirect covenant in writing.">
+      <div className="space-y-10 text-[1.02rem] leading-[1.75] text-ink-soft">
         <section>
-          <h2 className="text-lg font-semibold text-ink">1. The service</h2>
+          <h2 className="display text-2xl text-ink">1. The service</h2>
           <p className="mt-2">
             Scanstone provides QR code generation (static and dynamic), redirect
             hosting for dynamic codes, and scan analytics. Free static codes are
@@ -23,8 +21,12 @@ export default function TermsPage() {
           </p>
         </section>
 
-        <section>
-          <h2 className="text-lg font-semibold text-ink">
+        <section id="covenant" className="covenant relative scroll-mt-24 overflow-hidden rounded-[24px] border border-copper/40 bg-night p-6 text-paper/80 sm:p-8">
+          <span aria-hidden="true" className="covenant-seal absolute -right-6 -top-6 flex h-28 w-28 items-center justify-center rounded-full border border-copper/50 font-mono text-[9px] uppercase tracking-[0.2em] text-copper-bright">
+            <span className="covenant-ring absolute inset-2 rounded-full border border-dashed border-copper/40" />
+            In writing
+          </span>
+          <h2 className="display pr-20 text-2xl text-paper sm:pr-16">
             2. The redirect covenant
           </h2>
           <p className="mt-2">
@@ -36,10 +38,11 @@ export default function TermsPage() {
             we commit to at least 90 days&apos; email notice and a data-export
             window.
           </p>
+          <span aria-hidden="true" className="covenant-sign mt-6 block h-px origin-left bg-gradient-to-r from-copper-bright via-copper to-transparent" />
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-ink">
+          <h2 className="display text-2xl text-ink">
             3. Plans and billing
           </h2>
           <p className="mt-2">
@@ -52,7 +55,7 @@ export default function TermsPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-ink">4. Acceptable use</h2>
+          <h2 className="display text-2xl text-ink">4. Acceptable use</h2>
           <p className="mt-2">
             You may not use Scanstone codes to link to or distribute:
           </p>
@@ -69,7 +72,7 @@ export default function TermsPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-ink">5. Your content</h2>
+          <h2 className="display text-2xl text-ink">5. Your content</h2>
           <p className="mt-2">
             You retain all rights to your destination URLs and content. You
             grant us only the technical license needed to store them and serve
@@ -78,7 +81,7 @@ export default function TermsPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-ink">
+          <h2 className="display text-2xl text-ink">
             6. Warranty & liability
           </h2>
           <p className="mt-2">
@@ -90,7 +93,7 @@ export default function TermsPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-ink">7. Changes</h2>
+          <h2 className="display text-2xl text-ink">7. Changes</h2>
           <p className="mt-2">
             We may update these terms; material changes will be announced to
             account emails at least 14 days in advance. Continued use after the
@@ -99,7 +102,7 @@ export default function TermsPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-ink">8. Contact</h2>
+          <h2 className="display text-2xl text-ink">8. Contact</h2>
           <p className="mt-2">
             Questions:{" "}
             <a
@@ -111,6 +114,6 @@ export default function TermsPage() {
           </p>
         </section>
       </div>
-    </main>
+    </LegalShell>
   );
 }

@@ -28,9 +28,8 @@ test("landing page communicates the value proposition @smoke", async ({
     page.getByRole("heading", { name: /Make a QR code or a short link/i }),
   ).toBeVisible();
   await expect(page.getByTestId("home-tool")).toBeVisible();
-  await expect(
-    page.getByRole("button", { name: "Create QR code" }),
-  ).toBeVisible();
+  await expect(page.getByRole("button", { name: "Create QR code" })).toBeVisible();
+  await expect(page.getByLabel("Your link")).toBeVisible();
   await expect(
     page.getByText(/Cancelling never stops your redirects/i),
   ).toBeVisible();
@@ -127,13 +126,16 @@ test("homepage tool sits above the fold on a phone-sized screen @smoke", async (
 }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/");
+  await expect(
+    page.getByRole("heading", { name: /Make a QR code or a short link/i }),
+  ).toBeVisible();
   const overflow = await page.evaluate(
     () =>
       document.documentElement.scrollWidth -
       document.documentElement.clientWidth,
   );
   expect(overflow).toBeLessThanOrEqual(1);
-  const urlBox = await page.getByLabel("Destination link").boundingBox();
+  const urlBox = await page.getByLabel("Your link").boundingBox();
   const buttonBox = await page
     .getByRole("button", { name: "Create QR code" })
     .boundingBox();
@@ -159,7 +161,7 @@ test("landing is usable on mobile @mobile @smoke", async ({ page }) => {
   expect(overflow).toBeLessThanOrEqual(1);
   const viewport = page.viewportSize();
   if (!viewport) throw new Error("missing viewport");
-  const urlBox = await page.getByLabel("Destination link").boundingBox();
+  const urlBox = await page.getByLabel("Your link").boundingBox();
   const buttonBox = await page
     .getByRole("button", { name: "Create QR code" })
     .boundingBox();
@@ -228,7 +230,7 @@ test("homepage tool makes a static QR without an account @mobile @smoke", async 
 }) => {
   await page.goto("/");
   const tool = page.getByTestId("home-tool");
-  await tool.getByLabel("Destination link").fill("https://example.com/menu");
+  await tool.getByLabel("Your link").fill("https://example.com/menu");
   await tool.getByRole("button", { name: "Create QR code" }).click();
   await expect(
     tool.locator("svg[role='img'][aria-label='QR code']").first(),
@@ -255,7 +257,7 @@ test("homepage short link tab asks for an account instead of inventing a link @s
     "true",
   );
   await tool
-    .getByLabel("Destination link")
+    .getByLabel("Your link")
     .fill("https://example.com/summer-menu");
   await tool.getByRole("button", { name: "Create short link" }).click();
   await expect(tool.getByText("https://example.com/summer-menu")).toBeVisible();

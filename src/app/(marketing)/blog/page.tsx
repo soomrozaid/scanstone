@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
+import { DarkHero } from "@/components/cinema/DarkHero";
+import { SplitWords } from "@/components/cinema/SplitWords";
 import Link from "next/link";
+import { HoverIndex } from "@/components/cinema/HoverIndex";
+import { CtaBand } from "@/components/site/CtaBand";
 import { docsIn } from "@/lib/content";
+import { Container, Eyebrow } from "@/components/site/primitives";
+import { Breadcrumbs } from "@/components/site/Breadcrumbs";
+import { Spotlight } from "@/components/site/Spotlight";
+import { AssembleQR } from "@/components/cinema/AssembleQR";
 
 export const metadata: Metadata = {
   title: "Blog — straight answers about QR codes",
@@ -18,41 +26,111 @@ function formatDate(iso: string): string {
   });
 }
 
+
+const START_HERE = [
+  { href: "/blog/qr-code-subscription-trap", q: "Why did my QR code stop working?", tag: "Explainer" },
+  { href: "/qr-code-generator", q: "Static or dynamic: which one do I need?", tag: "Free tool" },
+  { href: "/restaurant-menu-qr-code", q: "How do I change a menu after printing?", tag: "Restaurants" },
+  { href: "/wifi-qr-code-generator", q: "Can guests join WiFi without typing?", tag: "Free tool" },
+  { href: "/vcard-qr-code-generator", q: "Can one scan save my contact?", tag: "Free tool" },
+  { href: "/terms", q: "What happens to my codes if I cancel?", tag: "Covenant" },
+];
+
 export default function BlogIndex() {
   const docs = docsIn("blog");
+  const [first, ...rest] = docs;
   return (
-    <main id="main" className="mx-auto max-w-2xl px-4 py-12 sm:px-6">
-      <header className="max-w-xl">
-        <h1 className="engraved text-3xl font-semibold sm:text-4xl">Blog</h1>
-        <p className="mt-3 leading-relaxed text-ink-soft">
-          Straight answers about QR codes — what expires, what doesn&apos;t, and
-          how to keep your printed codes working without paying anyone forever.
-        </p>
-      </header>
-
-      <ul className="mt-10 space-y-8">
-        {docs.map((doc) => (
-          <li key={doc.slug} className="border-b border-line pb-8">
-            <p className="text-xs font-medium tracking-wide text-ink-faint uppercase">
-              {doc.category}
+    <main id="main">
+      <DarkHero glow="50% 0%">
+        <Container className="pb-40 pt-16 sm:pt-24">
+          <header className="max-w-3xl">
+            <Breadcrumbs tone="night" items={[{ label: "Blog" }]} />
+            <Eyebrow tone="verdigris" className="rise !text-verdigris-bright">Straight answers about QR codes</Eyebrow>
+            <h1 className="display mt-6 text-[clamp(4rem,12vw,11rem)] leading-[0.9] tracking-[-0.035em]">
+              <SplitWords text="Blog" start={60} />
+            </h1>
+            <p className="rise mt-6 text-lead text-paper/70 [animation-delay:300ms]">
+              Straight answers about QR codes: what expires, what doesn&apos;t,
+              and how to keep your printed codes working without paying anyone
+              forever.
             </p>
-            <h2 className="mt-2 text-xl font-semibold">
+          </header>
+        </Container>
+      </DarkHero>
+      <Container className="relative -mt-28 pb-24">
+
+        {first ? (
+          <Link
+            href={`/blog/${first.slug}`}
+            data-cursor="Read"
+            className="group relative grid gap-8 overflow-hidden rounded-[28px] bg-night-raised p-8 text-paper shadow-[0_40px_100px_-30px_rgba(0,0,0,0.6)] ring-1 ring-white/10 transition sm:p-12 lg:grid-cols-[1.4fr_0.6fr]"
+          >
+            <div>
+              <p className="eyebrow text-paper/60">Latest · {first.category}</p>
+              <h2 className="display mt-5 text-h2 transition-colors group-hover:text-verdigris-bright">
+                {first.title}
+              </h2>
+              <p className="mt-5 max-w-2xl text-paper/70">{first.description}</p>
+            </div>
+            <div className="flex items-end justify-between gap-6 lg:flex-col lg:items-end">
+              <div aria-hidden="true" className="blog-stone hidden w-44 rotate-[-5deg] rounded-[10px] bg-[#efe7d6] p-4 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.7)] transition-transform duration-700 ease-[var(--ease-settle)] group-hover:-translate-y-2 group-hover:rotate-[-1deg] sm:block">
+                <p className="text-center font-mono text-[9px] uppercase tracking-[0.2em] text-ink-faint">Scan to read</p>
+                <AssembleQR lite data={`https://www.scanstone.ca/blog/${first.slug}`} label="" className="mt-2 !bg-transparent !p-0" />
+              </div>
+              <div className="flex items-center gap-4 lg:flex-col lg:items-end">
+                <time dateTime={first.date} className="font-mono text-sm text-paper/60">
+                  {formatDate(first.date)}
+                </time>
+                <span aria-hidden="true" className="text-4xl transition-transform duration-300 group-hover:translate-x-1">→</span>
+              </div>
+            </div>
+          </Link>
+        ) : null}
+
+        <ul className="mt-6 grid gap-4 md:grid-cols-2">
+          {rest.map((doc) => (
+            <li key={doc.slug}>
+              <Spotlight className="rounded-[24px]" max={5}>
               <Link
                 href={`/blog/${doc.slug}`}
-                className="engraved hover:text-verdigris-deep"
+                data-cursor="Read"
+                className="group relative flex h-full flex-col overflow-hidden rounded-[24px] border border-line bg-paper p-7 transition hover:border-ink-faint hover:shadow-[var(--shadow-card)]"
               >
-                {doc.title}
+                <div data-depth aria-hidden="true" className="pointer-events-none absolute -right-6 -top-6 w-28 rotate-[8deg] opacity-[0.16] transition duration-700 ease-[var(--ease-settle)] group-hover:right-4 group-hover:top-4 group-hover:rotate-0 group-hover:opacity-100">
+                  <AssembleQR lite data={`https://www.scanstone.ca/blog/${doc.slug}`} label="" className="!rounded-[8px] !p-[8%] shadow-[0_18px_40px_-16px_rgba(22,20,17,0.45)]" />
+                </div>
+                <p className="eyebrow text-copper">{doc.category}</p>
+                <h2 className="display mt-4 pr-24 text-2xl transition-colors group-hover:text-verdigris-deep">{doc.title}</h2>
+                <p className="mt-3 flex-1 text-sm leading-relaxed text-ink-soft">{doc.description}</p>
+                <p className="mt-6 font-mono text-xs text-ink-faint">
+                  <time dateTime={doc.date}>{formatDate(doc.date)}</time>
+                </p>
               </Link>
-            </h2>
-            <p className="mt-2 leading-relaxed text-ink-soft">
-              {doc.description}
-            </p>
-            <p className="mt-3 text-sm text-ink-faint">
-              <time dateTime={doc.date}>{formatDate(doc.date)}</time>
-            </p>
-          </li>
-        ))}
-      </ul>
+              </Spotlight>
+            </li>
+          ))}
+        </ul>
+      </Container>
+
+      <section aria-labelledby="start-h" className="pb-24 pt-8 sm:pb-32">
+        <Container>
+          <p className="eyebrow text-copper">Start here</p>
+          <h2 id="start-h" className="display mt-4 max-w-3xl text-h2">The questions people ask before they print</h2>
+          <div className="mt-12">
+            <HoverIndex
+              rows={START_HERE.map((r) => ({
+                ...r,
+                preview: <AssembleQR lite data={`https://www.scanstone.ca${r.href}`} label="" className="!bg-transparent !p-0" />,
+              }))}
+            />
+          </div>
+        </Container>
+      </section>
+
+      <CtaBand
+        title="Make a code that outlasts the print run."
+        body="Static codes free forever, no account. Three dynamic codes free when you want to change where they go."
+      />
     </main>
   );
 }

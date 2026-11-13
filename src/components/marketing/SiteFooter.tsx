@@ -1,11 +1,12 @@
 import Link from "next/link";
+import { LazyVideo } from "@/components/cinema/LazyVideo";
 import { Wordmark } from "./Wordmark";
 
 const columns = [
   {
     title: "Free tools",
     links: [
-      { href: "/#short-links", label: "URL shortener" },
+      { href: "/#short-link", label: "URL shortener" },
       { href: "/qr-code-generator", label: "QR code generator" },
       { href: "/wifi-qr-code-generator", label: "WiFi QR code" },
       { href: "/vcard-qr-code-generator", label: "vCard QR code" },
@@ -17,6 +18,9 @@ const columns = [
       { href: "/restaurant-menu-qr-code", label: "Restaurant menus" },
       { href: "/demo", label: "Live demo" },
       { href: "/pricing", label: "Pricing" },
+      { href: "/help", label: "Help and FAQ" },
+      { href: "/help", label: "Do codes expire?" },
+      { href: "/blog", label: "Blog" },
       { href: "/signup", label: "Create account" },
     ],
   },
@@ -33,36 +37,61 @@ const columns = [
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-line bg-paper-deep/60">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:grid-cols-[1.4fr_1fr_1fr_1fr] sm:px-6">
-        <div>
-          <Wordmark />
-          <p className="mt-3 max-w-xs text-sm leading-relaxed text-ink-soft">
-            QR codes for print. Short scst.one links for sharing. Free static
-            codes forever, and redirects that keep working even if you stop
-            paying.
+    <footer data-nav="dark" className="relative overflow-hidden bg-night text-paper">
+      <div className="gridlines-night absolute inset-0" aria-hidden="true" />
+      <div className="relative mx-auto max-w-7xl px-5 pt-20 sm:px-8">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-[1.3fr_1fr_1fr_1fr] lg:gap-12">
+          <div className="col-span-2 sm:col-span-3 lg:col-span-1">
+            <Wordmark tone="paper" />
+            <p className="mt-5 max-w-xs text-sm leading-relaxed text-paper/60">
+              QR codes for print. Short scst.one links for sharing. Free static
+              codes forever, and redirects that keep working even if you stop
+              paying.
+            </p>
+            <p className="mt-6 inline-flex items-center gap-2 rounded-full border border-night-line px-3 py-1.5 text-xs text-paper/70">
+              <span
+                className="h-1.5 w-1.5 rounded-full bg-verdigris-bright"
+                aria-hidden="true"
+              />
+              Redirects never expire. It&apos;s in{" "}
+              <Link href="/terms#covenant" className="underline underline-offset-2">
+                our terms
+              </Link>
+              .
+            </p>
+          </div>
+          {columns.map((col) => (
+            <div key={col.title}>
+              <h3 className="eyebrow text-paper/40">{col.title}</h3>
+              <ul className="mt-4 space-y-2.5 text-sm">
+                {col.links.map((l) => (
+                  <li key={l.href}>
+                    <Link
+                      href={l.href}
+                      className="link-underline text-paper/75 hover:text-paper"
+                    >
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+        <div aria-hidden="true" className="wm relative mt-20 select-none overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]">
+          <LazyVideo className="absolute inset-0 h-full w-full" />
+          <p className="display pointer-events-none relative whitespace-nowrap bg-night pb-[0.06em] text-center text-[22vw] font-semibold leading-[0.85] tracking-[-0.04em] text-white mix-blend-multiply lg:text-[17rem]">
+            {"Scanstone".split("").map((ch, i) => (
+              <span key={i} className="wm-l inline-block" style={{ ["--i" as string]: i }}>
+                {ch}
+              </span>
+            ))}
           </p>
         </div>
-        {columns.map((col) => (
-          <div key={col.title}>
-            <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">
-              {col.title}
-            </h3>
-            <ul className="mt-3 space-y-2 text-sm">
-              {col.links.map((l) => (
-                <li key={l.href}>
-                  <Link href={l.href} className="text-ink-soft hover:text-ink">
-                    {l.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-      <div className="border-t border-line/60 py-5 text-center text-xs text-ink-faint">
-        © {new Date().getFullYear()} Scanstone · Printed codes deserve
-        permanence.
+        <div className="flex flex-col items-center justify-between gap-2 border-t border-night-line py-6 text-xs text-paper/60 sm:flex-row">
+          <span>© {new Date().getFullYear()} Scanstone. Made in Saskatchewan.</span>
+          <span>Printed codes deserve permanence.</span>
+        </div>
       </div>
     </footer>
   );

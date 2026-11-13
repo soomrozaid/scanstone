@@ -1,8 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ButtonLink, Card, Badge } from "@/components/ui";
-import { PRICING, pricingSoftwareJsonLd } from "@/lib/plans";
+import { pricingSoftwareJsonLd } from "@/lib/plans";
+import { Container, Eyebrow, Fig } from "@/components/site/primitives";
+import { Breadcrumbs } from "@/components/site/Breadcrumbs";
+import { PlanCards } from "@/components/site/PlanCards";
+import { Faq } from "@/components/site/Faq";
+import { CtaBand } from "@/components/site/CtaBand";
 import { envClient } from "@/config/env.client";
+import { DarkHero } from "@/components/cinema/DarkHero";
+import { SplitWords } from "@/components/cinema/SplitWords";
+import { PromiseSeal } from "@/components/cinema/PromiseSeal";
+import { CompareTable } from "@/components/cinema/CompareTable";
+import { VelocityBand } from "@/components/cinema/VelocityBand";
 
 export const metadata: Metadata = {
   title: "Pricing — Free forever plan, Pro at $9 USD/month",
@@ -47,104 +56,119 @@ const ROWS: Array<{ label: string; free: string; pro: string }> = [
     pro: "Everything, forever",
   },
   { label: "PNG download (2048px)", free: "✓", pro: "✓" },
-  { label: "Vector SVG download (dynamic codes)", free: "—", pro: "✓" },
-  { label: "CSV export", free: "—", pro: "✓" },
+  { label: "Vector SVG download (dynamic codes)", free: "No", pro: "✓" },
+  { label: "CSV export", free: "No", pro: "✓" },
+];
+
+const NOTES = [
+  {
+    q: "Are short links included?",
+    a: "Yes. Create compact scst.one links with editable destinations and click analytics. Short links and dynamic QR codes share your plan's limit: 3 total on Free, 500 on Pro. A free account is required to create links; opening them is free for everyone.",
+  },
+  {
+    q: "Why is the free plan actually free?",
+    a: "Static codes cost us nothing to serve, because the content is inside the pattern. Dynamic redirects cost fractions of a cent. We'd rather earn upgrades from people who need scale and analytics than trap anyone's printed menus.",
+  },
+  {
+    q: "How does billing work?",
+    a: "Payments by Stripe. Pro renews automatically every month or every year, whichever you picked, until you cancel. Cancel yourself anytime from the billing portal, where your invoices are too. Pro extras stay on until the end of the period you paid for, and your codes and redirects are untouched.",
+  },
+  {
+    q: "What happens to my codes if I stop paying?",
+    a: "They keep redirecting. You lose the Pro extras (full analytics history, vector downloads, CSV export) but every printed code keeps working.",
+  },
+  {
+    q: "Is it really USD?",
+    a: "Yes. Pro is $9 USD a month or $79 USD a year. Your bank converts it if you pay in another currency.",
+  },
 ];
 
 export default function PricingPage() {
   return (
-    <main id="main" className="mx-auto max-w-4xl px-4 py-14 sm:px-6">
+    <main id="main">
       <PricingJsonLd />
-      <div className="max-w-2xl">
-        <h1 className="engraved text-4xl font-semibold">Pricing</h1>
-        <p className="mt-3 leading-relaxed text-ink-soft">
-          Two plans, no fine print. And one promise that applies to both:{" "}
-          <strong>a Scanstone redirect never stops working</strong> — not when
-          you downgrade, not when you cancel, not when a limit is reached.
-        </p>
-      </div>
-
-      <div className="mt-10 grid gap-6 md:grid-cols-2">
-        <Card className="p-7">
-          <h2 className="engraved text-xl font-semibold">Free</h2>
-          <p className="mt-1 text-4xl font-semibold">$0</p>
-          <p className="mt-1 text-sm text-ink-faint">forever</p>
-          <ButtonLink href="/signup" variant="ghost" className="mt-5 w-full">
-            Start free
-          </ButtonLink>
-        </Card>
-        <Card className="border-verdigris/50 p-7 ring-1 ring-verdigris/30">
-          <div className="flex items-center justify-between">
-            <h2 className="engraved text-xl font-semibold">Pro</h2>
-            <Badge tone="green">Most popular</Badge>
+      <DarkHero glow="75% 40%">
+        <Container className="grid items-center gap-10 pb-36 pt-16 sm:pt-24 lg:grid-cols-[1.2fr_0.8fr] lg:pb-44">
+          <div>
+            <Breadcrumbs tone="night" items={[{ label: "Pricing" }]} />
+            <Eyebrow tone="verdigris" className="rise !text-verdigris-bright">Two plans. One promise.</Eyebrow>
+            <h1 className="display mt-6 text-[clamp(4rem,11vw,10rem)] leading-[0.9] tracking-[-0.035em]">
+              <SplitWords text="Pricing" start={60} />
+            </h1>
+            <p className="rise mt-7 max-w-2xl text-lead text-paper/70 [animation-delay:350ms]">
+              Two plans, no fine print. And one promise that applies to both:{" "}
+              <strong className="font-semibold text-paper">
+                a Scanstone redirect never stops working
+              </strong>
+              . Not when you downgrade, not when you cancel, not when a limit is
+              reached.{" "}
+              <Link href="/help" className="link-underline text-verdigris-bright">
+                Read more in Help
+              </Link>
+              .
+            </p>
           </div>
-          <p className="mt-1 text-4xl font-semibold">
-            $9
-            <span className="text-base font-normal text-ink-faint">
-              {" "}USD/month
-            </span>
-          </p>
-          <p className="mt-1 text-sm text-ink-faint">
-            or {PRICING.yearly.label} ({PRICING.yearly.note})
-          </p>
-          <p className="mt-3 text-sm leading-relaxed text-ink-soft">
-            If you cancel, printed codes and short links keep working — you only
-            lose the Pro extras. That promise is in{" "}
-            <Link href="/terms" className="text-verdigris-deep underline">
-              our terms
-            </Link>
-            .
-          </p>
-          <ButtonLink href="/signup" variant="accent" className="mt-5 w-full">
-            Go Pro
-          </ButtonLink>
-        </Card>
-      </div>
-
-      <div className="mt-10 overflow-x-auto">
-        <table className="w-full min-w-130 border-collapse text-sm">
-          <thead>
-            <tr className="border-b-2 border-ink text-left">
-              <th className="py-3 pr-4 font-medium">What you get</th>
-              <th className="w-32 py-3 pr-4 font-medium">Free</th>
-              <th className="w-40 py-3 font-medium">Pro</th>
-            </tr>
-          </thead>
-          <tbody>
-            {ROWS.map((row) => (
-              <tr key={row.label} className="border-b border-line">
-                <td className="py-3 pr-4 text-ink-soft">{row.label}</td>
-                <td className="py-3 pr-4">{row.free}</td>
-                <td className="py-3 font-medium">{row.pro}</td>
-              </tr>
+          <PromiseSeal className="mx-auto w-[min(70vw,360px)] text-verdigris-bright" />
+        </Container>
+      </DarkHero>
+      <section className="relative">
+        <Container className="relative -mt-28 max-w-5xl pb-20">
+          <PlanCards headingLevel={2} />
+          <ul className="mt-5 grid gap-px overflow-hidden rounded-[24px] border border-line bg-line sm:grid-cols-3">
+            {[
+              ["You cancel Pro", "Every code keeps redirecting"],
+              ["You hit 3 codes on Free", "Scans keep working, you just can't add a 4th"],
+              ["You forget we exist", "Codes don't expire from inactivity"],
+            ].map(([a, b]) => (
+              <li key={a} className="flex items-start gap-3 bg-paper p-5 text-sm">
+                <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-verdigris" aria-hidden="true" />
+                <span>
+                  <span className="block font-medium text-ink">{a}</span>
+                  <span className="text-ink-soft">{b}</span>
+                </span>
+              </li>
             ))}
-          </tbody>
-        </table>
-      </div>
+          </ul>
+        </Container>
+      </section>
 
-      <div className="mt-10 space-y-4 text-sm leading-relaxed text-ink-soft">
-        <p>
-          <strong>Short links are included.</strong> Create compact scst.one
-          links with editable destinations and click analytics. Short links and
-          dynamic QR codes share your plan&apos;s limit: 3 total on Free, 500 on
-          Pro. A free account is required to create links; opening them is free
-          for everyone.
-        </p>
-        <p>
-          <strong>Why is the free plan actually free?</strong> Static codes cost
-          us nothing to serve — the content is inside the pattern. Dynamic
-          redirects cost fractions of a cent. We&apos;d rather earn upgrades
-          from people who need scale and analytics than trap anyone&apos;s
-          printed menus.
-        </p>
-        <p>
-          <strong>Billing details:</strong> payments by Stripe. Pro renews
-          automatically every month or every year, whichever you picked, until
-          you cancel. Cancel yourself anytime from the billing portal, where
-          your invoices are too. Pro extras stay on until the end of the period
-          you paid for, and your codes and redirects are untouched.
-        </p>
-      </div>
+      <VelocityBand lines={["Redirects never expire", "Paid or not"]} />
+
+      <section aria-labelledby="compare-h" data-nav="dark" className="night-portal relative overflow-hidden bg-night py-24 text-paper sm:py-32">
+        <div className="aurora pointer-events-none absolute inset-0 opacity-50" aria-hidden="true" />
+        <div className="gridlines-night pointer-events-none absolute inset-0 opacity-40" aria-hidden="true" />
+        <Container className="relative max-w-5xl">
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-copper-bright">Fig. 01 / Side by side</p>
+          <h2 id="compare-h" className="display mt-6 text-h2">
+            <SplitWords text="What you get" />
+          </h2>
+          <CompareTable rows={ROWS} />
+        </Container>
+      </section>
+
+      <section aria-labelledby="billing-h" className="py-24">
+        <Container className="grid max-w-5xl gap-12 lg:grid-cols-[0.8fr_1.2fr]">
+          <div>
+            <Fig n="02">The details</Fig>
+            <h2 id="billing-h" className="display mt-6 text-h2">Billing, plainly</h2>
+            <p className="mt-5 text-ink-soft">
+              Read the full promise in{" "}
+              <Link href="/terms#covenant" className="text-verdigris-deep underline underline-offset-2">
+                our terms
+              </Link>
+              .
+            </p>
+          </div>
+          <Faq items={NOTES} />
+        </Container>
+      </section>
+
+      <CtaBand
+        title="Start with three codes. Keep them forever."
+        body="No card, no trial clock. Upgrade when you need more."
+        primary={{ href: "/signup", label: "Start free" }}
+        secondary={{ href: "/demo", label: "See the live demo" }}
+      />
     </main>
   );
 }

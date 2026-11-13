@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { LegalShell } from "@/components/cinema/LegalShell";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -9,13 +10,10 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <main id="main" className="mx-auto max-w-2xl px-4 py-14 sm:px-6">
-      <h1 className="engraved text-3xl font-semibold">Privacy Policy</h1>
-      <p className="mt-2 text-sm text-ink-faint">Effective July 12, 2026</p>
-
-      <div className="prose-scanstone mt-8 space-y-6 text-[15px] leading-relaxed text-ink-soft">
+    <LegalShell title="Privacy Policy" effective="Effective July 12, 2026" ghost="Privacy" lead="What we keep, what we never collect, and who can see it.">
+      <div className="prose-scanstone space-y-6 text-[15px] leading-relaxed text-ink-soft">
         <section>
-          <h2 className="text-lg font-semibold text-ink">The short version</h2>
+          <h2 className="display text-2xl text-ink">The short version</h2>
           <p className="mt-2">
             We store what we need to run your account and count scans of your
             codes — nothing more. We don&apos;t sell data, we don&apos;t run ad
@@ -26,7 +24,7 @@ export default function PrivacyPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-ink">
+          <h2 className="display text-2xl text-ink">
             Data we hold about you (account holders)
           </h2>
           <ul className="mt-2 list-disc space-y-1.5 pl-5">
@@ -48,7 +46,7 @@ export default function PrivacyPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-ink">
+          <h2 className="display text-2xl text-ink">
             Data recorded when someone scans a code
           </h2>
           <p className="mt-2">For each scan of a dynamic code we record:</p>
@@ -72,7 +70,7 @@ export default function PrivacyPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-ink">
+          <h2 className="display text-2xl text-ink">
             Free generator tools
           </h2>
           <p className="mt-2">
@@ -83,7 +81,7 @@ export default function PrivacyPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-ink">
+          <h2 className="display text-2xl text-ink">
             Processors we rely on
           </h2>
           <ul className="mt-2 list-disc space-y-1.5 pl-5">
@@ -96,7 +94,7 @@ export default function PrivacyPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-ink">Your controls</h2>
+          <h2 className="display text-2xl text-ink">Your controls</h2>
           <ul className="mt-2 list-disc space-y-1.5 pl-5">
             <li>
               Export everything (codes + scan data) from your account page, any
@@ -111,7 +109,7 @@ export default function PrivacyPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-ink">Contact</h2>
+          <h2 className="display text-2xl text-ink">Contact</h2>
           <p className="mt-2">
             Privacy questions: email{" "}
             <a
@@ -124,6 +122,6 @@ export default function PrivacyPage() {
           </p>
         </section>
       </div>
-    </main>
+    </LegalShell>
   );
 }
