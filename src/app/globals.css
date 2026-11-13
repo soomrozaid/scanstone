@@ -1038,3 +1038,14 @@ details[open] > .faq-row::before { transform: scaleX(1); }
 @keyframes ph-pop { from { opacity: 0; transform: translateY(14px) scale(.9) } to { opacity: 1; transform: none } }
 @keyframes ph-carve { from { clip-path: inset(0 0 100% 0) } to { clip-path: inset(0) } }
 @keyframes ph-scan { 0% { top: .75rem; opacity: 0 } 10% { opacity: 1 } 50% { top: calc(100% - .75rem); opacity: 1 } 60%, 100% { opacity: 0 } }
+
+/* Night portals (iteration 94): full-bleed night sections open out of a rounded window as they arrive. */
+.night-portal { --gut: max(1.25rem, calc((100vw - 80rem) / 2 + 1.25rem)); }
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .night-portal { animation: np-open linear both; animation-timeline: view(); animation-range: entry 0% entry 65%; }
+    .night-portal > * { animation: np-settle linear both; animation-timeline: view(); animation-range: entry 0% entry 80%; }
+  }
+}
+@keyframes np-open { from { clip-path: inset(0 var(--gut) round 48px 48px 0 0) } to { clip-path: inset(0 0 round 0) } }
+@keyframes np-settle { from { transform: translateY(70px) scale(.97) } to { transform: none } }

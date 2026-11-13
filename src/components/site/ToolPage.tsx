@@ -94,7 +94,7 @@ export function ToolPage({
         <Container className="relative -mt-28 pb-20">{tool}</Container>
       </section>
 
-      <section aria-labelledby="tool-faq" data-nav="dark" className="relative overflow-hidden bg-night py-24 text-paper sm:py-32">
+      <section aria-labelledby="tool-faq" data-nav="dark" className="night-portal relative overflow-hidden bg-night py-24 text-paper sm:py-32">
         <div className="aurora pointer-events-none absolute inset-0 opacity-50" aria-hidden="true" />
         <Container className="relative grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
           <div className="lg:sticky lg:top-28 lg:self-start">

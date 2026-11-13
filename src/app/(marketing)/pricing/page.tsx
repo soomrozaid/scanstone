@@ -128,7 +128,7 @@ export default function PricingPage() {
 
       <VelocityBand lines={["Redirects never expire", "Paid or not"]} />
 
-      <section aria-labelledby="compare-h" data-nav="dark" className="relative overflow-hidden bg-night py-24 text-paper sm:py-32">
+      <section aria-labelledby="compare-h" data-nav="dark" className="night-portal relative overflow-hidden bg-night py-24 text-paper sm:py-32">
         <div className="aurora pointer-events-none absolute inset-0 opacity-50" aria-hidden="true" />
         <div className="gridlines-night pointer-events-none absolute inset-0 opacity-40" aria-hidden="true" />
         <Container className="relative max-w-5xl">
