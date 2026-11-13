@@ -19,19 +19,27 @@ export function AssembleQR({
   const m = buildMatrix(data, "M");
   const n = m.size;
   if (lite) {
+    // One path, with each horizontal run of dark modules as a single rect.
     let d = "";
     for (let r = 0; r < n; r++)
-      for (let c = 0; c < n; c++) if (m.get(r, c)) d += `M${c} ${r}h1v1h-1z`;
+      for (let c = 0; c < n; c++) {
+        if (!m.get(r, c)) continue;
+        let len = 1;
+        while (c + len < n && m.get(r, c + len)) len++;
+        d += `M${c} ${r}h${len}v1h-${len}z`;
+        c += len - 1;
+      }
     const id = `aq-${data.replace(/[^a-z0-9]/gi, "")}`;
     return (
       <div role="img" aria-label={label || undefined} aria-hidden={label ? undefined : true} className={`assemble rounded-[14px] bg-[#efe7d6] p-[7%] ${className}`}>
         <svg viewBox={`0 0 ${n} ${n}`} className="qr-reveal block aspect-square w-full" shapeRendering="crispEdges">
           <defs>
+            <path id={`${id}-p`} d={d} />
             <clipPath id={id}>
-              <path d={d} />
+              <use href={`#${id}-p`} />
             </clipPath>
           </defs>
-          <path d={d} className="fill-ink" />
+          <use href={`#${id}-p`} className="fill-ink" />
           <rect className="qr-sweep fill-verdigris" x={-n * 0.25} y={0} width={n * 0.18} height={n} clipPath={`url(#${id})`} />
         </svg>
       </div>

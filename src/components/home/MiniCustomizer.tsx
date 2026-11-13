@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Spotlight } from "@/components/site/Spotlight";
 import { renderQRSvg, type ModuleShape } from "@/lib/qr/svg";
+import { slimSvg } from "@/components/cinema/slimSvg";
 
 const INKS = [
   { name: "Iron", fg: "#161411", paper: "#fbf8f1" },
@@ -67,11 +68,13 @@ export function MiniCustomizer() {
   };
   const svg = useMemo(
     () =>
-      renderQRSvg("https://www.scanstone.ca", {
-        fg: c.fg,
-        bg: "#ffffff",
-        shape,
-      }),
+      slimSvg(
+        renderQRSvg("https://www.scanstone.ca", {
+          fg: c.fg,
+          bg: "#ffffff",
+          shape,
+        }),
+      ),
     [c.fg, shape],
   );
 

@@ -11,7 +11,19 @@ type Chapter = { sel: string; label: string };
  */
 export function ChapterRail({ chapters }: { chapters: Chapter[] }) {
   const [active, setActive] = useState(-1);
+  const [wide, setWide] = useState(false);
   useEffect(() => {
+    const mq = matchMedia("(min-width: 1536px)");
+    const on = () => setWide(mq.matches);
+    const t = setTimeout(on, 0);
+    mq.addEventListener("change", on);
+    return () => {
+      clearTimeout(t);
+      mq.removeEventListener("change", on);
+    };
+  }, []);
+  useEffect(() => {
+    if (!wide) return;
     let raf = 0;
     const measure = () => {
       cancelAnimationFrame(raf);
@@ -38,7 +50,7 @@ export function ChapterRail({ chapters }: { chapters: Chapter[] }) {
       removeEventListener("scroll", measure);
       removeEventListener("resize", measure);
     };
-  }, [chapters]);
+  }, [chapters, wide]);
 
   const go = (sel: string) => {
     const el = document.querySelector(sel);
@@ -49,6 +61,7 @@ export function ChapterRail({ chapters }: { chapters: Chapter[] }) {
     else scrollTo({ top: y, behavior: "smooth" });
   };
 
+  if (!wide) return null;
   return (
     <nav
       aria-label="Page chapters"
