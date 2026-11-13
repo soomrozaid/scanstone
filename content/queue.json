@@ -40,9 +40,12 @@
       "Explain that migration usually requires a new print unless you control the encoded URL.",
       "Test a replacement and retain the destination details."
     ],
-    "internalLinks": ["/qr-code-generator", "/blog/qr-code-subscription-trap"],
+    "internalLinks": [
+      "/qr-code-generator",
+      "/blog/qr-code-subscription-trap"
+    ],
     "autonomy": "review",
-    "status": "queued"
+    "status": "published"
   },
   {
     "slug": "static-vs-dynamic-qr-codes",
