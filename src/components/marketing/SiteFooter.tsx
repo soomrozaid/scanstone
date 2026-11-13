@@ -6,7 +6,7 @@ const columns = [
   {
     title: "Free tools",
     links: [
-      { href: "/#short-links", label: "URL shortener" },
+      { href: "/#short-link", label: "URL shortener" },
       { href: "/qr-code-generator", label: "QR code generator" },
       { href: "/wifi-qr-code-generator", label: "WiFi QR code" },
       { href: "/vcard-qr-code-generator", label: "vCard QR code" },
@@ -18,6 +18,8 @@ const columns = [
       { href: "/restaurant-menu-qr-code", label: "Restaurant menus" },
       { href: "/demo", label: "Live demo" },
       { href: "/pricing", label: "Pricing" },
+      { href: "/#faq", label: "Help and FAQ" },
+      { href: "/#faq", label: "Do codes expire?" },
       { href: "/blog", label: "Blog" },
       { href: "/signup", label: "Create account" },
     ],

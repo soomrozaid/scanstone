@@ -6,12 +6,10 @@ import { useEffect, useState } from "react";
 import { Wordmark } from "./Wordmark";
 
 const LINKS = [
-  { href: "/#how-it-works", label: "How it works" },
-  { href: "/#short-links", label: "Short links" },
-  { href: "/qr-code-generator", label: "Free generator" },
-  { href: "/demo", label: "Live demo" },
-  { href: "/blog", label: "Blog" },
+  { href: "/#qr", label: "Create QR" },
+  { href: "/#short-link", label: "Short links" },
   { href: "/pricing", label: "Pricing" },
+  { href: "/#faq", label: "Help" },
 ];
 
 export function NavBar({ signedIn }: { signedIn: boolean }) {
@@ -82,7 +80,7 @@ export function NavBar({ signedIn }: { signedIn: boolean }) {
                   <Link
                     href={l.href}
                     aria-current={active ? "page" : undefined}
-                    className={`inline-flex rounded-full px-3.5 py-2 transition-colors ${dark ? "text-paper/75 hover:bg-paper/10 hover:text-paper" : active ? "bg-ink/[0.06] text-ink" : "text-ink-soft hover:bg-ink/[0.04] hover:text-ink"}`}
+                    className={`inline-flex min-h-11 items-center rounded-full px-3.5 py-2 transition-colors ${dark ? "text-paper/75 hover:bg-paper/10 hover:text-paper" : active ? "bg-ink/[0.06] text-ink" : "text-ink-soft hover:bg-ink/[0.04] hover:text-ink"}`}
                   >
                     {l.label}
                   </Link>
@@ -102,7 +100,7 @@ export function NavBar({ signedIn }: { signedIn: boolean }) {
               <>
                 <Link
                   href="/login"
-                  className={`hidden rounded-full px-4 py-2 text-sm transition sm:inline-flex ${dark ? "text-paper/75 hover:text-paper" : "text-ink-soft hover:text-ink"}`}
+                  className={`inline-flex min-h-11 items-center rounded-full px-4 py-2 text-sm transition ${dark ? "text-paper/75 hover:text-paper" : "text-ink-soft hover:text-ink"}`}
                 >
                   Log in
                 </Link>
