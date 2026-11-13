@@ -138,9 +138,11 @@ export default function PricingPage() {
           printed menus.
         </p>
         <p>
-          <strong>Billing details:</strong> payments by Stripe, cancel
-          self-serve anytime, invoices in your billing portal. Cancelling ends
-          the Pro extras at period end — your codes and redirects are untouched.
+          <strong>Billing details:</strong> payments by Stripe. Pro renews
+          automatically every month or every year, whichever you picked, until
+          you cancel. Cancel yourself anytime from the billing portal, where
+          your invoices are too. Pro extras stay on until the end of the period
+          you paid for, and your codes and redirects are untouched.
         </p>
       </div>
     </main>

@@ -265,7 +265,7 @@ export function StaticGenerator({
                   await downloadPng(payload, design, "scanstone-qr");
                   track("qr_downloaded", { format: "png", mode });
                 } catch {
-                  setDownloadError("Download failed — try another browser.");
+                  setDownloadError("Download failed. Try another browser.");
                 }
               }}
             >
@@ -281,7 +281,7 @@ export function StaticGenerator({
                   downloadSvg(payload, design, "scanstone-qr");
                   track("qr_downloaded", { format: "svg", mode });
                 } catch {
-                  setDownloadError("Download failed — try another browser.");
+                  setDownloadError("Download failed. Try another browser.");
                 }
               }}
             >
@@ -294,8 +294,9 @@ export function StaticGenerator({
             </p>
           ) : null}
           <p className="mt-3 text-center text-xs leading-relaxed text-ink-faint">
-            Free forever. The content lives inside the code itself — nothing to
-            expire, no account, no watermark.
+            Free forever, no account, no watermark. This code holds your link
+            itself, with nothing in between, so there&apos;s nothing for us to
+            switch off. Scan it and your phone shows your own link, not ours.
           </p>
         </Card>
 
