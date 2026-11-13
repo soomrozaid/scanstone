@@ -25,7 +25,7 @@ test("landing page communicates the value proposition @smoke", async ({
   const errors = collectConsoleErrors(page);
   await page.goto("/");
   await expect(
-    page.getByRole("heading", { name: /Print it once/i }),
+    page.getByRole("heading", { name: /Make a QR code or a short link/i }),
   ).toBeVisible();
   await expect(
     page.getByText(/Cancelling never stops your redirects/i),
@@ -33,8 +33,8 @@ test("landing page communicates the value proposition @smoke", async ({
   await expect(
     page.getByRole("link", { name: /Start free/i }).first(),
   ).toBeVisible();
-  // hero visual mounts (canvas or fallback)
-  await expect(page.getByTestId("hero-visual")).toBeVisible();
+  await expect(page.getByTestId("home-tool")).toBeVisible();
+  await expect(page.getByLabel("Your link")).toBeVisible();
   await page.waitForTimeout(1500);
   expect(realErrors(errors)).toEqual([]);
 });
@@ -124,7 +124,7 @@ test("landing is usable on mobile @mobile @smoke", async ({ page }) => {
   const errors = collectConsoleErrors(page);
   await page.goto("/");
   await expect(
-    page.getByRole("heading", { name: /Print it once/i }),
+    page.getByRole("heading", { name: /Make a QR code or a short link/i }),
   ).toBeVisible();
   // no horizontal overflow
   const overflow = await page.evaluate(
@@ -159,7 +159,7 @@ test("reduced motion falls back gracefully", async ({ browser }) => {
   const page = await context.newPage();
   await page.goto("/");
   await expect(
-    page.getByRole("heading", { name: /Print it once/i }),
+    page.getByRole("heading", { name: /Make a QR code or a short link/i }),
   ).toBeVisible();
   await expect(page.getByTestId("hero-visual")).toBeVisible();
   await context.close();

@@ -46,11 +46,14 @@ export function CinemaHero({
   poster,
   children,
   dests: DESTS = DEFAULT_DESTS,
+  layout = "story",
 }: {
   dests?: Dest[];
   url: string;
   poster: React.ReactNode;
   children: React.ReactNode;
+  /** "tool": first-screen workbench. Art stays decorative and never covers the form. */
+  layout?: "story" | "tool";
 }) {
   const [use3D, setUse3D] = useState(false);
   const [ready, setReady] = useState(false);
@@ -93,8 +96,12 @@ export function CinemaHero({
         const st = { trigger: el, start: "top top", end: "bottom top", scrub: 0.4 };
         gsap.fromTo(el, { scale: 1, borderRadius: 0, yPercent: 0 }, { scale: 0.84, borderRadius: 48, yPercent: 10, ease: "none", scrollTrigger: st });
         gsap.fromTo(el.querySelectorAll("[data-hero-art]"), { scale: 1, rotate: 0 }, { scale: 1.28, rotate: -6, ease: "none", scrollTrigger: st });
-        gsap.fromTo(el.querySelector("[data-hero-copy]"), { y: 0, opacity: 1 }, { y: -140, opacity: 0, ease: "power1.in", scrollTrigger: { ...st, end: "70% top" } });
-        gsap.fromTo(el.querySelector("[data-hero-shade]"), { opacity: 0 }, { opacity: 0.6, ease: "none", scrollTrigger: st });
+        // The tool itself must stay readable and clickable. Only the story
+        // hero lifts its copy away; the workbench stays put.
+        if (layout !== "tool") {
+          gsap.fromTo(el.querySelector("[data-hero-copy]"), { y: 0, opacity: 1 }, { y: -140, opacity: 0, ease: "power1.in", scrollTrigger: { ...st, end: "70% top" } });
+          gsap.fromTo(el.querySelector("[data-hero-shade]"), { opacity: 0 }, { opacity: 0.6, ease: "none", scrollTrigger: st });
+        }
       }, el);
       kill = () => ctx.revert();
     });
@@ -102,7 +109,7 @@ export function CinemaHero({
       cancel();
       kill();
     };
-  }, []);
+  }, [layout]);
 
   useEffect(() => {
     const id = setInterval(() => {
@@ -118,7 +125,7 @@ export function CinemaHero({
     <section
       ref={sectionRef}
       data-nav="dark"
-      className="relative -mt-16 flex min-h-[100svh] origin-[50%_100%] flex-col overflow-hidden bg-night text-paper [transform-style:flat]"
+      className={`relative -mt-16 flex min-h-[100svh] origin-[50%_100%] flex-col overflow-hidden bg-night text-paper [transform-style:flat] ${layout === "tool" ? "home-tool-hero" : ""}`}
     >
       {/* moving light + grain */}
       <div className="aurora pointer-events-none absolute inset-0" aria-hidden="true" />
@@ -131,7 +138,11 @@ export function CinemaHero({
       <div data-hero-art className="pointer-events-none absolute inset-0" aria-hidden="true">
       <div
         aria-hidden="true"
-        className={`pointer-events-none absolute left-1/2 top-[21svh] w-[min(50vw,25svh)] -translate-x-1/2 -translate-y-1/2 transition-opacity duration-[1400ms] lg:left-[77%] lg:top-[48%] lg:w-[min(30vw,58svh)] ${ready ? "opacity-0" : "opacity-100"}`}
+        className={`pointer-events-none absolute transition-opacity duration-[1400ms] ${
+          layout === "tool"
+            ? `hidden lg:block lg:left-[76%] lg:top-[48%] lg:w-[min(28vw,52svh)] lg:-translate-x-1/2 lg:-translate-y-1/2 ${ready ? "opacity-0" : "opacity-100"}`
+            : `left-1/2 top-[21svh] w-[min(50vw,25svh)] -translate-x-1/2 -translate-y-1/2 lg:left-[77%] lg:top-[48%] lg:w-[min(30vw,58svh)] ${ready ? "opacity-0" : "opacity-100"}`
+        }`}
       >
         <div className="poster-tilt rounded-[6px] bg-[#efe7d6] shadow-[0_40px_120px_-20px_rgba(79,174,155,0.35)]">
           {poster}
@@ -140,7 +151,7 @@ export function CinemaHero({
       </div>
 
       {use3D && (
-        <div data-hero-art className="absolute inset-0" aria-hidden="true">
+        <div data-hero-art className={`pointer-events-none absolute inset-0 ${layout === "tool" ? "hidden lg:block" : ""}`} aria-hidden="true">
           <TileQR
             url={url}
             active={onScreen}
@@ -152,7 +163,11 @@ export function CinemaHero({
       )}
 
       {/* destination readout */}
-      <div className="pointer-events-none absolute left-1/2 top-[calc(21svh+min(25vw,12.5svh)+34px)] z-10 -translate-x-1/2 lg:left-[77%] lg:top-auto lg:bottom-[7svh]">
+      <div className={`pointer-events-none absolute z-10 ${
+        layout === "tool"
+          ? "hidden lg:flex lg:left-[76%] lg:bottom-[7svh] lg:-translate-x-1/2"
+          : "left-1/2 top-[calc(21svh+min(25vw,12.5svh)+34px)] -translate-x-1/2 lg:left-[77%] lg:top-auto lg:bottom-[7svh]"
+      }`}>
         <div
           key={idx}
           className={`dest-swap flex items-center gap-2 whitespace-nowrap rounded-full border border-night-line bg-night-raised/80 px-4 py-2 font-mono text-[11px] text-paper/80 backdrop-blur transition-opacity sm:text-xs ${settled || !use3D ? "opacity-100" : "opacity-0"}`}
@@ -168,7 +183,7 @@ export function CinemaHero({
         an event schedule.
       </p>
 
-      <div data-hero-copy className="relative z-10 mt-auto">{children}</div>
+      <div data-hero-copy className={`relative z-10 ${layout === "tool" ? "flex flex-1 items-center" : "mt-auto"}`}>{children}</div>
       <div data-hero-shade className="pointer-events-none absolute inset-0 z-20 bg-night opacity-0" aria-hidden="true" />
     </section>
   );

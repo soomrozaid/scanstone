@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { HeroStage } from "@/components/hero/HeroStage";
+import { HomeTool } from "@/components/hero/HomeTool";
+import { getUser } from "@/lib/supabase/server";
 import { CinemaHero } from "@/components/cinema/CinemaHero";
 import { SplitWords } from "@/components/cinema/SplitWords";
 import { LazyVideo } from "@/components/cinema/LazyVideo";
@@ -17,7 +19,6 @@ import { ScanChart } from "@/components/analytics/ScanChart";
 import { BreakdownList } from "@/components/analytics/BreakdownList";
 import { pricingSoftwareJsonLd } from "@/lib/plans";
 import { envClient } from "@/config/env.client";
-import { MarketingLink } from "@/components/marketing/MarketingLink";
 import { Container, Eyebrow, Fig, SectionHeading } from "@/components/site/primitives";
 import { Reveal } from "@/components/site/Reveal";
 import { PlanCards } from "@/components/site/PlanCards";
@@ -169,7 +170,13 @@ const SEGMENTS = [
   },
 ];
 
-export default function LandingPage() {
+export default async function LandingPage() {
+  let signedIn = false;
+  try {
+    signedIn = Boolean(await getUser());
+  } catch {
+    signedIn = false;
+  }
   return (
     <main id="main">
       <HomeJsonLd />
@@ -178,6 +185,7 @@ export default function LandingPage() {
 
       {/* HERO */}
       <CinemaHero
+        layout="tool"
         url={`${envClient.APP_URL}/demo`}
         poster={
           <div
@@ -192,61 +200,8 @@ export default function LandingPage() {
           />
         }
       >
-        <Container className="pb-14 pt-[calc(33.5svh+84px)] sm:pb-20 lg:pt-40">
-          <div className="max-w-3xl">
-            <Eyebrow tone="verdigris" className="rise !text-verdigris-bright">
-              Editable QR codes for things you print
-            </Eyebrow>
-            <h1 className="display mt-5 text-[clamp(3.1rem,8vw,7.25rem)] sm:mt-6 leading-[0.92] tracking-[-0.03em] text-paper">
-              <SplitWords text="Print it once." start={80} />
-              <br />
-              <SplitWords
-                text="Update it"
-                start={300}
-                wordClass="italic text-verdigris-bright"
-              />{" "}
-              <SplitWords text="anytime." start={440} />
-            </h1>
-            <p className="mt-6 max-w-xl text-lead text-paper/70 sm:mt-8">
-              New menu. New offer. Same QR code. Change where your printed
-              codes send people, track scans, and share short links from one
-              dashboard. Your redirects keep working even if you cancel.
-            </p>
-            <div className="rise mt-7 flex flex-wrap items-center gap-3 [animation-delay:700ms] sm:mt-9">
-              <span data-magnetic className="inline-block">
-                <MarketingLink
-                  placement="home_hero"
-                  action="signup"
-                  href="/signup"
-                  variant="accent"
-                  className="!rounded-full !bg-verdigris-bright px-7 py-3.5 text-base !text-night hover:!bg-paper"
-                >
-                  Start free, 3 codes or links
-                </MarketingLink>
-              </span>
-              <span data-magnetic className="inline-block">
-                <MarketingLink
-                  placement="home_hero"
-                  action="demo"
-                  href="/demo"
-                  variant="ghost"
-                  className="!rounded-full border border-paper/25 px-7 py-3.5 text-base !text-paper hover:!bg-paper/10"
-                >
-                  Explore the live demo
-                </MarketingLink>
-              </span>
-            </div>
-            <p className="mt-5 text-sm text-paper/55">
-              No credit card. 3 editable codes or short links. No trial
-              deadline.{" "}
-              <Link
-                href="/qr-code-generator"
-                className="link-underline text-verdigris-bright"
-              >
-                Just need a static QR code? Create one without signing up →
-              </Link>
-            </p>
-          </div>
+        <Container className="w-full pb-12 pt-24 sm:pb-16 lg:pt-28">
+          <HomeTool signedIn={signedIn} />
         </Container>
       </CinemaHero>
 
@@ -419,7 +374,7 @@ export default function LandingPage() {
                       dashboard as your QR codes.
                     </p>
                     <Link
-                      href="/dashboard/shorten"
+                      href="/#short-link"
                       className="mt-6 inline-flex rounded-full bg-verdigris px-5 py-2.5 text-sm font-medium text-paper transition hover:bg-verdigris-deep"
                     >
                       Create a short link
@@ -601,7 +556,7 @@ export default function LandingPage() {
       </section>
 
       {/* FAQ */}
-      <section aria-labelledby="faq-h" data-nav="dark" className="night-portal cv-auto relative overflow-hidden bg-night py-24 text-paper sm:py-32">
+      <section id="faq" aria-labelledby="faq-h" data-nav="dark" className="scroll-mt-20 night-portal cv-auto relative overflow-hidden bg-night py-24 text-paper sm:py-32">
         <div className="aurora pointer-events-none absolute inset-0 opacity-50" aria-hidden="true" />
         <Container className="relative grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
           <div className="lg:sticky lg:top-28 lg:self-start">

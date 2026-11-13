@@ -1079,3 +1079,12 @@ details[open] > .faq-row::before { transform: scaleX(1); }
   .gen-wait-dot { animation: gen-wait 1.6s ease-in-out infinite; box-shadow: 0 0 0 0 rgb(79 174 155 / .5); }
 }
 @keyframes gen-wait { 0% { box-shadow: 0 0 0 0 rgb(79 174 155 / .5) } 70% { box-shadow: 0 0 0 8px rgb(79 174 155 / 0) } 100% { box-shadow: 0 0 0 0 rgb(79 174 155 / 0) } }
+
+
+/* Home tool tabs: selected state uses a shape, not color alone (WCAG 1.4.1). */
+.home-tool-tab[aria-selected="true"]::after {
+  content: "";
+  position: absolute;
+  inset: auto 18% 6px;
+  border-block-end: 2px solid currentColor;
+}
