@@ -1,31 +1,33 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { HeroVisual } from "@/components/hero/Hero";
+import { HomeTool } from "@/components/hero/HomeTool";
 import { ButtonLink, Card, Badge } from "@/components/ui";
+import { getUser } from "@/lib/supabase/server";
 import { ScanChart } from "@/components/analytics/ScanChart";
 import { BreakdownList } from "@/components/analytics/BreakdownList";
 import { PRICING, pricingSoftwareJsonLd } from "@/lib/plans";
 import { envClient } from "@/config/env.client";
-import { MarketingLink } from "@/components/marketing/MarketingLink";
 
 export const metadata: Metadata = {
-  title: { absolute: "Editable QR Codes for Print & Short Links | Scanstone" },
+  title: { absolute: "Free QR Code Generator and URL Shortener | Scanstone" },
   description:
-    "Change your QR code destination after printing. Track scans, share short links, and keep redirects working after cancellation. Start with 3 free codes or links.",
+    "Make a QR code or a short link in one step. Static QR codes download instantly with no account. Editable codes and scst.one short links never expire. 3 free with an account.",
   alternates: { canonical: `${envClient.APP_URL.replace(/\/$/, "")}/` },
   openGraph: {
-    title: "Print it once. Update the destination anytime. | Scanstone",
+    title: "Free QR Code Generator and URL Shortener | Scanstone",
     description:
-      "Editable QR codes for menus, packaging, and campaigns. Your redirects keep working after cancellation. Start free.",
+      "Make a QR code or a short link in one step. Static codes download instantly. Editable codes and short links never expire.",
     url: `${envClient.APP_URL.replace(/\/$/, "")}/`,
-    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Scanstone" }],
+    images: [
+      { url: "/opengraph-image", width: 1200, height: 630, alt: "Scanstone" },
+    ],
   },
 };
 
 const FAQS = [
   {
     q: "Can I shorten a URL without creating a QR code?",
-    a: "Yes. Choose Shorten a link to create a compact scst.one URL for messages, social posts, emails, or anywhere you share links. You can update its destination and see click analytics from your dashboard.",
+    a: "Yes. Use the Short link tab at the top of this page. You need a free account to save a scst.one link, because we store the redirect so you can edit it later and see click counts.",
   },
   {
     q: "Do I need an account to create short links?",
@@ -88,57 +90,13 @@ const DEMO_SERIES = {
   total: 731,
 };
 
-export default function LandingPage() {
+export default async function LandingPage() {
+  const user = await getUser();
   return (
     <main id="main">
       <HomeJsonLd />
 
-      {/* HERO */}
-      <section className="mx-auto grid max-w-6xl items-center gap-12 px-4 pb-20 pt-14 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:pt-20">
-        <div>
-          <Badge tone="green">Editable QR codes for things you print</Badge>
-          <h1 className="engraved mt-5 text-4xl font-semibold leading-[1.08] sm:text-5xl lg:text-6xl">
-            Print it once.
-            <br />
-            Update it anytime.
-          </h1>
-          <p className="mt-5 max-w-lg text-lg leading-relaxed text-ink-soft">
-            New menu. New offer. Same QR code. Change where your printed codes
-            send people, track scans, and share short links from one dashboard.
-            Your redirects keep working even if you cancel.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <MarketingLink
-              placement="home_hero"
-              action="signup"
-              href="/signup"
-              variant="accent"
-              className="px-6 py-3 text-base"
-            >
-              Start free — 3 codes or links
-            </MarketingLink>
-            <MarketingLink
-              placement="home_hero"
-              action="demo"
-              href="/demo"
-              variant="ghost"
-              className="px-6 py-3 text-base"
-            >
-              Explore the live demo
-            </MarketingLink>
-          </div>
-          <p className="mt-4 text-sm text-ink-faint">
-            No credit card. 3 editable codes or short links. No trial deadline.
-          </p>
-          <Link
-            href="/qr-code-generator"
-            className="mt-3 inline-block text-sm text-verdigris-deep underline underline-offset-4"
-          >
-            Just need a static QR code? Create one without signing up.
-          </Link>
-        </div>
-        <HeroVisual />
-      </section>
+      <HomeTool signedIn={Boolean(user)} />
 
       <div className="hairline mx-auto max-w-5xl" />
 
@@ -162,14 +120,15 @@ export default function LandingPage() {
             track clicks from the same dashboard as your QR codes.
           </p>
           <ButtonLink
-            href="/dashboard/shorten"
+            href="/#short-link"
             variant="accent"
             className="mt-6 px-6 py-3"
           >
             Create a short link
           </ButtonLink>
           <p className="mt-3 text-sm text-ink-faint">
-            Sign in or create a free account. Your first 3 short links or
+            A scst.one short link needs a free account, because we store the
+            redirect so you can edit it later. Your first 3 short links or
             dynamic QR codes are free, with one shared limit.
           </p>
         </div>
@@ -463,7 +422,8 @@ export default function LandingPage() {
             <p className="mt-1 text-3xl font-semibold">
               $9
               <span className="text-base font-normal text-ink-faint">
-                {" "}USD/month
+                {" "}
+                USD/month
               </span>
             </p>
             <p className="text-sm text-ink-faint">

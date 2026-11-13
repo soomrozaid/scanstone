@@ -1,11 +1,35 @@
 "use client";
 
-import { useActionState } from "react";
+import {
+  useActionState,
+  useEffect,
+  useState,
+  useSyncExternalStore,
+} from "react";
 import { createShortUrl } from "@/app/(app)/dashboard/actions";
 import { Button, FieldError, Input, Label } from "@/components/ui";
+import {
+  clearPendingDestination,
+  readPendingDestination,
+} from "@/lib/pending-destination";
 
-export function ShortUrlForm() {
+const emptySubscribe = () => () => {};
+
+export function ShortUrlForm({ initialUrl = "" }: { initialUrl?: string }) {
   const [state, action, pending] = useActionState(createShortUrl, null);
+  const storedUrl = useSyncExternalStore(
+    emptySubscribe,
+    () => (initialUrl ? "" : (readPendingDestination()?.url ?? "")),
+    () => "",
+  );
+  const [destination, setDestination] = useState<string | null>(
+    initialUrl || null,
+  );
+  const value = destination ?? storedUrl;
+
+  useEffect(() => {
+    if (value) clearPendingDestination();
+  }, [value]);
 
   return (
     <form action={action} className="space-y-6">
@@ -19,6 +43,8 @@ export function ShortUrlForm() {
           autoCorrect="off"
           spellCheck={false}
           placeholder="example.com/your-long-link"
+          value={value}
+          onChange={(event) => setDestination(event.target.value)}
           maxLength={2048}
           required
           aria-describedby="destination-hint"
