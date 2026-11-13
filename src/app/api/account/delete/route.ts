@@ -3,6 +3,7 @@ import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { stripe } from "@/lib/stripe";
 import { log } from "@/lib/log";
+import { removeProjectDomain } from "@/lib/custom-domain/vercel";
 
 /**
  * Account deletion: cancels any active subscription, then removes the auth
@@ -24,6 +25,20 @@ export async function POST() {
       .select("stripe_subscription_id")
       .eq("id", user.id)
       .single();
+
+    const { data: domains } = await admin
+      .from("custom_domains")
+      .select("hostname")
+      .eq("user_id", user.id);
+    for (const domain of domains ?? []) {
+      try {
+        await removeProjectDomain(domain.hostname);
+      } catch (e) {
+        log("warn", "custom_domain_remove_on_delete_failed", {
+          error: String(e),
+        });
+      }
+    }
 
     if (profile?.stripe_subscription_id) {
       try {

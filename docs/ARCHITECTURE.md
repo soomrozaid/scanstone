@@ -9,6 +9,7 @@
 ## Environment contract (canonical, framework-neutral)
 Canonical vars: `APP_URL, SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, SUPABASE_SECRET_KEY, STRIPE_PUBLISHABLE_KEY, STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET, STRIPE_MONTHLY_PRICE_ID, STRIPE_YEARLY_PRICE_ID`.
 - Optional `SHORT_URL_ORIGIN` is the dedicated short-link origin (`https://scst.one`). `getShortUrl()` uses `/{slug}` on this domain, or falls back to `APP_URL/r/{slug}`. A host-scoped rewrite sends short-domain requests to the existing redirect handler; `APP_URL` remains the app/auth/billing origin.
+- Optional `VERCEL_API_TOKEN`, `VERCEL_PROJECT_ID`, and `VERCEL_TEAM_ID` are used only when a Pro user adds, verifies, or removes a custom domain. They are not required to build or to serve scst.one redirects.
 - `src/config/env.server.ts` — zod-validated, server-only (throws if missing; imports `server-only`).
 - `src/config/env.client.ts` — zod-validated allowlist: APP_URL, SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, STRIPE_PUBLISHABLE_KEY.
 - `next.config.ts` maps canonical → `NEXT_PUBLIC_*` build-time aliases (adapter layer only; canonical names remain source of truth in Vercel/local env).
@@ -18,6 +19,7 @@ Canonical vars: `APP_URL, SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, SUPABASE_SECRE
 - `qr_codes` (id, user_id, slug unique, name, destination_url, design jsonb, scan_count, created/updated) — owner CRUD via RLS; slug lookup for redirect via service role.
 - `scans` (id, code_id, scanned_at, country, region, device, os, referer) — insert service-role only (SECURITY DEFINER `record_scan`), owner SELECT via join policy.
 - `stripe_events` (id, processed_at) — webhook idempotency; service-role only.
+- `custom_domains` (id, user_id, hostname unique, status pending|verified|failed, dns_records, verified_at) — owner SELECT via RLS; writes service-role only after a Pro check. Redirect lookup of verified hostnames uses the service role.
 - Trigger creates `profiles` row on auth.users insert.
 
 ## Key routes
@@ -27,7 +29,7 @@ Canonical vars: `APP_URL, SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, SUPABASE_SECRE
 - `/login /signup /forgot-password /reset-password /auth/callback /auth/confirm`.
 - `/dashboard` (list/create), `/dashboard/codes/[id]` (edit, design, analytics, export), `/account` (plan, billing portal, data export, delete account).
 - `/dashboard/shorten` creates shareable short URLs through the same authenticated creation flow and `qr_codes` records. Links and QR codes share limits; clicks and scans are counted together. Existing code URLs can also be copied from the dashboard and detail page.
-- `GET /r/[slug]` — redirect fast path: service-role lookup → 302 → `waitUntil(record_scan)`. Never gated.
+- `GET /r/[slug]` — redirect fast path: service-role lookup → 302 → `waitUntil(record_scan)`. Never gated. On a verified custom host, the lookup is scoped to that domain's owner; unknown hosts 404.
 - `POST /api/stripe/checkout`, `POST /api/stripe/portal`, `POST /api/stripe/webhook` (sig verify + idempotent), `GET /api/account/export`.
 - `sitemap.ts`, `robots.ts`, `opengraph-image.tsx`, `manifest.ts`.
 

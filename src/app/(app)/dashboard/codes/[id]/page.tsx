@@ -11,6 +11,7 @@ import {
   type ScanRow,
 } from "@/lib/analytics";
 import { getShortUrl } from "@/lib/short-url";
+import { getCustomUrl } from "@/lib/custom-domain/resolve";
 import { Card, Badge } from "@/components/ui";
 import { CodeForm } from "@/components/dashboard/CodeForm";
 import { DownloadButtons } from "@/components/dashboard/DownloadButtons";
@@ -45,14 +46,23 @@ export default async function CodeDetailPage({
   } = await supabase.auth.getUser();
   if (!user) redirect("/login");
 
-  const [{ data: profile }, { data: code }] = await Promise.all([
-    supabase.from("profiles").select("plan").eq("id", user.id).single(),
-    supabase
-      .from("qr_codes")
-      .select("id, slug, name, destination_url, design, scan_count, created_at")
-      .eq("id", id)
-      .single(),
-  ]);
+  const [{ data: profile }, { data: code }, { data: domain }] =
+    await Promise.all([
+      supabase.from("profiles").select("plan").eq("id", user.id).single(),
+      supabase
+        .from("qr_codes")
+        .select(
+          "id, slug, name, destination_url, design, scan_count, created_at",
+        )
+        .eq("id", id)
+        .single(),
+      supabase
+        .from("custom_domains")
+        .select("hostname, status")
+        .eq("user_id", user.id)
+        .eq("status", "verified")
+        .maybeSingle(),
+    ]);
   if (!code) notFound();
 
   const limits = limitsFor(profile?.plan);
@@ -76,6 +86,9 @@ export default async function CodeDetailPage({
   const series = bucketByDay(rows, Math.min(windowDays, 30));
   const design = designSchema.parse(code.design ?? {});
   const shortUrl = getShortUrl(code.slug);
+  const customUrl = domain?.hostname
+    ? getCustomUrl(domain.hostname, code.slug)
+    : null;
   const countries = breakdown(rows, "country").map((b) => ({
     ...b,
     label: countryName(b.label),
@@ -116,6 +129,21 @@ export default async function CodeDetailPage({
               {shortUrl}
             </p>
             <CopyUrlButton url={shortUrl} />
+            {customUrl ? (
+              <div className="mt-4 border-t border-line pt-4">
+                <p className="text-xs font-medium uppercase tracking-[0.12em] text-ink-soft">
+                  Your domain
+                </p>
+                <p className="my-3 break-all select-all font-mono text-sm text-ink-soft">
+                  {customUrl}
+                </p>
+                <CopyUrlButton url={customUrl} label="Copy custom URL" />
+                <p className="mt-3 text-xs leading-relaxed text-ink-faint">
+                  This is the same redirect on a domain you own. Your scst.one
+                  link keeps working too.
+                </p>
+              </div>
+            ) : null}
             <p className="mt-3 text-xs leading-relaxed text-ink-faint">
               Share this link anywhere. Clicks and QR scans appear together
               below.
