@@ -13,7 +13,10 @@ export const metadata: Metadata = {
   description:
     "Scanstone is a small, independent product built in Saskatchewan, Canada. Printed QR codes shouldn't stop working when a subscription lapses.",
   alternates: { canonical: "/about" },
-  openGraph: { url: "/about" },
+  openGraph: {
+    url: "/about",
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Scanstone" }],
+  },
 };
 
 const PRINCIPLES = [

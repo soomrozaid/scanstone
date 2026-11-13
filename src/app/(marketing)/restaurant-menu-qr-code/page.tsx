@@ -24,7 +24,12 @@ export const metadata: Metadata = {
   title,
   description,
   alternates: { canonical: path },
-  openGraph: { title, description, url: path },
+  openGraph: {
+    title,
+    description,
+    url: path,
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Scanstone" }],
+  },
 };
 
 const questions = [

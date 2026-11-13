@@ -70,7 +70,7 @@ const NOTES = [
   },
   {
     q: "How does billing work?",
-    a: "Payments by Stripe, cancel self-serve anytime, invoices in your billing portal. Cancelling ends the Pro extras at period end. Your codes and redirects are untouched.",
+    a: "Payments by Stripe. Pro renews automatically every month or every year, whichever you picked, until you cancel. Cancel yourself anytime from the billing portal, where your invoices are too. Pro extras stay on until the end of the period you paid for, and your codes and redirects are untouched.",
   },
   {
     q: "What happens to my codes if I stop paying?",

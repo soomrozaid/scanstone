@@ -325,8 +325,9 @@ export function StaticGenerator({
             </p>
           ) : null}
           <p className="mt-3 text-center text-xs leading-relaxed text-ink-faint">
-            Free forever. The content lives inside the code itself, so there&apos;s
-            nothing to expire. No account, no watermark.
+            Free forever, no account, no watermark. This code holds your link
+            itself, with nothing in between, so there&apos;s nothing for us to
+            switch off. Scan it and your phone shows your own link, not ours.
           </p>
         </Card>
 

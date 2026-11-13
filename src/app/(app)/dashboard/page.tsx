@@ -8,6 +8,7 @@ import { Card, ButtonLink, Badge } from "@/components/ui";
 import { QRPreview } from "@/components/qr/QRPreview";
 import { designSchema } from "@/lib/validate";
 import { CopyUrlButton } from "@/components/dashboard/CopyUrlButton";
+import { PendingDestinationBanner } from "@/components/dashboard/PendingDestinationBanner";
 
 export const metadata: Metadata = {
   title: "Your codes & links",
@@ -55,6 +56,8 @@ export default async function DashboardPage() {
           </ButtonLink>
         </div>
       </div>
+
+      <PendingDestinationBanner />
 
       {used === 0 ? (
         <Card className="mt-8 p-10 text-center">

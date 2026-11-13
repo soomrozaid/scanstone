@@ -35,22 +35,25 @@ import { Spotlight } from "@/components/site/Spotlight";
 import { ChapterRail } from "@/components/cinema/ChapterRail";
 
 export const metadata: Metadata = {
-  title: { absolute: "Editable QR Codes for Print & Short Links | Scanstone" },
+  title: { absolute: "Free QR Code Generator and URL Shortener | Scanstone" },
   description:
-    "Change your QR code destination after printing. Track scans, share short links, and keep redirects working after cancellation. Start with 3 free codes or links.",
+    "Make a QR code or a short link in one step. Static QR codes download instantly with no account. Editable codes and scst.one short links never expire. 3 free with an account.",
   alternates: { canonical: `${envClient.APP_URL.replace(/\/$/, "")}/` },
   openGraph: {
-    title: "Print it once. Update the destination anytime. | Scanstone",
+    title: "Free QR Code Generator and URL Shortener | Scanstone",
     description:
-      "Editable QR codes for menus, packaging, and campaigns. Your redirects keep working after cancellation. Start free.",
+      "Make a QR code or a short link in one step. Static codes download instantly. Editable codes and short links never expire.",
     url: `${envClient.APP_URL.replace(/\/$/, "")}/`,
+    images: [
+      { url: "/opengraph-image", width: 1200, height: 630, alt: "Scanstone" },
+    ],
   },
 };
 
 const FAQS = [
   {
     q: "Can I shorten a URL without creating a QR code?",
-    a: "Yes. Choose Shorten a link to create a compact scst.one URL for messages, social posts, emails, or anywhere you share links. You can update its destination and see click analytics from your dashboard.",
+    a: "Yes. Use the Short link tab at the top of this page. You need a free account to save a scst.one link, because we store the redirect so you can edit it later and see click counts.",
   },
   {
     q: "Do I need an account to create short links?",

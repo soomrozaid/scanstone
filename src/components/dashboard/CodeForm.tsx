@@ -21,6 +21,7 @@ const DEFAULT_DESIGN: QRDesign = {
 export function CodeForm({
   mode,
   initial,
+  initialDestination = "",
 }: {
   mode: "create" | "edit";
   initial?: {
@@ -30,6 +31,7 @@ export function CodeForm({
     design: QRDesign;
     slug: string;
   };
+  initialDestination?: string;
 }) {
   const [design, setDesign] = useState<QRDesign>(
     initial?.design ?? DEFAULT_DESIGN,
@@ -70,7 +72,7 @@ export function CodeForm({
             name="destination_url"
             type="url"
             inputMode="url"
-            defaultValue={initial?.destination_url}
+            defaultValue={initial?.destination_url || initialDestination}
             placeholder="https://example.com/menu"
             required
           />

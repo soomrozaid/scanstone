@@ -21,6 +21,37 @@ function formatDate(iso: string): string {
   });
 }
 
+/**
+ * Questions under a "## Common questions" heading: each "### Question" and the
+ * plain paragraph after it. Only used for FAQPage JSON-LD, so the visible text
+ * and the structured data always match.
+ */
+function faqFromMarkdown(body: string): { question: string; answer: string }[] {
+  const start = body.search(/^## Common questions\s*$/m);
+  if (start === -1) return [];
+  const rest = body.slice(start).split("\n").slice(1);
+  const out: { question: string; answer: string }[] = [];
+  let q: string | null = null;
+  let a: string[] = [];
+  const flush = () => {
+    if (q && a.length) out.push({ question: q, answer: a.join(" ").trim() });
+    q = null;
+    a = [];
+  };
+  for (const line of rest) {
+    if (/^## /.test(line)) break;
+    const h = line.match(/^### (.+)$/);
+    if (h) {
+      flush();
+      q = (h[1] ?? "").trim();
+    } else if (q && line.trim() && !line.startsWith("_")) {
+      a.push(line.trim().replace(/\[([^\]]+)\]\([^)]+\)/g, "$1"));
+    }
+  }
+  flush();
+  return out;
+}
+
 function JsonLd({ doc, body }: { doc: DocMeta; body: string }) {
   const base = envClient.APP_URL;
   const url = `${base}/${doc.collection}/${doc.slug}`;
@@ -59,6 +90,18 @@ function JsonLd({ doc, body }: { doc: DocMeta; body: string }) {
       ],
     },
   ];
+  const faqs = faqFromMarkdown(body);
+  if (faqs.length) {
+    data.push({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faqs.map((f) => ({
+        "@type": "Question",
+        name: f.question,
+        acceptedAnswer: { "@type": "Answer", text: f.answer },
+      })),
+    } as unknown as (typeof data)[number]);
+  }
   return (
     <script
       type="application/ld+json"
