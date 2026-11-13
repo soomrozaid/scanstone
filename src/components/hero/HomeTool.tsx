@@ -288,7 +288,6 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
                     onBlur={onUrlBlur}
                     aria-invalid={error ? true : undefined}
                     aria-describedby={error ? errorId : undefined}
-                    autoFocus
                     className="min-h-11 py-2.5"
                   />
                   <Button
@@ -427,7 +426,7 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
               </p>
             ) : null}
             <details className="mt-4">
-              <summary className="cursor-pointer text-sm text-ink-soft hover:text-ink">
+              <summary className="flex min-h-11 cursor-pointer items-center text-sm text-ink-soft hover:text-ink">
                 Customize colors
               </summary>
               <div className="mt-3">

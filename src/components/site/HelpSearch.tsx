@@ -46,7 +46,7 @@ export function HelpSearch({ topics }: { topics: HelpTopic[] }) {
           {results.map((t, i) => (
             <li key={t.q} id={t.q.toLowerCase().includes("expire") ? "expire" : undefined} className="scroll-mt-24">
               <details className="group py-1" open={!q && i === 0}>
-                <summary className="cursor-pointer list-none py-4 text-left text-lg font-medium text-ink [&::-webkit-details-marker]:hidden">
+                <summary className="flex min-h-11 cursor-pointer list-none items-center py-4 text-left text-lg font-medium text-ink [&::-webkit-details-marker]:hidden">
                   {t.q}
                 </summary>
                 <p className="max-w-2xl pb-4 leading-relaxed text-ink-soft">{t.a}</p>
