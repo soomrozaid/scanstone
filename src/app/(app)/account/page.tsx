@@ -4,6 +4,10 @@ import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { PRICING } from "@/lib/plans";
 import { Card, Button, Badge } from "@/components/ui";
 import { DeleteAccountButton } from "@/components/dashboard/DeleteAccountButton";
+import {
+  CustomDomainCard,
+  type CustomDomainView,
+} from "@/components/dashboard/CustomDomainCard";
 
 export const metadata: Metadata = {
   title: "Account",
@@ -22,12 +26,20 @@ export default async function AccountPage({
   } = await supabase.auth.getUser();
   if (!user) redirect("/login");
 
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("plan, current_period_end, stripe_customer_id")
-    .eq("id", user.id)
-    .single();
+  const [{ data: profile }, { data: domainRow }] = await Promise.all([
+    supabase
+      .from("profiles")
+      .select("plan, current_period_end, stripe_customer_id")
+      .eq("id", user.id)
+      .single(),
+    supabase
+      .from("custom_domains")
+      .select("id, hostname, status, dns_records, verified_at")
+      .eq("user_id", user.id)
+      .maybeSingle(),
+  ]);
   const isPro = profile?.plan === "pro";
+  const domain = toDomainView(domainRow);
 
   return (
     <div className="mx-auto max-w-2xl space-y-6">
@@ -113,6 +125,8 @@ export default async function AccountPage({
         )}
       </Card>
 
+      <CustomDomainCard isPro={isPro} domain={domain} />
+
       <Card className="p-6">
         <h2 className="font-medium">Your data</h2>
         <p className="mt-1 text-sm text-ink-soft">
@@ -138,4 +152,38 @@ export default async function AccountPage({
       </Card>
     </div>
   );
+}
+
+function toDomainView(
+  row: {
+    id: string;
+    hostname: string;
+    status: string;
+    dns_records: unknown;
+    verified_at: string | null;
+  } | null,
+): CustomDomainView | null {
+  if (!row) return null;
+  const status =
+    row.status === "verified" || row.status === "failed"
+      ? row.status
+      : "pending";
+  const records = Array.isArray(row.dns_records)
+    ? row.dns_records.flatMap((item) => {
+        if (!item || typeof item !== "object") return [];
+        const rec = item as Record<string, unknown>;
+        const type = String(rec.type ?? "");
+        const name = String(rec.name ?? "");
+        const value = String(rec.value ?? "");
+        if (!type || !name || !value) return [];
+        return [{ type, name, value }];
+      })
+    : [];
+  return {
+    id: row.id,
+    hostname: row.hostname,
+    status,
+    dns_records: records,
+    verified_at: row.verified_at,
+  };
 }

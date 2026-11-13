@@ -17,3 +17,4 @@
 | 13 | 07-12 | Brand: engraved-lithograph aesthetic (paper/ink/verdigris), serif display | Derived from permanence metaphor; deliberately unlike generic SaaS gradients. |
 | 14 | 07-12 | Analytics: Vercel Web Analytics + structured JSON logs | Zero-config on Vercel, free tier, enough to see failures + usage. |
 | 15 | 07-12 | Hand-scaffold Next.js (no create-next-app) | Non-empty repo dir; full control over config; avoids generator conflicts. |
+| 16 | 11-13 | Custom domains are a Pro-only add-on for redirects, one hostname per account; scst.one is unchanged | Answer to “what if you shut down?”: the customer points a domain they own at Scanstone. Adding/verifying is plan-gated server-side. Redirect resolution is not, which is the covenant. Downgrade behavior for the custom host is flagged for Zaid before merge. |

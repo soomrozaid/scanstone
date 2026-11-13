@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { limitsFor } from "@/lib/plans";
 import { getShortUrl } from "@/lib/short-url";
+import { getCustomUrl } from "@/lib/custom-domain/resolve";
 import { Card, ButtonLink, Badge } from "@/components/ui";
 import { QRPreview } from "@/components/qr/QRPreview";
 import { designSchema } from "@/lib/validate";
@@ -21,13 +22,23 @@ export default async function DashboardPage() {
   } = await supabase.auth.getUser();
   if (!user) redirect("/login");
 
-  const [{ data: profile }, { data: codes }] = await Promise.all([
-    supabase.from("profiles").select("plan").eq("id", user.id).single(),
-    supabase
-      .from("qr_codes")
-      .select("id, slug, name, destination_url, design, scan_count, created_at")
-      .order("created_at", { ascending: false }),
-  ]);
+  const [{ data: profile }, { data: codes }, { data: domain }] =
+    await Promise.all([
+      supabase.from("profiles").select("plan").eq("id", user.id).single(),
+      supabase
+        .from("qr_codes")
+        .select(
+          "id, slug, name, destination_url, design, scan_count, created_at",
+        )
+        .order("created_at", { ascending: false }),
+      supabase
+        .from("custom_domains")
+        .select("hostname, status")
+        .eq("user_id", user.id)
+        .eq("status", "verified")
+        .maybeSingle(),
+    ]);
+  const customHost = domain?.hostname ?? null;
 
   const limits = limitsFor(profile?.plan);
   const used = codes?.length ?? 0;
@@ -82,6 +93,9 @@ export default async function DashboardPage() {
           {codes?.map((code) => {
             const design = designSchema.parse(code.design ?? {});
             const shortUrl = getShortUrl(code.slug);
+            const customUrl = customHost
+              ? getCustomUrl(customHost, code.slug)
+              : null;
             return (
               <li key={code.id}>
                 <Card className="p-4 transition-shadow hover:shadow-lg">
@@ -100,6 +114,11 @@ export default async function DashboardPage() {
                       <p className="mt-2 break-all font-mono text-xs text-ink-soft">
                         {shortUrl.replace(/^https?:\/\//, "")}
                       </p>
+                      {customUrl ? (
+                        <p className="mt-1 break-all font-mono text-xs text-verdigris-deep">
+                          {customUrl.replace(/^https?:\/\//, "")}
+                        </p>
+                      ) : null}
                       <div className="mt-2">
                         <Badge tone="green">
                           {code.scan_count} scans &amp; clicks
