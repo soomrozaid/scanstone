@@ -964,7 +964,7 @@ details[open] > .faq-row::before { transform: scaleX(1); }
       -webkit-text-fill-color: transparent;
       animation: h-ink linear both;
       animation-timeline: view();
-      animation-range: entry 40% cover 42%;
+      animation-range: entry 10% cover 28%;
     }
     main h2.display:not([data-no-ink]) :is(em, i, .italic, [class*="text-"]) { -webkit-text-fill-color: currentColor; }
   }
