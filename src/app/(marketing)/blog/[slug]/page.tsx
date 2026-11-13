@@ -29,6 +29,7 @@ export async function generateMetadata({
       description: doc.description,
       publishedTime: doc.date,
       modifiedTime: doc.updated ?? doc.date,
+      images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Scanstone" }],
     },
   };
 }

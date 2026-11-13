@@ -18,6 +18,7 @@ export const metadata: Metadata = {
     description:
       "Editable QR codes for menus, packaging, and campaigns. Your redirects keep working after cancellation. Start free.",
     url: `${envClient.APP_URL.replace(/\/$/, "")}/`,
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Scanstone" }],
   },
 };
 
