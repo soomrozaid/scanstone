@@ -191,7 +191,7 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
       <h1 className="display text-[clamp(2rem,5.4vw,3.6rem)] leading-[0.96] tracking-[-0.03em] text-paper">
         Make a QR code or a short link
       </h1>
-      <p className="mt-3 max-w-md text-base leading-relaxed text-paper/80 sm:mt-4 sm:text-lg">
+      <p className="mt-2 max-w-md text-sm leading-relaxed text-paper/80 sm:mt-4 sm:text-lg">
         Paste a URL. A QR code appears as you type, ready to download. Or save
         a short link you can edit later.
       </p>
@@ -239,6 +239,16 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
               </button>
             ))}
           </div>
+          <p className="mt-3 text-sm text-ink-soft">
+            Codes don&apos;t expire.{" "}
+            <Link href="/help" className="font-medium text-verdigris-deep underline underline-offset-4">
+              Do codes expire?
+            </Link>
+            {" · "}
+            <Link href="/pricing" className="font-medium text-verdigris-deep underline underline-offset-4">
+              See pricing
+            </Link>
+          </p>
 
           <div
             id="home-tool-panel"
@@ -491,14 +501,7 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
       </div>
 
       <p className="mt-4 text-sm text-paper/70">
-        No account needed for a static QR code. Codes don&apos;t expire.{" "}
-        <Link href="/pricing" className="link-underline text-verdigris-bright">
-          See pricing
-        </Link>
-        {" · "}
-        <Link href="/#faq" className="link-underline text-verdigris-bright">
-          Do codes expire?
-        </Link>
+        No account needed for a static QR code.
       </p>
     </div>
   );

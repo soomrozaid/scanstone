@@ -52,16 +52,16 @@ export const metadata: Metadata = {
 
 const FAQS = [
   {
+    q: "Do Scanstone QR codes expire?",
+    a: "Static QR patterns have no expiry, though the destination website must stay available. For dynamic codes, cancellation, downgrade, and plan limits do not disable redirects. Deleting a code or your account removes its redirects; dynamic codes also depend on Scanstone and your destination remaining available.",
+  },
+  {
     q: "Can I shorten a URL without creating a QR code?",
     a: "Yes. Use the Short link tab at the top of this page. You need a free account to save a scst.one link, because we store the redirect so you can edit it later and see click counts.",
   },
   {
     q: "Do I need an account to create short links?",
     a: "Yes. Sign in or create a free account to create and manage short links. The Free plan includes 3 short links or dynamic QR codes in total; Pro includes 500 in total. Anyone can open your short links without an account.",
-  },
-  {
-    q: "Do Scanstone QR codes expire?",
-    a: "Static QR patterns have no expiry, though the destination website must stay available. For dynamic codes, cancellation, downgrade, and plan limits do not disable redirects. Deleting a code or your account removes its redirects; dynamic codes also depend on Scanstone and your destination remaining available.",
   },
   {
     q: "What happens to my codes if I stop paying?",
@@ -203,7 +203,7 @@ export default async function LandingPage() {
           />
         }
       >
-        <Container className="w-full pb-12 pt-24 sm:pb-16 lg:pt-28">
+        <Container className="w-full pb-8 pt-20 sm:pb-16 lg:pt-28">
           <HomeTool signedIn={signedIn} />
         </Container>
       </CinemaHero>

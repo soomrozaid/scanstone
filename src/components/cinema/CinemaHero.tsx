@@ -127,7 +127,9 @@ export function CinemaHero({
     <section
       ref={sectionRef}
       data-nav="dark"
-      className={`relative -mt-16 flex min-h-[100svh] origin-[50%_100%] flex-col overflow-hidden bg-night text-paper [transform-style:flat] ${layout === "tool" ? "home-tool-hero" : ""}`}
+      className={`relative -mt-16 flex min-h-[100svh] origin-[50%_100%] flex-col bg-night text-paper [transform-style:flat] ${
+        layout === "tool" ? "home-tool-hero overflow-x-hidden" : "overflow-hidden"
+      }`}
     >
       {/* moving light + grain */}
       <div className="aurora pointer-events-none absolute inset-0" aria-hidden="true" />
@@ -181,7 +183,7 @@ export function CinemaHero({
         </div>
         <button
           type="button"
-          className="rounded-full border border-night-line bg-night-raised/80 px-3 py-2 text-[11px] text-paper/80 backdrop-blur hover:text-paper"
+          className="inline-flex min-h-11 items-center rounded-full border border-night-line bg-night-raised/80 px-3 text-xs text-paper/80 backdrop-blur hover:text-paper"
           onClick={() => setPaused((v) => !v)}
         >
           {paused ? "Play examples" : "Pause examples"}
@@ -192,7 +194,7 @@ export function CinemaHero({
         an event schedule.
       </p>
 
-      <div data-hero-copy className={`relative z-10 ${layout === "tool" ? "flex flex-1 items-center" : "mt-auto"}`}>{children}</div>
+      <div data-hero-copy className={`relative z-10 ${layout === "tool" ? "flex shrink-0 grow items-start sm:items-center" : "mt-auto"}`}>{children}</div>
       <div data-hero-shade className="pointer-events-none absolute inset-0 z-20 bg-night opacity-0" aria-hidden="true" />
     </section>
   );
