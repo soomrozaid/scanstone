@@ -7,6 +7,14 @@
     "date": "2026-07-24",
     "category": "Explainer",
     "featured": true,
-    "updated": "2026-11-04"
+    "updated": "2026-11-13"
+  },
+  {
+    "slug": "qr-code-stopped-working-how-to-fix",
+    "collection": "blog",
+    "title": "QR code stopped working? How to find the cause and fix it",
+    "description": "Scan it and look at what opens. Find out if the print, your website, or the QR company's redirect failed, and which fixes need a reprint.",
+    "date": "2026-11-13",
+    "category": "Rescue"
   }
 ]

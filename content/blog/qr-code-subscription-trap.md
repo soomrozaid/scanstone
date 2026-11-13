@@ -28,7 +28,7 @@ For a restaurant, the [menu QR code guide](/restaurant-menu-qr-code) walks throu
 
 ## If your printed code has already stopped working
 
-First distinguish a scanning failure from a destination failure. If the camera cannot read the pattern, check print quality, contrast, damage, and lighting. If it reads the URL but the page fails, open that URL directly and check your website, permissions, and redirect provider.
+For a full step-by-step check, see [QR code stopped working? How to find the cause and fix it](/blog/qr-code-stopped-working-how-to-fix). In short, first distinguish a scanning failure from a destination failure. If the camera cannot read the pattern, check print quality, contrast, damage, and lighting. If it reads the URL but the page fails, open that URL directly and check your website, permissions, and redirect provider.
 
 If a provider reports an expired trial, follow its documented reactivation process. QRCG by Bitly’s [reactivation instructions](https://support.qr-code-generator.com/hc/en-us/articles/7665090677005-How-can-I-reactivate-my-QR-Codes) say to upgrade the original account. They also explain that creating a new account or generating another code with the same content does not reactivate the original.
 
