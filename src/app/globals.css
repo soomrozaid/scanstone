@@ -1027,3 +1027,14 @@ details[open] > .faq-row::before { transform: scaleX(1); }
   }
 }
 @keyframes wm-rise { from { transform: translateY(70%) rotate(6deg); } to { transform: none; } }
+
+/* Phone handoff (iteration 91) */
+@media (prefers-reduced-motion: no-preference) {
+  .ph-panel { animation: ph-pop .45s cubic-bezier(.2,.9,.3,1.2) both; transform-origin: 90% 100%; }
+  .ph-qr { animation: ph-carve .7s steps(12, end) .1s both; }
+  .ph-scan { animation: ph-scan 2.4s ease-in-out .8s infinite; }
+}
+.ph-scan { opacity: 0; }
+@keyframes ph-pop { from { opacity: 0; transform: translateY(14px) scale(.9) } to { opacity: 1; transform: none } }
+@keyframes ph-carve { from { clip-path: inset(0 0 100% 0) } to { clip-path: inset(0) } }
+@keyframes ph-scan { 0% { top: .75rem; opacity: 0 } 10% { opacity: 1 } 50% { top: calc(100% - .75rem); opacity: 1 } 60%, 100% { opacity: 0 } }
