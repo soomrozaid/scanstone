@@ -33,15 +33,15 @@ export function SegmentCard({
   const body = (
     <article
       data-card
-      className="group relative grid h-[min(68svh,560px)] w-[86vw] shrink-0 snap-start overflow-hidden rounded-[32px] border border-white/10 bg-night-raised sm:w-[min(72vw,980px)] sm:grid-cols-[1fr_0.9fr]"
+      className="group relative flex h-[min(70svh,560px)] w-[86vw] shrink-0 snap-start flex-col overflow-hidden rounded-[32px] border border-white/10 bg-night-raised sm:grid sm:w-[min(72vw,980px)] sm:grid-cols-[1fr_0.9fr]"
     >
-      <div className="relative z-10 flex flex-col p-7 sm:p-10">
+      <div className="relative z-10 flex flex-col p-6 pb-2 sm:p-10">
         <p className="font-mono text-xs tracking-[0.2em] text-paper/60">
           {String(n).padStart(2, "0")} / {String(total).padStart(2, "0")}
         </p>
         <h3 className="display mt-4 text-[clamp(2rem,4.4vw,3.8rem)] leading-[0.95] tracking-[-0.02em]">{who}</h3>
         <p className="mt-4 max-w-md text-sm leading-relaxed text-paper/65 sm:text-base">{what}</p>
-        <ol className="mt-auto flex flex-wrap items-center gap-2 pt-6 font-mono text-[11px]">
+        <ol className="flex flex-wrap items-center gap-2 pt-5 font-mono text-[11px] sm:mt-auto sm:pt-6">
           {steps.map((s, i) => (
             <li key={s} className="flex items-center gap-2">
               <span
@@ -56,10 +56,10 @@ export function SegmentCard({
         </ol>
         {href && <span className="mt-5 text-sm text-verdigris-bright">See how it works for menus →</span>}
       </div>
-      <div className="relative hidden items-center justify-center sm:flex" aria-hidden="true">
+      <div className="relative flex min-h-0 flex-1 items-center justify-center" aria-hidden="true">
         <div className="absolute inset-0" style={{ background: `radial-gradient(circle at 50% 55%, ${tint}, transparent 65%)` }} />
-        <div data-par className="relative flex w-full items-center justify-center">
-          <div className={`relative flex items-center justify-center bg-[#efe7d6] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.7)] transition-transform duration-700 group-hover:-rotate-2 group-hover:scale-[1.03] ${SHAPES[shape]}`}>
+        <div data-par className="relative flex h-full w-full items-center justify-center py-4 sm:h-auto sm:py-0">
+          <div className={`relative flex items-center justify-center bg-[#efe7d6] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.7)] transition-transform duration-700 group-hover:-rotate-2 group-hover:scale-[1.03] ${SHAPES[shape]} max-sm:h-full max-sm:max-h-[190px] max-sm:w-auto`}>
             <AssembleQR lite data={`https://scst.one/${shape}`} label="" className="w-[58%] !bg-transparent !p-0" />
           </div>
         </div>
