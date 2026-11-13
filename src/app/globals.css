@@ -99,6 +99,14 @@ body {
   outline-offset: 2px;
 }
 
+/* Show a red border only after the visitor has tried the field
+   (modern-web-guidance: :user-invalid, not :invalid). aria-invalid
+   covers scripted checks such as the homepage tool. */
+:user-invalid,
+[aria-invalid="true"] {
+  border-color: var(--color-danger);
+}
+
 /* Engraved hairline under display headings */
 .engraved {
   letter-spacing: -0.015em;
@@ -768,11 +776,14 @@ details[open] > .faq-row::before { transform: scaleX(1); }
 .faq-night details::details-content {
   block-size: 0;
   overflow: clip;
-  transition: block-size 550ms cubic-bezier(0.16, 1, 0.3, 1), content-visibility 550ms allow-discrete;
+  transition: block-size 550ms cubic-bezier(0.16, 1, 0.3, 1), content-visibility 550ms;
+  transition-behavior: allow-discrete;
 }
 .faq-night details[open]::details-content { block-size: auto; }
-.faq-night .faq-answer { opacity: 0; transform: translateY(-8px); transition: opacity 500ms ease 120ms, transform 600ms cubic-bezier(0.16, 1, 0.3, 1) 120ms; }
-.faq-night details[open] .faq-answer { opacity: 1; transform: none; }
+/* Open answers are already readable. Only the height of newly opened
+   items animates, so the first FAQ is not hidden on load.
+   (modern-web-guidance / impeccable: already-visible default.) */
+.faq-night .faq-answer { opacity: 1; transform: none; }
 @keyframes q-float { 50% { transform: translateY(-14px) rotate(-3deg); } }
 .q-float { animation: q-float 7s ease-in-out infinite; }
 
