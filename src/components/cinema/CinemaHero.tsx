@@ -62,6 +62,7 @@ export function CinemaHero({
   const flipAt = useRef(-99);
   const sectionRef = useRef<HTMLElement>(null);
   const [onScreen, setOnScreen] = useState(true);
+  const [paused, setPaused] = useState(false);
 
   // Stop rendering the 3D scene once the hero is scrolled away.
   useEffect(() => {
@@ -112,12 +113,13 @@ export function CinemaHero({
   }, [layout]);
 
   useEffect(() => {
+    if (paused || !onScreen) return;
     const id = setInterval(() => {
       flipAt.current = performance.now() / 1000;
       setIdx((i) => (i + 1) % DESTS.length);
     }, 4200);
     return () => clearInterval(id);
-  }, [DESTS.length]);
+  }, [DESTS.length, paused, onScreen]);
 
   const d = DESTS[idx] ?? DESTS[0]!;
 
@@ -163,10 +165,10 @@ export function CinemaHero({
       )}
 
       {/* destination readout */}
-      <div className={`pointer-events-none absolute z-10 ${
+      <div className={`absolute z-10 ${
         layout === "tool"
-          ? "hidden lg:flex lg:left-[76%] lg:bottom-[7svh] lg:-translate-x-1/2"
-          : "left-1/2 top-[calc(21svh+min(25vw,12.5svh)+34px)] -translate-x-1/2 lg:left-[77%] lg:top-auto lg:bottom-[7svh]"
+          ? "hidden lg:flex lg:left-[76%] lg:bottom-[7svh] lg:-translate-x-1/2 lg:items-center lg:gap-2"
+          : "left-1/2 top-[calc(21svh+min(25vw,12.5svh)+34px)] flex -translate-x-1/2 items-center gap-2 lg:left-[77%] lg:top-auto lg:bottom-[7svh]"
       }`}>
         <div
           key={idx}
@@ -177,6 +179,13 @@ export function CinemaHero({
           <span aria-hidden="true">→</span>
           <span className="text-paper">{d.url}</span>
         </div>
+        <button
+          type="button"
+          className="rounded-full border border-night-line bg-night-raised/80 px-3 py-2 text-[11px] text-paper/80 backdrop-blur hover:text-paper"
+          onClick={() => setPaused((v) => !v)}
+        >
+          {paused ? "Play examples" : "Pause examples"}
+        </button>
       </div>
       <p className="sr-only" aria-live="off">
         One printed code, pointed at a café menu, a booking page, a listing or
