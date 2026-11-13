@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { DarkHero } from "@/components/cinema/DarkHero";
 import { SplitWords } from "@/components/cinema/SplitWords";
 import Link from "next/link";
+import { HoverIndex } from "@/components/cinema/HoverIndex";
+import { CtaBand } from "@/components/site/CtaBand";
 import { docsIn } from "@/lib/content";
 import { Container, Eyebrow } from "@/components/site/primitives";
 import { Spotlight } from "@/components/site/Spotlight";
@@ -22,6 +24,16 @@ function formatDate(iso: string): string {
     timeZone: "UTC",
   });
 }
+
+
+const START_HERE = [
+  { href: "/blog/qr-code-subscription-trap", q: "Why did my QR code stop working?", tag: "Explainer" },
+  { href: "/qr-code-generator", q: "Static or dynamic: which one do I need?", tag: "Free tool" },
+  { href: "/restaurant-menu-qr-code", q: "How do I change a menu after printing?", tag: "Restaurants" },
+  { href: "/wifi-qr-code-generator", q: "Can guests join WiFi without typing?", tag: "Free tool" },
+  { href: "/vcard-qr-code-generator", q: "Can one scan save my contact?", tag: "Free tool" },
+  { href: "/terms", q: "What happens to my codes if I cancel?", tag: "Covenant" },
+];
 
 export default function BlogIndex() {
   const docs = docsIn("blog");
@@ -97,6 +109,26 @@ export default function BlogIndex() {
           ))}
         </ul>
       </Container>
+
+      <section aria-labelledby="start-h" className="pb-24 pt-8 sm:pb-32">
+        <Container>
+          <p className="eyebrow text-copper">Start here</p>
+          <h2 id="start-h" className="display mt-4 max-w-3xl text-h2">The questions people ask before they print</h2>
+          <div className="mt-12">
+            <HoverIndex
+              rows={START_HERE.map((r) => ({
+                ...r,
+                preview: <AssembleQR lite data={`https://www.scanstone.ca${r.href}`} label="" className="!bg-transparent !p-0" />,
+              }))}
+            />
+          </div>
+        </Container>
+      </section>
+
+      <CtaBand
+        title="Make a code that outlasts the print run."
+        body="Static codes free forever, no account. Three dynamic codes free when you want to change where they go."
+      />
     </main>
   );
 }
