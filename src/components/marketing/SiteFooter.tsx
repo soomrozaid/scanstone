@@ -52,7 +52,7 @@ export function SiteFooter() {
                 aria-hidden="true"
               />
               Redirects never expire. It&apos;s in{" "}
-              <Link href="/terms" className="underline underline-offset-2">
+              <Link href="/terms#covenant" className="underline underline-offset-2">
                 our terms
               </Link>
               .

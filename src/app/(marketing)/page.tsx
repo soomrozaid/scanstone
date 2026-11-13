@@ -348,7 +348,7 @@ export default function LandingPage() {
               </a>{" "}
               says trial codes are deactivated and point to a service page. We
               wrote the opposite into{" "}
-              <Link href="/terms" className="text-verdigris-deep underline underline-offset-2">
+              <Link href="/terms#covenant" className="text-verdigris-deep underline underline-offset-2">
                 our terms
               </Link>
               : if you cancel, the code keeps working.

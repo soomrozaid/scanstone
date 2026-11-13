@@ -21,8 +21,12 @@ export default function TermsPage() {
           </p>
         </section>
 
-        <section>
-          <h2 className="display text-2xl text-ink">
+        <section id="covenant" className="covenant relative scroll-mt-24 overflow-hidden rounded-[24px] border border-copper/40 bg-night p-6 text-paper/80 sm:p-8">
+          <span aria-hidden="true" className="covenant-seal absolute -right-6 -top-6 flex h-28 w-28 items-center justify-center rounded-full border border-copper/50 font-mono text-[9px] uppercase tracking-[0.2em] text-copper-bright">
+            <span className="covenant-ring absolute inset-2 rounded-full border border-dashed border-copper/40" />
+            In writing
+          </span>
+          <h2 className="display text-2xl text-paper">
             2. The redirect covenant
           </h2>
           <p className="mt-2">
@@ -34,6 +38,7 @@ export default function TermsPage() {
             we commit to at least 90 days&apos; email notice and a data-export
             window.
           </p>
+          <span aria-hidden="true" className="covenant-sign mt-6 block h-px origin-left bg-gradient-to-r from-copper-bright via-copper to-transparent" />
         </section>
 
         <section>

@@ -138,7 +138,7 @@ export function PlanCards({ headingLevel = 3 }: { headingLevel?: 2 | 3 }) {
           <p className="relative mt-6 text-sm leading-relaxed text-paper/60">
             If you cancel, printed codes and short links keep working. You only
             lose the Pro extras. That promise is in{" "}
-            <Link href="/terms" className="text-paper underline underline-offset-2">
+            <Link href="/terms#covenant" className="text-paper underline underline-offset-2">
               our terms
             </Link>
             .

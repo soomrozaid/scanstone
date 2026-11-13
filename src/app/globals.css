@@ -1049,3 +1049,17 @@ details[open] > .faq-row::before { transform: scaleX(1); }
 }
 @keyframes np-open { from { clip-path: inset(0 var(--gut) round 48px 48px 0 0) } to { clip-path: inset(0 0 round 0) } }
 @keyframes np-settle { from { transform: translateY(70px) scale(.97) } to { transform: none } }
+
+/* Terms: the covenant plate (iteration 96) */
+.covenant a { color: var(--color-verdigris-bright); }
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .covenant { animation: cov-in linear both; animation-timeline: view(); animation-range: entry 0% cover 35%; }
+    .covenant-sign { animation: cov-sign linear both; animation-timeline: view(); animation-range: entry 40% cover 55%; }
+    .covenant-seal { animation: cov-seal linear both; animation-timeline: view(); animation-range: entry 30% cover 45%; }
+  }
+}
+@media (prefers-reduced-motion: no-preference) { .covenant-ring { animation: seal-spin 30s linear infinite; } }
+@keyframes cov-in { from { transform: translateY(40px) scale(.97); box-shadow: 0 0 0 0 rgb(180 100 45 / 0) } to { transform: none; box-shadow: 0 30px 80px -30px rgb(180 100 45 / .45) } }
+@keyframes cov-sign { from { transform: scaleX(0) } to { transform: scaleX(1) } }
+@keyframes cov-seal { 0% { transform: scale(2) rotate(-20deg); opacity: 0 } 70% { transform: scale(.94) rotate(4deg); opacity: 1 } 100% { transform: scale(1) rotate(0); opacity: 1 } }

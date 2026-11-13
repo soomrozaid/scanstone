@@ -21,9 +21,24 @@ export function LegalToc() {
     );
     hs.forEach((h) => io.observe(h));
     const t = window.setTimeout(() => setItems(hs.map((h) => ({ id: h.id, text: h.textContent ?? "" }))), 0);
+    // Deep links (e.g. /terms#covenant): land the target just under the nav
+    // once the page has settled, whatever moved above it while loading.
+    const land = () => {
+      const id = decodeURIComponent(location.hash.slice(1));
+      const el = id ? document.getElementById(id) : null;
+      if (!el) return;
+      const y = el.getBoundingClientRect().top + scrollY - 96;
+      const l = (window as Window & { __lenis?: { scrollTo: (y: number, o?: object) => void } }).__lenis;
+      if (l) l.scrollTo(y, { immediate: true });
+      else scrollTo(0, y);
+    };
+    const t2 = window.setTimeout(land, 450);
+    const t3 = window.setTimeout(land, 1200);
     return () => {
       io.disconnect();
       window.clearTimeout(t);
+      window.clearTimeout(t2);
+      window.clearTimeout(t3);
     };
   }, []);
   if (!items.length) return null;

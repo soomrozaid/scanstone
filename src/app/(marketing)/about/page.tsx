@@ -21,7 +21,7 @@ const PRINCIPLES = [
     word: "Permanent.",
     t: "Printed things should keep working",
     d: "A menu, a sign or a box of business cards costs real money. The code on it shouldn't die because a trial ended or a card expired. So our redirects don't stop when you stop paying, and that's written into our terms.",
-    link: { href: "/terms", label: "Read the covenant" },
+    link: { href: "/terms#covenant", label: "Read the covenant" },
   },
   {
     word: "Private.",

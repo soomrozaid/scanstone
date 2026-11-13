@@ -147,7 +147,7 @@ export default function PricingPage() {
             <h2 id="billing-h" className="display mt-6 text-h2">Billing, plainly</h2>
             <p className="mt-5 text-ink-soft">
               Read the full promise in{" "}
-              <Link href="/terms" className="text-verdigris-deep underline underline-offset-2">
+              <Link href="/terms#covenant" className="text-verdigris-deep underline underline-offset-2">
                 our terms
               </Link>
               .
