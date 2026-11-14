@@ -31,7 +31,7 @@ export function Eyebrow({
     copper: "text-copper",
     verdigris: "text-verdigris",
     faint: "text-ink-faint",
-    paper: "text-paper/60",
+    paper: "text-paper/80",
   };
   return <p className={cx("eyebrow", tones[tone], className)}>{children}</p>;
 }
@@ -49,7 +49,7 @@ export function Fig({
   return (
     <p
       className={cx(
-        "eyebrow flex items-center gap-3 text-ink-faint",
+        "eyebrow flex items-center gap-3 text-ink-soft",
         className,
       )}
     >
@@ -101,7 +101,7 @@ export function SectionHeading({
         <p
           className={cx(
             "mt-6 text-lead",
-            dark ? "text-paper/70" : "text-ink-soft",
+            dark ? "text-paper/80" : "text-ink-soft",
             center && "mx-auto",
             "max-w-2xl",
           )}
