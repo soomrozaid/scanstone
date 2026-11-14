@@ -204,7 +204,18 @@ export default async function LandingPage() {
         }
       >
         <Container className="w-full pb-8 pt-20 sm:pb-16 lg:pt-28">
-          <HomeTool signedIn={signedIn} />
+          <div id="tool" className="home-tool w-full max-w-xl">
+            <div id="qr" className="scroll-mt-24" />
+            <div id="short-link" className="scroll-mt-24" />
+            <h1 className="display text-[clamp(2rem,5.4vw,3.6rem)] leading-[0.96] tracking-[-0.03em] text-paper">
+              Make a QR code or a short link
+            </h1>
+            <p className="mt-2 max-w-md text-sm leading-relaxed text-paper/80 sm:mt-4 sm:text-lg">
+              Paste a URL. A QR code appears as you type, ready to download. Or
+              save a short link you can edit later.
+            </p>
+            <HomeTool signedIn={signedIn} />
+          </div>
         </Container>
       </CinemaHero>
 

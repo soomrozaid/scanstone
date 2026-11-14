@@ -185,18 +185,8 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
   }
 
   return (
-    <div id="tool" data-testid="home-tool" className="home-tool w-full max-w-xl">
-      <div id="qr" className="scroll-mt-24" />
-      <div id="short-link" className="scroll-mt-24" />
-      <h1 className="display text-[clamp(2rem,5.4vw,3.6rem)] leading-[0.96] tracking-[-0.03em] text-paper">
-        Make a QR code or a short link
-      </h1>
-      <p className="mt-2 max-w-md text-sm leading-relaxed text-paper/80 sm:mt-4 sm:text-lg">
-        Paste a URL. A QR code appears as you type, ready to download. Or save
-        a short link you can edit later.
-      </p>
-
-      <div className="mt-6 rounded-[22px] border border-white/10 bg-[#f4ecdc] p-4 text-ink shadow-[0_30px_80px_-28px_rgba(0,0,0,0.55)] sm:mt-7 sm:p-6">
+    <>
+    <div data-testid="home-tool" className="mt-6 rounded-[22px] border border-white/10 bg-[#f4ecdc] p-4 text-ink shadow-[0_30px_80px_-28px_rgba(0,0,0,0.55)] sm:mt-7 sm:p-6">
         <fieldset
           disabled={!hydrated}
           aria-busy={!hydrated}
@@ -499,9 +489,9 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
         ) : null}
       </div>
 
-      <p className="mt-4 text-sm text-paper/70">
+      <p className="mt-4 text-sm text-paper/80">
         No account needed for a static QR code.
       </p>
-    </div>
+    </>
   );
 }
