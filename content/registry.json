@@ -16,5 +16,13 @@
     "description": "Scan it and look at what opens. Find out if the print, your website, or the QR company's redirect failed, and which fixes need a reprint.",
     "date": "2026-11-13",
     "category": "Rescue"
+  },
+  {
+    "slug": "what-happens-to-qr-codes-when-you-cancel",
+    "collection": "blog",
+    "title": "What happens to your QR codes when you cancel? What 8 QR companies say",
+    "description": "Whether your printed codes keep working after a trial ends or you cancel depends on the company. Their own policies side by side, with sources.",
+    "date": "2026-11-14",
+    "category": "Comparison"
   }
 ]

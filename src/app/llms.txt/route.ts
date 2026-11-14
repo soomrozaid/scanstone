@@ -19,7 +19,7 @@ export function GET() {
 > Static QR codes are free forever with no account and never expire, because the data
 > is encoded in the pattern itself. Dynamic codes (editable destination + scan
 > analytics) come with a written covenant: the redirect is never disabled by billing
-> state — cancel or lapse and your printed codes keep resolving.
+> state, so if you cancel or lapse, your printed codes keep resolving.
 
 ## Tools
 - [Free QR code generator](${base}/qr-code-generator): permanent static QR codes for a link, WiFi, contact card, or text. PNG or vector SVG, no signup, no expiration.
@@ -36,7 +36,7 @@ ${posts}
 - A static QR pattern has no expiration, but its linked website must remain available. Dynamic codes depend on the redirect service as well as the destination. Scanstone does not disable redirects because of billing state. Deleting a code or account stops its redirects.
 - Free plan: unlimited static codes + 3 dynamic codes or short links in total. Pro: $9 USD/month or $79 USD/year, 500 codes or short links in total, full scan history, SVG + CSV export.
 - Short links and dynamic codes share the same plan limit. Both have editable destinations and scan/click counts.
-- Scan analytics store no IP addresses and no fingerprints — coarse country/region/device only.
+- Scan analytics store no IP addresses and no fingerprints, only coarse country/region/device only.
 `;
 
   return new Response(body, {
