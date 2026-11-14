@@ -44,13 +44,13 @@ export function LegalToc() {
   if (!items.length) return null;
   return (
     <nav aria-label="On this page" className="sticky top-28 hidden self-start lg:block">
-      <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-faint">On this page</p>
+      <p className="font-mono text-xs uppercase tracking-[0.2em] text-ink-soft">On this page</p>
       <ol className="mt-5 space-y-1 border-l border-line">
         {items.map((it) => (
           <li key={it.id}>
             <a
               href={`#${it.id}`}
-              className={`toc-link -ml-px block border-l-2 py-1.5 pl-4 text-sm transition-colors duration-300 ${it.id === active ? "border-verdigris text-ink" : "border-transparent text-ink-faint hover:text-ink"}`}
+              className={`toc-link -ml-px block border-l-2 py-2 pl-4 text-sm transition-colors duration-300 ${it.id === active ? "border-verdigris text-ink" : "border-transparent text-ink-soft hover:text-ink"}`}
             >
               {it.text}
             </a>
