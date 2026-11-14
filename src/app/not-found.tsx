@@ -63,16 +63,22 @@ export default function NotFound() {
         </p>
         <div className="mt-10 flex flex-wrap justify-center gap-3">
           <Link
-            href="/"
-            className="rounded-full bg-verdigris-bright px-6 py-3 font-medium text-night transition hover:bg-paper"
+            href="/#qr"
+            className="inline-flex min-h-11 items-center rounded-full bg-verdigris-bright px-6 font-medium text-night transition hover:bg-paper"
           >
-            Back to Scanstone
+            Make a QR code
           </Link>
           <Link
-            href="/qr-code-generator"
-            className="rounded-full border border-paper/25 px-6 py-3 font-medium text-paper transition hover:bg-paper/10"
+            href="/help"
+            className="inline-flex min-h-11 items-center rounded-full border border-paper/25 px-6 font-medium text-paper transition hover:bg-paper/10"
           >
-            Free QR generator
+            Help
+          </Link>
+          <Link
+            href="/"
+            className="inline-flex min-h-11 items-center rounded-full border border-paper/25 px-6 font-medium text-paper transition hover:bg-paper/10"
+          >
+            Back to Scanstone
           </Link>
         </div>
       </div>

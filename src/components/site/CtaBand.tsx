@@ -6,8 +6,8 @@ import { LazyVideo } from "@/components/cinema/LazyVideo";
 export function CtaBand({
   title,
   body,
-  primary = { href: "/signup", label: "Create your first code" },
-  secondary = { href: "/qr-code-generator", label: "Use the free generator" },
+  primary = { href: "/#qr", label: "Make a QR code" },
+  secondary = { href: "/#short-link", label: "Make a short link" },
 }: {
   title: ReactNode;
   body?: ReactNode;
@@ -30,14 +30,14 @@ export function CtaBand({
               <Link
                 data-magnetic
                 href={primary.href}
-                className="rounded-full bg-verdigris-bright px-8 py-4 font-medium text-night transition-colors hover:bg-paper"
+                className="inline-flex min-h-11 items-center rounded-full bg-verdigris-bright px-8 py-4 font-medium text-night transition-colors hover:bg-paper"
               >
                 {primary.label}
               </Link>
               <Link
                 data-magnetic
                 href={secondary.href}
-                className="rounded-full border border-paper/30 bg-night/40 px-8 py-4 font-medium text-paper backdrop-blur transition-colors hover:bg-paper/10"
+                className="inline-flex min-h-11 items-center rounded-full border border-paper/30 bg-night/40 px-8 py-4 font-medium text-paper backdrop-blur transition-colors hover:bg-paper/10"
               >
                 {secondary.label}
               </Link>

@@ -181,7 +181,7 @@ export default async function LandingPage() {
     signedIn = false;
   }
   return (
-    <main id="main">
+    <main id="main" tabIndex={-1}>
       <HomeJsonLd />
       <StickyCta />
       <ChapterRail chapters={CHAPTERS} />
@@ -378,7 +378,7 @@ export default async function LandingPage() {
                     </p>
                     <Link
                       href="/#short-link"
-                      className="mt-6 inline-flex rounded-full bg-verdigris px-5 py-2.5 text-sm font-medium text-paper transition hover:bg-verdigris-deep"
+                      className="mt-6 inline-flex min-h-11 items-center rounded-full bg-verdigris px-5 text-sm font-medium text-paper transition hover:bg-verdigris-deep"
                     >
                       Create a short link
                     </Link>
@@ -593,6 +593,8 @@ export default async function LandingPage() {
             them alive.
           </>
         }
+        primary={{ href: "/#qr", label: "Make a QR code" }}
+        secondary={{ href: "/#short-link", label: "Make a short link" }}
       />
     </main>
   );
