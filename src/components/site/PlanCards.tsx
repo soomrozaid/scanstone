@@ -68,7 +68,7 @@ export function PlanCards({ headingLevel = 3 }: { headingLevel?: 2 | 3 }) {
               role="radio"
               aria-checked={yearly === v}
               onClick={() => setYearly(v as boolean)}
-              className={`relative z-10 cursor-pointer rounded-full px-5 py-2 transition-colors ${yearly === v ? "text-paper" : "text-ink-soft"}`}
+              className={`relative z-10 flex min-h-11 cursor-pointer items-center rounded-full px-5 transition-colors ${yearly === v ? "text-paper" : "text-ink-soft"}`}
             >
               {label as string}
             </button>
@@ -96,7 +96,7 @@ export function PlanCards({ headingLevel = 3 }: { headingLevel?: 2 | 3 }) {
           </ul>
           <Link
             href="/signup"
-            className="mt-auto inline-flex w-full items-center justify-center rounded-full border border-ink/80 px-5 py-3.5 font-medium text-ink transition hover:bg-ink hover:text-paper max-lg:mt-10 lg:mt-10"
+            className="mt-auto inline-flex min-h-11 w-full items-center justify-center rounded-full border border-ink/80 px-5 font-medium text-ink transition hover:bg-ink hover:text-paper max-lg:mt-10 lg:mt-10"
           >
             Start free
           </Link>
@@ -107,11 +107,11 @@ export function PlanCards({ headingLevel = 3 }: { headingLevel?: 2 | 3 }) {
           <div className="gridlines-night absolute inset-0" aria-hidden="true" />
           <div className="relative flex items-center justify-between">
             <H className="display text-h3">Pro</H>
-            <span className="eyebrow rounded-full border border-night-line px-3 py-1 text-paper/60">
+            <span className="eyebrow rounded-full border border-night-line px-3 py-1 text-paper/80">
               For working print
             </span>
           </div>
-          <p className="relative mt-2 text-sm text-paper/60">
+          <p className="relative mt-2 text-sm text-paper/80">
             For a whole location, a busy agent, or a season of events.
           </p>
           <p className="relative mt-8 flex items-baseline gap-2">
