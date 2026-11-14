@@ -157,9 +157,14 @@ export default function RestaurantMenuPage() {
               </span>
             </div>
             <p className="mt-5 text-sm text-paper/80">
-              3 editable codes or short links free. No credit card. Bring your
-              existing menu webpage or public PDF link. Scanstone does not host
-              your menu.
+              3 editable codes or short links free. No credit card. Codes
+              don&apos;t expire.{" "}
+              <Link href="/help" className="link-underline text-verdigris-bright">
+                Do codes expire?
+              </Link>
+              {" "}
+              Bring your existing menu webpage or public PDF link. Scanstone
+              does not host your menu.
             </p>
           </div>
         </Container>
