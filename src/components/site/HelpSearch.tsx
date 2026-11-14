@@ -49,7 +49,7 @@ export function HelpSearch({ topics }: { topics: HelpTopic[] }) {
                 <summary className="flex min-h-11 cursor-pointer list-none items-center py-4 text-left text-lg font-medium text-ink [&::-webkit-details-marker]:hidden">
                   {t.q}
                 </summary>
-                <p className="max-w-2xl pb-4 leading-relaxed text-ink-soft">{t.a}</p>
+                <p className="help-answer pb-4 leading-relaxed text-ink-soft">{t.a}</p>
                 <p className="pb-5">
                   <Link
                     href={t.href}

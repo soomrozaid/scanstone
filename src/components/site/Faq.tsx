@@ -47,7 +47,7 @@ export function Faq({
               <span className="absolute left-1/2 top-0 h-4 w-px bg-current" />
             </span>
           </summary>
-          <p className="max-w-2xl pb-6 leading-relaxed text-ink-soft">{f.a}</p>
+          <p className="help-answer pb-6 leading-relaxed text-ink-soft">{f.a}</p>
         </details>
       ))}
     </div>

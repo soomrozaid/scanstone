@@ -40,6 +40,11 @@ const TOPICS = [
     href: "/blog/qr-code-stopped-working-how-to-fix",
   },
   {
+    q: "What do other QR companies do if I cancel?",
+    a: "It depends on the company. Some turn dynamic codes off when a trial or plan ends. We compared eight of them, side by side, including what Scanstone does.",
+    href: "/blog/what-happens-to-qr-codes-when-you-cancel",
+  },
+  {
     q: "How do I get in touch?",
     a: "Email hello@scanstone.ca. A person reads it.",
     href: "mailto:hello@scanstone.ca",
@@ -48,7 +53,7 @@ const TOPICS = [
 
 export default function HelpPage() {
   return (
-    <main id="main">
+    <main id="main" tabIndex={-1}>
       <DarkHero glow="70% 30%">
         <Container className="pb-28 pt-16 sm:pt-24">
           <Breadcrumbs items={[{ label: "Help" }]} tone="night" />
