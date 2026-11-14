@@ -61,7 +61,7 @@ export default function AboutPage() {
               </span>{" "}
               when a subscription lapses.
             </p>
-            <div className="self-end text-paper/65 lg:border-l lg:border-white/10 lg:pl-10">
+            <div className="self-end text-paper/80 lg:border-l lg:border-white/10 lg:pl-10">
               <p>
                 Questions, or just want to say hello? Write to{" "}
                 <a

@@ -55,7 +55,7 @@ function DemoWarmingUp() {
       <DarkHero glow="30% 20%">
         <Container className="relative pb-40 pt-16 sm:pt-24">
           <Breadcrumbs tone="night" items={[{ label: "Live demo" }]} />
-          <p className="eyebrow rise inline-flex items-center gap-2 text-paper/60">
+          <p className="eyebrow rise inline-flex items-center gap-2 text-paper/80">
             <span className="relative inline-flex h-2 w-2 rounded-full bg-paper/40" />
             Live demo · offline, showing sample data
           </p>
@@ -63,7 +63,7 @@ function DemoWarmingUp() {
             <SplitWords text="The live demo is resting." start={60} />{" "}
             <SplitWords text="Here's what it shows." start={420} wordClass="italic text-verdigris-bright" />
           </h1>
-          <p className="rise mt-6 max-w-2xl text-lead text-paper/70 [animation-delay:500ms]">
+          <p className="rise mt-6 max-w-2xl text-lead text-paper/80 [animation-delay:500ms]">
             The public demo reads a real code&apos;s scans from our database,
             and that connection isn&apos;t available on this page right now.
             Below is the same dashboard filled with sample numbers. None of
@@ -84,7 +84,7 @@ function DemoWarmingUp() {
             </div>
             <p className="mt-5 text-center font-mono text-sm text-paper/80">Sample code</p>
             <div className="mt-5 rounded-2xl border border-night-line p-4 text-sm">
-              <p className="eyebrow text-paper/60">A dynamic code could point at</p>
+              <p className="eyebrow text-paper/80">A dynamic code could point at</p>
               <p className="relative mt-2 h-6 overflow-hidden font-mono text-verdigris-bright">
                 {["yourcafe.ca/menu", "yourcafe.ca/brunch", "yourcafe.ca/events"].map((d, i) => (
                   <span key={d} className="sd-dest absolute inset-0" style={{ animationDelay: `${i * 2}s` }}>
@@ -93,7 +93,7 @@ function DemoWarmingUp() {
                 ))}
               </p>
             </div>
-            <p className="mt-4 text-center text-xs text-paper/60">
+            <p className="mt-4 text-center text-xs text-paper/80">
               This one opens the free generator, so scanning it is safe.
             </p>
           </div>
@@ -217,7 +217,7 @@ export default async function DemoPage() {
             <SplitWords text="This is a real code." start={60} />{" "}
             <SplitWords text="Scan it." start={380} wordClass="italic text-verdigris-bright" />
           </h1>
-          <p className="rise mt-6 max-w-2xl text-lead text-paper/70 [animation-delay:500ms]">
+          <p className="rise mt-6 max-w-2xl text-lead text-paper/80 [animation-delay:500ms]">
             Below is an actual dynamic code from a Scanstone account, with its
             actual analytics. Scan it with your phone and refresh, and your
             scan shows up in the counts. Older history was seeded so the charts
@@ -238,10 +238,10 @@ export default async function DemoPage() {
               {shortUrl}
             </p>
             <div className="mt-5 rounded-2xl border border-night-line p-4 text-sm">
-              <p className="eyebrow text-paper/60">Currently pointing at</p>
+              <p className="eyebrow text-paper/80">Currently pointing at</p>
               <p className="mt-2 font-mono text-verdigris-bright">{host}</p>
             </div>
-            <p className="mt-4 hidden text-center text-xs text-paper/60 lg:block">
+            <p className="mt-4 hidden text-center text-xs text-paper/80 lg:block">
               Point your phone camera at the code.
             </p>
             <a
