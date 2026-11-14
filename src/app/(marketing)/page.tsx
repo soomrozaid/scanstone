@@ -28,11 +28,11 @@ export const metadata: Metadata = {
 const FAQS = [
   {
     q: "Can I shorten a URL without creating a QR code?",
-    a: "Yes. Use the Short link tab at the top of this page. You need a free account to save a scst.one link, because we store the redirect so you can edit it later and see click counts.",
+    a: "Yes. Use the Short link tab at the top of this page. You can make a short link without an account. A free account is how we can keep our promise that it never expires, and it lets you edit the destination and see click counts.",
   },
   {
     q: "Do I need an account to create short links?",
-    a: "Yes — sign in or create a free account to create and manage short links. The Free plan includes 3 short links or dynamic QR codes in total; Pro includes 500 in total. Anyone can open your short links without an account.",
+    a: "No. You can create a short link from the homepage without an account. Without an account it's hard for us to keep our promise that the link never expires, so we ask you to make a free account to keep it safe and to edit it later. The free plan includes 3 short links or dynamic QR codes in total. Anyone can open your short links without an account.",
   },
   {
     q: "Do Scanstone QR codes expire?",
@@ -135,9 +135,10 @@ export default async function LandingPage({
             Create a short link
           </ButtonLink>
           <p className="mt-3 text-sm text-ink-faint">
-            A scst.one short link needs a free account, because we store the
-            redirect so you can edit it later. Your first 3 short links or
-            dynamic QR codes are free, with one shared limit.
+            You can make a scst.one short link without an account. A free
+            account is how we can keep our promise that it never expires, and
+            your first 3 short links or dynamic QR codes are free, with one
+            shared limit.
           </p>
         </div>
         <Card className="min-w-0 p-6 sm:p-8">

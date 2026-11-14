@@ -1,17 +1,21 @@
 "use client";
 
-import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { useActionState } from "react";
 import { track } from "@vercel/analytics";
 import { createShortUrl } from "@/app/(app)/dashboard/actions";
+import { createGuestShortUrl } from "@/app/(marketing)/guest-actions";
 import { QRPreview } from "@/components/qr/QRPreview";
 import { DesignControls } from "@/components/qr/DesignControls";
 import { downloadPng, downloadSvg } from "@/components/qr/download";
+import { CopyUrlButton } from "@/components/dashboard/CopyUrlButton";
+import { GuestNoticeDialog } from "@/components/hero/GuestNoticeDialog";
 import { Button, ButtonLink, Card, FieldError, Input } from "@/components/ui";
 import { isScannableCombo } from "@/lib/qr/contrast";
 import { validateDestinationUrl, type QRDesign } from "@/lib/validate";
 import { rememberPendingDestination } from "@/lib/pending-destination";
+import { GUEST_NOTICE_VERSION } from "@/lib/guest-constants";
 
 const DEFAULT_DESIGN: QRDesign = {
   fg: "#1c1917",
@@ -47,11 +51,16 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
   const [url, setUrl] = useState("");
   const [design, setDesign] = useState<QRDesign>(DEFAULT_DESIGN);
   const [qrPayload, setQrPayload] = useState("");
-  const [pendingLink, setPendingLink] = useState("");
+  const [noticeOpen, setNoticeOpen] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [downloadError, setDownloadError] = useState<string | null>(null);
+  const guestFormRef = useRef<HTMLFormElement>(null);
   const [linkState, linkAction, linkPending] = useActionState(
     createShortUrl,
+    null,
+  );
+  const [guestState, guestAction, guestPending] = useActionState(
+    createGuestShortUrl,
     null,
   );
 
@@ -73,15 +82,11 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
   const qrReady =
     qrPayload.length > 0 && qrPayload.length <= MAX_LEN && scannable;
 
-  const loginHref = useMemo(() => {
-    if (!pendingLink) return "/login";
-    return `/login?next=${encodeURIComponent(accountReturnPath("link", pendingLink))}`;
-  }, [pendingLink]);
-
   function selectMode(next: Mode) {
     setMode(next);
     setError(null);
     setDownloadError(null);
+    setNoticeOpen(false);
     if (next === "qr") {
       history.replaceState(null, "", "#qr");
     } else {
@@ -106,25 +111,24 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
     }
     setError(null);
     setQrPayload(payload);
-    setPendingLink("");
     track("home_tool_used", { mode: "qr" });
     return true;
   }
 
-  function startShortLink(raw: string = url) {
-    const dest = validateDestinationUrl(raw);
+  function openGuestNotice() {
+    const dest = validateDestinationUrl(url);
     if (!dest.ok) {
-      setPendingLink("");
       setError(dest.error);
       return false;
     }
     setError(null);
     setQrPayload("");
-    setPendingLink(dest.url);
-    rememberPendingDestination(dest.url, "link");
-    track("home_tool_used", { mode: "link" });
+    setNoticeOpen(true);
     return true;
   }
+
+  const signupHref = `/signup?next=${encodeURIComponent("/dashboard")}`;
+  const loginHref = `/login?next=${encodeURIComponent("/dashboard")}`;
 
   return (
     <section
@@ -265,7 +269,7 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
               <form
                 onSubmit={(event) => {
                   event.preventDefault();
-                  startShortLink();
+                  openGuestNotice();
                 }}
                 className="flex flex-col gap-2 sm:flex-row sm:items-stretch"
               >
@@ -288,8 +292,9 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
                   type="submit"
                   variant="accent"
                   className="shrink-0 px-5 py-2.5 sm:min-w-40"
+                  disabled={guestPending}
                 >
-                  Create short link
+                  {guestPending ? "Creating…" : "Create short link"}
                 </Button>
               </form>
             )}
@@ -393,43 +398,66 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
           </div>
         ) : null}
 
-        {mode === "link" && pendingLink && !signedIn ? (
+        {mode === "link" && !signedIn && guestState?.error ? (
+          <FieldError>{guestState.error}</FieldError>
+        ) : null}
+
+        {mode === "link" && !signedIn && guestState?.shortUrl ? (
           <div className="mt-6 border-t border-line pt-5">
-            <p className="text-sm font-medium">Save this as a short link</p>
-            <p className="mt-2 break-all rounded-md border border-line bg-paper-deep/60 p-3 font-mono text-sm text-ink">
-              {pendingLink}
+            <p className="text-sm font-medium">Here is your short link</p>
+            <p
+              data-testid="guest-short-url"
+              className="mt-2 break-all rounded-md border border-line bg-paper-deep/60 p-3 font-mono text-sm text-ink"
+            >
+              {guestState.shortUrl}
             </p>
-            <p className="mt-3 text-sm leading-relaxed text-ink-soft">
-              A scst.one short link can be edited later and does not expire.
-              That needs a free account, because we have to store the redirect.
-              You get 3 free codes or short links, and no credit card.
+            <div className="mt-3 flex flex-wrap gap-2">
+              <CopyUrlButton url={guestState.shortUrl} />
+            </div>
+            <div className="mx-auto mt-5 max-w-48">
+              <QRPreview data={guestState.shortUrl} options={design} />
+            </div>
+            <p className="mt-4 text-sm leading-relaxed text-ink-soft">
+              Your link works now. Without an account it&apos;s hard for us to
+              keep our promise that it never expires, so make a free account to
+              keep it safe and edit where it points.
             </p>
             <div className="mt-4 flex flex-wrap gap-2">
-              <ButtonLink href="/signup" variant="accent">
+              <ButtonLink href={signupHref} variant="accent">
                 Create a free account
               </ButtonLink>
               <ButtonLink href={loginHref} variant="ghost">
                 Log in
               </ButtonLink>
             </div>
-            <p className="mt-4 text-sm leading-relaxed text-ink-soft">
-              Need a QR code right now, with no account?{" "}
-              <button
-                type="button"
-                className="font-medium text-verdigris-deep underline underline-offset-4"
-                onClick={() => {
-                  setMode("qr");
-                  history.replaceState(null, "", "#qr");
-                  makeQr(pendingLink);
-                }}
-              >
-                Make a static one from this link
-              </button>
-              .
-            </p>
           </div>
         ) : null}
       </Card>
+
+      {!signedIn ? (
+        <>
+          <form ref={guestFormRef} action={guestAction} className="hidden">
+            <input type="hidden" name="destination_url" value={url} />
+            <input type="hidden" name="guest_notice_accepted" value="1" />
+            <input
+              type="hidden"
+              name="guest_notice_version"
+              value={GUEST_NOTICE_VERSION}
+            />
+          </form>
+          <GuestNoticeDialog
+            open={noticeOpen}
+            signupHref={signupHref}
+            pending={guestPending}
+            onClose={() => setNoticeOpen(false)}
+            onContinue={() => {
+              track("home_tool_used", { mode: "link" });
+              setNoticeOpen(false);
+              guestFormRef.current?.requestSubmit();
+            }}
+          />
+        </>
+      ) : null}
     </section>
   );
 }

@@ -245,7 +245,7 @@ test("homepage tool makes a static QR without an account @mobile @smoke", async 
   ).toHaveAttribute("href", "/signup");
 });
 
-test("homepage short link tab asks for an account instead of inventing a link @smoke", async ({
+test("homepage short link tab shows a notice modal before creating a guest link @smoke", async ({
   page,
 }) => {
   await page.goto("/#short-link");
@@ -258,20 +258,26 @@ test("homepage short link tab asks for an account instead of inventing a link @s
     .getByLabel("Destination link")
     .fill("https://example.com/summer-menu");
   await tool.getByRole("button", { name: "Create short link" }).click();
-  await expect(tool.getByText("https://example.com/summer-menu")).toBeVisible();
+  const dialog = page.getByRole("dialog", { name: "Keep this link safe" });
+  await expect(dialog).toBeVisible();
   await expect(
-    tool.getByText(
-      /needs a free account, because we have to store the redirect/i,
-    ),
+    dialog.getByText(/without an account it's hard for us to keep our promise/i),
   ).toBeVisible();
   await expect(
-    tool.getByRole("link", { name: "Create a free account" }),
-  ).toHaveAttribute("href", "/signup");
-  await expect(tool.getByRole("link", { name: "Log in" })).toHaveAttribute(
-    "href",
-    /\/login\?next=/,
-  );
-  await expect(tool.getByText(/scst\.one\//)).toHaveCount(0);
+    dialog.getByRole("link", { name: "Create a free account" }),
+  ).toHaveAttribute("href", /\/signup/);
+  const continueBtn = dialog.getByRole("button", {
+    name: "Continue without an account",
+  });
+  await expect(continueBtn).toBeDisabled();
+  await page.keyboard.press("Escape");
+  await expect(dialog).toBeHidden();
+
+  await tool.getByRole("button", { name: "Create short link" }).click();
+  await expect(dialog).toBeVisible();
+  await expect(continueBtn).toBeDisabled();
+  await dialog.getByRole("checkbox").check();
+  await expect(continueBtn).toBeEnabled();
 });
 
 test("restaurant page is discoverable and offers a working free tool @mobile @smoke", async ({

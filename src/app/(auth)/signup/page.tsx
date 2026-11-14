@@ -5,7 +5,11 @@ import { AuthShell } from "../AuthShell";
 import { SignupForm } from "./SignupForm";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { PRICING } from "@/lib/plans";
-import { parseProInterval, upgradePath } from "@/lib/checkout-intent";
+import {
+  parseProInterval,
+  safeNextPath,
+  upgradePath,
+} from "@/lib/checkout-intent";
 
 export const metadata: Metadata = {
   title: "Create your account",
@@ -15,10 +19,11 @@ export const metadata: Metadata = {
 export default async function SignupPage({
   searchParams,
 }: {
-  searchParams: Promise<{ plan?: string }>;
+  searchParams: Promise<{ plan?: string; next?: string }>;
 }) {
   const params = await searchParams;
   const plan = parseProInterval(params.plan);
+  const next = safeNextPath(params.next);
 
   if (plan) {
     // Already signed in: skip signup and go straight to checkout.
@@ -36,7 +41,11 @@ export default async function SignupPage({
     if (signedIn) redirect(upgradePath(plan));
   }
 
-  const loginHref = plan ? `/login?plan=${plan}` : "/login";
+  const loginParams = new URLSearchParams();
+  if (plan) loginParams.set("plan", plan);
+  if (next !== "/dashboard") loginParams.set("next", next);
+  const loginQuery = loginParams.toString();
+  const loginHref = loginQuery ? `/login?${loginQuery}` : "/login";
 
   return (
     <AuthShell
@@ -58,7 +67,7 @@ export default async function SignupPage({
         </>
       }
     >
-      <SignupForm plan={plan} />
+      <SignupForm plan={plan} next={next} />
     </AuthShell>
   );
 }
