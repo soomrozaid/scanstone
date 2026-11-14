@@ -36,7 +36,7 @@ A new QR generator cannot change the pattern already on your table cards. Unless
 
 ## Choosing a setup you can maintain
 
-A static code is a good fit when you control a stable destination and do not need scan analytics. A dynamic service is useful when destinations may move or you want to compare scans across placements. Evaluate the cancellation policy alongside those features.
+A static code is a good fit when you control a stable destination and do not need scan analytics. A dynamic service is useful when destinations may move or you want to compare scans across placements. Evaluate the cancellation policy alongside those features. Here is [what eight QR companies say happens to your codes when you cancel](/blog/what-happens-to-qr-codes-when-you-cancel).
 
 [Scanstone’s free static generator](/qr-code-generator) produces PNG and SVG codes without an account. For editable codes and short links, the free account includes 3 in total. Its [redirect policy](/terms) does not disable existing redirects because of cancellation, downgrade, or plan limits; [paid plans](/pricing) add capacity and reporting features. Deleting a code or account still removes its redirects, and both the redirect service and the destination must remain available.
 
