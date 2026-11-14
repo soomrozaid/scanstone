@@ -4,7 +4,7 @@ import { ToolPage } from "@/components/site/ToolPage";
 import { StaticGenerator } from "@/components/free-tool/StaticGenerator";
 
 export const metadata: Metadata = {
-  title: "Free WiFi QR Code Generator — Guests Scan and Join, No Typing",
+  title: "Free WiFi QR Code Generator. Guests scan and join, no typing",
   description:
     "Create a free WiFi QR code: guests point their camera and join your network instantly. No account, no expiration, password never leaves your device. PNG & SVG.",
   alternates: { canonical: "/wifi-qr-code-generator" },

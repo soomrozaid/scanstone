@@ -14,7 +14,7 @@ import { CompareTable } from "@/components/cinema/CompareTable";
 import { VelocityBand } from "@/components/cinema/VelocityBand";
 
 export const metadata: Metadata = {
-  title: "Pricing — Free forever plan, Pro at $9 USD/month",
+  title: "Pricing: free forever plan, Pro at $9 USD a month",
   description:
     "Scanstone pricing: unlimited static QR codes, 3 free short links or dynamic QR codes, and Pro at $9 USD/month for 500 total with full analytics. Redirects never expire.",
   alternates: { canonical: "/pricing" },
@@ -85,7 +85,7 @@ const NOTES = [
 
 export default function PricingPage() {
   return (
-    <main id="main">
+    <main id="main" tabIndex={-1}>
       <PricingJsonLd />
       <DarkHero glow="75% 40%">
         <Container className="grid items-center gap-10 pb-36 pt-16 sm:pt-24 lg:grid-cols-[1.2fr_0.8fr] lg:pb-44">

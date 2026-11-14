@@ -4,9 +4,9 @@ import { ToolPage } from "@/components/site/ToolPage";
 import { StaticGenerator } from "@/components/free-tool/StaticGenerator";
 
 export const metadata: Metadata = {
-  title: "Free QR Code Generator — No Expiration, No Sign-Up, No Watermark",
+  title: "Free QR Code Generator. No expiration, no sign-up, no watermark",
   description:
-    "Generate a free QR code that never expires. No account, no trial, no watermark — download print-ready PNG or SVG instantly. Static codes are permanent by design.",
+    "Generate a free QR code that never expires. No account, no trial, no watermark. Download print-ready PNG or SVG instantly. Static codes are permanent by design.",
   alternates: { canonical: "/qr-code-generator" },
 };
 

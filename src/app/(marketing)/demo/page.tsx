@@ -20,7 +20,7 @@ import { BreakdownList } from "@/components/analytics/BreakdownList";
 import { ChartGrow } from "@/components/cinema/ChartGrow";
 
 export const metadata: Metadata = {
-  title: "Live demo — a real dynamic QR code and its analytics",
+  title: "Live demo: a real dynamic QR code and its analytics",
   description:
     "A real Scanstone dynamic QR code with live scan analytics. Scan it yourself and watch the dashboard move.",
   alternates: { canonical: "/demo" },
@@ -51,7 +51,7 @@ const SAMPLE_SERIES = {
 function DemoWarmingUp() {
   const sampleSvg = renderQRSvg("https://www.scanstone.ca/qr-code-generator", { fg: "#161411", bg: "#ffffff", shape: "rounded" });
   return (
-    <main id="main">
+    <main id="main" tabIndex={-1}>
       <DarkHero glow="30% 20%">
         <Container className="relative pb-40 pt-16 sm:pt-24">
           <Breadcrumbs tone="night" items={[{ label: "Live demo" }]} />
@@ -202,7 +202,7 @@ export default async function DemoPage() {
   const host = new URL(code.destination_url).hostname;
 
   return (
-    <main id="main">
+    <main id="main" tabIndex={-1}>
       <DarkHero glow="30% 20%">
         <Container className="relative pb-40 pt-16 sm:pt-24">
           <Breadcrumbs tone="night" items={[{ label: "Live demo" }]} />

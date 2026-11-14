@@ -4,7 +4,7 @@ import { LegalShell } from "@/components/cinema/LegalShell";
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
-    "How Scanstone handles your data — and the data of people who scan your codes.",
+    "How Scanstone handles your data, and the data of people who scan your codes.",
   alternates: { canonical: "/privacy" },
 };
 
@@ -16,7 +16,7 @@ export default function PrivacyPage() {
           <h2 className="display text-2xl text-ink">The short version</h2>
           <p className="mt-2">
             We store what we need to run your account and count scans of your
-            codes — nothing more. We don&apos;t sell data, we don&apos;t run ad
+            codes, nothing more. We don&apos;t sell data, we don&apos;t run ad
             trackers, and we deliberately avoid collecting anything about the
             people who scan your codes beyond anonymous, aggregate-friendly
             fields.
@@ -29,7 +29,7 @@ export default function PrivacyPage() {
           </h2>
           <ul className="mt-2 list-disc space-y-1.5 pl-5">
             <li>
-              Email address and a hashed password (or magic-link login) — via
+              Email address and a hashed password (or magic-link login) via
               Supabase Auth.
             </li>
             <li>
@@ -75,7 +75,7 @@ export default function PrivacyPage() {
           </h2>
           <p className="mt-2">
             Static QR codes (link, text, WiFi, vCard) are generated entirely in
-            your browser. The content you type — including WiFi passwords —
+            your browser. The content you type, including WiFi passwords,
             never reaches our servers.
           </p>
         </section>
@@ -85,10 +85,10 @@ export default function PrivacyPage() {
             Processors we rely on
           </h2>
           <ul className="mt-2 list-disc space-y-1.5 pl-5">
-            <li>Supabase — database and authentication (US region)</li>
-            <li>Stripe — payments and invoices</li>
+            <li>Supabase: database and authentication (US region)</li>
+            <li>Stripe: payments and invoices</li>
             <li>
-              Vercel — hosting and privacy-friendly, cookieless site analytics
+              Vercel: hosting and privacy-friendly, cookieless site analytics
             </li>
           </ul>
         </section>
@@ -101,7 +101,7 @@ export default function PrivacyPage() {
               time.
             </li>
             <li>
-              Delete your account from the account page — codes, scan history,
+              Delete your account from the account page. Codes, scan history,
               and login are removed immediately and permanently.
             </li>
             <li>Cancel billing self-serve via the billing portal.</li>

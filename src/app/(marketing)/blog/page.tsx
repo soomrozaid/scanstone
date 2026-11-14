@@ -11,7 +11,7 @@ import { Spotlight } from "@/components/site/Spotlight";
 import { AssembleQR } from "@/components/cinema/AssembleQR";
 
 export const metadata: Metadata = {
-  title: "Blog — straight answers about QR codes",
+  title: "Blog: straight answers about QR codes",
   description:
     "Investigations and comparisons about QR codes: what expires, what doesn't, and how to never lose a printed code to a paywall. No fluff, no sales pitch.",
   alternates: { canonical: "/blog" },
@@ -40,7 +40,7 @@ export default function BlogIndex() {
   const docs = docsIn("blog");
   const [first, ...rest] = docs;
   return (
-    <main id="main">
+    <main id="main" tabIndex={-1}>
       <DarkHero glow="50% 0%">
         <Container className="pb-40 pt-16 sm:pt-24">
           <header className="max-w-3xl">

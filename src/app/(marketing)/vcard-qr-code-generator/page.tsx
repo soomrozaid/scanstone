@@ -4,7 +4,7 @@ import { ToolPage } from "@/components/site/ToolPage";
 import { StaticGenerator } from "@/components/free-tool/StaticGenerator";
 
 export const metadata: Metadata = {
-  title: "Free vCard QR Code Generator — Scan to Save Your Contact",
+  title: "Free vCard QR Code Generator. Scan to save your contact",
   description:
     "Create a free contact (vCard) QR code for business cards, email signatures, and booths. One scan saves your name, phone, email, and company. No expiration, PNG & SVG.",
   alternates: { canonical: "/vcard-qr-code-generator" },

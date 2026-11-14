@@ -4,7 +4,7 @@ import { LegalShell } from "@/components/cinema/LegalShell";
 export const metadata: Metadata = {
   title: "Terms of Service",
   description:
-    "Scanstone's terms — including the redirect covenant, in writing.",
+    "Scanstone's terms, including the redirect covenant, in writing.",
   alternates: { canonical: "/terms" },
 };
 
@@ -34,7 +34,7 @@ export default function TermsPage() {
             of your plan status: cancelling, downgrading, or exceeding plan
             limits will not disable existing redirects. Redirects end only if
             (a) you delete the code or your account, (b) the code violates
-            section 4, or (c) Scanstone permanently shuts down — in which case
+            section 4, or (c) Scanstone permanently shuts down, in which case
             we commit to at least 90 days&apos; email notice and a data-export
             window.
           </p>
@@ -50,7 +50,7 @@ export default function TermsPage() {
             until cancelled. Cancel anytime from the billing portal; Pro
             features remain active until the end of the paid period. Limits
             (number of dynamic codes, analytics history, export features) are
-            enforced at creation and display time — never at scan time.
+            enforced at creation and display time, never at scan time.
           </p>
         </section>
 
@@ -65,8 +65,8 @@ export default function TermsPage() {
             <li>deceptive redirects that misrepresent their destination.</li>
           </ul>
           <p className="mt-2">
-            We may disable codes that violate these rules — this is the sole
-            service-side exception to the covenant — and will notify the account
+            We may disable codes that violate these rules. This is the sole
+            service-side exception to the covenant, and will notify the account
             email when we do.
           </p>
         </section>
