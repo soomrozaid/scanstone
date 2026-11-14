@@ -19,7 +19,7 @@ export function LegalShell({
   children: React.ReactNode;
 }) {
   return (
-    <main id="main">
+    <main id="main" tabIndex={-1}>
       <ReadProgress />
       <DarkHero glow="30% 40%">
         <div className="relative mx-auto max-w-6xl px-5 pb-20 pt-20 sm:px-8 sm:pb-28 sm:pt-28">

@@ -30,7 +30,7 @@ function Phone({
             (l) => (
               <p
                 key={l}
-                className="mt-2 border-b border-dashed border-black/10 pb-1.5 text-[0.65rem] text-ink-soft"
+                className="mt-2 border-b border-dashed border-black/10 pb-1.5 text-xs text-ink-soft"
               >
                 {l}
               </p>
@@ -44,7 +44,7 @@ function Phone({
           <div className="flex h-10 w-10 items-center justify-center rounded-full bg-danger/10 text-lg text-danger">
             !
           </div>
-          <p className="mt-3 text-[0.75rem] font-semibold text-[#333]">
+          <p className="mt-3 text-sm font-semibold text-[#333]">
             This QR code has been deactivated
           </p>
           <p className="mt-1.5 text-[0.62rem] leading-snug text-[#666]">

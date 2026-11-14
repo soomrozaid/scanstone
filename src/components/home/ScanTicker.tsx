@@ -32,7 +32,7 @@ export function ScanTicker() {
           style={{ opacity: 1 - k * 0.28 }}
         >
           <span className="flex items-center gap-2">
-            <span className={`h-1.5 w-1.5 rounded-full ${k === 0 ? "animate-pulse bg-verdigris-bright" : "bg-paper/30"}`} />
+            <span className={`h-1.5 w-1.5 rounded-full ${k === 0 ? "bg-verdigris-bright motion-safe:animate-pulse" : "bg-paper/30"}`} />
             {r[0]} · {r[1]}
           </span>
           <span className="text-paper/60">{r[2]}</span>

@@ -94,7 +94,7 @@ export default function RestaurantMenuPage() {
     },
   ];
   return (
-    <main id="main">
+    <main id="main" tabIndex={-1}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

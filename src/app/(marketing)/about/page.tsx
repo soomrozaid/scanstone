@@ -43,7 +43,7 @@ const PRINCIPLES = [
 
 export default function AboutPage() {
   return (
-    <main id="main">
+    <main id="main" tabIndex={-1}>
       <DarkHero glow="20% 30%">
         <Contours />
         <Container className="relative pb-24 pt-16 sm:pb-32 sm:pt-24">

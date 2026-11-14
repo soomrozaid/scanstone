@@ -114,7 +114,7 @@ function JsonLd({ doc, body }: { doc: DocMeta; body: string }) {
 export function ArticlePage({ doc, body }: { doc: DocMeta; body: string }) {
   const minutes = readingMinutes(body);
   return (
-    <main id="main">
+    <main id="main" tabIndex={-1}>
       <JsonLd doc={doc} body={body} />
       <ReadProgress />
       <ReadingDial minutes={minutes} />

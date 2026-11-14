@@ -42,7 +42,7 @@ export function ToolPage({
   related?: ReactNode;
 }) {
   return (
-    <main id="main">
+    <main id="main" tabIndex={-1}>
       <DarkHero glow="80% 30%">
         <Container className="grid items-center gap-10 pb-40 pt-14 sm:pt-20 lg:grid-cols-[1.25fr_0.75fr]">
           <div>
