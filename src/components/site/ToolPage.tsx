@@ -20,6 +20,7 @@ const TOOLS = [
   { href: "/qr-code-generator", label: "Link & text", sub: "Any URL or note" },
   { href: "/wifi-qr-code-generator", label: "WiFi", sub: "Join without typing" },
   { href: "/vcard-qr-code-generator", label: "Contact card", sub: "One scan, saved" },
+  { href: "/#short-link", label: "Short link", sub: "scst.one" },
 ];
 
 export function ToolPage({
@@ -59,7 +60,7 @@ export function ToolPage({
                 <SplitWords text={accent} start={260} wordClass="italic text-verdigris-bright" />
               </span>
             </h1>
-            <p className="rise mt-6 max-w-2xl text-lead text-paper/70 [animation-delay:400ms]">{lead}</p>
+            <p className="rise mt-6 max-w-2xl text-lead text-paper/80 [animation-delay:400ms]">{lead}</p>
             <nav aria-label="Free tools" className="rise mt-8 flex flex-wrap gap-2 [animation-delay:500ms]">
               {TOOLS.map((t) => {
                 const on = t.href === current;
@@ -68,7 +69,7 @@ export function ToolPage({
                     key={t.href}
                     href={t.href}
                     aria-current={on ? "page" : undefined}
-                    className={`rounded-full border px-4 py-2 text-sm transition ${on ? "border-paper bg-paper text-ink" : "border-white/15 bg-white/5 text-paper/70 hover:border-white/40 hover:text-paper"}`}
+                    className={`inline-flex min-h-11 items-center rounded-full border px-4 text-sm transition ${on ? "border-paper bg-paper text-ink" : "border-white/15 bg-white/5 text-paper hover:border-white/40 hover:text-paper"}`}
                   >
                     {t.label}
                     <span className={`ml-2 hidden text-xs sm:inline ${on ? "text-ink-faint" : "text-paper/60"}`}>
@@ -108,7 +109,7 @@ export function ToolPage({
               Straight answers
             </h2>
             {related ? (
-              <div className="mt-6 text-sm leading-relaxed text-paper/70 [&_a]:!text-verdigris-bright">{related}</div>
+              <div className="mt-6 text-sm leading-relaxed text-paper/80 [&_a]:!text-verdigris-bright">{related}</div>
             ) : null}
           </div>
           <Faq items={faqs} tone="night" />
