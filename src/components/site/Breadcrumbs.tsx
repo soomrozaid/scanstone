@@ -5,7 +5,7 @@ type Crumb = { href?: string; label: string };
 /** Plain trail so visitors always know where they are and can go back one step. */
 export function Breadcrumbs({ items, tone = "paper" }: { items: Crumb[]; tone?: "paper" | "night" }) {
   if (items.length === 0) return null;
-  const muted = tone === "night" ? "text-paper/60 hover:text-paper" : "text-ink-soft hover:text-ink";
+  const muted = tone === "night" ? "text-paper/80 hover:text-paper" : "text-ink-soft hover:text-ink";
   const current = tone === "night" ? "text-paper" : "text-ink";
   return (
     <nav aria-label="Breadcrumb">
