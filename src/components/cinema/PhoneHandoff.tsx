@@ -79,7 +79,7 @@ export function PhoneHandoff() {
                 <path d={cells.d} className="fill-ink" />
               </svg>
             ) : (
-              <div className="aspect-square w-full animate-pulse rounded-lg bg-ink/10" />
+              <div className="aspect-square w-full motion-safe:animate-pulse rounded-lg bg-ink/10" />
             )}
             <span className="ph-scan pointer-events-none absolute inset-x-3 top-3 h-0.5 rounded bg-verdigris-bright shadow-[0_0_12px_2px_rgba(79,174,155,0.7)]" aria-hidden="true" />
           </div>

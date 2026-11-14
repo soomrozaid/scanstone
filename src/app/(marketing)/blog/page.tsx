@@ -74,7 +74,7 @@ export default function BlogIndex() {
             </div>
             <div className="flex items-end justify-between gap-6 lg:flex-col lg:items-end">
               <div aria-hidden="true" className="blog-stone hidden w-44 rotate-[-5deg] rounded-[10px] bg-[#efe7d6] p-4 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.7)] transition-transform duration-700 ease-[var(--ease-settle)] group-hover:-translate-y-2 group-hover:rotate-[-1deg] sm:block">
-                <p className="text-center font-mono text-[9px] uppercase tracking-[0.2em] text-ink-faint">Scan to read</p>
+                <p className="text-center font-mono text-xs uppercase tracking-[0.2em] text-ink-faint">Scan to read</p>
                 <AssembleQR lite data={`https://www.scanstone.ca/blog/${first.slug}`} label="" className="mt-2 !bg-transparent !p-0" />
               </div>
               <div className="flex items-center gap-4 lg:flex-col lg:items-end">
