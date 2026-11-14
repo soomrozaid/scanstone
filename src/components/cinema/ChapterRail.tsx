@@ -65,7 +65,7 @@ export function ChapterRail({ chapters }: { chapters: Chapter[] }) {
   return (
     <nav
       aria-label="Page chapters"
-      className={`rail fixed left-5 top-1/2 z-30 hidden -translate-y-1/2 text-white mix-blend-difference transition-opacity duration-500 2xl:block ${active < 0 ? "pointer-events-none opacity-0" : "opacity-100"}`}
+      className="rail fixed left-5 top-1/2 z-30 hidden -translate-y-1/2 text-white mix-blend-difference 2xl:block"
     >
       <ol className="flex flex-col gap-2.5">
         {chapters.map((c, i) => (
@@ -74,10 +74,10 @@ export function ChapterRail({ chapters }: { chapters: Chapter[] }) {
               type="button"
               onClick={() => go(c.sel)}
               aria-current={i === active ? "true" : undefined}
-              className="group flex items-center gap-3 py-0.5"
+              className="group flex min-h-11 items-center gap-3"
             >
               <span className={`block h-px bg-current transition-all duration-500 ${i === active ? "w-10" : "w-4 opacity-50 group-hover:w-7 group-hover:opacity-90"}`} />
-              <span className={`font-mono text-[10px] uppercase tracking-[0.16em] transition-all duration-500 ${i === active ? "translate-x-0 opacity-100" : "-translate-x-1 opacity-0 group-hover:translate-x-0 group-hover:opacity-70"}`}>
+              <span className={`font-mono text-xs uppercase tracking-[0.16em] ${i === active ? "opacity-100" : "opacity-80"}`}>
                 {String(i + 1).padStart(2, "0")} {c.label}
               </span>
             </button>
