@@ -361,11 +361,11 @@ export function ScanStory({ qrUrl }: { qrUrl: string }) {
                 <h3 className="display mt-4 text-[clamp(2rem,4.6vw,4.2rem)] leading-[0.95] tracking-[-0.02em]">
                   {c.t}
                 </h3>
-                <p className="mt-4 max-w-md text-[15px] leading-relaxed text-paper/65 sm:text-base">
+                <p className="mt-4 max-w-md text-base leading-relaxed text-paper/80">
                   {c.d}
                 </p>
                 {i === 0 && (
-                  <p className="mt-6 hidden font-mono text-[11px] uppercase tracking-[0.2em] text-paper/35 lg:block">
+                  <p className="mt-6 hidden font-mono text-xs uppercase tracking-[0.2em] text-paper/80 lg:block">
                     Scroll
                   </p>
                 )}

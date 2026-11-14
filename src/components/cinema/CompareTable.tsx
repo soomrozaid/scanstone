@@ -55,7 +55,7 @@ export function CompareTable({ rows }: { rows: Array<{ label: string; free: stri
       <table className="relative w-full min-w-[34rem] border-collapse text-sm">
         <thead>
           <tr className="text-left">
-            <th scope="col" className="px-6 py-5 font-mono text-[11px] font-normal uppercase tracking-[0.2em] text-paper/60">Feature</th>
+            <th scope="col" className="px-6 py-5 font-mono text-xs font-normal uppercase tracking-[0.2em] text-paper/80">Feature</th>
             <th scope="col" className="w-36 px-6 py-5 font-medium text-paper">Free</th>
             <th scope="col" className="ct-pro-h relative w-44 px-6 py-5 font-medium text-verdigris-bright">Pro</th>
           </tr>
@@ -68,7 +68,7 @@ export function CompareTable({ rows }: { rows: Array<{ label: string; free: stri
                 <th scope="row" className="px-6 py-4 text-left font-normal text-paper/75">
                   {row.label}
                   {covenant ? (
-                    <span className="ct-stamp ml-3 inline-block rounded-full border border-verdigris-bright/60 px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.18em] text-verdigris-bright">
+                    <span className="ct-stamp ml-3 inline-block rounded-full border border-verdigris-bright/60 px-2 py-0.5 font-mono text-xs uppercase tracking-[0.18em] text-verdigris-bright">
                       The covenant
                     </span>
                   ) : null}

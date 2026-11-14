@@ -62,13 +62,13 @@ export function SiteFooter() {
           </div>
           {columns.map((col) => (
             <div key={col.title}>
-              <h3 className="eyebrow text-paper/40">{col.title}</h3>
+              <h3 className="eyebrow text-paper/70">{col.title}</h3>
               <ul className="mt-4 space-y-2.5 text-sm">
                 {col.links.map((l) => (
                   <li key={l.href}>
                     <Link
                       href={l.href}
-                      className="link-underline text-paper/75 hover:text-paper"
+                      className="link-underline text-paper/90 hover:text-paper"
                     >
                       {l.label}
                     </Link>

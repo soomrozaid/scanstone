@@ -174,10 +174,10 @@ export function CinemaHero({
       }`}>
         <div
           key={idx}
-          className={`dest-swap flex items-center gap-2 whitespace-nowrap rounded-full border border-night-line bg-night-raised/80 px-4 py-2 font-mono text-[11px] text-paper/80 backdrop-blur transition-opacity sm:text-xs ${settled || !use3D ? "opacity-100" : "opacity-0"}`}
+          className={`dest-swap flex items-center gap-2 whitespace-nowrap rounded-full border border-night-line bg-night-raised/80 px-4 py-2 font-mono text-xs text-paper backdrop-blur transition-opacity sm:text-sm ${settled || !use3D ? "opacity-100" : "opacity-0"}`}
         >
           <span className="h-1.5 w-1.5 rounded-full bg-verdigris-bright shadow-[0_0_10px_2px_rgba(79,174,155,0.8)]" />
-          <span className="text-paper/50">{d.biz}</span>
+          <span className="text-paper/80">{d.biz}</span>
           <span aria-hidden="true">→</span>
           <span className="text-paper">{d.url}</span>
         </div>

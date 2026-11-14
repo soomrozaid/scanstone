@@ -118,11 +118,11 @@ export function PlanCards({ headingLevel = 3 }: { headingLevel?: 2 | 3 }) {
             <span className="display flex text-6xl leading-none">
               $<RollingNumber minDigits={2} value={yearly ? PRICING.yearly.amount : PRICING.monthly.amount} />
             </span>
-            <span className="text-sm text-paper/50">
+            <span className="text-sm text-paper/80">
               USD/{yearly ? "year" : "month"}
             </span>
           </p>
-          <p className="relative mt-1 text-xs text-paper/50" aria-live="polite">
+          <p className="relative mt-1 text-xs text-paper/80" aria-live="polite">
             {yearly
               ? `${PRICING.yearly.label}, ${PRICING.yearly.note}`
               : `or ${PRICING.yearly.label} (${PRICING.yearly.note})`}
