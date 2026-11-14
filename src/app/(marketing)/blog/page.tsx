@@ -28,12 +28,12 @@ function formatDate(iso: string): string {
 
 
 const START_HERE = [
-  { href: "/blog/qr-code-subscription-trap", q: "Why did my QR code stop working?", tag: "Explainer" },
+  { href: "/blog/qr-code-stopped-working-how-to-fix", q: "Why did my QR code stop working?", tag: "Guide" },
   { href: "/qr-code-generator", q: "Static or dynamic: which one do I need?", tag: "Free tool" },
   { href: "/restaurant-menu-qr-code", q: "How do I change a menu after printing?", tag: "Restaurants" },
   { href: "/wifi-qr-code-generator", q: "Can guests join WiFi without typing?", tag: "Free tool" },
   { href: "/vcard-qr-code-generator", q: "Can one scan save my contact?", tag: "Free tool" },
-  { href: "/terms", q: "What happens to my codes if I cancel?", tag: "Covenant" },
+  { href: "/blog/what-happens-to-qr-codes-when-you-cancel", q: "What happens to my codes if I cancel?", tag: "Guide" },
 ];
 
 export default function BlogIndex() {
@@ -49,7 +49,7 @@ export default function BlogIndex() {
             <h1 className="display mt-6 text-[clamp(4rem,12vw,11rem)] leading-[0.9] tracking-[-0.035em]">
               <SplitWords text="Blog" start={60} />
             </h1>
-            <p className="rise mt-6 text-lead text-paper/70 [animation-delay:300ms]">
+            <p className="rise mt-6 text-lead text-paper/80 [animation-delay:300ms]">
               Straight answers about QR codes: what expires, what doesn&apos;t,
               and how to keep your printed codes working without paying anyone
               forever.
@@ -66,11 +66,11 @@ export default function BlogIndex() {
             className="group relative grid gap-8 overflow-hidden rounded-[28px] bg-night-raised p-8 text-paper shadow-[0_40px_100px_-30px_rgba(0,0,0,0.6)] ring-1 ring-white/10 transition sm:p-12 lg:grid-cols-[1.4fr_0.6fr]"
           >
             <div>
-              <p className="eyebrow text-paper/60">Latest · {first.category}</p>
+              <p className="eyebrow text-paper/80">Latest · {first.category}</p>
               <h2 className="display mt-5 text-h2 transition-colors group-hover:text-verdigris-bright">
                 {first.title}
               </h2>
-              <p className="mt-5 max-w-2xl text-paper/70">{first.description}</p>
+              <p className="mt-5 max-w-2xl text-paper/80">{first.description}</p>
             </div>
             <div className="flex items-end justify-between gap-6 lg:flex-col lg:items-end">
               <div aria-hidden="true" className="blog-stone hidden w-44 rotate-[-5deg] rounded-[10px] bg-[#efe7d6] p-4 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.7)] transition-transform duration-700 ease-[var(--ease-settle)] group-hover:-translate-y-2 group-hover:rotate-[-1deg] sm:block">
@@ -78,7 +78,7 @@ export default function BlogIndex() {
                 <AssembleQR lite data={`https://www.scanstone.ca/blog/${first.slug}`} label="" className="mt-2 !bg-transparent !p-0" />
               </div>
               <div className="flex items-center gap-4 lg:flex-col lg:items-end">
-                <time dateTime={first.date} className="font-mono text-sm text-paper/60">
+                <time dateTime={first.date} className="font-mono text-sm text-paper/80">
                   {formatDate(first.date)}
                 </time>
                 <span aria-hidden="true" className="text-4xl transition-transform duration-300 group-hover:translate-x-1">→</span>
