@@ -61,11 +61,11 @@ export function HoverIndex({ rows }: { rows: Row[] }) {
               onPointerEnter={() => setOn(i)}
               onFocus={() => setOn(i)}
               onBlur={() => setOn(-1)}
-              className={`hix-row group flex items-baseline gap-5 py-6 transition-[color,padding] duration-500 ease-[var(--ease-settle)] sm:gap-8 sm:py-8 ${on === i ? "text-verdigris-deep sm:pl-6" : on >= 0 ? "text-ink/35" : "text-ink"}`}
+              className={`hix-row group flex items-baseline gap-5 py-6 transition-[color,padding] duration-500 ease-[var(--ease-settle)] sm:gap-8 sm:py-8 ${on === i ? "text-verdigris-deep sm:pl-6" : on >= 0 ? "text-ink-soft" : "text-ink"}`}
             >
               <span className="font-mono text-xs text-copper">{String(i + 1).padStart(2, "0")}</span>
               <span className="display flex-1 text-[clamp(1.8rem,4.2vw,3.6rem)] leading-[1.02] tracking-[-0.02em]">{r.q}</span>
-              <span className="hidden font-mono text-[11px] uppercase tracking-[0.16em] text-ink-faint sm:inline">{r.tag}</span>
+              <span className="hidden font-mono text-xs uppercase tracking-[0.16em] text-ink-soft sm:inline">{r.tag}</span>
               <span aria-hidden="true" className="text-2xl transition-transform duration-500 group-hover:translate-x-1">→</span>
             </Link>
           </li>
@@ -79,7 +79,7 @@ export function HoverIndex({ rows }: { rows: Row[] }) {
         <div className="relative aspect-[3/4] rounded-[10px] bg-[#efe7d6] p-4 shadow-[0_30px_70px_-20px_rgba(22,20,17,0.55)]">
           {rows.map((r, i) => (
             <div key={i} className={`absolute inset-4 flex flex-col transition-[opacity,transform] duration-300 ${on === i ? "opacity-100" : "translate-y-2 opacity-0"}`}>
-              <p className="text-center font-mono text-[8px] uppercase tracking-[0.2em] text-ink-faint">{r.tag}</p>
+              <p className="text-center font-mono text-xs uppercase tracking-[0.2em] text-ink-soft">{r.tag}</p>
               <div className="mt-auto">{r.preview}</div>
             </div>
           ))}
