@@ -149,9 +149,9 @@ export function ArticlePage({ doc, body }: { doc: DocMeta; body: string }) {
           Make a QR code that can&apos;t be switched off
         </p>
         <p className="mt-2 text-sm leading-relaxed text-ink-soft">
-          Static codes are free forever — no account, no expiration, because the
-          content lives in the pattern itself. Dynamic codes come with a written
-          covenant: the redirect never turns off, even if you stop paying.
+          Static codes are free, need no account and don&apos;t expire, because
+          your link is stored in the pattern itself. For dynamic codes, our terms
+          say cancelling or downgrading won&apos;t turn off your redirects.
         </p>
         <div className="mt-4 flex flex-wrap gap-3">
           <Link
