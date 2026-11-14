@@ -98,6 +98,10 @@ body {
   outline: 2px solid var(--color-verdigris);
   outline-offset: 2px;
 }
+[data-nav="dark"] :focus-visible,
+.bg-night :focus-visible {
+  outline-color: var(--color-verdigris-bright);
+}
 
 /* Show a red border only after the visitor has tried the field
    (modern-web-guidance: :user-invalid, not :invalid). aria-invalid
