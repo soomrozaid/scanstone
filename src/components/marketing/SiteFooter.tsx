@@ -21,6 +21,7 @@ const columns = [
       { href: "/help", label: "Help and FAQ" },
       { href: "/help", label: "Do codes expire?" },
       { href: "/blog", label: "Blog" },
+      { href: "/blog/what-happens-to-qr-codes-when-you-cancel", label: "What if I cancel?" },
       { href: "/signup", label: "Create account" },
     ],
   },
@@ -43,7 +44,7 @@ export function SiteFooter() {
         <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-[1.3fr_1fr_1fr_1fr] lg:gap-12">
           <div className="col-span-2 sm:col-span-3 lg:col-span-1">
             <Wordmark tone="paper" />
-            <p className="mt-5 max-w-xs text-sm leading-relaxed text-paper/60">
+            <p className="mt-5 max-w-xs text-sm leading-relaxed text-paper/80">
               QR codes for print. Short scst.one links for sharing. Free static
               codes forever, and redirects that keep working even if you stop
               paying.
