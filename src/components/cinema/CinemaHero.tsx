@@ -76,13 +76,16 @@ export function CinemaHero({
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     if (!canWebGL()) return;
+    // The tool layout hides the 3D art below the lg breakpoint, so never
+    // boot the scene on phones. (Performance: TBT / unused JS on mobile.)
+    if (layout === "tool" && !window.matchMedia("(min-width: 1024px)").matches) return;
     const go = () => setUse3D(true);
     const w = window as Window & {
       requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number;
     };
     if (w.requestIdleCallback) w.requestIdleCallback(go, { timeout: 1800 });
     else setTimeout(go, 600);
-  }, []);
+  }, [layout]);
 
   // Scroll-out: the hero shrinks into a rounded slab and drops back while the
   // copy lifts away and the code leans toward you. GSAP loads after idle.
