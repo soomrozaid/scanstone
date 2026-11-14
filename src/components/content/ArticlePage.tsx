@@ -175,13 +175,13 @@ export function ArticlePage({ doc, body }: { doc: DocMeta; body: string }) {
         <div className="mt-6 flex flex-wrap gap-3">
           <Link
             href="/qr-code-generator"
-            className="rounded-full bg-verdigris px-5 py-2.5 text-sm font-medium text-paper transition hover:bg-verdigris-bright hover:text-night"
+            className="inline-flex min-h-11 items-center rounded-full bg-verdigris px-5 text-sm font-medium text-paper transition hover:bg-verdigris-bright hover:text-night"
           >
             Free QR generator
           </Link>
           <Link
             href="/pricing"
-            className="rounded-full border border-paper/25 px-5 py-2.5 text-sm font-medium text-paper transition hover:bg-paper/10"
+            className="inline-flex min-h-11 items-center rounded-full border border-paper/25 px-5 text-sm font-medium text-paper transition hover:bg-paper/10"
           >
             See pricing
           </Link>
