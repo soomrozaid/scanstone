@@ -2,6 +2,7 @@ import { DarkHero } from "./DarkHero";
 import { SplitWords } from "./SplitWords";
 import { ReadProgress } from "./ReadProgress";
 import { LegalToc } from "./LegalToc";
+import Link from "next/link";
 import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 
 /** Night header with a kinetic title, then the document with a live contents rail. */
@@ -33,10 +34,17 @@ export function LegalShell({
           <h1 className="display mt-6 text-[clamp(3rem,8vw,6.5rem)] leading-[0.95] tracking-[-0.03em]">
             <SplitWords text={title} start={60} />
           </h1>
-          <p className="rise mt-6 max-w-xl text-lead text-paper/70 [animation-delay:300ms]">{lead}</p>
-          <p className="rise mt-6 inline-flex items-center gap-2 rounded-full border border-paper/15 px-3 py-1.5 font-mono text-xs text-paper/70 [animation-delay:420ms]">
+          <p className="rise mt-6 max-w-xl text-lead text-paper/80 [animation-delay:300ms]">{lead}</p>
+          <p className="rise mt-6 inline-flex items-center gap-2 rounded-full border border-paper/15 px-3 py-1.5 font-mono text-xs text-paper/80 [animation-delay:420ms]">
             <span className="h-1.5 w-1.5 rounded-full bg-verdigris-bright" aria-hidden="true" />
             {effective}
+          </p>
+          <p className="rise mt-4 text-sm text-paper/80 [animation-delay:500ms]">
+            Questions about redirects or billing?{" "}
+            <Link href="/help" className="link-underline text-verdigris-bright">
+              Read Help
+            </Link>
+            .
           </p>
         </div>
       </DarkHero>
