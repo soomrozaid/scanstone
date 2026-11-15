@@ -24,5 +24,13 @@
     "description": "Whether your printed codes keep working after a trial ends or you cancel depends on the company. Their own policies side by side, with sources.",
     "date": "2026-11-14",
     "category": "Comparison"
+  },
+  {
+    "slug": "qr-code-1-dollar-trial-subscription",
+    "collection": "blog",
+    "title": "Paid $1 for a QR code, then charged again? How QR trial subscriptions work",
+    "description": "That $1 QR code was likely a 7-day trial that renews. How to cancel, ask for a refund, and what happens to the code you already printed.",
+    "date": "2026-11-15",
+    "category": "Rescue"
   }
 ]

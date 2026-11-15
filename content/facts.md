@@ -29,6 +29,15 @@ Drafts must trace factual, numeric, and comparative claims to this file. A lint 
 - Hovercode: cancel moves to free; first 3 dynamic codes, 3 short links, 1 multi-link page stay active; rest inactive, custom-domain items stop. https://hovercode.com/help/article/32-if-you-cancel
 - Flowcode: codes never expire, unlimited scans; on downgrade only the 2 most recent stay editable and others keep scanning (same article also mentions codes "deleted upon downgrading"). https://help.flowcode.com/en/articles/7061611-will-my-codes-pages-expire , https://help.flowcode.com/en/articles/6927459-what-happens-to-my-account-and-codes-when-i-downgrade
 
+## External facts: trial subscriptions, verified 2026-11-15 (used in /blog/qr-code-1-dollar-trial-subscription)
+
+- GetQR: "subscription-based service"; "an active subscription is required to keep your QR codes live"; plan "activates automatically at the end of the 7-day trial period". https://getqr.com/help/subscription-recurring-charge
+- GetQR: trial, 4-week, quarterly and annual plans all renew automatically. https://getqr.com/help/automatically-renew-subscription
+- GetQR: cancel via Cancellation Portal or Account > Manage My Plan; cancelling doesn't reverse a processed charge. https://getqr.com/help/cancel-my-subscription ; no confirmation email means no cancellation: https://getqr.com/help/charge-after-cancel
+- GetQR refund policy: payments "generally final"; may refund duplicate/erroneous charges, technical issues, legal obligations; not change of mind or non-use; request within 30 days. https://getqr.com/help/refund-policy
+- GetQR troubleshooting lists expired subscription or trial as the first reason a code stops working. https://getqr.com/help/qr-code-not-working
+- Price ($1 for 7 days, then $39.99 every four weeks) is from a third-party review, not GetQR's own page: https://www.fingerlakes1.com/2026/11/10/getqr-review-2026-is-it-worth-the-money-or-just-another-overpriced-qr-code-generator/ . Prices may vary by region.
+
 ## Internal links
 
 - /qr-code-generator — free static generator
@@ -39,6 +48,7 @@ Drafts must trace factual, numeric, and comparative claims to this file. A lint 
 - /blog/qr-code-subscription-trap — source-backed explanation of trial expiry
 - /blog/qr-code-stopped-working-how-to-fix — symptom-to-fix guide
 - /blog/what-happens-to-qr-codes-when-you-cancel — vendor cancellation policies side by side
+- /blog/qr-code-1-dollar-trial-subscription — $1 trial that renews: cancel, refund, printed code
 
 Do not link to queued posts until they exist in content/registry.json. Avoid multiple articles targeting the same intent as a working tool or use-case page.
 
