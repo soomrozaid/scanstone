@@ -4,7 +4,7 @@ If you paid $1 or so to download a QR code and were later charged a much bigger 
 
 The pattern people describe on Reddit, X and review sites goes like this. You make a QR code, the site says it's ready, and the download button leads to a checkout. The big number is $0.99 or $1. The smaller text says it's a trial that becomes a recurring plan after a few days.
 
-GetQR is the example in the news this month, so here is how it describes its own billing. Its help centre says GetQR ["is a subscription-based service"](https://getqr.com/help/subscription-recurring-charge), that "an active subscription is required to keep your QR codes live", and that your plan "activates automatically at the end of the 7-day trial period". Its [renewal article](https://getqr.com/help/automatically-renew-subscription) lists the plans that renew on their own: trial, 4-week, quarterly and annual. A [November 10 review on FingerLakes1](https://www.fingerlakes1.com/2026/11/10/getqr-review-2026-is-it-worth-the-money-or-just-another-overpriced-qr-code-generator/) lists the trial as $1 for 7 days, then $39.99 every four weeks.
+GetQR is the example in the news this month, so here is how it describes its own billing. Its help centre says GetQR ["is a subscription-based service"](https://getqr.com/help/subscription-recurring-charge), that "an active subscription is required to keep your QR codes live", and that your plan "activates automatically at the end of the 7-day trial period". Its [renewal article](https://getqr.com/help/automatically-renew-subscription) lists the plans that renew on their own: trial, 4-week, quarterly and annual. Section 9 of its [terms](https://getqr.com/eula) sets the trial at $1.00 USD (CA$1.50 in Canada) for 7 days, then a 4-week subscription at $39.99 USD (CA$44.99) unless you cancel before the trial ends. The terms also say the trial fee is non-refundable.
 
 GetQR isn't the only site that works this way, and the terms are on its pages. The problem is that people go in expecting to pay once for a file and come out with a subscription.
 
@@ -26,7 +26,7 @@ Write to the company soon, from the email address on the account. Say plainly th
 
 Read their refund policy first so you know what you're up against. GetQR's [refund policy](https://getqr.com/help/refund-policy) says payments are "generally final", lists duplicate or wrong charges and technical problems as cases it may refund, rules out change of mind and non-use, and asks for requests within 30 days of the charge.
 
-If the company says no and you think the terms weren't shown clearly, you can ask your bank or card issuer to dispute the charge. They'll review it; a refund isn't guaranteed, and acting quickly helps.
+If the company says no and you think the terms weren't shown clearly, you can ask your bank or card issuer to dispute the charge. They'll review it; a refund isn't guaranteed, and acting quickly helps. A dispute doesn't cancel the subscription, though. GetQR's terms say removing your card, a chargeback or contacting your bank "does not count as cancellation", so cancel on the site as well.
 
 ## What happens to the code you printed
 
@@ -53,7 +53,7 @@ At Scanstone there's no trial and no card needed to start. The free plan has 3 d
 
 ### Why was I charged $39.99 after paying $1 for a QR code?
 
-The $1 most likely paid for a short trial of a subscription. If you didn't cancel before the trial ended, the plan renewed at full price. GetQR, for example, says its plan activates automatically at the end of a 7-day trial.
+The $1 most likely paid for a short trial of a subscription. If you didn't cancel before the trial ended, the plan renewed at full price. GetQR's terms, for example, set a $1.00 USD 7-day trial that turns into $39.99 USD every 4 weeks unless you cancel.
 
 ### How do I stop GetQR from charging me again?
 
@@ -71,4 +71,4 @@ No, unless the code points to a domain you own. The pattern holds the original c
 
 Static generators that let you download without a card don't. Charges come from sites that ask for a card before the download, usually for a trial that renews. If a site asks for a card to download one QR code, read the terms beside the price first.
 
-_Sources: GetQR's help centre pages linked above and the FingerLakes1 review dated November 10, 2026, checked November 15, 2026. Scanstone plan details checked against our pricing page and terms on the same date._
+_Sources: GetQR's terms and help centre pages linked above, checked November 15, 2026. Scanstone plan details checked against our pricing page and terms on the same date._

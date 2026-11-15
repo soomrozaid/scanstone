@@ -36,7 +36,7 @@ Drafts must trace factual, numeric, and comparative claims to this file. A lint 
 - GetQR: cancel via Cancellation Portal or Account > Manage My Plan; cancelling doesn't reverse a processed charge. https://getqr.com/help/cancel-my-subscription ; no confirmation email means no cancellation: https://getqr.com/help/charge-after-cancel
 - GetQR refund policy: payments "generally final"; may refund duplicate/erroneous charges, technical issues, legal obligations; not change of mind or non-use; request within 30 days. https://getqr.com/help/refund-policy
 - GetQR troubleshooting lists expired subscription or trial as the first reason a code stops working. https://getqr.com/help/qr-code-not-working
-- Price ($1 for 7 days, then $39.99 every four weeks) is from a third-party review, not GetQR's own page: https://www.fingerlakes1.com/2026/11/10/getqr-review-2026-is-it-worth-the-money-or-just-another-overpriced-qr-code-generator/ . Prices may vary by region.
+- GetQR terms section 9 (https://getqr.com/eula): 7-day trial $1.00 USD / CA$1.50, non-refundable; then 4-week subscription $39.99 USD / CA$44.99 unless cancelled before the trial ends; removing payment method, chargeback or contacting the bank "does not count as cancellation".
 
 ## Internal links
 
