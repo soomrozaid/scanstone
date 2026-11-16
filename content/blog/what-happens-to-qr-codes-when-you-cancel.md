@@ -15,6 +15,8 @@ It depends on the company that made the code, and on whether the code is static 
 
 Static codes are the exception everywhere. Every company above that mentions them says static codes are not affected by a trial ending or a cancellation.
 
+Bitly's own QR codes (on bit.ly, separate from QRCG) also keep scanning after you drop to its free plan, but you can't edit them there. We cover that in [Scanstone vs Bitly](/blog/bitly-qr-code-alternative).
+
 ## The details, company by company
 
 ### QRCG by Bitly
