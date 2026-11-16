@@ -23,7 +23,8 @@
     "title": "What happens to your QR codes when you cancel? What 8 QR companies say",
     "description": "Whether your printed codes keep working after a trial ends or you cancel depends on the company. Their own policies side by side, with sources.",
     "date": "2026-11-14",
-    "category": "Comparison"
+    "category": "Comparison",
+    "updated": "2026-11-16"
   },
   {
     "slug": "qr-code-1-dollar-trial-subscription",
@@ -32,5 +33,13 @@
     "description": "That $1 QR code was likely a 7-day trial that renews. How to cancel, ask for a refund, and what happens to the code you already printed.",
     "date": "2026-11-15",
     "category": "Rescue"
+  },
+  {
+    "slug": "bitly-qr-code-alternative",
+    "collection": "blog",
+    "title": "Bitly QR code alternative: Scanstone vs Bitly, side by side",
+    "description": "Bitly QR codes don't expire, but editing one starts at $120 a year with 5 changes a month. How Bitly and Scanstone compare on price, edits and cancelling.",
+    "date": "2026-11-16",
+    "category": "Comparison"
   }
 ]

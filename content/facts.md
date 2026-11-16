@@ -38,6 +38,16 @@ Drafts must trace factual, numeric, and comparative claims to this file. A lint 
 - GetQR troubleshooting lists expired subscription or trial as the first reason a code stops working. https://getqr.com/help/qr-code-not-working
 - GetQR terms section 9 (https://getqr.com/eula): 7-day trial $1.00 USD / CA$1.50, non-refundable; then 4-week subscription $39.99 USD / CA$44.99 unless cancelled before the trial ends; removing payment method, chargeback or contacting the bank "does not count as cancellation".
 
+## External facts: Bitly, verified 2026-11-16 (used in /blog/bitly-qr-code-alternative)
+
+- Bitly pricing (USD, https://bitly.com/pages/pricing): Free "With Ads": 2 QR codes/month, 5 links/month, no redirects, no data history. Core $10/mo annual only ($120/yr): 5 QR/mo, 100 links/mo, 5 redirects/mo, 30 days data. Growth $29/mo yearly ($348) or $35 monthly: 10 QR/mo, 500 links/mo, 20 redirects/mo, custom domain, 120 days data. Premium $199/mo yearly ($2,388) or $300 monthly: 200 QR/mo, 110 redirects/mo, 1 year data. Plans auto-renew. Page markup has lower regional prices ("usd_low").
+- Bitly QR codes never expire; stop only if code or link deleted: https://support.bitly.com/hc/en-us/articles/12231200298125-Do-Bitly-Codes-ever-expire
+- Redirect (edit destination) on paid plans only, counts toward monthly redirect limit and as a new link if a link is attached: https://support.bitly.com/hc/en-us/articles/7995084842765-How-do-I-redirect-a-Bitly-Code
+- Downgrade: bit.ly links/codes keep working; own custom domain works while DNS points to Bitly, SSL not renewed; complimentary domain not renewed, links stop at registration expiry: https://support.bitly.com/hc/en-us/articles/360029870551-What-happens-when-I-downgrade-to-a-lower-subscription-plan
+- Account deletion: bit.ly back-halves "cannot be re-used": https://support.bitly.com/hc/en-us/articles/360059651871
+- Nov 2026 hijacked old bit.ly links (Bitly called it a flaw involving expired links; suspended accounts, disabling links): https://www.malwarebytes.com/blog/news/2026/11/hijacked-bitly-links-turn-old-brand-posts-into-offensive-redirects
+- Scanstone (from repo 2026-11-16): no edit limit on destinations (updateCode has no counter), random 8-character slugs, colours but no logo upload, no public API, no custom domains live (PR 5 pending).
+
 ## Internal links
 
 - /qr-code-generator — free static generator
@@ -49,6 +59,7 @@ Drafts must trace factual, numeric, and comparative claims to this file. A lint 
 - /blog/qr-code-stopped-working-how-to-fix — symptom-to-fix guide
 - /blog/what-happens-to-qr-codes-when-you-cancel — vendor cancellation policies side by side
 - /blog/qr-code-1-dollar-trial-subscription — $1 trial that renews: cancel, refund, printed code
+- /blog/bitly-qr-code-alternative: Scanstone vs Bitly, pricing, edits, cancelling
 
 Do not link to queued posts until they exist in content/registry.json. Avoid multiple articles targeting the same intent as a working tool or use-case page.
 
