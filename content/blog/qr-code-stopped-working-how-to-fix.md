@@ -75,6 +75,10 @@ The printed pattern doesn't expire. A static code keeps working as long as it's 
 
 Scan it and look at the address before opening it. If it's your own website or file, it's static. If it's a short link on a QR company's domain, it's dynamic and depends on that company.
 
+### Should I put a short link inside a QR code?
+
+Only if you'll need to change where it goes after printing. A short link puts a company between the scan and your page, and if that company retires the link, the code stops working. If your address won't change, a static code that points straight to your own site is the safer choice. If you do need to edit it later, pick a service that says in writing what happens to your links when you stop paying. That includes Scanstone: our scst.one links keep working after you cancel or downgrade, as [our terms](/terms) say, but they still depend on our redirect service being up.
+
 ### Can another QR company fix my deactivated code?
 
 No. Only the company whose short link is inside the code can make it work again. Any other service can only give you a new code to print.
