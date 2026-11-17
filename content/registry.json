@@ -24,7 +24,7 @@
     "description": "Whether your printed codes keep working after a trial ends or you cancel depends on the company. Their own policies side by side, with sources.",
     "date": "2026-11-14",
     "category": "Comparison",
-    "updated": "2026-11-16"
+    "updated": "2026-11-17"
   },
   {
     "slug": "qr-code-1-dollar-trial-subscription",
@@ -40,6 +40,14 @@
     "title": "Bitly QR code alternative: Scanstone vs Bitly, side by side",
     "description": "Bitly QR codes don't expire, but editing one starts at $120 a year with 5 changes a month. How Bitly and Scanstone compare on price, edits and cancelling.",
     "date": "2026-11-16",
+    "category": "Comparison"
+  },
+  {
+    "slug": "is-qr-code-generator-com-free",
+    "collection": "blog",
+    "title": "Is qr-code-generator.com free? QR Code Generator vs Scanstone",
+    "description": "Static codes are free. Dynamic codes get a 14-day trial, then switch off until you pay from $119.88 a year. Prices, cancelling, and a free alternative.",
+    "date": "2026-11-17",
     "category": "Comparison"
   }
 ]

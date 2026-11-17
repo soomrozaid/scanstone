@@ -48,6 +48,12 @@ Drafts must trace factual, numeric, and comparative claims to this file. A lint 
 - Nov 2026 hijacked old bit.ly links (Bitly called it a flaw involving expired links; suspended accounts, disabling links): https://www.malwarebytes.com/blog/news/2026/11/hijacked-bitly-links-turn-old-brand-posts-into-offensive-redirects
 - Scanstone (from repo 2026-11-16): no edit limit on destinations (updateCode has no counter), random 8-character slugs, colours but no logo upload, no public API, no custom domains live (PR 5 pending).
 
+## External facts: QRCG by Bitly, verified 2026-11-17 (used in /blog/is-qr-code-generator-com-free)
+
+- Pricing page https://www.qr-code-generator.com/pricing/ (prices from the page's data-acf-plan-prices, USD, VAT not included; "usd_low" regional prices lower): Starter $19.99/mo monthly or $9.99/mo billed annually ($119.88), 2 dynamic, 10,000 scans, 1 user. Advanced $18.99/mo billed annually ($227.88), 50 dynamic, unlimited scans, 100 bulk, 3,000 API requests/mo, 2 users. Professional $49.99/mo billed annually ($599.88), 250 dynamic, 500 bulk, 10,000 API, 5 users. "Start with 14 days for free". 22 code types. All subscriptions renew automatically. Pricing FAQ: cancel by "informal email", notice period 30 days before end of billing cycle.
+- Cancel help article (updated 2026-09-22) https://support.qr-code-generator.com/hc/en-us/articles/7665399659277 : cancel on Billing page at least one day before renewal; no refunds for unused time; no confirmation email; codes redirect through paid period plus 30 days (no edits), then account locked and codes go to a service page; reactivating restores.
+- Trial: dynamic codes deactivated at trial end, go to a service page; can't convert dynamic to static (article 7665013224205, updated 2026-08-21). Trial has no cost obligation (7665044670477). Trial includes up to 250 dynamic codes (7665056277261). Static codes without an account, tracking off; some designs need an account (7664248839053). Static codes remain active indefinitely (7665040427405). Dynamic short URL examples qrco.de, l.ead.me (7664170522893).
+
 ## Internal links
 
 - /qr-code-generator — free static generator
@@ -60,6 +66,7 @@ Drafts must trace factual, numeric, and comparative claims to this file. A lint 
 - /blog/what-happens-to-qr-codes-when-you-cancel — vendor cancellation policies side by side
 - /blog/qr-code-1-dollar-trial-subscription — $1 trial that renews: cancel, refund, printed code
 - /blog/bitly-qr-code-alternative: Scanstone vs Bitly, pricing, edits, cancelling
+- /blog/is-qr-code-generator-com-free: QRCG free vs trial, prices, cancelling, vs Scanstone
 
 Do not link to queued posts until they exist in content/registry.json. Avoid multiple articles targeting the same intent as a working tool or use-case page.
 
