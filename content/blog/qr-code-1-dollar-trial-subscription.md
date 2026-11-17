@@ -45,7 +45,7 @@ Our guide on [what to do when a QR code stops working](/blog/qr-code-stopped-wor
 - **Most QR codes don't need to be dynamic.** If the link won't change, a static code holds your link in the pattern itself and can't be switched off. Any free static generator will do; ours is at [/qr-code-generator](/qr-code-generator), with free PNG and SVG downloads, no account and no card.
 - **Read the checkout before paying anything.** If a QR download asks for a card, look for the words "trial", "then", "renews" or "every 4 weeks" near the price.
 - **Scan before you print.** Look at the address that comes up. If it's your own website, the code is static. If it's a short link on the QR company's domain, it's dynamic and depends on them.
-- **If you do want a dynamic code, check what happens when you stop paying.** We compared [8 companies' cancellation policies](/blog/what-happens-to-qr-codes-when-you-cancel) using their own help pages.
+- **If you do want a dynamic code, check what happens when you stop paying.** We compared [11 companies' cancellation policies](/blog/what-happens-to-qr-codes-when-you-cancel) using their own help pages.
 
 At Scanstone there's no trial and no card needed to start. The free plan has 3 dynamic codes or scst.one short links, and [Pro](/pricing) is $9 USD a month or $79 USD a year. If you cancel or stop paying, existing redirects keep working; that's in section 2 of our [terms](/terms).
 

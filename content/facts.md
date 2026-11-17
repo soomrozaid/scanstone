@@ -28,6 +28,9 @@ Drafts must trace factual, numeric, and comparative claims to this file. A lint 
 - QRCodeChimp: free 10 dynamic codes, 1,000 scans/month combined then paused; lapsed paid plan moves to free and pauses all but the last 10; cancel renewal by email a day before. https://www.qrcodechimp.com/pricing
 - Hovercode: cancel moves to free; first 3 dynamic codes, 3 short links, 1 multi-link page stay active; rest inactive, custom-domain items stop. https://hovercode.com/help/article/32-if-you-cancel
 - Flowcode: codes never expire, unlimited scans; on downgrade only the 2 most recent stay editable and others keep scanning (same article also mentions codes "deleted upon downgrading"). https://help.flowcode.com/en/articles/7061611-will-my-codes-pages-expire , https://help.flowcode.com/en/articles/6927459-what-happens-to-my-account-and-codes-when-i-downgrade
+- GetQR: no free plan; 7-day trial is paid and auto-renews; when the subscription ends codes stop redirecting and show a deactivated page; renewing restores them; deleting codes doesn't stop payments. https://docs.getqr.com/faq/general (verified 2026-11-17)
+- QRNew: card-free trial ends on its own and never charges; after paid access ends dynamic codes and hosted pages show "temporarily unavailable"; resubscribing restores them. https://qrnew.com/en/help/cancel-subscription (verified 2026-11-17)
+- QR Dex: cancel takes effect at end of billing period, then dynamic codes stop redirecting; data kept, reactivation restores instantly; no partial refunds on annual plans. https://qrdex.io/help/managing-your-subscription (verified 2026-11-17)
 
 ## External facts: trial subscriptions, verified 2026-11-15 (used in /blog/qr-code-1-dollar-trial-subscription)
 

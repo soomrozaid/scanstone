@@ -54,7 +54,7 @@ Scanstone does one job: QR codes and short links you can edit, that keep working
 
 ## If your QRCG code already stopped
 
-You have two choices. Pay QRCG again on the original account, which brings the printed codes back, or make a new code and reprint. Nobody else can revive the old code, because the short link inside it belongs to QRCG. Our guide to [a QR code that stopped working](/blog/qr-code-stopped-working-how-to-fix) walks through both, and [what 8 QR companies do when you cancel](/blog/what-happens-to-qr-codes-when-you-cancel) compares policies if you're choosing where to go next.
+You have two choices. Pay QRCG again on the original account, which brings the printed codes back, or make a new code and reprint. Nobody else can revive the old code, because the short link inside it belongs to QRCG. Our guide to [a QR code that stopped working](/blog/qr-code-stopped-working-how-to-fix) walks through both, and [what 11 QR companies do when you cancel](/blog/what-happens-to-qr-codes-when-you-cancel) compares policies if you're choosing where to go next.
 
 ## Common questions
 
