@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
-import { Wordmark } from "@/components/marketing/Wordmark";
+import { HomeLogo } from "@/components/marketing/HomeLogo";
 import { Badge, ButtonLink } from "@/components/ui";
 import { signOut } from "@/app/(auth)/actions";
 
@@ -28,9 +28,7 @@ export default async function AppLayout({
       <header className="border-b border-line bg-paper/90">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
           <div className="flex items-center gap-6">
-            <Link href="/dashboard" aria-label="Dashboard home">
-              <Wordmark size={20} />
-            </Link>
+            <HomeLogo size={20} />
             <nav
               aria-label="App"
               className="hidden items-center gap-4 text-sm text-ink-soft sm:flex"

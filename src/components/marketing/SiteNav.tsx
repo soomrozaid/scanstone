@@ -10,3 +10,8 @@ export async function SiteNav() {
   }
   return <NavBar signedIn={signedIn} />;
 }
+
+/** Shown while the server checks the session, so the page body can stream first. */
+export function SiteNavFallback() {
+  return <NavBar signedIn={false} />;
+}

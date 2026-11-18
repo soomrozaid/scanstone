@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Wordmark } from "@/components/marketing/Wordmark";
+import { HomeLogo } from "@/components/marketing/HomeLogo";
 
 // 5x7 module font for the digits, drawn like code modules.
 const GLYPHS: Record<string, string[]> = {
@@ -50,9 +50,7 @@ export default function NotFound() {
         aria-hidden="true"
       />
       <div className="relative">
-        <Link href="/" aria-label="Scanstone home" className="inline-block text-paper">
-          <Wordmark tone="paper" />
-        </Link>
+        <HomeLogo tone="paper" className="inline-block text-paper" />
         <div className="mt-12">
           <ModuleDigits text="404" />
         </div>

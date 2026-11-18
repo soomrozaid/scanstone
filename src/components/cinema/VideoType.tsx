@@ -86,7 +86,7 @@ export function VideoType({
     >
       <video
         ref={video}
-        className="absolute inset-0 h-full w-full object-cover"
+        className="absolute inset-0 h-full w-full object-cover opacity-50"
         muted
         loop
         playsInline
@@ -97,18 +97,21 @@ export function VideoType({
         <source data-src="/media/tiles-loop.webm" type="video/webm" />
         <source data-src="/media/tiles-loop.mp4" type="video/mp4" />
       </video>
+      {/* Veil keeps the type above WCAG AA no matter how dark the loop is.
+          mix-blend-multiply on night made the white letters nearly black. */}
       <div
-        className="relative bg-night py-10 mix-blend-multiply sm:py-16"
+        className="pointer-events-none absolute inset-0 bg-night/70"
         aria-hidden="true"
-      >
+      />
+      <div className="relative py-10 sm:py-16" aria-hidden="true">
         {lines.map((l, i) => (
           <div
             key={l}
             data-line
-            className={`display whitespace-nowrap py-1 text-[clamp(4.5rem,15vw,15rem)] font-semibold leading-[0.9] tracking-[-0.04em] text-white ${i % 2 ? "italic" : ""}`}
+            className={`display vt-line whitespace-nowrap py-1 text-[clamp(4.5rem,15vw,15rem)] font-semibold leading-[0.9] tracking-[-0.04em] ${i % 2 ? "italic" : ""}`}
           >
             {l}
-            <span className="px-[0.2em] text-white/40">·</span>
+            <span className="px-[0.2em] opacity-60">·</span>
             {l}
           </div>
         ))}

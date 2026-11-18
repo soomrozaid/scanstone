@@ -1,6 +1,5 @@
-import Link from "next/link";
 import type { ReactNode } from "react";
-import { Wordmark } from "@/components/marketing/Wordmark";
+import { HomeLogo } from "@/components/marketing/HomeLogo";
 
 export function AuthShell({
   title,
@@ -16,9 +15,7 @@ export function AuthShell({
   return (
     <main className="grid min-h-screen lg:grid-cols-[1fr_0.9fr]">
       <div className="flex flex-col items-center justify-center px-5 py-12">
-        <Link href="/" className="mb-10" aria-label="Scanstone home">
-          <Wordmark />
-        </Link>
+        <HomeLogo className="mb-10" />
         <div className="w-full max-w-sm rounded-[24px] border border-line bg-white/65 p-7 shadow-[var(--shadow-card)] sm:p-8">
           <h1 className="display text-3xl">{title}</h1>
           {subtitle ? (
