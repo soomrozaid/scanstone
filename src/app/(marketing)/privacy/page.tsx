@@ -99,7 +99,9 @@ export default function PrivacyPage() {
             truncated copy of the User-Agent and Accept-Language headers. We
             do not use your IP address as the identifier, and we do not store
             IP addresses in this table. No account is required. We do not
-            store the contents of a static code in these events.
+            store the contents of a static code in these events. If you sign
+            in or create an account, generation events from that browser are
+            linked to your account.
           </p>
         </section>
 

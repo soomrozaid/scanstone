@@ -8,7 +8,7 @@ import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { envServer } from "@/config/env.server";
 import { log } from "@/lib/log";
 import { authCallbackUrl, postAuthPath } from "@/lib/checkout-intent";
-import { claimGuestLinksFromCookies } from "@/lib/claim-guest-from-cookies";
+import { onAuthComplete } from "@/lib/on-auth-complete";
 
 export type AuthState = { error?: string; message?: string } | null;
 
@@ -69,7 +69,7 @@ export async function signUp(
   }
   // With autoconfirm enabled a session is returned — go straight to work.
   if (data.session) {
-    if (data.user) await claimGuestLinksFromCookies(data.user.id);
+    if (data.user) await onAuthComplete(data.user.id);
     redirect(destination);
   }
   return {
@@ -94,7 +94,7 @@ export async function signIn(
   const supabase = await createSupabaseServerClient();
   const { data, error } = await supabase.auth.signInWithPassword(parsed.data);
   if (error) return { error: "Wrong email or password." };
-  if (data.user) await claimGuestLinksFromCookies(data.user.id);
+  if (data.user) await onAuthComplete(data.user.id);
 
   redirect(postAuthPath(formData.get("plan"), formData.get("next")));
 }
@@ -159,6 +159,7 @@ export async function updatePassword(
 
   const { error } = await supabase.auth.updateUser({ password: password.data });
   if (error) return { error: error.message };
+  await onAuthComplete(user.id);
   redirect("/dashboard");
 }
 

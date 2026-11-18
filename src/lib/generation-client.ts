@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { getOrCreateAnonId } from "@/lib/anon-id-client";
 import type { GenerationAction, GenerationKind } from "@/lib/generation-types";
+import { noteLocalGeneration } from "@/lib/signin-prompt-state";
 
 const GENERATE_DEBOUNCE_MS = 800;
 
@@ -12,6 +13,7 @@ export async function reportGenerationEvent(input: {
 }): Promise<void> {
   const anon_id = getOrCreateAnonId();
   if (!anon_id) return;
+  if (input.action === "generate") noteLocalGeneration();
   try {
     await fetch("/api/events/generation", {
       method: "POST",
