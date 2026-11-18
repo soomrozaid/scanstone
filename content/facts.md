@@ -57,6 +57,14 @@ Drafts must trace factual, numeric, and comparative claims to this file. A lint 
 - Cancel help article (updated 2026-09-22) https://support.qr-code-generator.com/hc/en-us/articles/7665399659277 : cancel on Billing page at least one day before renewal; no refunds for unused time; no confirmation email; codes redirect through paid period plus 30 days (no edits), then account locked and codes go to a service page; reactivating restores.
 - Trial: dynamic codes deactivated at trial end, go to a service page; can't convert dynamic to static (article 7665013224205, updated 2026-08-21). Trial has no cost obligation (7665044670477). Trial includes up to 250 dynamic codes (7665056277261). Static codes without an account, tracking off; some designs need an account (7664248839053). Static codes remain active indefinitely (7665040427405). Dynamic short URL examples qrco.de, l.ead.me (7664170522893).
 
+## External facts: Uniqode, verified 2026-11-18 (used in /blog/uniqode-alternative)
+
+- Pricing page https://www.uniqode.com/pricing (USD, only yearly billing shown): Essential $9/mo billed yearly, 1 user, 15 dynamic, 5 Linkpages, 50,000 scans/yr per account, analytics 30 days in table (FAQ says 60). Core $49/mo yearly, 250 dynamic, 1,000,000 scans/yr, 90 days, API 250,000 requests/mo. Plus $99/mo yearly, 3 users, 500 dynamic, 2,000,000 scans/yr, 180 days, custom domain add-on $500/yr. Business+ custom: SSO, multi-org, custom domain, pay by invoice. Lists SOC 2, GDPR, HIPAA.
+- Pricing FAQ: 14-day trial, no card, not charged at end; dynamic codes inactive at trial end unless upgraded; static keep working. Scan limit reached: "those QR Codes stop working". Cancel: dynamic codes "stop working as soon as your subscription ends". 30-day money-back guarantee.
+- Help: reactivation needs the same account https://docs.uniqode.com/en/articles/9297614-how-do-i-reactivate-my-qr-codes ; cancel from Billing, email not accepted, data retained 60 days, refund of auto-renewal charges on request https://docs.uniqode.com/en/articles/1818577-canceling-your-subscription ; after renewal date dynamic codes and campaigns stop, dashboard access ends, no new static codes, reactivation restores https://docs.uniqode.com/en/articles/17190927-what-happens-to-my-qr-codes-campaigns-and-data-if-i-cancel
+- Terms https://www.uniqode.com/terms-of-service section 23.1: written notice no later than 90 days before a Renewal Term. Site JSON-LD Organization alternateName "Beaconstac".
+- Scanstone (repo 2026-11-18): pricing page lists scans, clicks and redirects as unlimited on Free and Pro; terms section 2 commits to at least 90 days' email notice and an export window if Scanstone permanently shuts down.
+
 ## Internal links
 
 - /qr-code-generator — free static generator
@@ -70,6 +78,7 @@ Drafts must trace factual, numeric, and comparative claims to this file. A lint 
 - /blog/qr-code-1-dollar-trial-subscription — $1 trial that renews: cancel, refund, printed code
 - /blog/bitly-qr-code-alternative: Scanstone vs Bitly, pricing, edits, cancelling
 - /blog/is-qr-code-generator-com-free: QRCG free vs trial, prices, cancelling, vs Scanstone
+- /blog/uniqode-alternative: Uniqode trial, yearly prices, scan caps, cancelling, vs Scanstone
 
 Do not link to queued posts until they exist in content/registry.json. Avoid multiple articles targeting the same intent as a working tool or use-case page.
 
