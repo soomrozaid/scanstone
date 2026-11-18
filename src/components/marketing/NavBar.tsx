@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Wordmark } from "./Wordmark";
+import { HomeLogo } from "./HomeLogo";
 
 const LINKS = [
   { href: "/#qr", label: "Create QR" },
@@ -64,9 +64,7 @@ export function NavBar({ signedIn }: { signedIn: boolean }) {
           aria-label="Main"
           className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-8"
         >
-          <Link href="/" aria-label="Scanstone home" className="relative z-50">
-            <Wordmark tone={dark ? "paper" : "ink"} />
-          </Link>
+          <HomeLogo tone={dark ? "paper" : "ink"} className="relative z-50" />
           <ul className="hidden items-center gap-1 text-sm lg:flex">
             {LINKS.map((l) => {
               const active = !l.href.includes("#") && pathname === l.href;
@@ -148,9 +146,14 @@ export function NavBar({ signedIn }: { signedIn: boolean }) {
         <div className="gridlines-night pointer-events-none absolute inset-0 opacity-40" aria-hidden="true" />
         <div className="relative px-5 pb-10 pt-6">
         <div className="mb-6 flex items-center justify-between gap-3">
-          <p className="font-mono text-xs uppercase tracking-[0.2em] text-copper-bright">
-            Menu
-          </p>
+          <HomeLogo
+            tone="paper"
+            className="relative z-50"
+            onClick={() => {
+              setOpen(false);
+              document.getElementById("mobile-menu")?.hidePopover();
+            }}
+          />
           <button
             type="button"
             popoverTarget="mobile-menu"

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { LazyVideo } from "@/components/cinema/LazyVideo";
-import { Wordmark } from "./Wordmark";
+import { HomeLogo } from "./HomeLogo";
 
 const columns = [
   {
@@ -43,7 +43,7 @@ export function SiteFooter() {
       <div className="relative mx-auto max-w-7xl px-5 pt-20 sm:px-8">
         <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-[1.3fr_1fr_1fr_1fr] lg:gap-12">
           <div className="col-span-2 sm:col-span-3 lg:col-span-1">
-            <Wordmark tone="paper" />
+            <HomeLogo tone="paper" />
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-paper/80">
               QR codes for print. Short scst.one links for sharing. Free static
               codes forever, and redirects that keep working even if you stop

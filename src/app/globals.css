@@ -544,6 +544,24 @@ html.lenis body {
 .lenis.lenis-smooth {
   scroll-behavior: auto !important;
 }
+
+/* Kinetic type after the homepage hero: light letters on night, always
+   above 4.5:1 even when the tile loop is dark. */
+.vt-line {
+  color: #f4efe4;
+  background-image: linear-gradient(180deg, #f7f3ea 0%, #d9efe6 48%, #f3d2b0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+@supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+  .vt-line {
+    color: #f4efe4;
+    -webkit-text-fill-color: #f4efe4;
+    background-image: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .film-grain,
   .curtain,

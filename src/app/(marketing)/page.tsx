@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import Link from "next/link";
 import { HeroStage } from "@/components/hero/HeroStage";
 import { HomeTool } from "@/components/hero/HomeTool";
@@ -174,27 +175,41 @@ const SEGMENTS = [
   },
 ];
 
-export default async function LandingPage({
-  searchParams,
-}: {
-  searchParams: Promise<Record<string, string | string[] | undefined>>;
-}) {
-  const params = await searchParams;
-  const missingCode = params["missing-code"] === "1";
+async function HomeToolWithAuth() {
   let signedIn = false;
   try {
     signedIn = Boolean(await getUser());
   } catch {
     signedIn = false;
   }
+  return <HomeTool signedIn={signedIn} />;
+}
+
+async function MissingCodeBanner({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const params = await searchParams;
+  if (params["missing-code"] !== "1") return null;
+  return (
+    <div className="relative z-20 border-b border-line bg-paper">
+      <MissingCodeNotice />
+    </div>
+  );
+}
+
+export default function LandingPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
   return (
     <main id="main" tabIndex={-1}>
       <HomeJsonLd />
-      {missingCode ? (
-        <div className="relative z-20 border-b border-line bg-paper">
-          <MissingCodeNotice />
-        </div>
-      ) : null}
+      <Suspense fallback={null}>
+        <MissingCodeBanner searchParams={searchParams} />
+      </Suspense>
       <StickyCta />
       <ChapterRail chapters={CHAPTERS} />
 
@@ -226,7 +241,9 @@ export default async function LandingPage({
               Paste a URL. A QR code appears as you type, ready to download. Or
               save a short link you can edit later.
             </p>
-            <HomeTool signedIn={signedIn} />
+            <Suspense fallback={<HomeTool signedIn={false} />}>
+              <HomeToolWithAuth />
+            </Suspense>
           </div>
         </Container>
       </CinemaHero>
