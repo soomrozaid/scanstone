@@ -215,7 +215,7 @@ export default async function LandingPage({
           />
         }
       >
-        <Container className="w-full pb-8 pt-20 sm:pb-16 lg:pt-28">
+        <Container className="w-full py-16 sm:pb-16 sm:pt-20 lg:pt-28">
           <div id="tool" className="home-tool w-full max-w-xl">
             <div id="qr" className="scroll-mt-24" />
             <div id="short-link" className="scroll-mt-24" />
@@ -239,7 +239,7 @@ export default async function LandingPage({
 
       {/* HOW IT WORKS */}
       <LazyScanStory qrUrl={`${envClient.APP_URL}/demo`} />
-      <section id="how-it-works-static" aria-labelledby="how-h-static" className="hidden scroll-mt-20 py-24 motion-reduce:block sm:py-32">
+      <section id="how-it-works-static" aria-labelledby="how-h-static" className="how-static scroll-mt-20 py-24 sm:py-32">
         <Container>
           <Reveal>
             <Fig n="01">How it works</Fig>

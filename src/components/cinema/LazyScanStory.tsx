@@ -16,7 +16,7 @@ function StoryShell({ shellRef }: { shellRef?: React.Ref<HTMLElement> }) {
       id="how-it-works"
       aria-labelledby="how-h"
       data-nav="dark"
-      className="relative scroll-mt-0 bg-night text-paper motion-reduce:hidden"
+      className="how-cinematic relative scroll-mt-0 bg-night text-paper motion-reduce:hidden"
     >
       <h2 id="how-h" className="sr-only">
         How it works
