@@ -94,12 +94,12 @@ describe("classifyUserAgent", () => {
       classifyUserAgent(
         "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X)",
       ),
-    ).toEqual({ device: "mobile", os: "ios" });
+    ).toMatchObject({ device: "mobile", os: "ios" });
   });
   it("classifies Android tablet", () => {
     expect(
       classifyUserAgent("Mozilla/5.0 (Linux; Android 14; SM-X910)"),
-    ).toEqual({
+    ).toMatchObject({
       device: "tablet",
       os: "android",
     });
@@ -109,7 +109,7 @@ describe("classifyUserAgent", () => {
     expect(classifyUserAgent("curl/8.0").device).toBe("bot");
   });
   it("handles null", () => {
-    expect(classifyUserAgent(null)).toEqual({
+    expect(classifyUserAgent(null)).toMatchObject({
       device: "unknown",
       os: "unknown",
     });

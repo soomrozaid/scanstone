@@ -9,6 +9,8 @@ import {
   isValidGuestNoticeAcceptance,
 } from "@/lib/guest-constants";
 import { log } from "@/lib/log";
+import { ANON_ID_COOKIE } from "@/lib/anon-id";
+import { tryRecordDynamicGeneration } from "@/lib/generation-events";
 
 export type GuestLinkState =
   | { error?: string; shortUrl?: string; slug?: string }
@@ -68,6 +70,15 @@ export async function createGuestShortUrl(
   if (!result.ok) return { error: result.error };
 
   jar.set(result.cookieOptions.name, result.cookieValue, result.cookieOptions);
+  const headerList = await headers();
+  tryRecordDynamicGeneration({
+    anonId: jar.get(ANON_ID_COOKIE)?.value,
+    pagePath: headerList.get("referer") ?? "/",
+    codeId: result.id,
+    userId: null,
+    headers: headerList,
+    ip,
+  });
   log("info", "guest_link_created", { slug: result.slug });
   return { shortUrl: result.shortUrl, slug: result.slug };
 }

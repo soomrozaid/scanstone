@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Fraunces, Inter, IBM_Plex_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
+import { AnonIdBootstrap } from "@/components/analytics/AnonIdBootstrap";
 import { envClient } from "@/config/env.client";
 import "./globals.css";
 
@@ -70,6 +71,7 @@ export default function RootLayout({
       >
         <OrganizationJsonLd />
         {children}
+        <AnonIdBootstrap />
         <Analytics />
       </body>
     </html>

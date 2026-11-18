@@ -6,6 +6,7 @@ import { QRPreview } from "@/components/qr/QRPreview";
 import { DesignControls } from "@/components/qr/DesignControls";
 import { track } from "@vercel/analytics";
 import { downloadPng, downloadSvg } from "@/components/qr/download";
+import { useStaticGenerationEvents } from "@/lib/generation-client";
 import { wifiPayload, vcardPayload } from "@/lib/qr/payloads";
 import { isScannableCombo } from "@/lib/qr/contrast";
 import { Button, Input, Label, Card } from "@/components/ui";
@@ -85,6 +86,7 @@ export function StaticGenerator({
   const tooLong = payload.length > MAX_LEN;
   const scannable = isScannableCombo(design.fg, design.bg);
   const ready = payload.length > 0 && !tooLong && scannable;
+  const { recordDownload } = useStaticGenerationEvents(payload, ready);
   // Re-carve animation: settles 250ms after the last keystroke.
   const [carveKey, setCarveKey] = useState("example");
   useEffect(() => {
@@ -293,6 +295,7 @@ export function StaticGenerator({
                 setDownloadError(null);
                 try {
                   await downloadPng(payload, design, "scanstone-qr");
+                  recordDownload();
                   track("qr_downloaded", { format: "png", mode });
                 } catch {
                   setDownloadError("Download failed. Try another browser.");
@@ -310,6 +313,7 @@ export function StaticGenerator({
                 setDownloadError(null);
                 try {
                   downloadSvg(payload, design, "scanstone-qr");
+                  recordDownload();
                   track("qr_downloaded", { format: "svg", mode });
                 } catch {
                   setDownloadError("Download failed. Try another browser.");
