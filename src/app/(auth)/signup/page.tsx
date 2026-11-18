@@ -12,7 +12,7 @@ export default function SignupPage() {
   return (
     <AuthShell
       title="Create your account"
-      subtitle="Three dynamic codes free. Your redirects never stop working — that's the covenant."
+      subtitle="Free, no card needed. Includes 3 short links or editable QR codes, and your redirects keep working even if you never upgrade."
       footer={
         <>
           Already have an account?{" "}

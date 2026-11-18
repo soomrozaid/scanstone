@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { HomeTool } from "@/components/hero/HomeTool";
+import { MissingCodeNotice } from "@/components/marketing/MissingCodeNotice";
 import { ButtonLink, Card, Badge } from "@/components/ui";
 import { getUser } from "@/lib/supabase/server";
 import { ScanChart } from "@/components/analytics/ScanChart";
@@ -90,11 +91,18 @@ const DEMO_SERIES = {
   total: 731,
 };
 
-export default async function LandingPage() {
-  const user = await getUser();
+export default async function LandingPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const [user, params] = await Promise.all([getUser(), searchParams]);
+  const missingCode = params["missing-code"] === "1";
   return (
     <main id="main">
       <HomeJsonLd />
+
+      {missingCode ? <MissingCodeNotice /> : null}
 
       <HomeTool signedIn={Boolean(user)} />
 

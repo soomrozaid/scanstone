@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getUser } from "@/lib/supabase/server";
 import { ButtonLink } from "@/components/ui";
 import { Wordmark } from "./Wordmark";
+import { MobileMenu } from "./MobileMenu";
 
 export async function SiteNav() {
   const user = await getUser();
@@ -35,21 +36,30 @@ export async function SiteNav() {
             Pricing
           </Link>
         </div>
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-2 sm:gap-2.5">
           {user ? (
             <ButtonLink href="/dashboard" variant="primary">
               Dashboard
             </ButtonLink>
           ) : (
             <>
-              <ButtonLink href="/login" variant="ghost">
+              <ButtonLink
+                href="/login"
+                variant="ghost"
+                className="max-sm:hidden"
+              >
                 Log in
               </ButtonLink>
-              <ButtonLink href="/signup" variant="primary">
+              <ButtonLink
+                href="/signup"
+                variant="primary"
+                className="whitespace-nowrap max-sm:px-3"
+              >
                 Get started
               </ButtonLink>
             </>
           )}
+          <MobileMenu signedIn={Boolean(user)} />
         </div>
       </nav>
     </header>

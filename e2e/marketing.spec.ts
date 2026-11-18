@@ -320,3 +320,30 @@ test("restaurant page is discoverable and offers a working free tool @mobile @sm
     page.getByRole("button", { name: "PNG", exact: true }),
   ).toBeEnabled();
 });
+
+test("phone header menu reaches pricing @mobile", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/");
+  const menu = page.getByRole("button", { name: "Menu" });
+  await expect(menu).toBeVisible();
+  await expect(menu).toHaveAttribute("aria-expanded", "false");
+  await menu.click();
+  await expect(menu).toHaveAttribute("aria-expanded", "true");
+  await page.getByRole("link", { name: "Pricing" }).first().click();
+  await expect(page).toHaveURL(/\/pricing$/);
+  await expect(page.getByRole("button", { name: "Menu" })).toHaveAttribute(
+    "aria-expanded",
+    "false",
+  );
+});
+
+test("a missing code explains itself instead of a bare homepage @smoke", async ({
+  page,
+}) => {
+  await page.goto("/?missing-code=1");
+  await expect(page.getByTestId("missing-code-notice")).toContainText(
+    "isn't active",
+  );
+  await page.goto("/");
+  await expect(page.getByTestId("missing-code-notice")).toHaveCount(0);
+});

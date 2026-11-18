@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ButtonLink, Card, Badge } from "@/components/ui";
+import { ButtonLink, Card } from "@/components/ui";
 import { PRICING, pricingSoftwareJsonLd } from "@/lib/plans";
 import { envClient } from "@/config/env.client";
 
@@ -68,16 +68,19 @@ export default function PricingPage() {
         <Card className="p-7">
           <h2 className="engraved text-xl font-semibold">Free</h2>
           <p className="mt-1 text-4xl font-semibold">$0</p>
-          <p className="mt-1 text-sm text-ink-faint">forever</p>
+          <p className="mt-1 text-sm text-ink-faint">forever, no card needed</p>
+          <ul className="mt-3 space-y-1.5 text-sm leading-relaxed text-ink-soft">
+            <li>Unlimited static QR codes, no account needed</li>
+            <li>3 short links or editable QR codes in total</li>
+            <li>Unlimited scans and clicks</li>
+            <li>30 days of scan and click history</li>
+          </ul>
           <ButtonLink href="/signup" variant="ghost" className="mt-5 w-full">
             Start free
           </ButtonLink>
         </Card>
         <Card className="border-verdigris/50 p-7 ring-1 ring-verdigris/30">
-          <div className="flex items-center justify-between">
-            <h2 className="engraved text-xl font-semibold">Pro</h2>
-            <Badge tone="green">Most popular</Badge>
-          </div>
+          <h2 className="engraved text-xl font-semibold">Pro</h2>
           <p className="mt-1 text-4xl font-semibold">
             $9
             <span className="text-base font-normal text-ink-faint">
@@ -143,6 +146,22 @@ export default function PricingPage() {
           you cancel. Cancel yourself anytime from the billing portal, where
           your invoices are too. Pro extras stay on until the end of the period
           you paid for, and your codes and redirects are untouched.
+        </p>
+        <p>
+          <strong>If Scanstone ever shuts down:</strong> we commit to at least
+          90 days&apos; email notice and a window to export your data, so you
+          have time to move or reprint. It&apos;s in section 2 of{" "}
+          <Link href="/terms" className="text-verdigris-deep underline">
+            our terms
+          </Link>
+          . See also{" "}
+          <Link
+            href="/blog/what-happens-to-qr-codes-when-you-cancel"
+            className="text-verdigris-deep underline"
+          >
+            what happens to QR codes when you cancel
+          </Link>{" "}
+          at other companies.
         </p>
       </div>
     </main>
