@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  useEffect,
   useId,
   useRef,
   useState,
@@ -16,6 +17,7 @@ import { QRPreview } from "@/components/qr/QRPreview";
 import { DesignControls } from "@/components/qr/DesignControls";
 import { downloadPng, downloadSvg } from "@/components/qr/download";
 import { useStaticGenerationEvents } from "@/lib/generation-client";
+import { noteLocalGeneration } from "@/lib/signin-prompt-state";
 import { CopyUrlButton } from "@/components/dashboard/CopyUrlButton";
 import { GuestNoticeDialog } from "@/components/hero/GuestNoticeDialog";
 import { Button, ButtonLink, FieldError, Input } from "@/components/ui";
@@ -99,6 +101,14 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
   );
   const [mode, setMode] = useState<Mode | null>(null);
   const currentMode = mode ?? modeFromHash;
+  const guestShortUrl = !signedIn && guestState?.shortUrl ? guestState.shortUrl : null;
+  const notedGuestUrl = useRef<string | null>(null);
+  useEffect(() => {
+    if (guestShortUrl && notedGuestUrl.current !== guestShortUrl) {
+      notedGuestUrl.current = guestShortUrl;
+      noteLocalGeneration();
+    }
+  }, [guestShortUrl]);
 
   const scannable = isScannableCombo(design.fg, design.bg);
   const qrReady =

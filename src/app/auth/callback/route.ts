@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { envServer } from "@/config/env.server";
 import { safeNextPath } from "@/lib/checkout-intent";
-import { claimGuestLinksFromCookies } from "@/lib/claim-guest-from-cookies";
+import { onAuthComplete } from "@/lib/on-auth-complete";
 
 /** Exchanges the Supabase auth code (email confirm, magic link, reset) for a session. */
 export async function GET(request: Request) {
@@ -14,7 +14,7 @@ export async function GET(request: Request) {
     const supabase = await createSupabaseServerClient();
     const { data, error } = await supabase.auth.exchangeCodeForSession(code);
     if (!error) {
-      if (data.user) await claimGuestLinksFromCookies(data.user.id);
+      if (data.user) await onAuthComplete(data.user.id);
       return NextResponse.redirect(`${envServer.APP_URL}${next}`);
     }
   }
