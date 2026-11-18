@@ -7,6 +7,7 @@ import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { envServer } from "@/config/env.server";
 import { log } from "@/lib/log";
+import { authCallbackUrl, postAuthPath } from "@/lib/checkout-intent";
 
 export type AuthState = { error?: string; message?: string } | null;
 
@@ -48,12 +49,15 @@ export async function signUp(
     return { error: "Too many attempts. Try again in a few minutes." };
   }
 
+  // A Pro choice from /pricing survives email confirmation via the callback URL.
+  const destination = postAuthPath(formData.get("plan"), "/dashboard");
+
   const supabase = await createSupabaseServerClient();
   const { data, error } = await supabase.auth.signUp({
     email: parsed.data.email,
     password: parsed.data.password,
     options: {
-      emailRedirectTo: `${envServer.APP_URL}/auth/callback?next=/dashboard`,
+      emailRedirectTo: authCallbackUrl(envServer.APP_URL, destination),
     },
   });
 
@@ -62,7 +66,7 @@ export async function signUp(
     return { error: error.message };
   }
   // With autoconfirm enabled a session is returned — go straight to work.
-  if (data.session) redirect("/dashboard");
+  if (data.session) redirect(destination);
   return {
     message:
       "Check your inbox — we sent a confirmation link. Click it to finish creating your account.",
@@ -86,12 +90,7 @@ export async function signIn(
   const { error } = await supabase.auth.signInWithPassword(parsed.data);
   if (error) return { error: "Wrong email or password." };
 
-  const next = formData.get("next");
-  redirect(
-    typeof next === "string" && next.startsWith("/") && !next.startsWith("//")
-      ? next
-      : "/dashboard",
-  );
+  redirect(postAuthPath(formData.get("plan"), formData.get("next")));
 }
 
 export async function sendMagicLink(
@@ -104,11 +103,12 @@ export async function sendMagicLink(
     return { error: "Too many attempts. Try again in a few minutes." };
   }
 
+  const destination = postAuthPath(formData.get("plan"), formData.get("next"));
   const supabase = await createSupabaseServerClient();
   const { error } = await supabase.auth.signInWithOtp({
     email: email.data,
     options: {
-      emailRedirectTo: `${envServer.APP_URL}/auth/callback?next=/dashboard`,
+      emailRedirectTo: authCallbackUrl(envServer.APP_URL, destination),
     },
   });
   if (error) return { error: error.message };

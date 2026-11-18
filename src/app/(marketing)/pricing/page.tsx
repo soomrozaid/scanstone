@@ -98,9 +98,22 @@ export default function PricingPage() {
             </Link>
             .
           </p>
-          <ButtonLink href="/signup" variant="accent" className="mt-5 w-full">
-            Go Pro
-          </ButtonLink>
+          <div className="mt-5 grid gap-2">
+            <ButtonLink
+              href="/signup?plan=monthly"
+              variant="accent"
+              className="w-full"
+            >
+              Go Pro monthly, {PRICING.monthly.label}
+            </ButtonLink>
+            <ButtonLink
+              href="/signup?plan=yearly"
+              variant="ghost"
+              className="w-full"
+            >
+              Go Pro yearly, {PRICING.yearly.label}
+            </ButtonLink>
+          </div>
         </Card>
       </div>
 
