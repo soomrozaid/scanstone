@@ -4,8 +4,11 @@ import { SLUG_PATTERN } from "@/lib/slug";
 import { classifyUserAgent } from "@/lib/ua";
 import { log } from "@/lib/log";
 import { envServer } from "@/config/env.server";
+import { lookupWithRetry, tryAgainResponse } from "@/lib/redirect-lookup";
 
 export const dynamic = "force-dynamic";
+
+const LOOKUP_TIMEOUT_MS = 3000;
 
 /**
  * THE COVENANT LIVES HERE. This is the redirect fast path: look up the slug,
@@ -23,15 +26,30 @@ export async function GET(
   }
 
   const admin = createSupabaseAdminClient();
-  const { data: code, error } = await admin
-    .from("qr_codes")
-    .select("id, destination_url")
-    .eq("slug", slug)
-    .single();
+  // maybeSingle(): no row is data=null with no error, so `error` only means
+  // the lookup itself failed. Retry once before giving up.
+  const result = await lookupWithRetry<{ id: string; destination_url: string }>(
+    async () =>
+      await admin
+        .from("qr_codes")
+        .select("id, destination_url")
+        .eq("slug", slug)
+        // Our own single retry replaces the client's built-in backoff, which
+        // can keep a scanner waiting over 10 seconds. Cap each attempt too.
+        .abortSignal(AbortSignal.timeout(LOOKUP_TIMEOUT_MS))
+        .maybeSingle()
+        .retry(false),
+  );
 
-  if (error || !code) {
+  if (result.kind === "missing") {
     return NextResponse.redirect(`${envServer.APP_URL}/?missing-code=1`, 302);
   }
+  if (result.kind === "error") {
+    log("error", "redirect_lookup_failed", { slug, error: result.error });
+    // The code may be fine; never tell a scanner it doesn't exist.
+    return tryAgainResponse();
+  }
+  const code = result.row;
 
   // Fire-and-forget scan recording — never blocks or breaks the redirect.
   const headers = request.headers;
