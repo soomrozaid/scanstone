@@ -262,7 +262,7 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
                     event.preventDefault();
                     makeQr(url, true);
                   }}
-                  className="flex flex-col gap-2 sm:flex-row sm:items-stretch"
+                  className="flex flex-col gap-2 md:flex-row md:items-stretch"
                 >
                   <Input
                     ref={inputRef}
@@ -299,7 +299,7 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
                   }}
                   className="space-y-2"
                 >
-                  <div className="flex flex-col gap-2 sm:flex-row sm:items-stretch">
+                  <div className="flex flex-col gap-2 md:flex-row md:items-stretch">
                     <Input
                       ref={inputRef}
                       id="home-tool-url"
@@ -336,7 +336,7 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
                     event.preventDefault();
                     openGuestNotice();
                   }}
-                  className="flex flex-col gap-2 sm:flex-row sm:items-stretch"
+                  className="flex flex-col gap-2 md:flex-row md:items-stretch"
                 >
                   <Input
                     ref={inputRef}

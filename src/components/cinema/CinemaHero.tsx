@@ -92,6 +92,9 @@ export function CinemaHero({
   useEffect(() => {
     const el = sectionRef.current;
     if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // On phones the scale/yPercent scrub made the full-screen night hero
+    // feel like the end of the page. Leave the hero still below md.
+    if (window.matchMedia("(max-width: 767px)").matches) return;
     let kill = () => {};
     const cancel = onIdle(async () => {
       const [{ gsap }, { ScrollTrigger }] = await Promise.all([import("gsap"), import("gsap/ScrollTrigger")]);
@@ -197,7 +200,7 @@ export function CinemaHero({
         an event schedule.
       </p>
 
-      <div data-hero-copy className={`relative z-10 ${layout === "tool" ? "flex shrink-0 grow items-start sm:items-center" : "mt-auto"}`}>{children}</div>
+      <div data-hero-copy className={`relative z-10 ${layout === "tool" ? "flex shrink-0 grow items-center" : "mt-auto"}`}>{children}</div>
       <div data-hero-shade className="pointer-events-none absolute inset-0 z-20 bg-night opacity-0" aria-hidden="true" />
     </section>
   );

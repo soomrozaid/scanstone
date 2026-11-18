@@ -1109,6 +1109,22 @@ details[open] > .faq-row::before { transform: scaleX(1); }
 }
 
 
+
+/* Phones (and reduced motion) get the static How it works section.
+   The pinned cinematic story is a 100svh, 420% scroll scene on a night
+   background, so the rest of the homepage looked like it had ended. */
+@media (max-width: 767px) {
+  .how-cinematic { display: none !important; }
+  .how-static { display: block !important; }
+}
+@media (min-width: 768px) {
+  .how-static { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .how-cinematic { display: none !important; }
+  .how-static { display: block !important; }
+}
+
 /* Mobile nav: native popover, cinematic night panel. Animate only opacity and translate. */
 #mobile-menu {
   position: fixed;
@@ -1119,6 +1135,8 @@ details[open] > .faq-row::before { transform: scaleX(1); }
   margin: 0;
   overflow: auto;
   border: 0;
+  /* Padding lives on the inner wrap so text does not touch the screen edge.
+     An ID rule here would override Tailwind padding utilities. */
   padding: 0;
   color: inherit;
   background: var(--color-night, #0f0e0c);

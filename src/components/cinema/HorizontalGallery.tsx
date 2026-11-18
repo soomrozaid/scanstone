@@ -30,7 +30,7 @@ export function HorizontalGallery({
     const cancel = whenNear(
       el,
       () =>
-        mm.add("(prefers-reduced-motion: no-preference)", () => {
+        mm.add("(prefers-reduced-motion: no-preference) and (min-width: 768px)", () => {
           const dist = () => tr.scrollWidth - window.innerWidth;
           const tween = gsap.to(tr, {
             x: () => -dist(),
@@ -75,12 +75,12 @@ export function HorizontalGallery({
 
   return (
     <section id="who-its-for" data-nav="dark" data-cursor="Scroll" className="relative bg-night text-paper">
-      <div ref={root} className="relative flex h-[100svh] flex-col justify-center overflow-hidden motion-reduce:h-auto motion-reduce:py-24">
+      <div ref={root} className="relative flex h-[100svh] flex-col justify-center overflow-hidden motion-reduce:h-auto motion-reduce:py-24 max-md:h-auto max-md:py-24">
         <div className="aurora pointer-events-none absolute inset-0 opacity-60" aria-hidden="true" />
         <div className="relative mx-auto w-full max-w-7xl px-5 pt-16 sm:px-8">{heading}</div>
         <div
           ref={track}
-          className="relative mt-8 flex w-max gap-5 px-5 sm:mt-10 sm:gap-8 sm:px-8 motion-reduce:w-auto motion-reduce:snap-x motion-reduce:overflow-x-auto lg:pl-[max(2rem,calc((100vw-80rem)/2+2rem))]"
+          className="relative mt-8 flex w-max gap-5 px-5 sm:mt-10 sm:gap-8 sm:px-8 motion-reduce:w-auto motion-reduce:snap-x motion-reduce:overflow-x-auto max-md:w-auto max-md:snap-x max-md:overflow-x-auto lg:pl-[max(2rem,calc((100vw-80rem)/2+2rem))]"
         >
           {children}
           <div className="w-[10vw] shrink-0" aria-hidden="true" />

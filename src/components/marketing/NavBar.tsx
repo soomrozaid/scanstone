@@ -95,7 +95,7 @@ export function NavBar({ signedIn }: { signedIn: boolean }) {
               <>
                 <Link
                   href="/login"
-                  className={`inline-flex min-h-11 items-center rounded-full px-4 py-2 text-sm transition ${dark ? "text-paper hover:text-paper" : "text-ink-soft hover:text-ink"}`}
+                  className={`hidden min-h-11 items-center rounded-full px-4 py-2 text-sm transition lg:inline-flex ${dark ? "text-paper hover:text-paper" : "text-ink-soft hover:text-ink"}`}
                 >
                   Log in
                 </Link>
@@ -138,7 +138,7 @@ export function NavBar({ signedIn }: { signedIn: boolean }) {
       <div
         id="mobile-menu"
         popover="auto"
-        className="menu-iris z-30 bg-night px-5 pb-10 pt-20 text-paper lg:hidden"
+        className="menu-iris z-30 bg-night text-paper lg:hidden"
         onToggle={(event) => {
           const el = event.currentTarget;
           setOpen(el.matches(":popover-open"));
@@ -146,6 +146,20 @@ export function NavBar({ signedIn }: { signedIn: boolean }) {
       >
         <div className="aurora pointer-events-none absolute inset-0 opacity-70" aria-hidden="true" />
         <div className="gridlines-night pointer-events-none absolute inset-0 opacity-40" aria-hidden="true" />
+        <div className="relative px-5 pb-10 pt-6">
+        <div className="mb-6 flex items-center justify-between gap-3">
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-copper-bright">
+            Menu
+          </p>
+          <button
+            type="button"
+            popoverTarget="mobile-menu"
+            popoverTargetAction="hide"
+            className="inline-flex min-h-11 items-center rounded-full px-3 text-sm font-medium text-paper"
+          >
+            Close
+          </button>
+        </div>
         <ul className="relative divide-y divide-white/10 border-y border-white/10">
           {LINKS.map((l, i) => {
             const active = !l.href.includes("#") && pathname === l.href;
@@ -202,6 +216,7 @@ export function NavBar({ signedIn }: { signedIn: boolean }) {
         <p className="menu-foot relative mt-8 text-sm text-paper/60">
           Redirects that keep working, even if you stop paying.
         </p>
+        </div>
       </div>
     </>
   );
