@@ -4,7 +4,7 @@ import { redirect, unstable_rethrow } from "next/navigation";
 import { AuthShell } from "../AuthShell";
 import { LoginForm } from "./LoginForm";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
-import { parseProInterval, upgradePath } from "@/lib/checkout-intent";
+import { parseProInterval, safeNextPath, upgradePath } from "@/lib/checkout-intent";
 
 export const metadata: Metadata = {
   title: "Log in",
@@ -18,6 +18,7 @@ export default async function LoginPage({
 }) {
   const params = await searchParams;
   const plan = parseProInterval(params.plan);
+  const next = safeNextPath(params.next);
 
   if (plan) {
     let signedIn = false;
@@ -34,6 +35,12 @@ export default async function LoginPage({
     if (signedIn) redirect(upgradePath(plan));
   }
 
+  const signupParams = new URLSearchParams();
+  if (plan) signupParams.set("plan", plan);
+  if (next !== "/dashboard") signupParams.set("next", next);
+  const signupQuery = signupParams.toString();
+  const signupHref = signupQuery ? `/signup?${signupQuery}` : "/signup";
+
   return (
     <AuthShell
       title="Welcome back"
@@ -46,7 +53,7 @@ export default async function LoginPage({
         <>
           New here?{" "}
           <Link
-            href={plan ? `/signup?plan=${plan}` : "/signup"}
+            href={signupHref}
             className="font-medium text-verdigris-deep underline"
           >
             Create an account

@@ -131,10 +131,23 @@ export async function updateCode(
   _prev: CodeActionState,
   formData: FormData,
 ): Promise<CodeActionState> {
-  const { supabase } = await requireUserAndPlan();
+  const { supabase, limits } = await requireUserAndPlan();
 
   const id = String(formData.get("id") ?? "");
   if (!/^[0-9a-f-]{36}$/.test(id)) return { error: "Unknown code." };
+
+  const { count, error: countError } = await supabase
+    .from("qr_codes")
+    .select("id", { count: "exact", head: true });
+  if (countError || count === null) {
+    return { error: "Couldn't check your account limit. Try again." };
+  }
+  if (count > limits.maxCodes) {
+    return {
+      error:
+        "You're over the free plan's 3 codes. Delete one or upgrade to Pro to change a destination. Your links keep working.",
+    };
+  }
 
   const name = codeNameSchema.safeParse(formData.get("name"));
   if (!name.success) return { error: name.error.issues[0]?.message };

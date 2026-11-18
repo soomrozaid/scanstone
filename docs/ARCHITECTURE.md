@@ -7,7 +7,7 @@
 - No other external services.
 
 ## Environment contract (canonical, framework-neutral)
-Canonical vars: `APP_URL, SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, SUPABASE_SECRET_KEY, STRIPE_PUBLISHABLE_KEY, STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET, STRIPE_MONTHLY_PRICE_ID, STRIPE_YEARLY_PRICE_ID`.
+Canonical vars: `APP_URL, SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, SUPABASE_SECRET_KEY, STRIPE_PUBLISHABLE_KEY, STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET, STRIPE_MONTHLY_PRICE_ID, STRIPE_YEARLY_PRICE_ID`. Optional `GUEST_COOKIE_SECRET` signs guest short-link cookies (min 32 characters). If it is unset, the server derives one from `SUPABASE_SECRET_KEY`.
 - Optional `SHORT_URL_ORIGIN` is the dedicated short-link origin (`https://scst.one`). `getShortUrl()` uses `/{slug}` on this domain, or falls back to `APP_URL/r/{slug}`. A host-scoped rewrite sends short-domain requests to the existing redirect handler; `APP_URL` remains the app/auth/billing origin.
 - `src/config/env.server.ts` — zod-validated, server-only (throws if missing; imports `server-only`).
 - `src/config/env.client.ts` — zod-validated allowlist: APP_URL, SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, STRIPE_PUBLISHABLE_KEY.
@@ -15,19 +15,19 @@ Canonical vars: `APP_URL, SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, SUPABASE_SECRE
 
 ## Data model (all tables RLS-enabled)
 - `profiles` (id = auth.users.id, plan free|pro, stripe_customer_id, stripe_subscription_id, current_period_end) — user reads own; plan/stripe cols writable only by service role.
-- `qr_codes` (id, user_id, slug unique, name, destination_url, design jsonb, scan_count, created/updated) — owner CRUD via RLS; slug lookup for redirect via service role.
+- `qr_codes` (id, user_id nullable, slug unique, name, destination_url, design jsonb, scan_count, created/updated, guest_token_hash, guest_notice_accepted_at, guest_notice_version, disabled_at, disabled_reason) — owner CRUD via RLS (`auth.uid() = user_id`). Guest rows have a null `user_id` and a token hash, so existing policies do not let visitors read, list, or edit them. Service role creates guest links, claims them onto an account, and looks slugs up for redirects. Disabled slugs go to `/link-unavailable`.
 - `scans` (id, code_id, scanned_at, country, region, device, os, referer) — insert service-role only (SECURITY DEFINER `record_scan`), owner SELECT via join policy.
 - `stripe_events` (id, processed_at) — webhook idempotency; service-role only.
 - Trigger creates `profiles` row on auth.users insert.
 
 ## Key routes
-- `/` landing (R3F hero: scannable extruded QR, destination-swap animation; SVG fallback).
+- `/` landing: tool-first hero (static QR or short link). Logged-out short links go through a notice dialog, then a service-role guest create.
 - `/qr-code-generator`, `/wifi-qr-code-generator`, `/vcard-qr-code-generator` — free static tools (client-side generation, SEO + FAQ JSON-LD).
 - `/pricing`, `/demo` (public seeded analytics), `/privacy`, `/terms`.
 - `/login /signup /forgot-password /reset-password /auth/callback /auth/confirm`.
 - `/dashboard` (list/create), `/dashboard/codes/[id]` (edit, design, analytics, export), `/account` (plan, billing portal, data export, delete account).
 - `/dashboard/shorten` creates shareable short URLs through the same authenticated creation flow and `qr_codes` records. Links and QR codes share limits; clicks and scans are counted together. Existing code URLs can also be copied from the dashboard and detail page.
-- `GET /r/[slug]` — redirect fast path: service-role lookup → 302 → `waitUntil(record_scan)`. Never gated.
+- `GET /r/[slug]` — redirect fast path: service-role lookup → 302 to the destination, or `/link-unavailable` if `disabled_at` is set, then `after(record_scan)`. Never gated by plan or guest vs account ownership. Missing slugs still redirect to `/?missing-code=1`.
 - `POST /api/stripe/checkout`, `POST /api/stripe/portal`, `POST /api/stripe/webhook` (sig verify + idempotent), `GET /api/account/export`.
 - `sitemap.ts`, `robots.ts`, `opengraph-image.tsx`, `manifest.ts`.
 

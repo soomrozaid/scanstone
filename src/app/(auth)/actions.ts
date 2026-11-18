@@ -8,6 +8,7 @@ import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { envServer } from "@/config/env.server";
 import { log } from "@/lib/log";
 import { authCallbackUrl, postAuthPath } from "@/lib/checkout-intent";
+import { claimGuestLinksFromCookies } from "@/lib/claim-guest-from-cookies";
 
 export type AuthState = { error?: string; message?: string } | null;
 
@@ -50,7 +51,8 @@ export async function signUp(
   }
 
   // A Pro choice from /pricing survives email confirmation via the callback URL.
-  const destination = postAuthPath(formData.get("plan"), "/dashboard");
+  // If there is no plan, a safe `next` (for example after creating a guest link) is used.
+  const destination = postAuthPath(formData.get("plan"), formData.get("next"));
 
   const supabase = await createSupabaseServerClient();
   const { data, error } = await supabase.auth.signUp({
@@ -66,7 +68,10 @@ export async function signUp(
     return { error: error.message };
   }
   // With autoconfirm enabled a session is returned — go straight to work.
-  if (data.session) redirect(destination);
+  if (data.session) {
+    if (data.user) await claimGuestLinksFromCookies(data.user.id);
+    redirect(destination);
+  }
   return {
     message:
       "Check your inbox — we sent a confirmation link. Click it to finish creating your account.",
@@ -87,8 +92,9 @@ export async function signIn(
   }
 
   const supabase = await createSupabaseServerClient();
-  const { error } = await supabase.auth.signInWithPassword(parsed.data);
+  const { data, error } = await supabase.auth.signInWithPassword(parsed.data);
   if (error) return { error: "Wrong email or password." };
+  if (data.user) await claimGuestLinksFromCookies(data.user.id);
 
   redirect(postAuthPath(formData.get("plan"), formData.get("next")));
 }

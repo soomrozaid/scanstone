@@ -5,7 +5,13 @@ import { signUp, type AuthState } from "../actions";
 import { Button, Input, Label, FieldError } from "@/components/ui";
 import type { ProInterval } from "@/lib/checkout-intent";
 
-export function SignupForm({ plan }: { plan?: ProInterval | null }) {
+export function SignupForm({
+  plan,
+  next,
+}: {
+  plan?: ProInterval | null;
+  next?: string;
+}) {
   const [state, action, pending] = useActionState<AuthState, FormData>(
     signUp,
     null,
@@ -25,6 +31,7 @@ export function SignupForm({ plan }: { plan?: ProInterval | null }) {
   return (
     <form action={action} className="space-y-4">
       {plan ? <input type="hidden" name="plan" value={plan} /> : null}
+      <input type="hidden" name="next" value={next ?? "/dashboard"} />
       <div>
         <Label htmlFor="email">Email</Label>
         <Input

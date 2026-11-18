@@ -22,8 +22,10 @@ export function CodeForm({
   mode,
   initial,
   initialDestination = "",
+  readOnly = false,
 }: {
   mode: "create" | "edit";
+  readOnly?: boolean;
   initial?: {
     id: string;
     name: string;
@@ -84,6 +86,12 @@ export function CodeForm({
 
         <DesignControls design={design} onChange={setDesign} />
 
+        {readOnly ? (
+          <p role="status" className="text-sm text-ink-soft">
+            This destination is read-only until you delete a code or upgrade.
+            The link itself keeps working.
+          </p>
+        ) : null}
         <FieldError>{state?.error}</FieldError>
         {state?.ok && !pending ? (
           <p role="status" className="text-sm text-verdigris-deep">
@@ -91,7 +99,7 @@ export function CodeForm({
           </p>
         ) : null}
 
-        <Button type="submit" disabled={pending}>
+        <Button type="submit" disabled={pending || readOnly}>
           {pending
             ? mode === "create"
               ? "Carving…"
