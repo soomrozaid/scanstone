@@ -9,6 +9,8 @@ export interface PlanLimits {
   svgDownload: boolean;
   /** CSV export of scan data. */
   csvExport: boolean;
+  /** Max custom redirect domains the account may add. Resolution is not gated. */
+  customDomains: number;
 }
 
 /**
@@ -17,12 +19,19 @@ export interface PlanLimits {
  * used to decide whether /r/[slug] resolves.
  */
 export const PLANS: Record<PlanId, PlanLimits> = {
-  free: { maxCodes: 3, historyDays: 30, svgDownload: false, csvExport: false },
+  free: {
+    maxCodes: 3,
+    historyDays: 30,
+    svgDownload: false,
+    csvExport: false,
+    customDomains: 0,
+  },
   pro: {
     maxCodes: 500,
     historyDays: Infinity,
     svgDownload: true,
     csvExport: true,
+    customDomains: 1,
   },
 };
 

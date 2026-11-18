@@ -86,6 +86,10 @@ describe("plans", () => {
     const keys = Object.keys(PLANS.free);
     expect(keys.every((k) => !/redirect|scan/i.test(k))).toBe(true);
   });
+  it("custom domains are a Pro add entitlement, not a redirect gate", () => {
+    expect(PLANS.free.customDomains).toBe(0);
+    expect(PLANS.pro.customDomains).toBe(1);
+  });
 });
 
 describe("classifyUserAgent", () => {

@@ -3,7 +3,13 @@
 import { useState } from "react";
 import { Button } from "@/components/ui";
 
-export function CopyUrlButton({ url }: { url: string }) {
+export function CopyUrlButton({
+  url,
+  label = "Copy short URL",
+}: {
+  url: string;
+  label?: string;
+}) {
   const [status, setStatus] = useState<"idle" | "copying" | "copied" | "error">(
     "idle",
   );
@@ -30,7 +36,7 @@ export function CopyUrlButton({ url }: { url: string }) {
           ? "Copied!"
           : status === "copying"
             ? "Copying…"
-            : "Copy short URL"}
+            : label}
       </Button>
       <p
         role="status"
@@ -38,14 +44,14 @@ export function CopyUrlButton({ url }: { url: string }) {
       >
         {status === "error" ? (
           <>
-            Couldn&apos;t copy automatically. Select the short URL and copy it
+            Couldn&apos;t copy automatically. Select the URL and copy it
             manually.
             <span className="mt-1 block break-all select-all font-mono">
               {url}
             </span>
           </>
         ) : status === "copied" ? (
-          "Short URL copied to clipboard."
+          "URL copied to clipboard."
         ) : (
           ""
         )}

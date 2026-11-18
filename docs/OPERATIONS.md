@@ -93,3 +93,20 @@ Leave this variable unset for ordinary local development.
 - Demo reseed: `set -a; source .env.local; set +a; node scripts/seed-demo.mjs`
 - Delete abusive code (ToS §4): delete the row in `qr_codes` (Dashboard SQL) —
   the only sanctioned service-side redirect removal.
+
+## Custom domains (Pro)
+
+Do not apply the migration or add env vars until the custom-domains PR is
+approved and merged.
+
+1. Apply `supabase/migrations/20261113000001_custom_domains.sql` with
+   `supabase db push --linked --yes`.
+2. Create a Vercel token with permission to add, verify, and remove domains on
+   this project. Set `VERCEL_API_TOKEN`, `VERCEL_PROJECT_ID`
+   (`prj_4zPRiH7xPQI8GuTgIRBA5351tjOa`), and `VERCEL_TEAM_ID`
+   (`team_lTtmiqDpNFcr3CG3joB1qQD1`) in the Production environment. Redeploy.
+3. A Pro user can then add a hostname on the Account page, create the DNS
+   records we show, and click Check DNS.
+
+The app never adds a customer domain to Vercel until those steps are done.
+scst.one and www.scanstone.ca routing does not depend on this token.

@@ -24,7 +24,7 @@
 
 ## Plans
 - **Free:** 3 active dynamic codes, 30-day analytics window, PNG download, all static tools.
-- **Pro ($9/mo or $79/yr):** 500 dynamic codes, full analytics history, SVG/vector download for dynamic codes, CSV export.
+- **Pro ($9/mo or $79/yr):** 500 dynamic codes, full analytics history, SVG/vector download for dynamic codes, CSV export, one custom redirect domain.
 - Entitlements enforced server-side at creation/display; **redirects are never entitlement-gated** (the covenant).
 
 ## Distribution (built into product)
@@ -34,7 +34,7 @@
 4. The covenant itself is the story communities repost (anti-subscription-trap positioning).
 
 ## Explicit non-goals (v1)
-Bulk CSV import, team seats, custom domains for redirects, API access, logo-in-QR upload (design presets only), UTM manager. Listed for v2 consideration.
+Bulk CSV import, team seats, API access, logo-in-QR upload (design presets only), UTM manager. Listed for later consideration. Custom domains for redirects shipped as a Pro feature (see docs/CUSTOM_DOMAINS.md); not live until approved.
 
 ## Brand
 - Name: **Scanstone** ("set in stone"). Metaphor: permanence, engraving, ink on stone.
