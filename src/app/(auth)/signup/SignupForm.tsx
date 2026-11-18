@@ -1,9 +1,13 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect, useRef } from "react";
 import { signUp, type AuthState } from "../actions";
 import { Button, Input, Label, FieldError } from "@/components/ui";
 import type { ProInterval } from "@/lib/checkout-intent";
+import {
+  captureAttribution,
+  readAttributionPayload,
+} from "@/lib/attribution-client";
 
 export function SignupForm({
   plan,
@@ -16,6 +20,14 @@ export function SignupForm({
     signUp,
     null,
   );
+  const attributionRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    captureAttribution();
+    if (attributionRef.current) {
+      attributionRef.current.value = readAttributionPayload();
+    }
+  }, []);
 
   if (state?.message) {
     return (
@@ -32,6 +44,7 @@ export function SignupForm({
     <form action={action} className="space-y-4">
       {plan ? <input type="hidden" name="plan" value={plan} /> : null}
       <input type="hidden" name="next" value={next ?? "/dashboard"} />
+      <input type="hidden" name="attribution" ref={attributionRef} />
       <div>
         <Label htmlFor="email">Email</Label>
         <Input

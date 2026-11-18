@@ -42,6 +42,12 @@ export default function PrivacyPage() {
             <li>
               Standard server logs (kept briefly for security and debugging).
             </li>
+            <li>
+              If you create an account, we store the first (and, when present,
+              latest) campaign referrer, landing page, and UTM or click IDs
+              from this browser so we can tell how people found Scanstone. We
+              do not store IP addresses in that record.
+            </li>
           </ul>
         </section>
 

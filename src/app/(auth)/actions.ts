@@ -9,6 +9,7 @@ import { envServer } from "@/config/env.server";
 import { log } from "@/lib/log";
 import { authCallbackUrl, postAuthPath } from "@/lib/checkout-intent";
 import { onAuthComplete } from "@/lib/on-auth-complete";
+import { storeSignupAttribution } from "@/lib/store-signup-attribution";
 
 export type AuthState = { error?: string; message?: string } | null;
 
@@ -66,6 +67,10 @@ export async function signUp(
   if (error) {
     log("warn", "signup_failed", { code: error.code });
     return { error: error.message };
+  }
+  // Capture first-touch on the new account even if email confirmation is still pending.
+  if (data.user) {
+    await storeSignupAttribution(data.user.id, formData.get("attribution"));
   }
   // With autoconfirm enabled a session is returned — go straight to work.
   if (data.session) {
