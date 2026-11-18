@@ -32,7 +32,7 @@ The free plan includes 3 dynamic codes with a 500-scan limit each. Its help cent
 
 ### Uniqode
 
-Uniqode's [subscription article](https://docs.uniqode.com/en/articles/17190918-what-happens-to-my-qr-codes-when-my-subscription-changes-or-ends) says dynamic codes stop working when a trial expires. If you cancel, they keep working until your renewal date and stop after it. Your account and codes are kept, so reactivating brings them back. Downgrading keeps codes running only if you stay within the smaller plan's limit.
+Uniqode's [subscription article](https://docs.uniqode.com/en/articles/17190918-what-happens-to-my-qr-codes-when-my-subscription-changes-or-ends) says dynamic codes stop working when a trial expires. If you cancel, they keep working until your renewal date and stop after it. Your account and codes are kept, so reactivating brings them back. Downgrading keeps codes running only if you stay within the smaller plan's limit. Its prices, yearly scan limits and cancelling steps are in [Uniqode alternative: Scanstone vs Uniqode](/blog/uniqode-alternative).
 
 ### Scanova
 

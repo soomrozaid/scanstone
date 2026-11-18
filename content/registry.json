@@ -24,7 +24,7 @@
     "description": "Whether your printed codes keep working after a trial ends or you cancel depends on the company. Their own policies side by side, with sources.",
     "date": "2026-11-14",
     "category": "Comparison",
-    "updated": "2026-11-17"
+    "updated": "2026-11-18"
   },
   {
     "slug": "qr-code-1-dollar-trial-subscription",
@@ -48,6 +48,14 @@
     "title": "Is qr-code-generator.com free? QR Code Generator vs Scanstone",
     "description": "Static codes are free. Dynamic codes get a 14-day trial, then switch off until you pay from $119.88 a year. Prices, cancelling, and a free alternative.",
     "date": "2026-11-17",
+    "category": "Comparison"
+  },
+  {
+    "slug": "uniqode-alternative",
+    "collection": "blog",
+    "title": "Uniqode alternative: Scanstone vs Uniqode (Beaconstac), side by side",
+    "description": "Uniqode has no free editable codes: a 14-day trial, then plans from $108 a year with scan caps. How it compares with Scanstone on price, limits and cancelling.",
+    "date": "2026-11-18",
     "category": "Comparison"
   }
 ]
