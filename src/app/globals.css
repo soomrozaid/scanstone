@@ -54,6 +54,8 @@
 
 html {
   scroll-behavior: smooth;
+  /* Shared with the sticky header; NavBar measures the real height. */
+  --header-h: 4rem;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -548,17 +550,30 @@ html.lenis body {
 /* Kinetic type after the homepage hero: light letters on night, always
    above 4.5:1 even when the tile loop is dark. */
 .vt-line {
-  color: #f4efe4;
-  background-image: linear-gradient(180deg, #f7f3ea 0%, #d9efe6 48%, #f3d2b0 100%);
+  /* ~8:1 on night, still above 4.5:1 on a slightly lighter veiled tile. */
+  color: #afaba3;
+  background-image: linear-gradient(180deg, #b1aea7 0%, #9caba5 48%, #c5ab8f 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 @supports not ((-webkit-background-clip: text) or (background-clip: text)) {
   .vt-line {
-    color: #f4efe4;
-    -webkit-text-fill-color: #f4efe4;
+    color: #afaba3;
+    -webkit-text-fill-color: #afaba3;
     background-image: none;
+  }
+}
+
+/* overflow-x: hidden computes overflow-y to auto and traps the wheel inside
+   the hero. Keep overflow visible and let the section grow if the tool is taller
+   than the space under the header. */
+.home-tool-hero {
+  overflow: visible;
+}
+@media (max-height: 44rem) {
+  .home-tool-hero .home-tool {
+    margin-top: 0.75rem;
   }
 }
 

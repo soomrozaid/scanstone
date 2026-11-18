@@ -123,7 +123,7 @@ export default function RestaurantMenuPage() {
           />
         }
       >
-        <Container className="w-full pb-10 pt-20 sm:pb-16 lg:pt-28">
+        <Container className="w-full py-6 sm:py-8">
           <div className="max-w-3xl">
             <Breadcrumbs tone="night" items={[{ label: "For restaurants and cafés" }]} />
             <h1 className="display mt-6 text-[clamp(3rem,7.4vw,6.8rem)] leading-[0.92] tracking-[-0.03em] text-paper">

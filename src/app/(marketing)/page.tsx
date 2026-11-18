@@ -230,7 +230,7 @@ export default function LandingPage({
           />
         }
       >
-        <Container className="w-full py-16 sm:pb-16 sm:pt-20 lg:pt-28">
+        <Container className="w-full py-6 sm:py-8">
           <div id="tool" className="home-tool w-full max-w-xl">
             <div id="qr" className="scroll-mt-24" />
             <div id="short-link" className="scroll-mt-24" />
