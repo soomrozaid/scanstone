@@ -338,6 +338,14 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
                 Download SVG
               </Button>
             </div>
+            <p className="mt-3 text-center text-xs text-ink-soft">
+              Free download. No account, no card, no trial.
+            </p>
+            <p className="mt-1 break-all text-center text-xs text-ink-faint">
+              This code opens{" "}
+              <span className="font-mono text-ink-soft">{qrPayload}</span>{" "}
+              directly, with nothing in between.
+            </p>
             {downloadError ? (
               <p role="alert" className="mt-2 text-center text-xs text-danger">
                 {downloadError}
