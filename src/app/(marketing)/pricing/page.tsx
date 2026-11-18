@@ -5,7 +5,7 @@ import { PRICING, pricingSoftwareJsonLd } from "@/lib/plans";
 import { envClient } from "@/config/env.client";
 
 export const metadata: Metadata = {
-  title: "Pricing — Free forever plan, Pro at $9 USD/month",
+  title: "Pricing: Free forever plan, Pro at $9 USD/month",
   description:
     "Scanstone pricing: unlimited static QR codes, 3 free short links or dynamic QR codes, and Pro at $9 USD/month for 500 total with full analytics. Redirects never expire.",
   alternates: { canonical: "/pricing" },
@@ -59,8 +59,8 @@ export default function PricingPage() {
         <h1 className="engraved text-4xl font-semibold">Pricing</h1>
         <p className="mt-3 leading-relaxed text-ink-soft">
           Two plans, no fine print. And one promise that applies to both:{" "}
-          <strong>a Scanstone redirect never stops working</strong> — not when
-          you downgrade, not when you cancel, not when a limit is reached.
+          <strong>a Scanstone redirect never stops working</strong>. Not when
+          you downgrade, not when you cancel, not when you hit a limit.
         </p>
       </div>
 
@@ -91,7 +91,7 @@ export default function PricingPage() {
             or {PRICING.yearly.label} ({PRICING.yearly.note})
           </p>
           <p className="mt-3 text-sm leading-relaxed text-ink-soft">
-            If you cancel, printed codes and short links keep working — you only
+            If you cancel, printed codes and short links keep working. You only
             lose the Pro extras. That promise is in{" "}
             <Link href="/terms" className="text-verdigris-deep underline">
               our terms
@@ -135,7 +135,7 @@ export default function PricingPage() {
         </p>
         <p>
           <strong>Why is the free plan actually free?</strong> Static codes cost
-          us nothing to serve — the content is inside the pattern. Dynamic
+          us nothing to serve, because the content is inside the pattern. Dynamic
           redirects cost fractions of a cent. We&apos;d rather earn upgrades
           from people who need scale and analytics than trap anyone&apos;s
           printed menus.

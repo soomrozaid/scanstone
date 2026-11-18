@@ -342,9 +342,9 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
               Free download. No account, no card, no trial.
             </p>
             <p className="mt-1 break-all text-center text-xs text-ink-faint">
-              This code opens{" "}
+              This is a static code. It opens{" "}
               <span className="font-mono text-ink-soft">{qrPayload}</span>{" "}
-              directly, with nothing in between.
+              directly, with nothing in between, so it can never be switched off.
             </p>
             {downloadError ? (
               <p role="alert" className="mt-2 text-center text-xs text-danger">
