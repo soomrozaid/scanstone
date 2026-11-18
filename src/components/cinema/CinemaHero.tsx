@@ -133,8 +133,10 @@ export function CinemaHero({
     <section
       ref={sectionRef}
       data-nav="dark"
-      className={`relative -mt-16 flex min-h-[100svh] origin-[50%_100%] flex-col bg-night text-paper [transform-style:flat] ${
-        layout === "tool" ? "home-tool-hero overflow-x-hidden" : "overflow-hidden"
+      className={`relative flex origin-[50%_100%] flex-col bg-night text-paper [transform-style:flat] ${
+        layout === "tool"
+          ? "home-tool-hero min-h-[calc(100svh-var(--header-h,4rem))]"
+          : "-mt-16 min-h-[100svh] overflow-hidden"
       }`}
     >
       {/* moving light + grain */}

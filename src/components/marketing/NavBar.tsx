@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { HomeLogo } from "./HomeLogo";
 
 const LINKS = [
@@ -18,13 +18,15 @@ export function NavBar({ signedIn }: { signedIn: boolean }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [overDark, setOverDark] = useState(true);
+  const headerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     // The bar turns light-on-dark whenever it sits over a [data-nav="dark"] section.
     const onScroll = () => {
       setScrolled(window.scrollY > 8);
+      const below = (headerRef.current?.getBoundingClientRect().bottom ?? 64) + 2;
       const hit = document
-        .elementsFromPoint(window.innerWidth / 2, 32)
+        .elementsFromPoint(window.innerWidth / 2, below)
         .some((el) => el.closest("[data-nav='dark']"));
       setOverDark(hit);
     };
@@ -36,6 +38,23 @@ export function NavBar({ signedIn }: { signedIn: boolean }) {
       window.removeEventListener("scroll", onScroll);
     };
   }, [pathname]);
+
+  useLayoutEffect(() => {
+    const el = headerRef.current;
+    if (!el) return;
+    const apply = () => {
+      document.documentElement.style.setProperty(
+        "--header-h",
+        `${Math.round(el.getBoundingClientRect().height)}px`,
+      );
+    };
+    apply();
+    const ro = new ResizeObserver(apply);
+    ro.observe(el);
+    return () => {
+      ro.disconnect();
+    };
+  }, []);
 
   const dark = overDark || open;
 
@@ -52,7 +71,8 @@ export function NavBar({ signedIn }: { signedIn: boolean }) {
   return (
     <>
       <header
-        className={`sticky top-0 z-40 transition-[background-color,border-color,backdrop-filter] duration-300 ${dark ? (scrolled ? "border-b border-white/10 bg-night/60 backdrop-blur-xl" : "border-b border-transparent bg-night/0") : scrolled || open ? "border-b border-line/80 bg-paper/80 backdrop-blur-xl" : "border-b border-transparent bg-paper/0"}`}
+        ref={headerRef}
+        className={`sticky top-0 z-40 transition-[background-color,border-color,backdrop-filter] duration-300 ${dark ? (scrolled ? "border-b border-white/10 bg-night/60 backdrop-blur-xl" : "border-b border-transparent bg-night") : scrolled || open ? "border-b border-line/80 bg-paper/80 backdrop-blur-xl" : "border-b border-transparent bg-paper/0"}`}
       >
         <a
           href="#main"
