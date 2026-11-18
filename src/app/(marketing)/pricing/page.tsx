@@ -63,7 +63,7 @@ const ROWS: Array<{ label: string; free: string; pro: string }> = [
 const NOTES = [
   {
     q: "Are short links included?",
-    a: "Yes. Create compact scst.one links with editable destinations and click analytics. Short links and dynamic QR codes share your plan's limit: 3 total on Free, 500 on Pro. A free account is required to create links; opening them is free for everyone.",
+    a: "Yes. Create compact scst.one links with editable destinations and click analytics. Short links and dynamic QR codes share your plan's limit: 3 total on Free, 500 on Pro. You can make a short link without an account. A free account is how we can keep our promise that it never expires, and it lets you edit the destination later. Anyone can open your short links without an account.",
   },
   {
     q: "Why is the free plan actually free?",
@@ -80,6 +80,10 @@ const NOTES = [
   {
     q: "Is it really USD?",
     a: "Yes. Pro is $9 USD a month or $79 USD a year. Your bank converts it if you pay in another currency.",
+  },
+  {
+    q: "What if Scanstone ever shuts down?",
+    a: "We commit to at least 90 days' email notice and a window to export your data, so you have time to move or reprint. It's in section 2 of our terms. We also wrote a guide to what happens to QR codes when you cancel at other companies.",
   },
 ];
 
@@ -152,11 +156,20 @@ export default function PricingPage() {
             <Fig n="02">The details</Fig>
             <h2 id="billing-h" className="display mt-6 text-h2">Billing, plainly</h2>
             <p className="mt-5 text-ink-soft">
-              Read the full promise in{" "}
+              If Scanstone ever shuts down, we commit to at least 90 days&apos;
+              email notice and a window to export your data, so you have time to
+              move or reprint. Read the full promise in{" "}
               <Link href="/terms#covenant" className="text-verdigris-deep underline underline-offset-2">
                 our terms
               </Link>
-              .
+              . See also{" "}
+              <Link
+                href="/blog/what-happens-to-qr-codes-when-you-cancel"
+                className="text-verdigris-deep underline underline-offset-2"
+              >
+                what happens to QR codes when you cancel
+              </Link>{" "}
+              at other companies.
             </p>
           </div>
           <Faq items={NOTES} />

@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { isBlockedDestinationHost } from "@/lib/destination-blocklist";
 
 /** Hosts that must never be redirect destinations (SSRF/local-network). */
 const BLOCKED_HOST_PATTERNS = [
@@ -45,6 +46,9 @@ export function validateDestinationUrl(
     return { ok: false, error: "Use a full hostname, e.g. example.com." };
   }
   if (BLOCKED_HOST_PATTERNS.some((p) => p.test(url.hostname))) {
+    return { ok: false, error: "That destination isn't allowed." };
+  }
+  if (isBlockedDestinationHost(url.hostname)) {
     return { ok: false, error: "That destination isn't allowed." };
   }
   if (url.username || url.password) {

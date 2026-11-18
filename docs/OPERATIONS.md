@@ -21,6 +21,11 @@ Canonical vars (see `.env.example`) live in Vercel (production) and
 `vercel env add NAME production` (pipe the value via stdin; never paste
 secrets into commands). After env changes, redeploy.
 
+`GUEST_COOKIE_SECRET` is optional. Production can derive a signing key from
+`SUPABASE_SECRET_KEY` after the guest-links migration, but a dedicated secret
+(min 32 characters) is recommended so a Supabase key rotation does not drop
+guest cookies.
+
 ## Supabase (project `mokpddtzkmaxlbjnejvf`)
 
 - Migrations: add SQL file under `supabase/migrations/`, then
@@ -91,5 +96,14 @@ Leave this variable unset for ordinary local development.
 ## Routine tasks
 
 - Demo reseed: `set -a; source .env.local; set +a; node scripts/seed-demo.mjs`
-- Delete abusive code (ToS §4): delete the row in `qr_codes` (Dashboard SQL) —
-  the only sanctioned service-side redirect removal.
+- Disable an abusive short link or QR code (ToS §4) without deleting the row,
+  so the slug can be re-enabled later. Run as the service role:
+
+  `select disable_qr_code('the-slug', 'abuse');`
+
+  Visitors then land on `/link-unavailable`. To restore:
+
+  `select enable_qr_code('the-slug');`
+
+  Deleting the row in `qr_codes` (Dashboard SQL) is still allowed when the
+  slug should go away entirely.

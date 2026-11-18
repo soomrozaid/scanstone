@@ -144,10 +144,10 @@ export function PlanCards({ headingLevel = 3 }: { headingLevel?: 2 | 3 }) {
             .
           </p>
           <Link
-            href="/signup"
+            href={yearly ? "/signup?plan=yearly" : "/signup?plan=monthly"}
             className="relative mt-10 inline-flex w-full items-center justify-center rounded-full bg-verdigris px-5 py-3.5 font-medium text-paper transition hover:bg-verdigris-bright hover:text-night"
           >
-            Go Pro
+            {yearly ? "Go Pro yearly" : "Go Pro monthly"}
           </Link>
         </div>
       </div>

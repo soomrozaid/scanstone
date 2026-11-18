@@ -55,7 +55,11 @@ export default async function CodeDetailPage({
   ]);
   if (!code) notFound();
 
+  const { count: used } = await supabase
+    .from("qr_codes")
+    .select("id", { count: "exact", head: true });
   const limits = limitsFor(profile?.plan);
+  const readOnly = (used ?? 0) > limits.maxCodes;
   const isPro = profile?.plan === "pro";
   const windowDays = Number.isFinite(limits.historyDays)
     ? limits.historyDays
@@ -203,6 +207,7 @@ export default async function CodeDetailPage({
             </p>
             <div className="mt-5">
               <CodeForm
+                readOnly={readOnly}
                 mode="edit"
                 initial={{
                   id: code.id,

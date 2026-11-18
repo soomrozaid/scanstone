@@ -40,7 +40,7 @@ If it's a shared file (Google Drive, Dropbox, OneDrive), check that sharing is s
 
 A page saying the code was deactivated, the trial ended, or you need to upgrade means the redirect has been turned off. Your phone and your print are fine. This usually happens when a free trial ends, a subscription lapses or is cancelled, or the account goes over a plan limit.
 
-This is common and documented by the companies themselves. QRCG by Bitly (qr-code-generator.com) [says in its help center](https://support.qr-code-generator.com/hc/en-us/articles/7665013224205-I-received-a-message-saying-that-my-QR-Codes-will-be-deactivated-What-does-that-mean) that dynamic codes made during its 14-day trial are deactivated when the trial ends. Uniqode's help center [says](https://docs.uniqode.com/en/articles/17190918-what-happens-to-my-qr-codes-when-my-subscription-changes-or-ends) its dynamic codes stop working when a trial expires, and after the renewal date if you cancel. Other companies have their own rules, so check the policy of whoever made your code. We put [eight companies' cancellation policies side by side](/blog/what-happens-to-qr-codes-when-you-cancel).
+This is common and documented by the companies themselves. QRCG by Bitly (qr-code-generator.com) [says in its help center](https://support.qr-code-generator.com/hc/en-us/articles/7665013224205-I-received-a-message-saying-that-my-QR-Codes-will-be-deactivated-What-does-that-mean) that dynamic codes made during its 14-day trial are deactivated when the trial ends. Uniqode's help center [says](https://docs.uniqode.com/en/articles/17190918-what-happens-to-my-qr-codes-when-my-subscription-changes-or-ends) its dynamic codes stop working when a trial expires, and after the renewal date if you cancel. Other companies have their own rules, so check the policy of whoever made your code. We put [eight companies' cancellation policies side by side](/blog/what-happens-to-qr-codes-when-you-cancel). If the code came from a $1 download that turned into a subscription, here is [how to cancel and what to expect](/blog/qr-code-1-dollar-trial-subscription).
 
 You have two real options:
 
@@ -74,6 +74,10 @@ The printed pattern doesn't expire. A static code keeps working as long as it's 
 ### How do I tell if my QR code is static or dynamic?
 
 Scan it and look at the address before opening it. If it's your own website or file, it's static. If it's a short link on a QR company's domain, it's dynamic and depends on that company.
+
+### Should I put a short link inside a QR code?
+
+Only if you'll need to change where it goes after printing. A short link puts a company between the scan and your page, and if that company retires the link, the code stops working. If your address won't change, a static code that points straight to your own site is the safer choice. If you do need to edit it later, pick a service that says in writing what happens to your links when you stop paying. That includes Scanstone: our scst.one links keep working after you cancel or downgrade, as [our terms](/terms) say, but they still depend on our redirect service being up.
 
 ### Can another QR company fix my deactivated code?
 

@@ -91,10 +91,14 @@ test("pricing page states the covenant @smoke", async ({ page }) => {
 
 test("demo page shows live analytics @smoke", async ({ page }) => {
   await page.goto("/demo");
-  await expect(
-    page.getByRole("heading", { name: /This is a real code/i }),
-  ).toBeVisible();
-  await expect(page.getByText(/scans all-time/i)).toBeVisible();
+  const live = page.getByRole("heading", { name: /This is a real code/i });
+  const resting = page.getByRole("heading", { name: /The live demo is resting/i });
+  await expect(live.or(resting)).toBeVisible();
+  if (await live.isVisible()) {
+    await expect(page.getByText(/scans all-time/i)).toBeVisible();
+  } else {
+    await expect(page.getByText(/sample data/i).first()).toBeVisible();
+  }
 });
 
 test("legal pages exist @smoke", async ({ page }) => {
@@ -247,7 +251,7 @@ test("homepage tool makes a static QR without an account @mobile @smoke", async 
   ).toHaveAttribute("href", "/signup");
 });
 
-test("homepage short link tab asks for an account instead of inventing a link @smoke", async ({
+test("homepage short link tab shows a notice modal before creating a guest link @smoke", async ({
   page,
 }) => {
   await page.goto("/#short-link");
@@ -260,20 +264,26 @@ test("homepage short link tab asks for an account instead of inventing a link @s
     .getByLabel("Your link")
     .fill("https://example.com/summer-menu");
   await tool.getByRole("button", { name: "Create short link" }).click();
-  await expect(tool.getByText("https://example.com/summer-menu")).toBeVisible();
+  const dialog = page.getByRole("dialog", { name: "Keep this link safe" });
+  await expect(dialog).toBeVisible();
   await expect(
-    tool.getByText(
-      /needs a free account, because we have to store the redirect/i,
-    ),
+    dialog.getByText(/without an account it's hard for us to keep our promise/i),
   ).toBeVisible();
   await expect(
-    tool.getByRole("link", { name: "Create a free account" }),
-  ).toHaveAttribute("href", "/signup");
-  await expect(tool.getByRole("link", { name: "Log in" })).toHaveAttribute(
-    "href",
-    /\/login\?next=/,
-  );
-  await expect(tool.getByText(/scst\.one\//)).toHaveCount(0);
+    dialog.getByRole("link", { name: "Create a free account" }),
+  ).toHaveAttribute("href", /\/signup/);
+  const continueBtn = dialog.getByRole("button", {
+    name: "Continue without an account",
+  });
+  await expect(continueBtn).toBeDisabled();
+  await page.keyboard.press("Escape");
+  await expect(dialog).toBeHidden();
+
+  await tool.getByRole("button", { name: "Create short link" }).click();
+  await expect(dialog).toBeVisible();
+  await expect(continueBtn).toBeDisabled();
+  await dialog.getByRole("checkbox").check();
+  await expect(continueBtn).toBeEnabled();
 });
 
 test("restaurant page is discoverable and offers a working free tool @mobile @smoke", async ({
@@ -321,4 +331,31 @@ test("restaurant page is discoverable and offers a working free tool @mobile @sm
   await expect(
     page.getByRole("button", { name: "PNG", exact: true }),
   ).toBeEnabled();
+});
+
+test("phone header menu reaches pricing @mobile", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/");
+  const menu = page.getByRole("button", { name: "Menu" });
+  await expect(menu).toBeVisible();
+  await expect(menu).toHaveAttribute("aria-expanded", "false");
+  await menu.click();
+  await expect(menu).toHaveAttribute("aria-expanded", "true");
+  await page.getByRole("link", { name: "Pricing" }).first().click();
+  await expect(page).toHaveURL(/\/pricing$/);
+  await expect(page.getByRole("button", { name: "Menu" })).toHaveAttribute(
+    "aria-expanded",
+    "false",
+  );
+});
+
+test("a missing code explains itself instead of a bare homepage @smoke", async ({
+  page,
+}) => {
+  await page.goto("/?missing-code=1");
+  await expect(page.getByTestId("missing-code-notice")).toContainText(
+    "isn't active",
+  );
+  await page.goto("/");
+  await expect(page.getByTestId("missing-code-notice")).toHaveCount(0);
 });

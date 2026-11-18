@@ -11,15 +11,20 @@ It depends on the company that made the code, and on whether the code is static 
 | QRCodeChimp | Free plan has 10 dynamic codes and 1,000 scans a month across them, then scans pause until next month | Account moves to the free plan; dynamic codes other than the last 10 are paused |
 | Hovercode | Not covered in its cancellation article | Account moves to the free plan; your first 3 dynamic codes and first 3 short links stay active, the rest go inactive |
 | Flowcode | Free plan: 2 codes, which its help centre says never expire | Codes keep scanning to their last destination; only the 2 most recent stay editable |
+| GetQR | No free plan. The 7-day trial is paid and renews automatically unless you cancel | Dynamic codes stop redirecting and open a "deactivated" page; renewing brings them back |
+| QRNew | A free trial without a card ends on its own and never charges you | Dynamic codes and hosted pages stop opening when paid access ends; subscribing again restores them |
+| QR Dex | Not covered in its subscription article | Dynamic codes stop redirecting after the billing period ends; reactivating brings them back |
 | Scanstone | No trial. Free plan has 3 dynamic codes or short links | Existing redirects keep working, written into our terms |
 
 Static codes are the exception everywhere. Every company above that mentions them says static codes are not affected by a trial ending or a cancellation.
+
+Bitly's own QR codes (on bit.ly, separate from QRCG) also keep scanning after you drop to its free plan, but you can't edit them there. We cover that in [Scanstone vs Bitly](/blog/bitly-qr-code-alternative).
 
 ## The details, company by company
 
 ### QRCG by Bitly
 
-Its help centre [says](https://support.qr-code-generator.com/hc/en-us/articles/7665013224205-I-received-a-message-saying-that-my-QR-Codes-will-be-deactivated-What-does-that-mean) dynamic codes created during the 14-day free trial are deactivated at the end of the trial, and anyone who scans them lands on a service page. For paid plans, its [cancellation article](https://support.qr-code-generator.com/hc/en-us/articles/12934511873165-What-happens-to-my-account-and-QR-Codes-if-I-cancel-my-subscription-renewal) says dynamic codes stay active for 30 days starting on the last day of your contract, and that you can't edit, download or see stats for them in that time. It also says cancellations must be made at least one day before the renewal date. To bring codes back, you have to upgrade the original account; a new account won't do it, per its [reactivation guide](https://support.qr-code-generator.com/hc/en-us/articles/7665090677005-How-can-I-reactivate-my-QR-Codes).
+Its help centre [says](https://support.qr-code-generator.com/hc/en-us/articles/7665013224205-I-received-a-message-saying-that-my-QR-Codes-will-be-deactivated-What-does-that-mean) dynamic codes created during the 14-day free trial are deactivated at the end of the trial, and anyone who scans them lands on a service page. For paid plans, its [cancellation article](https://support.qr-code-generator.com/hc/en-us/articles/12934511873165-What-happens-to-my-account-and-QR-Codes-if-I-cancel-my-subscription-renewal) says dynamic codes stay active for 30 days starting on the last day of your contract, and that you can't edit, download or see stats for them in that time. It also says cancellations must be made at least one day before the renewal date. To bring codes back, you have to upgrade the original account; a new account won't do it, per its [reactivation guide](https://support.qr-code-generator.com/hc/en-us/articles/7665090677005-How-can-I-reactivate-my-QR-Codes). Its prices, and the two different cancellation instructions on its own site, are in [Is qr-code-generator.com free?](/blog/is-qr-code-generator-com-free).
 
 ### QR TIGER
 
@@ -27,7 +32,7 @@ The free plan includes 3 dynamic codes with a 500-scan limit each. Its help cent
 
 ### Uniqode
 
-Uniqode's [subscription article](https://docs.uniqode.com/en/articles/17190918-what-happens-to-my-qr-codes-when-my-subscription-changes-or-ends) says dynamic codes stop working when a trial expires. If you cancel, they keep working until your renewal date and stop after it. Your account and codes are kept, so reactivating brings them back. Downgrading keeps codes running only if you stay within the smaller plan's limit.
+Uniqode's [subscription article](https://docs.uniqode.com/en/articles/17190918-what-happens-to-my-qr-codes-when-my-subscription-changes-or-ends) says dynamic codes stop working when a trial expires. If you cancel, they keep working until your renewal date and stop after it. Your account and codes are kept, so reactivating brings them back. Downgrading keeps codes running only if you stay within the smaller plan's limit. Its prices, yearly scan limits and cancelling steps are in [Uniqode alternative: Scanstone vs Uniqode](/blog/uniqode-alternative).
 
 ### Scanova
 
@@ -44,6 +49,18 @@ Hovercode's [cancellation article](https://hovercode.com/help/article/32-if-you-
 ### Flowcode
 
 Flowcode's help centre [says](https://help.flowcode.com/en/articles/7061611-will-my-codes-pages-expire) its codes never expire and have unlimited scans on every plan. Its [downgrade article](https://help.flowcode.com/en/articles/6927459-what-happens-to-my-account-and-codes-when-i-downgrade) says that on the free plan you keep access to your 2 most recent codes, and all other codes keep sending people to the destination you last set. The same article also mentions restoring codes "deleted upon downgrading", so if you depend on this, ask Flowcode to confirm what happens to your specific codes.
+
+### GetQR
+
+GetQR's [FAQ](https://docs.getqr.com/faq/general) says there is no free plan and that its 7-day trial is paid and renews automatically unless you cancel. When a subscription ends, codes stop redirecting and anyone who scans one sees a page saying the code is deactivated. Nothing is deleted, so renewing makes the same printed codes work again. The same FAQ warns that deleting your codes, even the last one, doesn't stop the payments. We cover its $1 trial in more detail in [our trial subscription guide](/blog/qr-code-1-dollar-trial-subscription).
+
+### QRNew
+
+QRNew's [cancellation page](https://qrnew.com/en/help/cancel-subscription) says a free trial without a card ends on its own and never charges you. If you cancel a paid plan, you keep access until the end of the period you paid for. After that, dynamic codes and hosted pages stop opening and people who scan them see a "temporarily unavailable" page. Subscribing again brings the same printed codes back without reprinting.
+
+### QR Dex
+
+QR Dex's [subscription article](https://qrdex.io/help/managing-your-subscription) says cancelling takes effect at the end of the billing period, and after that dynamic codes stop redirecting. Your account and data are kept, and reactivating makes the codes redirect again right away. It also says annual plans get no partial refund if you cancel partway through the year.
 
 ### Scanstone
 
@@ -65,11 +82,11 @@ If a code has already stopped, our guide on [what to do when a QR code stops wor
 
 ### Do QR codes stop working when you cancel your subscription?
 
-Static codes don't, because your link is stored in the pattern. Dynamic codes often do. QRCG by Bitly, QR TIGER, Uniqode and Scanova all say paid dynamic codes stop after the plan ends. Hovercode, QRCodeChimp and Flowcode keep some codes running on their free plans, and Scanstone keeps all existing redirects running.
+Static codes don't, because your link is stored in the pattern. Dynamic codes often do. QRCG by Bitly, QR TIGER, Uniqode, Scanova, GetQR, QRNew and QR Dex all say paid dynamic codes stop after the plan ends. Hovercode, QRCodeChimp and Flowcode keep some codes running on their free plans, and Scanstone keeps all existing redirects running.
 
 ### Can I get my QR codes back after cancelling?
 
-Usually only by paying the same company again. QRCG, Uniqode, Scanova and Hovercode all say resubscribing brings existing codes back. A different QR company can't revive them, because the short link inside the code belongs to the company that made it.
+Usually only by paying the same company again. QRCG, Uniqode, Scanova, Hovercode, GetQR, QRNew and QR Dex all say resubscribing brings existing codes back. A different QR company can't revive them, because the short link inside the code belongs to the company that made it.
 
 ### Will my free trial QR codes keep working?
 
@@ -79,4 +96,4 @@ At QRCG by Bitly, Uniqode and Scanova, dynamic codes made during the trial stop 
 
 No. Cancelling, downgrading or going over a plan limit doesn't disable existing redirects. That's in section 2 of our terms. Redirects end if you delete the code or your account.
 
-_Sources: each company's own help, docs or pricing pages linked above, checked November 14, 2026. Scanstone limits, prices and policy checked against our current pricing page and terms on the same date._
+_Sources: each company's own help, docs or pricing pages linked above, checked November 14, 2026 (GetQR, QRNew and QR Dex added November 17, 2026). Scanstone limits, prices and policy checked against our current pricing page and terms on the same date._

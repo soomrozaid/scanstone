@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { HeroStage } from "@/components/hero/HeroStage";
 import { HomeTool } from "@/components/hero/HomeTool";
+import { MissingCodeNotice } from "@/components/marketing/MissingCodeNotice";
 import { getUser } from "@/lib/supabase/server";
 import { CinemaHero } from "@/components/cinema/CinemaHero";
 import { SplitWords } from "@/components/cinema/SplitWords";
@@ -57,11 +58,11 @@ const FAQS = [
   },
   {
     q: "Can I shorten a URL without creating a QR code?",
-    a: "Yes. Use the Short link tab at the top of this page. You need a free account to save a scst.one link, because we store the redirect so you can edit it later and see click counts.",
+    a: "Yes. Use the Short link tab at the top of this page. You can make a short link without an account. A free account is how we can keep our promise that it never expires, and it lets you edit the destination and see click counts.",
   },
   {
     q: "Do I need an account to create short links?",
-    a: "Yes. Sign in or create a free account to create and manage short links. The Free plan includes 3 short links or dynamic QR codes in total; Pro includes 500 in total. Anyone can open your short links without an account.",
+    a: "No. You can create a short link from the homepage without an account. Without an account it's hard for us to keep our promise that the link never expires, so we ask you to make a free account to keep it safe and to edit it later. The free plan includes 3 short links or dynamic QR codes in total. Anyone can open your short links without an account.",
   },
   {
     q: "What happens to my codes if I stop paying?",
@@ -173,7 +174,13 @@ const SEGMENTS = [
   },
 ];
 
-export default async function LandingPage() {
+export default async function LandingPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const params = await searchParams;
+  const missingCode = params["missing-code"] === "1";
   let signedIn = false;
   try {
     signedIn = Boolean(await getUser());
@@ -183,6 +190,11 @@ export default async function LandingPage() {
   return (
     <main id="main" tabIndex={-1}>
       <HomeJsonLd />
+      {missingCode ? (
+        <div className="relative z-20 border-b border-line bg-paper">
+          <MissingCodeNotice />
+        </div>
+      ) : null}
       <StickyCta />
       <ChapterRail chapters={CHAPTERS} />
 

@@ -3,8 +3,15 @@
 import { useActionState } from "react";
 import { signUp, type AuthState } from "../actions";
 import { Button, Input, Label, FieldError } from "@/components/ui";
+import type { ProInterval } from "@/lib/checkout-intent";
 
-export function SignupForm() {
+export function SignupForm({
+  plan,
+  next,
+}: {
+  plan?: ProInterval | null;
+  next?: string;
+}) {
   const [state, action, pending] = useActionState<AuthState, FormData>(
     signUp,
     null,
@@ -23,6 +30,8 @@ export function SignupForm() {
 
   return (
     <form action={action} className="space-y-4">
+      {plan ? <input type="hidden" name="plan" value={plan} /> : null}
+      <input type="hidden" name="next" value={next ?? "/dashboard"} />
       <div>
         <Label htmlFor="email">Email</Label>
         <Input
@@ -47,7 +56,11 @@ export function SignupForm() {
       </div>
       <FieldError>{state?.error}</FieldError>
       <Button type="submit" className="w-full" disabled={pending}>
-        {pending ? "Creating account…" : "Create account"}
+        {pending
+          ? "Creating account…"
+          : plan
+            ? "Create account and continue to checkout"
+            : "Create account"}
       </Button>
       <p className="text-center text-xs text-ink-faint">
         By signing up you agree to the{" "}

@@ -7,9 +7,11 @@ import { Button, Input, Label, FieldError } from "@/components/ui";
 
 export function LoginForm({
   next,
+  plan,
   urlError,
 }: {
   next?: string;
+  plan?: string | null;
   urlError?: string;
 }) {
   const [mode, setMode] = useState<"password" | "magic">("password");
@@ -28,6 +30,7 @@ export function LoginForm({
       {mode === "password" ? (
         <form action={pwAction} className="space-y-4">
           <input type="hidden" name="next" value={next ?? ""} />
+          {plan ? <input type="hidden" name="plan" value={plan} /> : null}
           <div>
             <Label htmlFor="email">Email</Label>
             <Input
@@ -63,6 +66,8 @@ export function LoginForm({
         </form>
       ) : (
         <form action={mgAction} className="space-y-4">
+          <input type="hidden" name="next" value={next ?? ""} />
+          {plan ? <input type="hidden" name="plan" value={plan} /> : null}
           <div>
             <Label htmlFor="email-magic">Email</Label>
             <Input

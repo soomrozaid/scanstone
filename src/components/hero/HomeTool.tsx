@@ -2,7 +2,6 @@
 
 import {
   useId,
-  useMemo,
   useRef,
   useState,
   useSyncExternalStore,
@@ -12,13 +11,17 @@ import Link from "next/link";
 import { useActionState } from "react";
 import { track } from "@vercel/analytics";
 import { createShortUrl } from "@/app/(app)/dashboard/actions";
+import { createGuestShortUrl } from "@/app/(marketing)/guest-actions";
 import { QRPreview } from "@/components/qr/QRPreview";
 import { DesignControls } from "@/components/qr/DesignControls";
 import { downloadPng, downloadSvg } from "@/components/qr/download";
+import { CopyUrlButton } from "@/components/dashboard/CopyUrlButton";
+import { GuestNoticeDialog } from "@/components/hero/GuestNoticeDialog";
 import { Button, ButtonLink, FieldError, Input } from "@/components/ui";
 import { isScannableCombo } from "@/lib/qr/contrast";
 import { validateDestinationUrl, type QRDesign } from "@/lib/validate";
 import { rememberPendingDestination } from "@/lib/pending-destination";
+import { GUEST_NOTICE_VERSION } from "@/lib/guest-constants";
 
 const DEFAULT_DESIGN: QRDesign = {
   fg: "#1c1917",
@@ -70,11 +73,16 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
   const [url, setUrl] = useState("");
   const [design, setDesign] = useState<QRDesign>(DEFAULT_DESIGN);
   const [qrPayload, setQrPayload] = useState("");
-  const [pendingLink, setPendingLink] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [downloadError, setDownloadError] = useState<string | null>(null);
+  const [noticeOpen, setNoticeOpen] = useState(false);
+  const guestFormRef = useRef<HTMLFormElement>(null);
   const [linkState, linkAction, linkPending] = useActionState(
     createShortUrl,
+    null,
+  );
+  const [guestState, guestAction, guestPending] = useActionState(
+    createGuestShortUrl,
     null,
   );
   const inputRef = useRef<HTMLInputElement>(null);
@@ -95,15 +103,14 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
   const qrReady =
     qrPayload.length > 0 && qrPayload.length <= MAX_LEN && scannable;
 
-  const loginHref = useMemo(() => {
-    if (!pendingLink) return "/login";
-    return `/login?next=${encodeURIComponent(accountReturnPath("link", pendingLink))}`;
-  }, [pendingLink]);
+  const signupHref = `/signup?next=${encodeURIComponent("/dashboard")}`;
+  const loginHref = `/login?next=${encodeURIComponent("/dashboard")}`;
 
   function selectMode(next: Mode, updateHash = true) {
     setMode(next);
     setError(null);
     setDownloadError(null);
+    setNoticeOpen(false);
     if (updateHash) {
       history.replaceState(null, "", hashForMode(next));
     }
@@ -126,24 +133,20 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
     }
     setError(null);
     setQrPayload(payload);
-    setPendingLink("");
     if (announce) track("home_tool_used", { mode: "qr" });
     return true;
   }
 
-  function startShortLink(raw: string = url) {
-    const dest = validateDestinationUrl(raw);
+  function openGuestNotice() {
+    const dest = validateDestinationUrl(url);
     if (!dest.ok) {
-      setPendingLink("");
       setError(dest.error);
       inputRef.current?.focus();
       return false;
     }
     setError(null);
     setQrPayload("");
-    setPendingLink(dest.url);
-    rememberPendingDestination(dest.url, "link");
-    track("home_tool_used", { mode: "link" });
+    setNoticeOpen(true);
     return true;
   }
 
@@ -155,7 +158,6 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
       const payload = normalizeStaticUrl(value);
       if (payload && payload.length <= MAX_LEN) {
         setQrPayload(payload);
-        setPendingLink("");
       } else {
         setQrPayload("");
       }
@@ -332,7 +334,7 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
                 <form
                   onSubmit={(event) => {
                     event.preventDefault();
-                    startShortLink();
+                    openGuestNotice();
                   }}
                   className="flex flex-col gap-2 sm:flex-row sm:items-stretch"
                 >
@@ -357,13 +359,19 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
                     type="submit"
                     variant="accent"
                     className="min-h-11 shrink-0 px-5 sm:min-w-40"
+                    disabled={guestPending}
                   >
-                    Create short link
+                    {guestPending ? "Creating…" : "Create short link"}
                   </Button>
                 </form>
               )}
               <div id={errorId}>
-                <FieldError>{error || (currentMode === "link" ? linkState?.error : null)}</FieldError>
+                <FieldError>
+                  {error ||
+                    (currentMode === "link"
+                      ? linkState?.error || guestState?.error
+                      : null)}
+                </FieldError>
               </div>
             </div>
           </div>
@@ -410,6 +418,14 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
                 Download SVG
               </Button>
             </div>
+            <p className="mt-3 text-center text-xs text-ink-soft">
+              Free download. No account, no card, no trial.
+            </p>
+            <p className="mt-1 break-all text-center text-xs text-ink-faint">
+              This is a static code. It opens{" "}
+              <span className="font-mono text-ink-soft">{qrPayload}</span>{" "}
+              directly, with nothing in between, so it can never be switched off.
+            </p>
             {downloadError ? (
               <p role="alert" className="mt-2 text-center text-xs text-danger">
                 {downloadError}
@@ -452,45 +468,65 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
           </div>
         ) : null}
 
-        {currentMode === "link" && pendingLink && !signedIn ? (
+        {currentMode === "link" && !signedIn && guestState?.shortUrl ? (
           <div className="mt-5 border-t border-line pt-5">
-            <p className="text-sm font-medium text-ink">Save this as a short link</p>
-            <p className="mt-2 break-all rounded-md border border-line bg-paper-deep/60 p-3 font-mono text-sm text-ink">
-              {pendingLink}
+            <p className="text-sm font-medium text-ink">Here is your short link</p>
+            <p
+              data-testid="guest-short-url"
+              className="mt-2 break-all rounded-md border border-line bg-paper-deep/60 p-3 font-mono text-sm text-ink"
+            >
+              {guestState.shortUrl}
             </p>
-            <p className="mt-3 text-sm leading-relaxed text-ink-soft">
-              A scst.one short link can be edited later and does not expire.
-              That needs a free account, because we have to store the redirect.
-              You get 3 free codes or short links, and no credit card.
+            <div className="mt-3 flex flex-wrap gap-2">
+              <CopyUrlButton url={guestState.shortUrl} />
+            </div>
+            <div className="mx-auto mt-5 max-w-48">
+              <QRPreview data={guestState.shortUrl} options={design} />
+            </div>
+            <p className="mt-4 text-sm leading-relaxed text-ink-soft">
+              Your link works now. Without an account it&apos;s hard for us to
+              keep our promise that it never expires, so make a free account to
+              keep it safe and edit where it points.
             </p>
             <div className="mt-4 flex flex-wrap gap-2">
-              <ButtonLink href="/signup" variant="accent" className="min-h-11">
+              <ButtonLink href={signupHref} variant="accent" className="min-h-11">
                 Create a free account
               </ButtonLink>
               <ButtonLink href={loginHref} variant="ghost" className="min-h-11">
                 Log in
               </ButtonLink>
             </div>
-            <p className="mt-4 text-sm leading-relaxed text-ink-soft">
-              Need a QR code right now, with no account?{" "}
-              <button
-                type="button"
-                className="font-medium text-verdigris-deep underline underline-offset-4"
-                onClick={() => {
-                  selectMode("qr");
-                  makeQr(pendingLink, true);
-                }}
-              >
-                Make a static one from this link
-              </button>
-              .
-            </p>
           </div>
         ) : null}
       </div>
 
+      {!signedIn ? (
+        <>
+          <form ref={guestFormRef} action={guestAction} className="hidden">
+            <input type="hidden" name="destination_url" value={url} />
+            <input type="hidden" name="guest_notice_accepted" value="1" />
+            <input
+              type="hidden"
+              name="guest_notice_version"
+              value={GUEST_NOTICE_VERSION}
+            />
+          </form>
+          <GuestNoticeDialog
+            open={noticeOpen}
+            signupHref={signupHref}
+            pending={guestPending}
+            onClose={() => setNoticeOpen(false)}
+            onContinue={() => {
+              track("home_tool_used", { mode: "link" });
+              setNoticeOpen(false);
+              guestFormRef.current?.requestSubmit();
+            }}
+          />
+        </>
+      ) : null}
+
       <p className="mt-4 text-sm text-paper/80">
-        No account needed for a static QR code.
+        No account, no card, and no trial for a static QR code.
       </p>
     </>
   );

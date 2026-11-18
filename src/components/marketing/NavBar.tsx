@@ -9,6 +9,7 @@ const LINKS = [
   { href: "/#qr", label: "Create QR" },
   { href: "/#short-link", label: "Short links" },
   { href: "/pricing", label: "Pricing" },
+  { href: "/blog", label: "Blog" },
   { href: "/help", label: "Help" },
 ];
 

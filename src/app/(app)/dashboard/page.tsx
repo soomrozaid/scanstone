@@ -59,6 +59,17 @@ export default async function DashboardPage() {
 
       <PendingDestinationBanner />
 
+      {used > limits.maxCodes ? (
+        <Card className="mt-6 border-copper/40 p-4 sm:p-5">
+          <p className="text-sm font-medium">You have more links than your plan includes</p>
+          <p className="mt-1 text-sm leading-relaxed text-ink-soft">
+            Guest links you saved put you over the free plan&apos;s {limits.maxCodes}{" "}
+            codes. They keep working, but destinations are read-only until you
+            delete one or upgrade to Pro.
+          </p>
+        </Card>
+      ) : null}
+
       {used === 0 ? (
         <Card className="mt-8 p-10 text-center">
           <div className="mx-auto max-w-md">

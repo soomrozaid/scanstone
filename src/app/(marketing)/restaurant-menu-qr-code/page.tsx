@@ -51,6 +51,10 @@ const questions = [
     a: "Cancellation does not disable your redirects. You lose Pro features, but your existing codes still redirect. Deleting a code or your account stops its redirects, and your menu website must remain available.",
   },
   {
+    q: "Can my QR menu just be a photo or PDF of the menu?",
+    a: "Yes, and guests often prefer it. A plain PDF or image link opens fast and skips cookie banners, pop-ups and app downloads. Scanstone sends guests straight to whatever link you choose, with no page of ours in between.",
+  },
+  {
     q: "Do guests need an app or an account?",
     a: "Guests do not need a Scanstone account. They can scan the code with a compatible phone camera and open your menu in their browser. Make sure the menu itself is public and does not require a login.",
   },
