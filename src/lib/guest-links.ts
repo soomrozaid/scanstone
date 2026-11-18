@@ -30,6 +30,7 @@ export type GuestCreateResult =
       ok: true;
       shortUrl: string;
       slug: string;
+      id: string;
       cookieValue: string;
       cookieOptions: ReturnType<typeof guestCookieOptions>;
     }
@@ -80,6 +81,7 @@ export async function createGuestShortLink(
   }
 
   let slug: string | null = null;
+  let codeId: string | null = null;
   for (let attempt = 0; attempt < 3 && !slug; attempt++) {
     const candidate = generateSlug();
     const { data, error } = await admin
@@ -96,17 +98,21 @@ export async function createGuestShortLink(
       })
       .select("id, slug")
       .single();
-    if (data?.slug) slug = data.slug;
+    if (data?.slug) {
+      slug = data.slug;
+      codeId = data.id ?? null;
+    }
     else if (error && error.code !== "23505") {
       return { ok: false, error: "Couldn't create the short link. Try again." };
     }
   }
-  if (!slug) return { ok: false, error: "Couldn't create the short link. Try again." };
+  if (!slug || !codeId) return { ok: false, error: "Couldn't create the short link. Try again." };
 
   return {
     ok: true,
     shortUrl: getShortUrl(slug),
     slug,
+    id: codeId,
     cookieValue: cookieValue!,
     cookieOptions: guestCookieOptions(GUEST_COOKIE_MAX_AGE_SECONDS),
   };

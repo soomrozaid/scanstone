@@ -15,6 +15,7 @@ import { createGuestShortUrl } from "@/app/(marketing)/guest-actions";
 import { QRPreview } from "@/components/qr/QRPreview";
 import { DesignControls } from "@/components/qr/DesignControls";
 import { downloadPng, downloadSvg } from "@/components/qr/download";
+import { useStaticGenerationEvents } from "@/lib/generation-client";
 import { CopyUrlButton } from "@/components/dashboard/CopyUrlButton";
 import { GuestNoticeDialog } from "@/components/hero/GuestNoticeDialog";
 import { Button, ButtonLink, FieldError, Input } from "@/components/ui";
@@ -102,6 +103,7 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
   const scannable = isScannableCombo(design.fg, design.bg);
   const qrReady =
     qrPayload.length > 0 && qrPayload.length <= MAX_LEN && scannable;
+  const { recordDownload } = useStaticGenerationEvents(qrPayload, qrReady);
 
   const signupHref = `/signup?next=${encodeURIComponent("/dashboard")}`;
   const loginHref = `/login?next=${encodeURIComponent("/dashboard")}`;
@@ -393,6 +395,7 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
                   setDownloadError(null);
                   try {
                     await downloadPng(qrPayload, design, "scanstone-qr");
+                    recordDownload();
                     track("qr_downloaded", { format: "png", mode: "home" });
                   } catch {
                     setDownloadError("Download failed. Try another browser.");
@@ -409,6 +412,7 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
                   setDownloadError(null);
                   try {
                     downloadSvg(qrPayload, design, "scanstone-qr");
+                    recordDownload();
                     track("qr_downloaded", { format: "svg", mode: "home" });
                   } catch {
                     setDownloadError("Download failed. Try another browser.");

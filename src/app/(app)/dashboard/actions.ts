@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { limitsFor } from "@/lib/plans";
@@ -11,6 +12,8 @@ import {
   designSchema,
 } from "@/lib/validate";
 import { log } from "@/lib/log";
+import { ANON_ID_COOKIE } from "@/lib/anon-id";
+import { tryRecordDynamicGeneration } from "@/lib/generation-events";
 
 export type CodeActionState = { error?: string; ok?: boolean } | null;
 
@@ -119,6 +122,19 @@ async function createRedirect(
     return {
       error: `Couldn't create the ${kind === "link" ? "short URL" : "code"}. Try again.`,
     };
+
+  const headerList = await headers();
+  const jar = await cookies();
+  const forwarded = headerList.get("x-forwarded-for");
+  const ip = (forwarded ?? "unknown").split(",")[0]?.trim() || "unknown";
+  tryRecordDynamicGeneration({
+    anonId: jar.get(ANON_ID_COOKIE)?.value,
+    pagePath: headerList.get("referer") ?? (kind === "link" ? "/dashboard/shorten" : "/dashboard/new"),
+    codeId,
+    userId: user.id,
+    headers: headerList,
+    ip,
+  });
 
   log("info", "code_created", { user: user.id });
   revalidatePath("/dashboard");

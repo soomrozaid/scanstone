@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <LegalShell title="Privacy Policy" effective="Effective July 12, 2026" ghost="Privacy" lead="What we keep, what we never collect, and who can see it.">
+    <LegalShell title="Privacy Policy" effective="Effective November 18, 2026" ghost="Privacy" lead="What we keep, what we never collect, and who can see it.">
       <div className="prose-scanstone space-y-6 text-[15px] leading-relaxed text-ink-soft">
         <section>
           <h2 className="display text-2xl text-ink">The short version</h2>
@@ -77,6 +77,29 @@ export default function PrivacyPage() {
             Static QR codes (link, text, WiFi, vCard) are generated entirely in
             your browser. The content you type, including WiFi passwords,
             never reaches our servers.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="display text-2xl text-ink">
+            When you generate a QR code or short link
+          </h2>
+          <p className="mt-2">
+            To understand how the tools are used, we store an anonymous
+            generation event each time you complete a static code, download
+            one, or create a dynamic code or short link. The event includes a
+            random browser identifier that we create on first visit and keep
+            in your browser (localStorage and a first-party <code>ss_aid</code> cookie)
+            so we can tell repeat use on the same browser from a new one. It
+            also includes whether the code was static or dynamic, the kind of
+            action (generate or download), the time, the page path, and
+            request-derived context computed on our server: country and region
+            (and city when our host sends it), the browser name, a coarse
+            device class, the operating system family, language, and a
+            truncated copy of the User-Agent and Accept-Language headers. We
+            do not use your IP address as the identifier, and we do not store
+            IP addresses in this table. No account is required. We do not
+            store the contents of a static code in these events.
           </p>
         </section>
 
