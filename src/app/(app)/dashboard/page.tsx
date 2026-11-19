@@ -48,6 +48,9 @@ export default async function DashboardPage() {
           </p>
         </div>
         <div className="flex flex-wrap gap-3">
+          <ButtonLink href="/dashboard/static" variant="ghost">
+            + Static QR code
+          </ButtonLink>
           <ButtonLink href="/dashboard/shorten" variant="ghost">
             + New short URL
           </ButtonLink>
@@ -82,6 +85,9 @@ export default async function DashboardPage() {
               and printed code keep working.
             </p>
             <div className="mt-5 flex flex-wrap justify-center gap-3">
+              <ButtonLink href="/dashboard/static" variant="ghost">
+                Make a static QR code
+              </ButtonLink>
               <ButtonLink href="/dashboard/shorten" variant="ghost">
                 Create a short URL
               </ButtonLink>
