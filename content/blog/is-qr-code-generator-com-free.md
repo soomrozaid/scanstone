@@ -48,7 +48,7 @@ If you need those code types, logos or many people in one account, QRCG or a sim
 Scanstone does one job: QR codes and short links you can edit, that keep working.
 
 - **No trial.** The free plan has 3 dynamic codes or scst.one short links with editing and 30 days of scan counts. No card, nothing switches off at day 14.
-- **Pro is monthly or yearly.** $9 USD a month or $79 USD a year for 500 codes or links, full scan history, SVG downloads of dynamic codes and CSV export.
+- **Pro is monthly or yearly.** $9 USD a month or $79 USD a year for 500 codes or links, full scan history and CSV export.
 - **If you stop paying, codes keep working.** Existing redirects keep running if you cancel, downgrade or go over a limit. Deleting a code does stop it, and like any dynamic code it depends on our service and your destination staying online.
 - **Free static codes.** If the link will never change, our [free QR code generator](/qr-code-generator) puts it straight into the pattern, with no account and nothing in between.
 

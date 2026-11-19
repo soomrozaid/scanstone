@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import Link from "next/link";
+import { ToolNav } from "./ToolNav";
 import { Container, Eyebrow } from "./primitives";
 import { Breadcrumbs } from "./Breadcrumbs";
 import { Faq } from "./Faq";
@@ -16,12 +16,6 @@ const HERO_PAYLOAD: Record<string, { data: string; kind: string; label: string }
   "/vcard-qr-code-generator": { data: "BEGIN:VCARD\nVERSION:3.0\nFN:Alex Rivera\nTEL:+1-306-555-0123\nEND:VCARD", kind: "vCard", label: "Example contact card QR code for a sample person" },
 };
 
-const TOOLS = [
-  { href: "/qr-code-generator", label: "Link & text", sub: "Any URL or note" },
-  { href: "/wifi-qr-code-generator", label: "WiFi", sub: "Join without typing" },
-  { href: "/vcard-qr-code-generator", label: "Contact card", sub: "One scan, saved" },
-  { href: "/#short-link", label: "Short link", sub: "scst.one" },
-];
 
 export function ToolPage({
   eyebrow,
@@ -61,24 +55,7 @@ export function ToolPage({
               </span>
             </h1>
             <p className="rise mt-6 max-w-2xl text-lead text-paper/80 [animation-delay:400ms]">{lead}</p>
-            <nav aria-label="Free tools" className="rise mt-8 flex flex-wrap gap-2 [animation-delay:500ms]">
-              {TOOLS.map((t) => {
-                const on = t.href === current;
-                return (
-                  <Link
-                    key={t.href}
-                    href={t.href}
-                    aria-current={on ? "page" : undefined}
-                    className={`inline-flex min-h-11 items-center rounded-full border px-4 text-sm transition ${on ? "border-paper bg-paper text-ink" : "border-white/15 bg-white/5 text-paper hover:border-white/40 hover:text-paper"}`}
-                  >
-                    {t.label}
-                    <span className={`ml-2 hidden text-xs sm:inline ${on ? "text-ink-faint" : "text-paper/60"}`}>
-                      {t.sub}
-                    </span>
-                  </Link>
-                );
-              })}
-            </nav>
+            <ToolNav />
           </div>
           <div className="hidden lg:block">
             {(() => {
@@ -104,7 +81,7 @@ export function ToolPage({
         <div className="aurora pointer-events-none absolute inset-0 opacity-50" aria-hidden="true" />
         <Container className="relative grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
           <div className="lg:sticky lg:top-28 lg:self-start">
-            <p className="font-mono text-xs uppercase tracking-[0.2em] text-copper-bright">Fig. 01 / FAQ</p>
+            <p className="font-mono text-xs uppercase tracking-[0.2em] text-copper-bright">FAQ</p>
             <h2 id="tool-faq" className="display mt-6 text-h2">
               Straight answers
             </h2>
@@ -170,6 +147,7 @@ export function ToolPage({
         body="Make a dynamic code instead. Three are free, no card needed, and the redirects never expire."
         primary={{ href: "/signup", label: "Make a dynamic code" }}
         secondary={{ href: "/demo", label: "See the live demo" }}
+        className="pb-10 sm:pb-16"
       />
     </main>
   );

@@ -116,13 +116,12 @@ export default function PrivacyPage() {
             When you send feedback
           </h2>
           <p className="mt-2">
-            The Feedback tab stores what you choose to send: the face you
-            picked, your note, and your email if you add one so we can reply.
-            We also store the page you sent it from, the time, the browser
-            identifier described above, your account if you are signed in, and
-            your browser&apos;s User-Agent. We do not store your IP address
-            with it. We use feedback only to improve Scanstone and to answer
-            you.
+            The Feedback tab in your dashboard stores what you choose to send:
+            the face you picked, the things you tapped, and your note if you
+            add one. We also store the page you sent it from, the time, your
+            account and its email address, and your browser&apos;s User-Agent.
+            We do not store your IP address with it. We use feedback only to
+            improve Scanstone and to answer you.
           </p>
         </section>
 

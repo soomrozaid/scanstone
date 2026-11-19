@@ -59,7 +59,7 @@ Scanstone does one job: QR codes and short links you can edit, that keep working
 
 - **No trial.** The free plan has 3 dynamic codes or scst.one short links with editing and 30 days of scan counts. No card, and nothing switches off at day 14.
 - **No scan caps.** Scans and redirects are unlimited on every plan.
-- **Monthly or yearly.** Pro is $9 USD a month or $79 USD a year for 500 codes or links, full scan history, SVG downloads of dynamic codes and CSV export. Cancel yourself from your account.
+- **Monthly or yearly.** Pro is $9 USD a month or $79 USD a year for 500 codes or links, full scan history and CSV export. Cancel yourself from your account.
 - **If you stop paying, codes keep working.** Existing redirects keep running if you cancel, downgrade or go over a limit. Deleting a code does stop it, and like any dynamic code it depends on our service and your destination staying online. If Scanstone ever shuts down, our terms commit to at least 90 days' email notice and a chance to export your data.
 - **Free static codes.** If the link will never change, our [free QR code generator](/qr-code-generator) puts it straight into the pattern, with no account and nothing in between.
 

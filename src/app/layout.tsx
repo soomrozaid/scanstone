@@ -3,7 +3,6 @@ import { Fraunces, Inter, IBM_Plex_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { AnonIdBootstrap } from "@/components/analytics/AnonIdBootstrap";
-import { FeedbackTab } from "@/components/feedback/FeedbackTab";
 import { envClient } from "@/config/env.client";
 import "./globals.css";
 
@@ -74,7 +73,6 @@ export default function RootLayout({
         <OrganizationJsonLd />
         {children}
         <AnonIdBootstrap />
-        <FeedbackTab />
         <Analytics />
         <SpeedInsights />
       </body>

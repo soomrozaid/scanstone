@@ -74,13 +74,14 @@ export default function FreeQRGeneratorPage() {
         accent="No expiration, ever."
         lead={
           <>
-            Make a QR code for a link, WiFi network, contact card, or any text.
+            Make a QR code for a link, WiFi network, contact card, text,
+            email, SMS or phone number.
             Download it as PNG or vector SVG. No account, no watermark, no
             14-day surprise: static codes are permanent by design, because the
             content lives inside the pattern itself.
           </>
         }
-        tool={<StaticGenerator initialMode="url" />}
+        tool={<StaticGenerator initialMode="url" syncTypeParam />}
         faqs={FAQS}
         related={
           <>

@@ -1,16 +1,15 @@
 import Link from "next/link";
 import { LazyVideo } from "@/components/cinema/LazyVideo";
 import { HomeLogo } from "./HomeLogo";
+import { FREE_TOOLS } from "@/lib/free-tools";
 
 const columns = [
   {
     title: "Free tools",
     links: [
-      { href: "/#short-link", label: "URL shortener" },
-      { href: "/qr-code-generator", label: "QR code generator" },
-      { href: "/wifi-qr-code-generator", label: "WiFi QR code" },
-      { href: "/vcard-qr-code-generator", label: "vCard QR code" },
-    ],
+      FREE_TOOLS[FREE_TOOLS.length - 1]!,
+      ...FREE_TOOLS.slice(0, -1),
+    ].map((t) => ({ href: t.href, label: t.footer })),
   },
   {
     title: "Product",

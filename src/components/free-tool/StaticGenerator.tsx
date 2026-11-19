@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
+import { Suspense, useEffect, useMemo, useState, useSyncExternalStore } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { QRPreview } from "@/components/qr/QRPreview";
 import { DesignControls } from "@/components/qr/DesignControls";
@@ -29,6 +30,18 @@ const MODES: Array<{ id: GeneratorMode; label: string }> = [
   })),
 ];
 
+const isMode = (v: string | null): v is GeneratorMode =>
+  MODES.some((m) => m.id === v);
+
+/** Follows ?type= in the address bar, so footer and chip links can open a type directly. */
+function TypeFromQuery({ onType }: { onType: (m: GeneratorMode) => void }) {
+  const type = useSearchParams().get("type");
+  useEffect(() => {
+    onType(isMode(type) ? type : "url");
+  }, [type, onType]);
+  return null;
+}
+
 const MAX_LEN = 1600;
 const EXAMPLE = "https://www.scanstone.ca";
 const subscribeToHydration = () => () => {};
@@ -38,8 +51,11 @@ const serverReady = () => false;
 export function StaticGenerator({
   initialMode = "url",
   variant = "public",
+  syncTypeParam = false,
 }: {
   initialMode?: GeneratorMode;
+  /** Read and write ?type= so a link like /qr-code-generator?type=email opens that type. */
+  syncTypeParam?: boolean;
   /** "dashboard": signed in, so skip the sign-up nudge and point to a dynamic code instead. */
   variant?: "public" | "dashboard";
 }) {
@@ -87,6 +103,11 @@ export function StaticGenerator({
         aria-label="QR code content and design"
         className="min-w-0 space-y-7 self-start rounded-[28px] border border-line bg-paper p-5 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.45)] sm:p-8"
       >
+        {syncTypeParam ? (
+          <Suspense fallback={null}>
+            <TypeFromQuery onType={setMode} />
+          </Suspense>
+        ) : null}
         <noscript>
           Enable JavaScript to create a QR code in your browser.
         </noscript>
@@ -100,7 +121,15 @@ export function StaticGenerator({
               key={m.id}
               role="tab"
               aria-selected={mode === m.id}
-              onClick={() => setMode(m.id)}
+              onClick={() => {
+                setMode(m.id);
+                if (syncTypeParam) {
+                  const u = new URL(window.location.href);
+                  if (m.id === "url") u.searchParams.delete("type");
+                  else u.searchParams.set("type", m.id);
+                  window.history.replaceState(null, "", u);
+                }
+              }}
               className={`cursor-pointer rounded-full px-4 py-2 text-sm font-medium transition-colors ${
                 mode === m.id
                   ? "bg-ink text-paper"

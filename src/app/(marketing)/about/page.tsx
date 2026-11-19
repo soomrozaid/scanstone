@@ -84,7 +84,7 @@ export default function AboutPage() {
       <section aria-labelledby="principles-static-h" className="hidden motion-reduce:block border-t border-line bg-paper-deep/40 py-24 sm:py-32">
         <Container>
           <Reveal>
-            <Fig n="01">What we care about</Fig>
+            <Fig>What we care about</Fig>
             <h2 id="principles-static-h" className="display mt-6 text-h2">Three things we won&apos;t budge on</h2>
           </Reveal>
           <ol className="mt-14 grid gap-4 lg:grid-cols-3">

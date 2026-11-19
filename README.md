@@ -21,7 +21,7 @@ Scanstone is a micro-SaaS for people who put QR codes on printed material:
   lapse, cancel: printed codes keep working. Only deleting a code stops it.
 
 **Plans:** Free (3 dynamic codes, 30-day analytics) · Pro $9/mo or $79/yr
-(500 codes, full history, SVG download, CSV export).
+(500 codes, full history, CSV export). SVG downloads are free on every plan.
 
 ## Stack
 

@@ -102,7 +102,7 @@ function DemoWarmingUp() {
           <div className="rounded-[28px] border border-line bg-paper p-6 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.45)] sm:p-8">
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div>
-                <Fig n="01">Dashboard view</Fig>
+                <Fig>Dashboard view</Fig>
                 <h2 className="display mt-4 text-3xl">Café menu, table tents</h2>
                 <span className="mt-3 inline-flex rounded-full border border-copper/40 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.16em] text-copper">
                   Sample data
@@ -258,7 +258,7 @@ export default async function DemoPage() {
           <div className="rounded-[28px] border border-line bg-paper p-6 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.45)] sm:p-8">
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div>
-                <Fig n="01">Dashboard view</Fig>
+                <Fig>Dashboard view</Fig>
                 <h2 className="display mt-4 text-3xl">{code.name}</h2>
               </div>
               <dl className="flex gap-6 text-right">

@@ -45,7 +45,7 @@ Scanstone is a smaller tool built for one job: QR codes and short links that you
 
 - **Free plan, no card, no trial.** 3 dynamic QR codes or scst.one short links, with editing and 30 days of scan counts.
 - **Edit as often as you like.** Changing a destination doesn't use up anything.
-- **Pro is monthly or yearly.** $9 USD a month or $79 USD a year for 500 codes or links, full scan history, SVG downloads of dynamic codes and CSV export. Cancel from your account; you don't need to email anyone.
+- **Pro is monthly or yearly.** $9 USD a month or $79 USD a year for 500 codes or links, full scan history and CSV export. Cancel from your account; you don't need to email anyone.
 - **If you stop paying, codes keep working.** Existing redirects keep running if you cancel, downgrade or go over a limit. Deleting a code does stop it, and like any dynamic code it depends on our service and your destination staying online.
 - **Free static codes.** If the link will never change, you don't need a dynamic code at all. Our [free QR code generator](/qr-code-generator) puts your link straight into the pattern, with PNG and SVG downloads and no account.
 

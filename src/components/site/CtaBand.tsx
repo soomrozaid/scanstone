@@ -9,14 +9,16 @@ export function CtaBand({
   body,
   primary = { href: "/#qr", label: "Make a QR code" },
   secondary = { href: "/#short-link", label: "Make a short link" },
+  className,
 }: {
   title: ReactNode;
   body?: ReactNode;
   primary?: { href: string; label: string };
   secondary?: { href: string; label: string };
+  className?: string;
 }) {
   return (
-    <section className="cta-close">
+    <section className={className ? `cta-close ${className}` : "cta-close"}>
       <div className="cta-portal">
         <div data-nav="dark" className="cta-portal-card relative overflow-hidden bg-night px-6 py-20 text-center text-paper sm:px-16 sm:py-32">
           <CtaPortalScrub />

@@ -24,7 +24,7 @@
 
 ## Plans
 - **Free:** 3 active dynamic codes, 30-day analytics window, PNG download, all static tools.
-- **Pro ($9/mo or $79/yr):** 500 dynamic codes, full analytics history, SVG/vector download for dynamic codes, CSV export.
+- **Pro ($9/mo or $79/yr):** 500 dynamic codes, full analytics history, CSV export. SVG downloads are free on every plan (changed Nov 18, 2026).
 - Entitlements enforced server-side at creation/display; **redirects are never entitlement-gated** (the covenant).
 
 ## Distribution (built into product)

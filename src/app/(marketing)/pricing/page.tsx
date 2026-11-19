@@ -56,7 +56,7 @@ const ROWS: Array<{ label: string; free: string; pro: string }> = [
     pro: "Everything, forever",
   },
   { label: "PNG download (2048px)", free: "✓", pro: "✓" },
-  { label: "Vector SVG download (dynamic codes)", free: "No", pro: "✓" },
+  { label: "Vector SVG download", free: "✓", pro: "✓" },
   { label: "CSV export", free: "No", pro: "✓" },
 ];
 
@@ -75,7 +75,7 @@ const NOTES = [
   },
   {
     q: "What happens to my codes if I stop paying?",
-    a: "They keep redirecting. You lose the Pro extras (full analytics history, vector downloads, CSV export) but every printed code keeps working.",
+    a: "They keep redirecting. You lose the Pro extras (full analytics history and CSV export) but every printed code keeps working.",
   },
   {
     q: "Is it really USD?",
@@ -142,7 +142,7 @@ export default function PricingPage() {
         <div className="aurora pointer-events-none absolute inset-0 opacity-50" aria-hidden="true" />
         <div className="gridlines-night pointer-events-none absolute inset-0 opacity-40" aria-hidden="true" />
         <Container className="relative max-w-5xl">
-          <p className="font-mono text-xs uppercase tracking-[0.2em] text-copper-bright">Fig. 01 / Side by side</p>
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-copper-bright">Side by side</p>
           <h2 id="compare-h" data-no-ink className="display mt-6 text-h2">
             <SplitWords text="What you get" />
           </h2>
@@ -153,7 +153,7 @@ export default function PricingPage() {
       <section aria-labelledby="billing-h" className="py-24">
         <Container className="grid max-w-5xl gap-12 lg:grid-cols-[0.8fr_1.2fr]">
           <div>
-            <Fig n="02">The details</Fig>
+            <Fig>The details</Fig>
             <h2 id="billing-h" className="display mt-6 text-h2">Billing, plainly</h2>
             <p className="mt-5 text-ink-soft">
               If Scanstone ever shuts down, we commit to at least 90 days&apos;
