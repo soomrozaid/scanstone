@@ -7,18 +7,26 @@ import { DesignControls } from "@/components/qr/DesignControls";
 import { track } from "@vercel/analytics";
 import { downloadPng, downloadSvg } from "@/components/qr/download";
 import { useStaticGenerationEvents } from "@/lib/generation-client";
-import { wifiPayload, vcardPayload } from "@/lib/qr/payloads";
+import {
+  EMPTY_STATIC_VALUES,
+  STATIC_KIND_LABELS,
+  StaticFields,
+  staticPayload,
+  type StaticKind,
+  type StaticValues,
+} from "@/components/qr/StaticFields";
 import { isScannableCombo } from "@/lib/qr/contrast";
 import { Button, Input, Label, Card } from "@/components/ui";
 import type { QRDesign } from "@/lib/validate";
 
-export type GeneratorMode = "url" | "text" | "wifi" | "vcard";
+export type GeneratorMode = "url" | StaticKind;
 
 const MODES: Array<{ id: GeneratorMode; label: string }> = [
   { id: "url", label: "Link" },
-  { id: "text", label: "Text" },
-  { id: "wifi", label: "WiFi" },
-  { id: "vcard", label: "Contact" },
+  ...(["wifi", "vcard", "text", "email", "sms", "phone"] as const).map((id) => ({
+    id,
+    label: STATIC_KIND_LABELS[id],
+  })),
 ];
 
 const MAX_LEN = 1600;
@@ -29,8 +37,11 @@ const serverReady = () => false;
 
 export function StaticGenerator({
   initialMode = "url",
+  variant = "public",
 }: {
   initialMode?: GeneratorMode;
+  /** "dashboard": signed in, so skip the sign-up nudge and point to a dynamic code instead. */
+  variant?: "public" | "dashboard";
 }) {
   // Prevent input before React has attached handlers; otherwise a fast mobile
   // interaction can change the DOM value without updating the QR payload.
@@ -47,41 +58,15 @@ export function StaticGenerator({
   });
 
   const [url, setUrl] = useState("");
-  const [text, setText] = useState("");
-  const [wifi, setWifi] = useState({
-    ssid: "",
-    password: "",
-    security: "WPA" as const,
-  });
-  const [vcard, setVcard] = useState({
-    firstName: "",
-    lastName: "",
-    organization: "",
-    phone: "",
-    email: "",
-    website: "",
-  });
+  const [values, setValues] = useState<StaticValues>(EMPTY_STATIC_VALUES);
   const [downloadError, setDownloadError] = useState<string | null>(null);
 
   const payload = useMemo(() => {
-    try {
-      switch (mode) {
-        case "url": {
-          const v = url.trim();
-          if (!v) return "";
-          return /^[a-z][a-z0-9+.-]*:\/\//i.test(v) ? v : `https://${v}`;
-        }
-        case "text":
-          return text.trim();
-        case "wifi":
-          return wifi.ssid ? wifiPayload(wifi) : "";
-        case "vcard":
-          return vcard.firstName || vcard.lastName ? vcardPayload(vcard) : "";
-      }
-    } catch {
-      return "";
-    }
-  }, [mode, url, text, wifi, vcard]);
+    if (mode !== "url") return staticPayload(mode, values);
+    const v = url.trim();
+    if (!v) return "";
+    return /^[a-z][a-z0-9+.-]*:\/\//i.test(v) ? v : `https://${v}`;
+  }, [mode, url, values]);
 
   const tooLong = payload.length > MAX_LEN;
   const scannable = isScannableCombo(design.fg, design.bg);
@@ -142,110 +127,13 @@ export function StaticGenerator({
           </div>
         ) : null}
 
-        {mode === "text" ? (
-          <div>
-            <Label htmlFor="gen-text">Text</Label>
-            <textarea
-              id="gen-text"
-              value={text}
-              onChange={(e) => setText(e.target.value)}
-              rows={3}
-              maxLength={MAX_LEN}
-              placeholder="Any text: a message, a serial number, a note"
-              className="w-full rounded-md border border-line bg-white/70 px-3 py-2 text-sm text-ink placeholder:text-ink-faint focus:border-verdigris"
-            />
-          </div>
-        ) : null}
-
-        {mode === "wifi" ? (
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div>
-              <Label htmlFor="wifi-ssid">Network name (SSID)</Label>
-              <Input
-                id="wifi-ssid"
-                value={wifi.ssid}
-                onChange={(e) => setWifi({ ...wifi, ssid: e.target.value })}
-                placeholder="CafeGuest"
-              />
-            </div>
-            <div>
-              <Label htmlFor="wifi-pass">Password</Label>
-              <Input
-                id="wifi-pass"
-                value={wifi.password}
-                onChange={(e) => setWifi({ ...wifi, password: e.target.value })}
-                placeholder="Leave empty for open networks"
-              />
-            </div>
-            <p className="text-xs text-ink-faint sm:col-span-2">
-              Guests point their camera and join. No typing. The password is
-              embedded in the code itself and never sent to us.
-            </p>
-          </div>
-        ) : null}
-
-        {mode === "vcard" ? (
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div>
-              <Label htmlFor="vc-first">First name</Label>
-              <Input
-                id="vc-first"
-                value={vcard.firstName}
-                onChange={(e) =>
-                  setVcard({ ...vcard, firstName: e.target.value })
-                }
-              />
-            </div>
-            <div>
-              <Label htmlFor="vc-last">Last name</Label>
-              <Input
-                id="vc-last"
-                value={vcard.lastName}
-                onChange={(e) =>
-                  setVcard({ ...vcard, lastName: e.target.value })
-                }
-              />
-            </div>
-            <div>
-              <Label htmlFor="vc-org">Company</Label>
-              <Input
-                id="vc-org"
-                value={vcard.organization}
-                onChange={(e) =>
-                  setVcard({ ...vcard, organization: e.target.value })
-                }
-              />
-            </div>
-            <div>
-              <Label htmlFor="vc-phone">Phone</Label>
-              <Input
-                id="vc-phone"
-                type="tel"
-                value={vcard.phone}
-                onChange={(e) => setVcard({ ...vcard, phone: e.target.value })}
-              />
-            </div>
-            <div>
-              <Label htmlFor="vc-email">Email</Label>
-              <Input
-                id="vc-email"
-                type="email"
-                value={vcard.email}
-                onChange={(e) => setVcard({ ...vcard, email: e.target.value })}
-              />
-            </div>
-            <div>
-              <Label htmlFor="vc-web">Website</Label>
-              <Input
-                id="vc-web"
-                type="url"
-                value={vcard.website}
-                onChange={(e) =>
-                  setVcard({ ...vcard, website: e.target.value })
-                }
-              />
-            </div>
-          </div>
+        {mode !== "url" ? (
+          <StaticFields
+            kind={mode}
+            values={values}
+            onChange={setValues}
+            maxLength={MAX_LEN}
+          />
         ) : null}
 
         {tooLong ? (
@@ -335,7 +223,22 @@ export function StaticGenerator({
           </p>
         </Card>
 
-        {mode === "url" ? (
+        {mode === "url" && variant === "dashboard" ? (
+          <Card className="mt-4 !rounded-[22px] border-verdigris/30 bg-verdigris/5 p-5">
+            <p className="text-sm leading-relaxed text-ink">
+              <strong>Printing this?</strong>{" "}A static code can&apos;t be edited
+              later. Make it a{" "}
+              <Link
+                href={payload ? `/dashboard/new?url=${encodeURIComponent(payload)}` : "/dashboard/new"}
+                className="font-medium text-verdigris-deep underline"
+              >
+                dynamic code
+              </Link>{" "}
+              if you might want to change where it points or count scans.
+            </p>
+          </Card>
+        ) : null}
+        {mode === "url" && variant === "public" ? (
           <Card className="mt-4 !rounded-[22px] border-verdigris/30 bg-verdigris/5 p-5">
             <p className="text-sm leading-relaxed text-ink">
               <strong>Printing this?</strong>{" "}A static code can&apos;t be edited

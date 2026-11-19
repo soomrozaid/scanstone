@@ -3,6 +3,7 @@
 import {
   useEffect,
   useId,
+  useMemo,
   useRef,
   useState,
   useSyncExternalStore,
@@ -25,6 +26,14 @@ import { isScannableCombo } from "@/lib/qr/contrast";
 import { validateDestinationUrl, type QRDesign } from "@/lib/validate";
 import { rememberPendingDestination } from "@/lib/pending-destination";
 import { GUEST_NOTICE_VERSION } from "@/lib/guest-constants";
+import {
+  EMPTY_STATIC_VALUES,
+  STATIC_KIND_LABELS,
+  StaticFields,
+  staticPayload,
+  type StaticKind,
+  type StaticValues,
+} from "@/components/qr/StaticFields";
 
 const DEFAULT_DESIGN: QRDesign = {
   fg: "#1c1917",
@@ -38,6 +47,15 @@ const clientReady = () => true;
 const serverReady = () => false;
 
 type Mode = "qr" | "link";
+type QrKind = "url" | StaticKind;
+
+const QR_KINDS: Array<{ id: QrKind; label: string }> = [
+  { id: "url", label: "Link" },
+  ...(["wifi", "vcard", "text", "email", "sms", "phone"] as const).map((id) => ({
+    id,
+    label: STATIC_KIND_LABELS[id],
+  })),
+];
 
 function normalizeStaticUrl(raw: string): string {
   const value = raw.trim();
@@ -110,10 +128,22 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
     }
   }, [guestShortUrl]);
 
+  // Link codes keep their submit-and-blur flow; the other static types
+  // (WiFi, contact, text, email, SMS, phone) update as you type.
+  const [qrKind, setQrKind] = useState<QrKind>("url");
+  const [staticValues, setStaticValues] =
+    useState<StaticValues>(EMPTY_STATIC_VALUES);
+  const otherPayload = useMemo(
+    () => (qrKind === "url" ? "" : staticPayload(qrKind, staticValues)),
+    [qrKind, staticValues],
+  );
+  const shownPayload = qrKind === "url" ? qrPayload : otherPayload;
+  const tooLong = shownPayload.length > MAX_LEN;
+
   const scannable = isScannableCombo(design.fg, design.bg);
   const qrReady =
-    qrPayload.length > 0 && qrPayload.length <= MAX_LEN && scannable;
-  const { recordDownload } = useStaticGenerationEvents(qrPayload, qrReady);
+    shownPayload.length > 0 && !tooLong && scannable;
+  const { recordDownload } = useStaticGenerationEvents(shownPayload, qrReady);
 
   const signupHref = `/signup?next=${encodeURIComponent("/dashboard")}`;
   const loginHref = `/login?next=${encodeURIComponent("/dashboard")}`;
@@ -260,6 +290,52 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
             aria-labelledby={`home-tool-tab-${currentMode}`}
             className="mt-4"
           >
+            {currentMode === "qr" ? (
+              <div
+                role="group"
+                aria-label="Type of QR code"
+                className="mb-4 flex flex-wrap gap-1.5"
+              >
+                {QR_KINDS.map((k) => (
+                  <button
+                    key={k.id}
+                    type="button"
+                    aria-pressed={qrKind === k.id}
+                    onClick={() => {
+                      setQrKind(k.id);
+                      setError(null);
+                      setDownloadError(null);
+                    }}
+                    className={`min-h-9 rounded-full border px-3 text-sm font-medium transition-colors ${
+                      qrKind === k.id
+                        ? "border-ink bg-ink text-paper"
+                        : "border-line bg-paper text-ink-soft hover:text-ink"
+                    }`}
+                  >
+                    {k.label}
+                  </button>
+                ))}
+              </div>
+            ) : null}
+            {currentMode === "qr" && qrKind !== "url" ? (
+              <div data-testid="home-static-fields">
+                <StaticFields
+                  kind={qrKind}
+                  values={staticValues}
+                  onChange={(next) => {
+                    setStaticValues(next);
+                    setDownloadError(null);
+                  }}
+                  maxLength={MAX_LEN}
+                />
+                {tooLong ? (
+                  <p role="alert" className="mt-2 text-sm text-danger">
+                    That&apos;s too much for a reliable QR code. Keep it under{" "}
+                    {MAX_LEN} characters.
+                  </p>
+                ) : null}
+              </div>
+            ) : (
             <div className="flex flex-col gap-2">
               <label
                 htmlFor="home-tool-url"
@@ -386,6 +462,7 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
                 </FieldError>
               </div>
             </div>
+            )}
           </div>
         </fieldset>
 
@@ -393,7 +470,7 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
           <div className="mt-5 border-t border-line pt-5">
             <p className="mb-3 text-sm font-medium text-ink">Your QR code</p>
             <QRPreview
-              data={qrPayload}
+              data={shownPayload}
               options={design}
               className="mx-auto max-w-44 sm:max-w-52"
             />
@@ -404,9 +481,9 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
                 onClick={async () => {
                   setDownloadError(null);
                   try {
-                    await downloadPng(qrPayload, design, "scanstone-qr");
+                    await downloadPng(shownPayload, design, "scanstone-qr");
                     recordDownload();
-                    track("qr_downloaded", { format: "png", mode: "home" });
+                    track("qr_downloaded", { format: "png", mode: "home", kind: qrKind });
                   } catch {
                     setDownloadError("Download failed. Try another browser.");
                   }
@@ -421,9 +498,9 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
                 onClick={() => {
                   setDownloadError(null);
                   try {
-                    downloadSvg(qrPayload, design, "scanstone-qr");
+                    downloadSvg(shownPayload, design, "scanstone-qr");
                     recordDownload();
-                    track("qr_downloaded", { format: "svg", mode: "home" });
+                    track("qr_downloaded", { format: "svg", mode: "home", kind: qrKind });
                   } catch {
                     setDownloadError("Download failed. Try another browser.");
                   }
@@ -435,11 +512,18 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
             <p className="mt-3 text-center text-xs text-ink-soft">
               Free download. No account, no card, no trial.
             </p>
-            <p className="mt-1 break-all text-center text-xs text-ink-faint">
-              This is a static code. It opens{" "}
-              <span className="font-mono text-ink-soft">{qrPayload}</span>{" "}
-              directly, with nothing in between, so it can never be switched off.
-            </p>
+            {qrKind === "url" ? (
+              <p className="mt-1 break-all text-center text-xs text-ink-faint">
+                This is a static code. It opens{" "}
+                <span className="font-mono text-ink-soft">{qrPayload}</span>{" "}
+                directly, with nothing in between, so it can never be switched off.
+              </p>
+            ) : (
+              <p className="mt-1 text-center text-xs text-ink-faint">
+                This is a static code. Everything is stored in the code itself,
+                with nothing in between, so it never expires.
+              </p>
+            )}
             {downloadError ? (
               <p role="alert" className="mt-2 text-center text-xs text-danger">
                 {downloadError}
@@ -453,6 +537,8 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
                 <DesignControls design={design} onChange={setDesign} />
               </div>
             </details>
+            {qrKind === "url" ? (
+            <>
             <p className="mt-4 text-sm leading-relaxed text-ink-soft">
               This code holds your link itself, with nothing in between, so it
               never expires.
@@ -479,6 +565,8 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
               )}
               . You get 3 free, and no credit card.
             </p>
+            </>
+            ) : null}
           </div>
         ) : null}
 

@@ -50,3 +50,32 @@ export function vcardPayload(opts: {
   ].filter(Boolean);
   return lines.join("\r\n");
 }
+
+/** mailto: link that opens a new email with the fields filled in. */
+export function emailPayload(opts: {
+  to: string;
+  subject?: string;
+  body?: string;
+}): string {
+  const params = new URLSearchParams();
+  if (opts.subject) params.set("subject", opts.subject);
+  if (opts.body) params.set("body", opts.body);
+  // URLSearchParams writes spaces as "+", which some mail apps show literally.
+  const query = params.toString().replace(/\+/g, "%20");
+  return `mailto:${opts.to.trim()}${query ? `?${query}` : ""}`;
+}
+
+function cleanPhone(v: string): string {
+  return v.replace(/[^\d+]/g, "");
+}
+
+/** SMSTO: payload. iPhone and Android cameras open Messages with it filled in. */
+export function smsPayload(opts: { number: string; message?: string }): string {
+  const n = cleanPhone(opts.number);
+  return opts.message ? `SMSTO:${n}:${opts.message}` : `SMSTO:${n}`;
+}
+
+/** tel: payload. Scanning offers to call the number. */
+export function phonePayload(number: string): string {
+  return `tel:${cleanPhone(number)}`;
+}
