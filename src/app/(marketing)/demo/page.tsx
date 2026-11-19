@@ -71,7 +71,8 @@ function DemoWarmingUp() {
           </p>
         </Container>
       </DarkHero>
-      <section className="relative">
+      {/* overflow-x-clip: the radar rings scale past the screen edge on phones. Clip, unlike hidden, keeps the sticky card working. */}
+      <section className="relative overflow-x-clip">
         <Container className="relative -mt-28 grid gap-5 pb-24 lg:grid-cols-[380px_1fr]">
           <div className="h-fit rounded-[28px] bg-night-raised p-6 text-paper shadow-[var(--shadow-lift)] ring-1 ring-white/10 lg:sticky lg:top-24">
             <div className="radar relative rounded-2xl bg-white p-4">
@@ -225,7 +226,8 @@ export default async function DemoPage() {
           </p>
         </Container>
       </DarkHero>
-      <section className="relative">
+      {/* overflow-x-clip: the radar rings scale past the screen edge on phones. Clip, unlike hidden, keeps the sticky card working. */}
+      <section className="relative overflow-x-clip">
         <Container className="relative -mt-28 grid gap-5 pb-24 lg:grid-cols-[380px_1fr]">
           <div className="h-fit rounded-[28px] bg-night-raised p-6 text-paper shadow-[var(--shadow-lift)] ring-1 ring-white/10 lg:sticky lg:top-24">
             <div className="radar relative rounded-2xl bg-white p-4">
