@@ -71,7 +71,7 @@ function JsonLd({ doc, body }: { doc: DocMeta; body: string }) {
         "@type": "Organization",
         name: "Scanstone",
         url: base,
-        logo: { "@type": "ImageObject", url: `${base}/icon` },
+        logo: { "@type": "ImageObject", url: `${base}/icon-512.png` },
       },
       mainEntityOfPage: { "@type": "WebPage", "@id": url },
       url,

@@ -198,7 +198,7 @@ export function FeedbackTab() {
                       }}
                       className={`flex min-h-14 flex-col items-center justify-center gap-0.5 rounded-xl border text-xs font-medium transition-colors ${
                         reaction === r.id
-                          ? "border-verdigris bg-verdigris/10 text-ink"
+                          ? "border-verdigris-deep bg-verdigris/15 text-ink ring-1 ring-verdigris-deep"
                           : "border-line bg-white/60 text-ink-soft hover:text-ink"
                       }`}
                     >
@@ -222,12 +222,13 @@ export function FeedbackTab() {
                         type="button"
                         aria-pressed={on}
                         onClick={() => toggleTopic(t.id)}
-                        className={`inline-flex min-h-9 items-center rounded-full border px-3 text-xs font-medium transition-colors ${
+                        className={`inline-flex min-h-9 items-center gap-1 rounded-full border px-3 text-xs font-medium transition-colors ${
                           on
-                            ? "border-verdigris bg-verdigris/10 text-ink"
-                            : "border-line bg-white/60 text-ink-soft hover:text-ink"
+                            ? "border-verdigris-deep bg-verdigris-deep text-paper"
+                            : "border-line bg-white/60 text-ink-soft hover:border-ink-faint hover:text-ink"
                         }`}
                       >
+                        {on ? <span aria-hidden="true">✓</span> : null}
                         {t.label}
                       </button>
                     );

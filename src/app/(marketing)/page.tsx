@@ -298,7 +298,7 @@ export default function LandingPage({
       </section>
 
       {/* TRY IT */}
-      <section aria-labelledby="try-h" className="relative overflow-hidden py-24 sm:py-32">
+      <section aria-labelledby="try-h" className="relative overflow-clip-safe py-24 sm:py-32">
         <div className="gridlines absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_70%)]" aria-hidden="true" />
         <Container className="relative grid items-center gap-12 lg:grid-cols-[0.9fr_1.1fr]">
           <Reveal>
@@ -608,7 +608,7 @@ export default function LandingPage({
       </section>
 
       {/* FAQ */}
-      <section id="faq" aria-labelledby="faq-h" data-nav="dark" className="scroll-mt-20 night-portal cv-auto relative overflow-hidden bg-night py-24 text-paper sm:py-32">
+      <section id="faq" aria-labelledby="faq-h" data-nav="dark" className="scroll-mt-20 night-portal cv-auto relative overflow-clip-safe bg-night py-24 text-paper sm:py-32">
         <div className="aurora pointer-events-none absolute inset-0 opacity-50" aria-hidden="true" />
         <Container className="relative grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
           <div className="lg:sticky lg:top-28 lg:self-start">
