@@ -4,7 +4,7 @@ import { envServer } from "@/config/env.server";
 
 /**
  * Service-role client. Bypasses RLS — use only for: redirect slug lookup,
- * scan recording, generation events, signup attribution, Stripe webhook plan updates, account deletion.
+ * scan recording, generation events, signup attribution, feedback, Stripe webhook plan updates, account deletion.
  * Never derive authorization from client input when using this client.
  */
 export function createSupabaseAdminClient() {
