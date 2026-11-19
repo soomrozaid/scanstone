@@ -20,7 +20,7 @@ export function CtaBand({
   return (
     <section className={className ? `cta-close ${className}` : "cta-close"}>
       <div className="cta-portal">
-        <div data-nav="dark" className="cta-portal-card relative overflow-hidden bg-night px-6 py-20 text-center text-paper sm:px-16 sm:py-32">
+        <div data-nav="dark" className="cta-portal-card relative overflow-clip-safe bg-night px-6 py-20 text-center text-paper sm:px-16 sm:py-32">
           <CtaPortalScrub />
           <LazyVideo className="absolute inset-0 h-full w-full opacity-70" />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(15,14,12,0.55),rgba(15,14,12,0.92)_70%)]" aria-hidden="true" />

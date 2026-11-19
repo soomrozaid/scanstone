@@ -21,7 +21,7 @@ export default function TermsPage() {
           </p>
         </section>
 
-        <section id="covenant" className="covenant relative scroll-mt-24 overflow-hidden rounded-[24px] border border-copper/40 bg-night p-6 text-paper/80 sm:p-8">
+        <section id="covenant" className="covenant relative scroll-mt-24 overflow-clip-safe rounded-[24px] border border-copper/40 bg-night p-6 text-paper/80 sm:p-8">
           <span aria-hidden="true" className="covenant-seal absolute -right-6 -top-6 flex h-28 w-28 items-center justify-center rounded-full border border-copper/50 font-mono text-[9px] uppercase tracking-[0.2em] text-copper-bright">
             <span className="covenant-ring absolute inset-2 rounded-full border border-dashed border-copper/40" />
             In writing

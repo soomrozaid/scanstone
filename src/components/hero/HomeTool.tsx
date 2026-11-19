@@ -276,7 +276,7 @@ export function HomeTool({ signedIn }: { signedIn: boolean }) {
           <p className="mt-3 text-sm text-ink-soft">
             Codes don&apos;t expire.{" "}
             <Link href="/help" className="font-medium text-verdigris-deep underline underline-offset-4">
-              Do codes expire?
+              How that works
             </Link>
             {" · "}
             <Link href="/pricing" className="font-medium text-verdigris-deep underline underline-offset-4">

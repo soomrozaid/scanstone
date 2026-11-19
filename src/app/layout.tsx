@@ -41,7 +41,7 @@ function OrganizationJsonLd() {
       "@type": "Organization",
       name: "Scanstone",
       url: base,
-      logo: `${base}/icon`,
+      logo: `${base}/icon-512.png`,
       description:
         "A QR code generator whose codes keep working even if you stop paying: free static codes that never expire, and dynamic codes with a written no-shutoff covenant.",
     },

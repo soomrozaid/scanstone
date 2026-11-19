@@ -29,7 +29,7 @@ export default async function AppLayout({
       <header className="border-b border-line bg-paper/90">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
           <div className="flex items-center gap-6">
-            <HomeLogo size={20} />
+            <HomeLogo size={28} />
             <nav
               aria-label="App"
               className="hidden items-center gap-4 text-sm text-ink-soft sm:flex"

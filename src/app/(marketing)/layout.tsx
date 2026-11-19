@@ -3,6 +3,7 @@ import { SiteNav, SiteNavFallback } from "@/components/marketing/SiteNav";
 import { SiteFooter } from "@/components/marketing/SiteFooter";
 import { MotionLayer } from "@/components/cinema/MotionLayer";
 import { AnimGate } from "@/components/cinema/AnimGate";
+import { ScrollFxFallback } from "@/components/cinema/ScrollFxFallback";
 import { PhoneHandoff } from "@/components/cinema/PhoneHandoff";
 import { SignInPrompt } from "@/components/marketing/SignInPrompt";
 import { getUser } from "@/lib/supabase/server";
@@ -31,6 +32,7 @@ export default function MarketingLayout({
       <SiteFooter />
       <MotionLayer />
       <AnimGate />
+      <ScrollFxFallback />
       <PhoneHandoff />
       <Suspense fallback={null}>
         <SignInPromptWithAuth />
