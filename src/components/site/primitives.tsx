@@ -68,6 +68,7 @@ export function SectionHeading({
   className,
   dark = false,
   center = false,
+  wide = false,
 }: {
   eyebrow?: ReactNode;
   title: ReactNode;
@@ -76,11 +77,13 @@ export function SectionHeading({
   className?: string;
   dark?: boolean;
   center?: boolean;
+  /** Let the title use the full container so a long line can stay on one line. */
+  wide?: boolean;
 }) {
   return (
     <div
       className={cx(
-        "max-w-3xl",
+        wide ? "max-w-none" : "max-w-3xl",
         center && "mx-auto text-center",
         className,
       )}

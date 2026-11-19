@@ -1042,6 +1042,15 @@ details[open] > .faq-row::before { transform: scaleX(1); }
     .cta-horizon { transform-origin: center; animation: cta-horizon linear both; animation-timeline: --cta; animation-range: cover 25% cover 50%; }
   }
 }
+/* Fallback for browsers without animation-timeline (desktop Safari before 26):
+   CtaPortalScrub sets --cta-p from the scroll position. */
+.cta-portal-card[data-scrub] {
+  clip-path: inset(0 calc(var(--gut) * (1 - var(--cta-p, 0))) round calc(32px * (1 - var(--cta-p, 0))));
+}
+.cta-portal-card[data-scrub] .cta-portal-inner {
+  transform: translateY(calc(60px * (1 - var(--cta-p, 0)))) scale(calc(0.94 + 0.06 * var(--cta-p, 0)));
+  opacity: calc(0.4 + 0.6 * var(--cta-p, 0));
+}
 @keyframes cta-horizon { from { transform: scaleX(0); opacity: 0 } to { transform: scaleX(1); opacity: 1 } }
 @keyframes cta-open { from { clip-path: inset(0 var(--gut) round 32px) } to { clip-path: inset(0 0 round 0) } }
 @keyframes cta-rise { from { transform: translateY(60px) scale(.94); opacity: .4 } to { transform: none; opacity: 1 } }
@@ -1210,5 +1219,15 @@ dialog::backdrop {
 /* Long-form answers stay within a readable measure. (modern-web-guidance typography) */
 .help-answer, .faq-answer, .article-ink p {
   max-width: 60ch;
+  text-wrap: pretty;
+}
+
+/* Line breaks (Nov 18): headings split into even lines instead of leaving one
+   word behind, and paragraphs avoid a lone last word. Intentional <br>s in
+   the markup still win. */
+h1, h2, h3, .text-h2 {
+  text-wrap: balance;
+}
+p, li, dd, figcaption {
   text-wrap: pretty;
 }

@@ -143,7 +143,7 @@ export default function PricingPage() {
         <div className="gridlines-night pointer-events-none absolute inset-0 opacity-40" aria-hidden="true" />
         <Container className="relative max-w-5xl">
           <p className="font-mono text-xs uppercase tracking-[0.2em] text-copper-bright">Fig. 01 / Side by side</p>
-          <h2 id="compare-h" className="display mt-6 text-h2">
+          <h2 id="compare-h" data-no-ink className="display mt-6 text-h2">
             <SplitWords text="What you get" />
           </h2>
           <CompareTable rows={ROWS} />

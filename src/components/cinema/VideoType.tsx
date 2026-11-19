@@ -17,16 +17,23 @@ function headerOffset() {
 }
 
 /**
- * Giant type over a veiled tile loop. On desktop the section pins under the
- * header while the lines drift sideways; on phones and reduced motion it
- * stays in normal document flow so it never traps the scroll.
+ * Giant type over a veiled tile loop: a short list of places people print a
+ * code. Each place appears once. As you scroll, the places light up one at a
+ * time and slide into line, like items being ticked off. On desktop the
+ * section pins under the header while that happens; on phones it stays in
+ * normal document flow so it never traps the scroll. Reduced motion shows the
+ * finished list.
  */
 export function VideoType({
   lines,
-  label,
+  eyebrow,
+  title,
+  id = "where-h",
 }: {
   lines: string[];
-  label: string;
+  eyebrow: string;
+  title: string;
+  id?: string;
 }) {
   const root = useRef<HTMLElement>(null);
   const video = useRef<HTMLVideoElement>(null);
@@ -61,29 +68,30 @@ export function VideoType({
     let ctx: gsap.Context | undefined;
     const cancel = onIdle(() => {
       ctx = gsap.context(() => {
+        const from = (i: number) => ({
+          opacity: 0.14,
+          xPercent: i % 2 ? -6 : 6,
+        });
         mm.add(
           "(prefers-reduced-motion: no-preference) and (min-width: 768px)",
           () => {
             const rows = gsap.utils.toArray<HTMLElement>("[data-line]");
             const tl = gsap.timeline({
-              defaults: { ease: "none" },
+              defaults: { ease: "power2.out" },
               scrollTrigger: {
                 trigger: el,
                 start: () => `top ${headerOffset()}`,
-                end: "+=140%",
+                end: "+=120%",
                 pin: true,
                 scrub: 0.6,
                 invalidateOnRefresh: true,
               },
             });
             rows.forEach((line, i) => {
-              tl.fromTo(
-                line,
-                { xPercent: i % 2 ? -18 : 6 },
-                { xPercent: i % 2 ? 4 : -22 },
-                0,
-              );
+              tl.fromTo(line, from(i), { opacity: 1, xPercent: 0, duration: 1 }, i * 0.8);
             });
+            // A short hold at the end so the full list reads before unpinning.
+            tl.to({}, { duration: 0.8 });
             ScrollTrigger.sort();
             ScrollTrigger.refresh();
             return () => tl.kill();
@@ -95,20 +103,17 @@ export function VideoType({
             gsap.utils
               .toArray<HTMLElement>("[data-line]")
               .forEach((line, i) => {
-                gsap.fromTo(
-                  line,
-                  { xPercent: i % 2 ? -12 : 4 },
-                  {
-                    xPercent: i % 2 ? 3 : -14,
-                    ease: "none",
-                    scrollTrigger: {
-                      trigger: el,
-                      start: "top bottom",
-                      end: "bottom top",
-                      scrub: 0.6,
-                    },
+                gsap.fromTo(line, from(i), {
+                  opacity: 1,
+                  xPercent: 0,
+                  ease: "power2.out",
+                  scrollTrigger: {
+                    trigger: line,
+                    start: "top 92%",
+                    end: "top 60%",
+                    scrub: 0.6,
                   },
-                );
+                });
               });
           },
         );
@@ -126,8 +131,8 @@ export function VideoType({
     <section
       ref={root}
       data-nav="dark"
-      aria-label={label}
-      className="relative overflow-hidden bg-night md:flex md:min-h-[calc(100svh-var(--header-h,4rem))] md:flex-col md:justify-center"
+      aria-labelledby={id}
+      className="relative overflow-hidden bg-night text-paper md:flex md:min-h-[calc(100svh-var(--header-h,4rem))] md:flex-col md:justify-center"
     >
       <video
         ref={video}
@@ -147,18 +152,34 @@ export function VideoType({
         className="pointer-events-none absolute inset-0 bg-night/80"
         aria-hidden="true"
       />
-      <div className="relative py-8 sm:py-10 md:py-0" aria-hidden="true">
-        {lines.map((l, i) => (
-          <div
-            key={l}
-            data-line
-            className={`display vt-line whitespace-nowrap py-1 text-[clamp(3rem,14vw,8rem)] font-semibold leading-[0.9] tracking-[-0.04em] md:text-[clamp(3.25rem,11svh,8.5rem)] ${i % 2 ? "italic" : ""}`}
-          >
-            {l}
-            <span className="px-[0.2em] opacity-60">·</span>
-            {l}
-          </div>
-        ))}
+      <div className="relative mx-auto w-full max-w-7xl px-5 py-16 sm:px-8 md:py-10">
+        <p className="font-mono text-xs uppercase tracking-[0.2em] text-copper-bright">
+          {eyebrow}
+        </p>
+        <h2
+          id={id}
+          data-no-ink
+          className="mt-3 max-w-2xl text-lg leading-snug text-paper/85 sm:text-xl"
+        >
+          {title}
+        </h2>
+        <ul className="mt-6 md:mt-8">
+          {lines.map((l, i) => (
+            <li
+              key={l}
+              data-line
+              className={`display vt-line flex items-baseline gap-[0.25em] py-1 text-[clamp(2.6rem,12vw,7rem)] font-semibold leading-[0.92] tracking-[-0.04em] md:text-[clamp(3rem,10svh,7.5rem)] ${i % 2 ? "italic md:pl-[8vw]" : ""}`}
+            >
+              <span
+                aria-hidden="true"
+                className="font-mono text-[11px] font-normal sm:text-xs not-italic tracking-normal text-copper-bright [-webkit-text-fill-color:currentColor]"
+              >
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              {l}
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );
