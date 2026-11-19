@@ -113,6 +113,21 @@ export default function PrivacyPage() {
 
         <section>
           <h2 className="display text-2xl text-ink">
+            When you send feedback
+          </h2>
+          <p className="mt-2">
+            The Feedback tab stores what you choose to send: the face you
+            picked, your note, and your email if you add one so we can reply.
+            We also store the page you sent it from, the time, the browser
+            identifier described above, your account if you are signed in, and
+            your browser&apos;s User-Agent. We do not store your IP address
+            with it. We use feedback only to improve Scanstone and to answer
+            you.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="display text-2xl text-ink">
             Processors we rely on
           </h2>
           <ul className="mt-2 list-disc space-y-1.5 pl-5">
