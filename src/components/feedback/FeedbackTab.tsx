@@ -214,7 +214,7 @@ export function FeedbackTab() {
                 }}
                 rows={2}
                 maxLength={FEEDBACK_MESSAGE_MAX}
-                className="mt-1 w-full resize-y rounded-md border border-line bg-white/70 px-3 py-2 text-sm text-ink placeholder:text-ink-faint focus:border-verdigris"
+                className="mt-1 w-full resize-y rounded-md border border-line bg-white/70 px-3 py-2 text-base text-ink placeholder:text-ink-faint focus:border-verdigris sm:text-sm"
                 placeholder="What worked, what didn't, what's missing"
               />
 
@@ -227,7 +227,7 @@ export function FeedbackTab() {
                 autoComplete="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="mt-1 min-h-10 w-full rounded-md border border-line bg-white/70 px-3 text-sm text-ink focus:border-verdigris"
+                className="mt-1 min-h-10 w-full rounded-md border border-line bg-white/70 px-3 text-base text-ink focus:border-verdigris sm:text-sm"
               />
 
               {/* Honeypot for bots. Hidden from people and screen readers. */}
