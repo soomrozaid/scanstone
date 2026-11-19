@@ -140,11 +140,6 @@ export default async function CodeDetailPage({
                 svgAllowed={limits.svgDownload}
               />
             </div>
-            {!limits.svgDownload ? (
-              <p className="mt-2 text-center text-xs text-ink-faint">
-                Vector (SVG) download is a Pro feature.
-              </p>
-            ) : null}
           </Card>
           <DeleteCodeButton id={code.id} name={code.name} />
         </div>

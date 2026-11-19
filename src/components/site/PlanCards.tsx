@@ -10,14 +10,13 @@ const FREE = [
   "3 short links or dynamic QR codes in total",
   "Editable destinations on scst.one",
   "Scan and click counts with 30 days of history",
-  "Print-ready 2048px PNG downloads",
+  "Print-ready PNG and vector SVG downloads",
   "The covenant: redirects never expire",
 ];
 const PRO = [
   "Everything in Free",
   "Up to 500 short links or dynamic QR codes in total",
   "Full scan and click history",
-  "Vector SVG downloads for professional printing",
   "CSV export for reports",
 ];
 

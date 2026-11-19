@@ -5,7 +5,7 @@ export interface PlanLimits {
   maxCodes: number;
   /** Days of scan history shown in analytics. Infinity = full history. */
   historyDays: number;
-  /** SVG/vector download for dynamic codes. */
+  /** SVG/vector download for dynamic codes. Free on every plan since Nov 18, 2026. */
   svgDownload: boolean;
   /** CSV export of scan data. */
   csvExport: boolean;
@@ -17,7 +17,7 @@ export interface PlanLimits {
  * used to decide whether /r/[slug] resolves.
  */
 export const PLANS: Record<PlanId, PlanLimits> = {
-  free: { maxCodes: 3, historyDays: 30, svgDownload: false, csvExport: false },
+  free: { maxCodes: 3, historyDays: 30, svgDownload: true, csvExport: false },
   pro: {
     maxCodes: 500,
     historyDays: Infinity,

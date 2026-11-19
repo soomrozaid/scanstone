@@ -186,7 +186,7 @@ export default function RestaurantMenuPage() {
       <section aria-labelledby="steps-h" className="border-y border-line bg-paper-deep/40 py-24 sm:py-32">
         <Container>
           <Reveal>
-            <Fig n="01">Setup</Fig>
+            <Fig>Setup</Fig>
             <h2 id="steps-h" className="display mt-6 text-h2">From menu link to table card</h2>
           </Reveal>
           <div className="mt-14">
@@ -204,7 +204,7 @@ export default function RestaurantMenuPage() {
       <section aria-labelledby="print-h" className="py-24 sm:py-32">
         <Container className="grid items-start gap-14 lg:grid-cols-2">
           <Reveal>
-            <Fig n="02">Checklist</Fig>
+            <Fig>Checklist</Fig>
             <h2 id="print-h" className="display mt-6 text-h2">Before you print the whole batch</h2>
             <ul className="mt-10 space-y-4">
               {[
@@ -240,11 +240,11 @@ export default function RestaurantMenuPage() {
         <div className="aurora pointer-events-none absolute inset-0 opacity-50" aria-hidden="true" />
         <Container className="relative grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
           <div className="lg:sticky lg:top-28 lg:self-start">
-            <p className="font-mono text-xs uppercase tracking-[0.2em] text-copper-bright">Fig. 03 / FAQ</p>
+            <p className="font-mono text-xs uppercase tracking-[0.2em] text-copper-bright">FAQ</p>
             <h2 id="menu-faq" className="display mt-6 text-h2">Restaurant menu QR codes, explained</h2>
             <p className="mt-6 text-paper/80">
               Start free, then upgrade if you need more codes, full scan
-              history, or vector downloads.{" "}
+              history, or CSV export.{" "}
               <Link href="/pricing" className="text-verdigris-bright underline underline-offset-2">Compare plans</Link>{" "}
               or{" "}
               <Link href="/demo" className="text-verdigris-bright underline underline-offset-2">explore the live demo</Link>.

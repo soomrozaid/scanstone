@@ -1,17 +1,29 @@
 import { NextResponse } from "next/server";
-import { cookies, headers } from "next/headers";
+import { headers } from "next/headers";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
-import { ANON_ID_COOKIE, isAnonId } from "@/lib/anon-id";
 import { parseFeedback } from "@/lib/feedback";
 import { log } from "@/lib/log";
 
 export const dynamic = "force-dynamic";
 
-const IP_LIMIT = 10;
-const IP_WINDOW_SECONDS = 60 * 60;
+const USER_LIMIT = 20;
+const WINDOW_SECONDS = 60 * 60;
 
+/** Feedback from the dashboard tab. Signed-in users only; who sent it comes from the session. */
 export async function POST(request: Request) {
+  let user: { id: string; email?: string | null } | null = null;
+  try {
+    const supabase = await createSupabaseServerClient();
+    const { data } = await supabase.auth.getUser();
+    user = data.user;
+  } catch {
+    user = null;
+  }
+  if (!user) {
+    return NextResponse.json({ error: "Sign in to send feedback." }, { status: 401 });
+  }
+
   let body: unknown;
   try {
     body = await request.json();
@@ -19,37 +31,13 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid JSON." }, { status: 400 });
   }
 
-  // Honeypot: real people never fill the hidden "website" field. Pretend it worked.
-  if (body && typeof body === "object" && (body as { website?: unknown }).website) {
-    return NextResponse.json({ ok: true });
-  }
-
   const parsed = parseFeedback(body);
   if (!parsed.ok) {
     return NextResponse.json({ error: parsed.error }, { status: 400 });
   }
 
-  const jar = await cookies();
-  const cookieId = jar.get(ANON_ID_COOKIE)?.value;
-  const bodyId = (body as { anon_id?: unknown }).anon_id;
-  const anonId = isAnonId(cookieId) ? cookieId : isAnonId(bodyId) ? bodyId : null;
-
   const headerList = await headers();
-  const ip =
-    (headerList.get("x-forwarded-for") ?? "unknown").split(",")[0]?.trim() ||
-    "unknown";
   const userAgent = (headerList.get("user-agent") ?? "").slice(0, 512) || null;
-
-  let userId: string | null = null;
-  try {
-    const supabase = await createSupabaseServerClient();
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-    userId = user?.id ?? null;
-  } catch {
-    userId = null;
-  }
 
   let admin;
   try {
@@ -61,11 +49,10 @@ export async function POST(request: Request) {
     );
   }
 
-  // The IP is only a rate-limit key. It is never stored on the row.
   const { data: allowed, error: limitError } = await admin.rpc("hit_rate_limit", {
-    p_key: `feedback:ip:${ip}`,
-    p_max: IP_LIMIT,
-    p_window_seconds: IP_WINDOW_SECONDS,
+    p_key: `feedback:user:${user.id}`,
+    p_max: USER_LIMIT,
+    p_window_seconds: WINDOW_SECONDS,
   });
   if (limitError) {
     log("warn", "feedback_rate_limit_failed", { error: limitError.message });
@@ -78,8 +65,8 @@ export async function POST(request: Request) {
 
   const { error } = await admin.from("feedback").insert({
     ...parsed.row,
-    anon_id: anonId,
-    user_id: userId,
+    user_id: user.id,
+    email: user.email?.slice(0, 254) ?? null,
     user_agent: userAgent,
   });
   if (error) {

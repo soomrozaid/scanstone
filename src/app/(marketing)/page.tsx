@@ -67,7 +67,7 @@ const FAQS = [
   },
   {
     q: "What happens to my codes if I stop paying?",
-    a: "They keep redirecting. You lose the Pro extras (full analytics history, vector downloads, CSV export), but every printed code keeps working. We think anything else is holding your print materials hostage.",
+    a: "They keep redirecting. You lose the Pro extras (full analytics history and CSV export), but every printed code keeps working. We think anything else is holding your print materials hostage.",
   },
   {
     q: "Can I change where a printed QR code points?",
@@ -261,7 +261,7 @@ export default function LandingPage({
       <section id="how-it-works-static" aria-labelledby="how-h-static" className="how-static scroll-mt-20 py-24 sm:py-32">
         <Container>
           <Reveal>
-            <Fig n="01">How it works</Fig>
+            <Fig>How it works</Fig>
             <SectionHeading
               id="how-h-static"
               className="mt-6"
@@ -302,7 +302,7 @@ export default function LandingPage({
         <div className="gridlines absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_70%)]" aria-hidden="true" />
         <Container className="relative grid items-center gap-12 lg:grid-cols-[0.9fr_1.1fr]">
           <Reveal>
-            <Fig n="00">Try it</Fig>
+            <Fig>Try it</Fig>
             <SectionHeading
               id="try-h"
               className="mt-6"
@@ -323,7 +323,7 @@ export default function LandingPage({
       <section id="before-you-print" aria-labelledby="problem-h" className="scroll-mt-20 border-t border-line bg-paper-deep/40 py-24 sm:py-32">
         <Container className="grid items-center gap-14 lg:grid-cols-[0.9fr_1.1fr]">
           <Reveal>
-            <Fig n="02">Before you print</Fig>
+            <Fig>Before you print</Fig>
             <h2 id="problem-h" className="display mt-6 text-h2">
               Know what happens when the trial ends.
             </h2>
@@ -394,7 +394,7 @@ export default function LandingPage({
       <section aria-labelledby="bento-h" className="py-24 sm:py-32">
         <Container>
           <Reveal>
-            <Fig n="03">One dashboard</Fig>
+            <Fig>One dashboard</Fig>
             <SectionHeading
               id="bento-h"
               className="mt-6"
@@ -514,7 +514,7 @@ export default function LandingPage({
                   <h3 className="display mt-4 text-3xl">PNG for the office printer. SVG for the print shop.</h3>
                   <div data-depth><PrintArtifacts /></div>
                   <div className="mt-6 flex flex-wrap gap-2">
-                    {["2048px PNG", "Vector SVG (Pro)", "Ink colours", "Cut · Worn · Pebble"].map((t) => (
+                    {["2048px PNG", "Vector SVG", "Ink colours", "Cut · Worn · Pebble"].map((t) => (
                       <span key={t} className="rounded-full border border-line bg-paper px-3 py-1.5 font-mono text-xs text-ink-soft">
                         {t}
                       </span>
@@ -545,7 +545,7 @@ export default function LandingPage({
       <section aria-labelledby="custom-h" className="border-t border-line py-24 sm:py-32">
         <Container>
           <Reveal>
-            <Fig n="04">Make it yours</Fig>
+            <Fig>Make it yours</Fig>
             <SectionHeading
               id="custom-h"
               className="mt-6"
@@ -563,7 +563,7 @@ export default function LandingPage({
       <HorizontalGallery
         heading={
           <>
-            <p className="font-mono text-xs uppercase tracking-[0.2em] text-copper-bright">Fig. 05 / Who it&apos;s for</p>
+            <p className="font-mono text-xs uppercase tracking-[0.2em] text-copper-bright">Who it&apos;s for</p>
             <h2 id="who-h" className="display mt-4 text-[clamp(2.4rem,5.5vw,4.8rem)] leading-[0.95] tracking-[-0.025em]">
               Made for things that <em className="text-verdigris-bright">get printed</em>
             </h2>
@@ -612,7 +612,7 @@ export default function LandingPage({
         <div className="aurora pointer-events-none absolute inset-0 opacity-50" aria-hidden="true" />
         <Container className="relative grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
           <div className="lg:sticky lg:top-28 lg:self-start">
-            <p className="font-mono text-xs uppercase tracking-[0.2em] text-copper-bright">Fig. 06 / FAQ</p>
+            <p className="font-mono text-xs uppercase tracking-[0.2em] text-copper-bright">FAQ</p>
             <h2 id="faq-h" data-no-ink className="display mt-6 text-h2">
               <SplitWords text="Questions," />
               <br />

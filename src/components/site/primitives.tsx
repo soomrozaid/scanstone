@@ -36,26 +36,17 @@ export function Eyebrow({
   return <p className={cx("eyebrow", tones[tone], className)}>{children}</p>;
 }
 
-/** Linear-style figure caption: "Fig. 02  Retarget". */
+/** Small section label above a heading. */
 export function Fig({
-  n,
   children,
   className,
 }: {
-  n: string;
   children: ReactNode;
   className?: string;
 }) {
   return (
-    <p
-      className={cx(
-        "eyebrow flex items-center gap-3 text-ink-soft",
-        className,
-      )}
-    >
-      <span>Fig. {n}</span>
-      <span aria-hidden="true" className="h-px w-8 bg-current opacity-40" />
-      <span>{children}</span>
+    <p className={cx("eyebrow text-ink-soft", className)}>
+      {children}
     </p>
   );
 }

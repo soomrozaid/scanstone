@@ -36,9 +36,9 @@ export default async function AccountPage({
       {params.upgraded ? (
         <Card className="border-verdigris/40 bg-verdigris/5 p-4">
           <p className="text-sm text-verdigris-deep">
-            <strong>Welcome to Pro.</strong> Your full scan history and vector
-            downloads are unlocked. (If this still shows Free, give it a few
-            seconds and refresh — the payment confirmation is on its way.)
+            <strong>Welcome to Pro.</strong> Your full scan history and CSV
+            export are unlocked. If this still shows Free, give it a few
+            seconds and refresh. The payment confirmation is on its way.
           </p>
         </Card>
       ) : null}
@@ -88,8 +88,8 @@ export default async function AccountPage({
         ) : (
           <div className="mt-3 space-y-4">
             <p className="text-sm text-ink-soft">
-              Free: 3 codes and short URLs, 30-day analytics. Pro: up to 500
-              combined, full history, vector downloads, CSV export.
+              Free: 3 codes and short URLs, 30-day analytics, PNG and SVG
+              downloads. Pro: up to 500 combined, full history, CSV export.
             </p>
             <div className="grid gap-3 sm:grid-cols-2">
               <form action="/api/stripe/checkout" method="POST">

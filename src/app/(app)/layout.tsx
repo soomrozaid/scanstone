@@ -4,6 +4,7 @@ import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { HomeLogo } from "@/components/marketing/HomeLogo";
 import { Badge, ButtonLink } from "@/components/ui";
 import { signOut } from "@/app/(auth)/actions";
+import { FeedbackTab } from "@/components/feedback/FeedbackTab";
 
 export default async function AppLayout({
   children,
@@ -77,6 +78,7 @@ export default async function AppLayout({
         </nav>
       </header>
       <main className="mx-auto max-w-6xl px-4 py-8 sm:px-6">{children}</main>
+      <FeedbackTab />
     </div>
   );
 }

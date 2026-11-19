@@ -22,7 +22,7 @@ export function GET() {
 > state, so if you cancel or lapse, your printed codes keep resolving.
 
 ## Tools
-- [Free QR code generator](${base}/qr-code-generator): permanent static QR codes for a link, WiFi, contact card, or text. PNG or vector SVG, no signup, no expiration.
+- [Free QR code generator](${base}/qr-code-generator): permanent static QR codes for a link, WiFi, contact card, text, email, SMS or phone number. PNG or vector SVG, no signup, no expiration.
 - [WiFi QR code generator](${base}/wifi-qr-code-generator): a scannable code that joins a WiFi network.
 - [vCard QR code generator](${base}/vcard-qr-code-generator): a contact card in one scan.
 - [Restaurant menu QR codes](${base}/restaurant-menu-qr-code): use your existing menu webpage or public PDF URL; update the destination after printing. Scanstone does not host menus.
@@ -34,7 +34,7 @@ ${posts}
 
 ## Key facts
 - A static QR pattern has no expiration, but its linked website must remain available. Dynamic codes depend on the redirect service as well as the destination. Scanstone does not disable redirects because of billing state. Deleting a code or account stops its redirects.
-- Free plan: unlimited static codes + 3 dynamic codes or short links in total. Pro: $9 USD/month or $79 USD/year, 500 codes or short links in total, full scan history, SVG + CSV export.
+- Free plan: unlimited static codes + 3 dynamic codes or short links in total. Pro: $9 USD/month or $79 USD/year, 500 codes or short links in total, full scan history, CSV export. SVG downloads are free on every plan.
 - Short links and dynamic codes share the same plan limit. Both have editable destinations and scan/click counts.
 - Scan analytics store no IP addresses and no fingerprints, only coarse country/region/device only.
 `;

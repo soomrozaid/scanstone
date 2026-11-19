@@ -3,8 +3,12 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { track } from "@vercel/analytics";
-import { getOrCreateAnonId } from "@/lib/anon-id-client";
-import { FEEDBACK_MESSAGE_MAX, type FeedbackReaction } from "@/lib/feedback";
+import {
+  FEEDBACK_MESSAGE_MAX,
+  FEEDBACK_TOPICS,
+  type FeedbackReaction,
+  type FeedbackTopic,
+} from "@/lib/feedback";
 
 const REACTIONS: Array<{ id: FeedbackReaction; face: string; label: string }> = [
   { id: "good", face: "🙂", label: "Good" },
@@ -15,23 +19,23 @@ const REACTIONS: Array<{ id: FeedbackReaction; face: string; label: string }> = 
 type Status = "idle" | "sending" | "sent" | "error";
 
 /**
- * A small Feedback tab on the right edge of every page. It opens a panel with
- * three faces, an optional note and an optional reply email, and one Send
- * button. No account, no page change. It sits halfway up the screen so it never
- * covers the bottom pills (Continue on your phone, the phone CTA bar, the
- * sign-in prompt).
+ * A small Feedback tab on the right edge of dashboard pages. The panel is a
+ * face, a few tappable "what to change" chips, an optional note behind a link,
+ * and one Send button. The user is signed in, so the server attaches who sent
+ * it. It sits halfway up the screen so it never covers bottom bars.
  */
 export function FeedbackTab() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [reaction, setReaction] = useState<FeedbackReaction | null>(null);
+  const [topics, setTopics] = useState<FeedbackTopic[]>([]);
+  const [noteOpen, setNoteOpen] = useState(false);
   const [message, setMessage] = useState("");
-  const [email, setEmail] = useState("");
-  const [website, setWebsite] = useState("");
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState<string | null>(null);
   const tabRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
+  const noteRef = useRef<HTMLInputElement>(null);
   const titleId = useId();
   const panelId = useId();
 
@@ -63,21 +67,31 @@ export function FeedbackTab() {
     };
   }, [open]);
 
+  useEffect(() => {
+    if (noteOpen) noteRef.current?.focus();
+  }, [noteOpen]);
+
   function openPanel() {
     // After a successful send, start fresh.
     if (status === "sent") {
       setReaction(null);
+      setTopics([]);
       setMessage("");
-      setEmail("");
+      setNoteOpen(false);
       setStatus("idle");
     }
     setError(null);
     setOpen(true);
   }
 
+  function toggleTopic(id: FeedbackTopic) {
+    setTopics((t) => (t.includes(id) ? t.filter((x) => x !== id) : [...t, id]));
+    setError(null);
+  }
+
   async function send() {
-    if (!reaction && !message.trim()) {
-      setError("Pick a face or write a few words.");
+    if (!reaction && topics.length === 0 && !message.trim()) {
+      setError("Pick a face or tap what to change.");
       return;
     }
     setStatus("sending");
@@ -88,11 +102,9 @@ export function FeedbackTab() {
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
           reaction,
+          topics,
           message,
-          email,
-          website,
           page_path: window.location.pathname,
-          anon_id: getOrCreateAnonId(),
         }),
       });
       if (!res.ok) {
@@ -101,7 +113,7 @@ export function FeedbackTab() {
         setStatus("error");
         return;
       }
-      track("feedback_sent", { reaction: reaction ?? "none" });
+      track("feedback_sent", { reaction: reaction ?? "none", topics: topics.join(",") || "none" });
       setStatus("sent");
     } catch {
       setError("That didn't send. Check your connection and try again.");
@@ -109,8 +121,8 @@ export function FeedbackTab() {
     }
   }
 
-  // Not on the bare redirect or error pages, where there is no site chrome.
-  if (pathname?.startsWith("/r/")) return null;
+  // Dashboard pages only. Everyone there is signed in.
+  if (!pathname?.startsWith("/dashboard")) return null;
 
   return (
     <div className="feedback-tab print:hidden">
@@ -154,7 +166,6 @@ export function FeedbackTab() {
             <div>
               <p className="mt-2 text-sm leading-relaxed text-ink-soft">
                 A person reads every one.
-                {email ? " If you asked something, we'll reply by email." : ""}
               </p>
               <button
                 type="button"
@@ -173,10 +184,8 @@ export function FeedbackTab() {
               }}
             >
               <fieldset className="mt-3">
-                <legend className="text-sm text-ink-soft">
-                  How is Scanstone working for you?
-                </legend>
-                <div className="mt-2 grid grid-cols-3 gap-2">
+                <legend className="sr-only">How is Scanstone working for you?</legend>
+                <div className="grid grid-cols-3 gap-2">
                   {REACTIONS.map((r, i) => (
                     <button
                       key={r.id}
@@ -202,45 +211,53 @@ export function FeedbackTab() {
                 </div>
               </fieldset>
 
-              <label htmlFor={`${panelId}-msg`} className="mt-3 block text-sm text-ink-soft">
-                Anything to add? <span className="text-ink-faint">(optional)</span>
-              </label>
-              <textarea
-                id={`${panelId}-msg`}
-                value={message}
-                onChange={(e) => {
-                  setMessage(e.target.value);
-                  setError(null);
-                }}
-                rows={2}
-                maxLength={FEEDBACK_MESSAGE_MAX}
-                className="mt-1 w-full resize-y rounded-md border border-line bg-white/70 px-3 py-2 text-base text-ink placeholder:text-ink-faint focus:border-verdigris sm:text-sm"
-                placeholder="What worked, what didn't, what's missing"
-              />
+              <fieldset className="mt-4">
+                <legend className="text-sm text-ink-soft">What should we change?</legend>
+                <div className="mt-2 flex flex-wrap gap-1.5">
+                  {FEEDBACK_TOPICS.map((t) => {
+                    const on = topics.includes(t.id);
+                    return (
+                      <button
+                        key={t.id}
+                        type="button"
+                        aria-pressed={on}
+                        onClick={() => toggleTopic(t.id)}
+                        className={`inline-flex min-h-9 items-center rounded-full border px-3 text-xs font-medium transition-colors ${
+                          on
+                            ? "border-verdigris bg-verdigris/10 text-ink"
+                            : "border-line bg-white/60 text-ink-soft hover:text-ink"
+                        }`}
+                      >
+                        {t.label}
+                      </button>
+                    );
+                  })}
+                </div>
+              </fieldset>
 
-              <label htmlFor={`${panelId}-email`} className="mt-2 block text-sm text-ink-soft">
-                Email for a reply <span className="text-ink-faint">(optional)</span>
-              </label>
-              <input
-                id={`${panelId}-email`}
-                type="email"
-                autoComplete="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="mt-1 min-h-10 w-full rounded-md border border-line bg-white/70 px-3 text-base text-ink focus:border-verdigris sm:text-sm"
-              />
-
-              {/* Honeypot for bots. Hidden from people and screen readers. */}
-              <input
-                type="text"
-                name="website"
-                tabIndex={-1}
-                autoComplete="off"
-                aria-hidden="true"
-                value={website}
-                onChange={(e) => setWebsite(e.target.value)}
-                className="absolute -left-[9999px] h-px w-px opacity-0"
-              />
+              {noteOpen ? (
+                <input
+                  ref={noteRef}
+                  type="text"
+                  aria-label="Note (optional)"
+                  value={message}
+                  onChange={(e) => {
+                    setMessage(e.target.value);
+                    setError(null);
+                  }}
+                  maxLength={FEEDBACK_MESSAGE_MAX}
+                  placeholder="Anything else? (optional)"
+                  className="mt-3 min-h-10 w-full rounded-full border border-line bg-white/70 px-4 text-base text-ink placeholder:text-ink-faint focus:border-verdigris sm:text-sm"
+                />
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => setNoteOpen(true)}
+                  className="mt-3 text-xs text-ink-soft underline underline-offset-2 hover:text-ink"
+                >
+                  Add a note
+                </button>
+              )}
 
               {error ? (
                 <p role="alert" className="mt-2 text-sm text-danger">

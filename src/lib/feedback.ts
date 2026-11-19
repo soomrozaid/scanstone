@@ -3,18 +3,28 @@ import { sanitizePagePath } from "@/lib/anon-id";
 export const FEEDBACK_REACTIONS = ["good", "okay", "bad"] as const;
 export type FeedbackReaction = (typeof FEEDBACK_REACTIONS)[number];
 
+/** Tappable "what should we change" chips in the dashboard Feedback panel. */
+export const FEEDBACK_TOPICS = [
+  { id: "designs", label: "More code designs" },
+  { id: "editing", label: "Easier editing" },
+  { id: "stats", label: "Better scan stats" },
+  { id: "free_codes", label: "More free codes" },
+  { id: "speed", label: "Faster" },
+  { id: "broken", label: "Something broke" },
+] as const;
+export type FeedbackTopic = (typeof FEEDBACK_TOPICS)[number]["id"];
+const TOPIC_IDS: readonly string[] = FEEDBACK_TOPICS.map((t) => t.id);
+
 export const FEEDBACK_MESSAGE_MAX = 1000;
 
 export type FeedbackRow = {
   reaction: FeedbackReaction | null;
+  topics: FeedbackTopic[];
   message: string | null;
-  email: string | null;
   page_path: string;
 };
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-/** Validates a feedback body from the browser. Context fields (user, agent) are added by the route. */
+/** Validates a feedback body from the browser. The user, email and agent are added by the route from the session. */
 export function parseFeedback(
   body: unknown,
 ): { ok: true; row: FeedbackRow } | { ok: false; error: string } {
@@ -30,24 +40,26 @@ export function parseFeedback(
     return { ok: false, error: "Invalid reaction." };
   }
 
+  let topics: FeedbackTopic[] = [];
+  if (b.topics != null) {
+    if (!Array.isArray(b.topics) || b.topics.some((t) => typeof t !== "string" || !TOPIC_IDS.includes(t))) {
+      return { ok: false, error: "Invalid topic." };
+    }
+    topics = [...new Set(b.topics as FeedbackTopic[])];
+  }
+
   const rawMessage = typeof b.message === "string" ? b.message.trim() : "";
   if (rawMessage.length > FEEDBACK_MESSAGE_MAX) {
     return { ok: false, error: `Keep it under ${FEEDBACK_MESSAGE_MAX} characters.` };
   }
   const message = rawMessage || null;
 
-  const rawEmail = typeof b.email === "string" ? b.email.trim() : "";
-  if (rawEmail && (rawEmail.length > 254 || !EMAIL_RE.test(rawEmail))) {
-    return { ok: false, error: "That email doesn't look right." };
-  }
-  const email = rawEmail || null;
-
-  if (!reaction && !message) {
-    return { ok: false, error: "Pick a face or write a few words." };
+  if (!reaction && topics.length === 0 && !message) {
+    return { ok: false, error: "Pick a face or tap what to change." };
   }
 
   return {
     ok: true,
-    row: { reaction, message, email, page_path: sanitizePagePath(b.page_path) },
+    row: { reaction, topics, message, page_path: sanitizePagePath(b.page_path) },
   };
 }
