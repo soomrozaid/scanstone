@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { Container } from "./primitives";
 import { LazyVideo } from "@/components/cinema/LazyVideo";
+import { CtaPortalScrub } from "./CtaPortalScrub";
 
 export function CtaBand({
   title,
@@ -18,6 +19,7 @@ export function CtaBand({
     <section className="cta-close">
       <div className="cta-portal">
         <div data-nav="dark" className="cta-portal-card relative overflow-hidden bg-night px-6 py-20 text-center text-paper sm:px-16 sm:py-32">
+          <CtaPortalScrub />
           <LazyVideo className="absolute inset-0 h-full w-full opacity-70" />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(15,14,12,0.55),rgba(15,14,12,0.92)_70%)]" aria-hidden="true" />
           <div className="cta-horizon pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-verdigris-bright/80 to-transparent shadow-[0_0_24px_4px_rgba(79,174,155,0.35)]" aria-hidden="true" />

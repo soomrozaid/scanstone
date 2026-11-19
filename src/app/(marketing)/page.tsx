@@ -235,7 +235,8 @@ export default function LandingPage({
             <div id="qr" className="scroll-mt-24" />
             <div id="short-link" className="scroll-mt-24" />
             <h1 className="display text-[clamp(2rem,5.4vw,3.6rem)] leading-[0.96] tracking-[-0.03em] text-paper">
-              Make a QR code or a short link
+              Make a QR code <br />
+              or a short link
             </h1>
             <p className="mt-2 max-w-md text-sm leading-relaxed text-paper/80 sm:mt-4 sm:text-lg">
               Paste a URL. A QR code appears as you type, ready to download. Or
@@ -250,7 +251,8 @@ export default function LandingPage({
 
       {/* KINETIC TYPE OVER VIDEO */}
       <VideoType
-        label="Things people print codes on"
+        eyebrow="Where it goes"
+        title="Where people put a Scanstone code"
         lines={["Menus", "Table tents", "Packaging", "Open house signs", "Event posters"]}
       />
 
@@ -396,7 +398,14 @@ export default function LandingPage({
             <SectionHeading
               id="bento-h"
               className="mt-6"
-              title="Codes, links and scans, all in one place"
+              wide
+              title={
+                <>
+                  Codes, links and scans,{" "}
+                  <br className="xl:hidden" />
+                  all in one place
+                </>
+              }
               lead="Everything a small business needs from QR codes. Nothing that needs a sales call."
             />
           </Reveal>
@@ -604,15 +613,18 @@ export default function LandingPage({
         <Container className="relative grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
           <div className="lg:sticky lg:top-28 lg:self-start">
             <p className="font-mono text-xs uppercase tracking-[0.2em] text-copper-bright">Fig. 06 / FAQ</p>
-            <h2 id="faq-h" className="display mt-6 text-h2">
-              <SplitWords text="Questions, answered straight" />
+            <h2 id="faq-h" data-no-ink className="display mt-6 text-h2">
+              <SplitWords text="Questions," />
+              <br />
+              <SplitWords text="answered straight" start={70} />
             </h2>
             <p className="mt-5 text-paper/70">
               Something else? Email{" "}
               <a href="mailto:hello@scanstone.ca" className="text-verdigris-bright underline underline-offset-2">
                 hello@scanstone.ca
               </a>
-              . A person reads it.
+              .<br />
+              A person reads it.
             </p>
             {/* A giant question mark with the tile light playing inside it. */}
             <div aria-hidden="true" className="q-float relative mt-10 hidden w-fit select-none overflow-hidden rounded-[2rem] [mask-image:radial-gradient(closest-side,black_70%,transparent)] lg:block">

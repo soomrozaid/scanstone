@@ -139,6 +139,11 @@ export function CinemaHero({
           : "-mt-16 min-h-[100svh] overflow-hidden"
       }`}
     >
+      {/* Decorative layers are clipped here, not on the section: overflow on
+          the section itself traps the wheel (see .home-tool-hero). The aurora
+          glow and the scaled art used to stick out past the right edge and
+          made the page scroll sideways. */}
+      <div className="hero-deco pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]" aria-hidden="true">
       {/* moving light + grain */}
       <div className="aurora pointer-events-none absolute inset-0" aria-hidden="true" />
       <div
@@ -173,6 +178,7 @@ export function CinemaHero({
           />
         </div>
       )}
+      </div>
 
       {/* destination readout */}
       <div className={`absolute z-10 ${

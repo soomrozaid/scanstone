@@ -80,7 +80,10 @@ export function SiteFooter() {
           ))}
         </div>
         <div aria-hidden="true" className="wm relative mt-20 select-none overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]">
-          <LazyVideo className="absolute inset-0 h-full w-full" />
+          {/* An even base colour under the tile loop, so letters that land on a
+              dark patch of the video stay as bright as the rest. */}
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,#7fbcae,#d9b48e_50%,#7fbcae)]" />
+          <LazyVideo className="absolute inset-0 h-full w-full opacity-50" />
           <p className="display pointer-events-none relative whitespace-nowrap bg-night pb-[0.06em] text-center text-[22vw] font-semibold leading-[0.85] tracking-[-0.04em] text-white mix-blend-multiply lg:text-[17rem]">
             {"Scanstone".split("").map((ch, i) => (
               <span key={i} className="wm-l inline-block" style={{ ["--i" as string]: i }}>
