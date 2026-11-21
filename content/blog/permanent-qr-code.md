@@ -56,6 +56,7 @@ To be straight about the limits: deleting a code stops it, and a dynamic code de
 - **Scan it with two phones** and check it opens the right page.
 - **Use a page you control.** A link to a file on a shared drive or a social post can break if the file is replaced or the post is deleted.
 - **Avoid long, messy addresses** in static codes. Longer addresses make denser patterns that are harder to scan when printed small.
+- **Make dynamic codes under a shared work email**, not one person's personal account, so the code doesn't go with them when they leave.
 - **Use SVG for print.** It stays sharp at any size.
 - **Keep good contrast**: dark code on a light background, with a clear margin around it.
 
