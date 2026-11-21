@@ -57,5 +57,13 @@
     "description": "Uniqode has no free editable codes: a 14-day trial, then plans from $108 a year with scan caps. How it compares with Scanstone on price, limits and cancelling.",
     "date": "2026-11-18",
     "category": "Comparison"
+  },
+  {
+    "slug": "permanent-qr-code",
+    "collection": "blog",
+    "title": "Permanent QR code: how to make one that keeps working",
+    "description": "A QR code pattern never expires. What stops it is the address inside. Three ways to make a permanent QR code for free, and what to check before you print.",
+    "date": "2026-11-21",
+    "category": "Explainer"
   }
 ]

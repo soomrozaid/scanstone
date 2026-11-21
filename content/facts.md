@@ -85,3 +85,7 @@ Do not link to queued posts until they exist in content/registry.json. Avoid mul
 ## Editorial rules
 
 Answer the user's question first. Give a concrete workflow, a limitation, and useful next steps. Sources need their actual verification dates. Numbers are optional; never add a number solely to satisfy a content template. Be fair to alternatives. Do not claim special AI files or schema guarantee search visibility.
+
+## Product facts used in /blog/permanent-qr-code, 2026-11-21
+
+- Same product facts as above (static PNG 2048px and SVG, free 3 dynamic codes or short links, Pro $9/$79 USD, redirects survive cancel/downgrade/limits, terms section 2: 90 days' notice and export on shutdown). No custom domains yet, so the "own domain" setup is described as using the user's own website redirect, not a Scanstone feature.
