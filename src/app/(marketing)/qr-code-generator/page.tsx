@@ -4,13 +4,19 @@ import { ToolPage } from "@/components/site/ToolPage";
 import { StaticGenerator } from "@/components/free-tool/StaticGenerator";
 
 export const metadata: Metadata = {
-  title: "Free QR Code Generator. No expiration, no sign-up, no watermark",
+  title: {
+    absolute: "Free Permanent QR Code Generator: Never Expires, No Sign-up",
+  },
   description:
-    "Generate a free QR code that never expires. No account, no trial, no watermark. Download print-ready PNG or SVG instantly. Static codes are permanent by design.",
+    "Make a permanent QR code that never expires, free. No sign-up, no trial, no watermark, no scan limit. Download PNG or vector SVG for print.",
   alternates: { canonical: "/qr-code-generator" },
 };
 
 const FAQS = [
+  {
+    q: "Is this a permanent QR code generator?",
+    a: "Yes. Every code made on this page is static, which means your link or text is written into the pattern itself. Nothing passes through Scanstone when someone scans it, so there is no expiry date, no subscription and nothing we could turn off. It keeps working as long as the page or details it holds are still valid.",
+  },
   {
     q: "Is this QR code generator really free?",
     a: "Yes. Static QR codes made here are free without an account, watermark, scan limit, or expiration, including for commercial use. The code contains your content directly, so there is nothing we could switch off later.",
@@ -43,7 +49,7 @@ function JsonLd() {
       operatingSystem: "Web",
       offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
       description:
-        "Free QR code generator with no expiration, no sign-up, and no watermark. Download PNG or SVG.",
+        "Free permanent QR code generator: static codes that never expire, with no sign-up and no watermark. Download PNG or SVG.",
     },
     {
       "@context": "https://schema.org",
@@ -70,8 +76,8 @@ export default function FreeQRGeneratorPage() {
       <ToolPage
         current="/qr-code-generator"
         eyebrow="Free tool · no sign-up"
-        title="Free QR code generator."
-        accent="No expiration, ever."
+        title="Free permanent QR code generator."
+        accent="It never expires."
         lead={
           <>
             Make a QR code for a link, WiFi network, contact card, text,
@@ -92,6 +98,10 @@ export default function FreeQRGeneratorPage() {
                 or{" "}
                 <Link href="/vcard-qr-code-generator" className="text-verdigris-deep underline">
                   vCard QR generator
+                </Link>
+                . Not sure which kind of code you need? Read{" "}
+                <Link href="/blog/permanent-qr-code" className="text-verdigris-deep underline">
+                  what makes a QR code permanent
                 </Link>
                 .
               </>

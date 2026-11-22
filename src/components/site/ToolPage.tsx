@@ -36,8 +36,21 @@ export function ToolPage({
   current: string;
   related?: ReactNode;
 }) {
+  const crumbs = [
+    { name: "Home", item: "https://www.scanstone.ca/" },
+    ...(current === "/qr-code-generator"
+      ? []
+      : [{ name: "Free QR code generator", item: "https://www.scanstone.ca/qr-code-generator" }]),
+    { name: title.replace(/\.$/, ""), item: `https://www.scanstone.ca${current}` },
+  ];
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: crumbs.map((c, i) => ({ "@type": "ListItem", position: i + 1, name: c.name, item: c.item })),
+  };
   return (
     <main id="main" tabIndex={-1}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
       <DarkHero glow="80% 30%">
         <Container className="grid items-center gap-10 pb-40 pt-14 sm:pt-20 lg:grid-cols-[1.25fr_0.75fr]">
           <div>

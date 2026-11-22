@@ -53,7 +53,7 @@ test("free generator produces a QR and downloads PNG @smoke", async ({
 }) => {
   await page.goto("/qr-code-generator");
   await expect(
-    page.getByRole("heading", { name: /Free QR code generator/i }),
+    page.getByRole("heading", { name: /Free permanent QR code generator/i }),
   ).toBeVisible();
   await page.getByLabel("Destination link").fill("https://example.com/menu");
   // preview should render an SVG QR
