@@ -65,5 +65,13 @@
     "description": "A QR code pattern never expires. What stops it is the address inside. Three ways to make a permanent QR code for free, and what to check before you print.",
     "date": "2026-11-21",
     "category": "Explainer"
+  },
+  {
+    "slug": "qr-code-menu-complaints",
+    "collection": "blog",
+    "title": "Why people hate QR code menus, and how to fix yours",
+    "description": "Slow on bad signal, cookie banners, logins, no paper option. The common QR menu complaints and a plain fix for each, plus a two-minute check before service.",
+    "date": "2026-11-23",
+    "category": "Guide"
   }
 ]

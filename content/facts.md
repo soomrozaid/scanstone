@@ -79,6 +79,7 @@ Drafts must trace factual, numeric, and comparative claims to this file. A lint 
 - /blog/bitly-qr-code-alternative: Scanstone vs Bitly, pricing, edits, cancelling
 - /blog/is-qr-code-generator-com-free: QRCG free vs trial, prices, cancelling, vs Scanstone
 - /blog/uniqode-alternative: Uniqode trial, yearly prices, scan caps, cancelling, vs Scanstone
+- /blog/qr-code-menu-complaints: diner complaints about QR menus and a fix for each (operations how-to, not the menu-code use-case page)
 
 Do not link to queued posts until they exist in content/registry.json. Avoid multiple articles targeting the same intent as a working tool or use-case page.
 
@@ -89,3 +90,8 @@ Answer the user's question first. Give a concrete workflow, a limitation, and us
 ## Product facts used in /blog/permanent-qr-code, 2026-11-21
 
 - Same product facts as above (static PNG 2048px and SVG, free 3 dynamic codes or short links, Pro $9/$79 USD, redirects survive cancel/downgrade/limits, terms section 2: 90 days' notice and export on shutdown). No custom domains yet, so the "own domain" setup is described as using the user's own website redirect, not a Scanstone feature.
+
+## External facts: QR menu sentiment, verified 2026-11-23 (used in /blog/qr-code-menu-complaints)
+
+- Ipsos Consumer Tracker wave 121, online poll of 1,083 US adults, July 15-16, 2025: 65% had used a QR code menu (42% in Aug 2022, 57% in Jun 2023). Of the 645 who had: 58% would like to go back to paper menus (48% in 2022, 51% in 2023), 71% glad some restaurants went back to paper (60% in 2023), 39% hope QR use continues, 37% like the experience, 46% like that it saves paper. https://www.ipsos.com/en-us/qr-code-menus-are-growing-even-less-popular and topline PDF https://www.ipsos.com/sites/default/files/ct/news/documents/2025-07/Topline%20Ipsos%20Consumer%20Tracker%20Wave%20121.pdf
+- Scanstone redirect (src/app/r/[slug]/route.ts, 2026-11-23): plain 302 to the destination, no cookies, no interstitial page.
