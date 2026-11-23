@@ -16,7 +16,7 @@ import { CtaBand } from "@/components/site/CtaBand";
 import { TrialSim } from "@/components/home/TrialSim";
 import { envClient } from "@/config/env.client";
 
-const title = "Restaurant Menu QR Codes You Can Update After Printing";
+const title = "Restaurant Menu QR Code: Free, No Trial, Edit After Printing";
 const description =
   "Create a QR code for your restaurant menu. Change the menu link without reprinting table cards, track scans, and start with 3 free dynamic codes.";
 const path = "/restaurant-menu-qr-code";
@@ -220,6 +220,13 @@ export default function RestaurantMenuPage() {
               ))}
             </ul>
             <p className="mt-6 text-sm text-ink-soft">
+              Guests complaining about the QR menu? Here&apos;s{" "}
+              <Link href="/blog/qr-code-menu-complaints" className="text-verdigris-deep underline underline-offset-2">
+                why people hate QR code menus and how to fix each complaint
+              </Link>
+              .
+            </p>
+            <p className="mt-3 text-sm text-ink-soft">
               Need a guest network code too? Use the{" "}
               <Link href="/wifi-qr-code-generator" className="text-verdigris-deep underline underline-offset-2">
                 free WiFi QR generator
