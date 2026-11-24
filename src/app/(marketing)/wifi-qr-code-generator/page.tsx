@@ -4,9 +4,9 @@ import { ToolPage } from "@/components/site/ToolPage";
 import { StaticGenerator } from "@/components/free-tool/StaticGenerator";
 
 export const metadata: Metadata = {
-  title: "Free WiFi QR Code Generator. Guests scan and join, no typing",
+  title: "WiFi QR Code Generator: Free, No Sign-Up, Never Expires",
   description:
-    "Create a free WiFi QR code: guests point their camera and join your network instantly. No account, no expiration, password never leaves your device. PNG & SVG.",
+    "Make a free WiFi QR code in your browser. Guests scan with their phone camera and join, no typing. No sign-up, no watermark, never expires. PNG and SVG.",
   alternates: { canonical: "/wifi-qr-code-generator" },
 };
 
@@ -20,8 +20,28 @@ const FAQS = [
     a: "No. This generator runs entirely in your browser. The password is encoded into the image on your device and never transmitted to us.",
   },
   {
+    q: "Does a WiFi QR code expire?",
+    a: "No. The network name and password are stored in the image itself, so there is nothing for us or anyone else to switch off. It keeps working until you change the network name or password.",
+  },
+  {
     q: "Does the code stop working if I change my password?",
-    a: "The printed code always contains the credentials it was made with, so if you change your password, print a new code. (Codes never expire on their own.)",
+    a: "Yes. The printed code holds the password it was made with, so after you change the password or rename the network, make a new code and replace the old prints. A WiFi code can't be edited after printing.",
+  },
+  {
+    q: "Does it work on iPhone and Android?",
+    a: "Yes. iPhones and recent Android phones read WiFi codes with the built-in camera and show a prompt to join. Some older Android phones need the QR mode in the camera app or Google Lens.",
+  },
+  {
+    q: "Is it safe to put my WiFi code on a wall?",
+    a: "Anyone who scans or photographs the code can read the password, the same as if you wrote it on the sign. For a café, office or rental, use a guest network so your main network stays private, and change its password when you want to cut access.",
+  },
+  {
+    q: "Can I make a code for a network with no password?",
+    a: "Yes. Leave the password empty or pick None (open network), and the code holds only the network name.",
+  },
+  {
+    q: "Is it really free? Is there a watermark?",
+    a: "Free, with no account and no watermark. Download a PNG for screens and small prints, or an SVG for print shops and large signs.",
   },
   {
     q: "Where do people put these?",
