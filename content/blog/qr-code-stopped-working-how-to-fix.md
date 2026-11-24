@@ -9,6 +9,7 @@ If your QR code stopped working after it was printed, scan it and look at what h
 | A "page not found" or browser error | The destination website | Fix or restore that page, or point the code somewhere else if it's editable |
 | A login screen or "access denied" | The destination is private | Make the page or file public, then test in a private browser window |
 | "This QR code has been deactivated", "trial ended" or a pricing page | The QR company's redirect | Sign in to that account, or replace the code (see below) |
+| A "destination preview" page with an ad, then your page | A free Bitly link | Upgrade that Bitly account or reprint, see [Bitly QR code showing an ad?](/blog/bitly-qr-code-ad-preview-page) |
 | The wrong page, but it loads fine | An old or mistyped link | Edit it if the code is dynamic, otherwise make a new code |
 
 ## Step 1: rule out the print

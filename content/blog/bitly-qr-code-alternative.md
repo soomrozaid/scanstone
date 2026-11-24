@@ -55,7 +55,7 @@ What we don't have: your own domain, logos inside codes, team seats, bulk creati
 
 You can't move a printed bit.ly code to another company. The pattern holds a bit.ly address, and only Bitly can forward it. There's no need to, though: those codes keep working on Bitly's free plan. A sensible split:
 
-1. **Leave existing printed codes on Bitly.** Save any scan numbers you want before you drop to Free, since Free shows no scan history.
+1. **Leave existing printed codes on Bitly.** Save any scan numbers you want before you drop to Free, since Free shows no scan history. Free-plan links also get Bitly's preview page with an ad in front of them; here's [what that page is and what removes it](/blog/bitly-qr-code-ad-preview-page).
 2. **Before downgrading, point codes where they should stay.** On Free you can't change them afterwards.
 3. **Make new codes wherever you'll keep them.** Scan a test print before a big run and check the address it opens.
 
