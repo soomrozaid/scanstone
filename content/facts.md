@@ -95,3 +95,11 @@ Answer the user's question first. Give a concrete workflow, a limitation, and us
 
 - Ipsos Consumer Tracker wave 121, online poll of 1,083 US adults, July 15-16, 2025: 65% had used a QR code menu (42% in Aug 2022, 57% in Jun 2023). Of the 645 who had: 58% would like to go back to paper menus (48% in 2022, 51% in 2023), 71% glad some restaurants went back to paper (60% in 2023), 39% hope QR use continues, 37% like the experience, 46% like that it saves paper. https://www.ipsos.com/en-us/qr-code-menus-are-growing-even-less-popular and topline PDF https://www.ipsos.com/sites/default/files/ct/news/documents/2025-07/Topline%20Ipsos%20Consumer%20Tracker%20Wave%20121.pdf
 - Scanstone redirect (src/app/r/[slug]/route.ts, 2026-11-23): plain 302 to the destination, no cookies, no interstitial page.
+
+## External facts: Bitly ad/preview page, verified 2026-11-24 (used in /blog/bitly-qr-code-ad-preview-page)
+
+- Bitly help "Why are there ads on my links?" (updated 2026-01-12): ads on free accounts via "an interstitial page that includes a preview of the link destination and an ad"; upgrade to a paid plan to remove. https://support.bitly.com/hc/en-us/articles/32874287800333-Why-are-there-ads-on-my-links
+- Bitly anonymous link FAQ (updated 2026-11-06): no-account links keep working with preview + ads; can't be edited, redirected, transferred or upgraded; fix is to recreate in a paid account and replace the old link. https://support.bitly.com/hc/en-us/articles/32500359495565-Free-Short-Link-Generator-Anonymous-Link-FAQ
+- Bitly pricing (checked 2026-11-24): Free "With Ads"; Core $10/mo annual only, $120; Growth $29/mo yearly, $348. https://bitly.com/pages/pricing
+- Feb 2025 notice "You can remove the preview page experience from your links and QR Codes at any time by selecting a paid Bitly plan" (Coywolf, 2025-02-06).
+- Scanstone (src/app/r/[slug]/route.ts, 2026-11-24): straight 302 to the destination on every plan and for guest links; no interstitial. Links disabled for abuse (disabled_at) go to /link-unavailable; terms list malware/phishing etc.

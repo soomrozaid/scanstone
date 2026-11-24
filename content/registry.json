@@ -73,5 +73,13 @@
     "description": "Slow on bad signal, cookie banners, logins, no paper option. The common QR menu complaints and a plain fix for each, plus a two-minute check before service.",
     "date": "2026-11-23",
     "category": "Guide"
+  },
+  {
+    "slug": "bitly-qr-code-ad-preview-page",
+    "collection": "blog",
+    "title": "Bitly QR code showing an ad? Why, and how to remove it",
+    "description": "Bitly puts a preview page with an ad in front of free-plan links and QR codes. How to tell which kind you have, what removes it, and when you must reprint.",
+    "date": "2026-11-24",
+    "category": "Rescue"
   }
 ]
