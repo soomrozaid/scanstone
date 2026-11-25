@@ -48,9 +48,12 @@ export default function TermsPage() {
           <p className="mt-2">
             Pro is billed monthly or yearly via Stripe and renews automatically
             until cancelled. Cancel anytime from the billing portal; Pro
-            features remain active until the end of the paid period. Limits
-            (number of dynamic codes, analytics history, export features) are
-            enforced at creation and display time, never at scan time.
+            features remain active until the end of the paid period. If you ask
+            within 14 days of a charge, we refund that charge in full to the
+            original payment method. The refund usually appears in 5 to 10
+            business days. Limits (number of dynamic codes, analytics history,
+            export features) are enforced at creation and display time, never at
+            scan time.
           </p>
         </section>
 

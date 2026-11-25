@@ -35,6 +35,7 @@ ${posts}
 ## Key facts
 - A static QR pattern has no expiration, but its linked website must remain available. Dynamic codes depend on the redirect service as well as the destination. Scanstone does not disable redirects because of billing state. Deleting a code or account stops its redirects.
 - Free plan: unlimited static codes + 3 dynamic codes or short links in total. Pro: $9 USD/month or $79 USD/year, 500 codes or short links in total, full scan history, CSV export. SVG downloads are free on every plan.
+- Pro charges can be refunded in full if you email hello@scanstone.ca within 14 days. The refund goes back to the same payment method and usually shows up in 5 to 10 business days.
 - Short links and dynamic codes share the same plan limit. Both have editable destinations and scan/click counts.
 - Scan analytics store no IP addresses and no fingerprints, only coarse country, region and device type.
 `;
