@@ -10,5 +10,6 @@ export const FREE_TOOLS: Array<{ href: string; label: string; footer: string }> 
   { href: "/qr-code-generator?type=email", label: "Email", footer: "Email QR code" },
   { href: "/qr-code-generator?type=sms", label: "SMS", footer: "SMS QR code" },
   { href: "/qr-code-generator?type=phone", label: "Phone", footer: "Phone QR code" },
+  { href: "/restaurant-menu-qr-code#table-cards", label: "Menu table cards", footer: "Menu table cards" },
   { href: "/#short-link", label: "Short link", footer: "URL shortener" },
 ];

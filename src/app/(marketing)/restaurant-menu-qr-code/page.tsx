@@ -15,10 +15,11 @@ import { AssembleQR } from "@/components/cinema/AssembleQR";
 import { CtaBand } from "@/components/site/CtaBand";
 import { TrialSim } from "@/components/home/TrialSim";
 import { envClient } from "@/config/env.client";
+import { TableCardMaker } from "@/components/free-tool/TableCardMaker";
 
 const title = "Restaurant Menu QR Code: Free, No Trial, Edit After Printing";
 const description =
-  "Create a QR code for your restaurant menu. Change the menu link without reprinting table cards, track scans, and start with 3 free dynamic codes.";
+  "Make a free QR code for your restaurant menu and print table cards with it, numbered per table. Change the menu link later without reprinting, with 3 free dynamic codes.";
 const path = "/restaurant-menu-qr-code";
 
 export const metadata: Metadata = {
@@ -55,6 +56,18 @@ const questions = [
     a: "Yes, and guests often prefer it. A plain PDF or image link opens fast and skips cookie banners, pop-ups and app downloads. Scanstone sends guests straight to whatever link you choose, with no page of ours in between.",
   },
   {
+    q: "How do I print QR code table cards for my restaurant?",
+    a: "Paste your menu link into the table card maker on this page, add your name and table numbers if you want them, then print. Two 4 × 6 inch cards fit on a letter page, so they slide into standard acrylic stands and photo frames. Print one, scan it from a seat, then print the rest.",
+  },
+  {
+    q: "How big should the QR code be on a table card?",
+    a: "On these 4 × 6 inch cards the code prints a little under 3 inches wide, which phones read easily from across a table. Keep the white border around the code, use matte paper or lamination so lights don't cause glare, and print the menu link underneath for guests who can't scan.",
+  },
+  {
+    q: "We already have a menu QR code. Do we need a new one?",
+    a: "Not if it works. Scan it and look at the address your phone shows. If it's your own website or PDF, it can't be switched off by anyone else. If it starts with a QR company's short link, find out what happens to it when that company's trial or plan ends, before it stops working on a busy night.",
+  },
+  {
     q: "Do guests need an app or an account?",
     a: "Guests do not need a Scanstone account. They can scan the code with a compatible phone camera and open your menu in their browser. Make sure the menu itself is public and does not require a login.",
   },
@@ -68,6 +81,19 @@ export default function RestaurantMenuPage() {
       name: title,
       description,
       url: `${envClient.APP_URL}${path}`,
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      name: "Menu table card maker",
+      description:
+        "Free tool that turns a menu link into printable 4 x 6 inch QR code table cards, with optional table numbers. Runs in the browser, no account.",
+      url: `${envClient.APP_URL}${path}#table-cards`,
+      applicationCategory: "UtilitiesApplication",
+      operatingSystem: "Any (web browser)",
+      isAccessibleForFree: true,
+      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+      publisher: { "@type": "Organization", name: "Scanstone", url: envClient.APP_URL },
     },
     {
       "@context": "https://schema.org",
@@ -181,6 +207,25 @@ export default function RestaurantMenuPage() {
         </Container>
       </section>
 
+      <section id="table-cards" aria-labelledby="cards-h" className="scroll-mt-24 border-t border-line py-20 sm:py-28">
+        <Container>
+          <Reveal>
+            <Fig>Free tool</Fig>
+            <h2 id="cards-h" className="display mt-6 text-h2">Print table cards for your menu</h2>
+            <p className="mt-5 max-w-2xl text-ink-soft">
+              Paste your menu link, add table numbers if you want them, and
+              print. Each card has the code, a plain &ldquo;Scan for our
+              menu&rdquo;, the link written out for anyone who can&apos;t scan,
+              and a line that a paper menu is there too. Free, no account, and
+              nothing you type leaves your browser.
+            </p>
+          </Reveal>
+          <div className="mt-12">
+            <TableCardMaker />
+          </div>
+        </Container>
+      </section>
+
       <DayCycle qr={<AssembleQR lite data="https://www.scanstone.ca/restaurant-menu-qr-code" label="" className="!rounded-md !p-[4%]" />} />
 
       <section aria-labelledby="steps-h" className="border-y border-line bg-paper-deep/40 py-24 sm:py-32">
@@ -219,6 +264,20 @@ export default function RestaurantMenuPage() {
                 </li>
               ))}
             </ul>
+            <div className="mt-8 rounded-2xl border border-line bg-paper-deep/40 p-5">
+              <p className="text-sm font-medium text-ink">Already have a menu QR code?</p>
+              <p className="mt-2 text-sm leading-relaxed text-ink-soft">
+                Keep it if it works. Take ten seconds to scan it and read the
+                address your phone shows. Your own website or PDF is fine. A QR
+                company&apos;s short link means that company decides whether it
+                keeps working, so check what happens when its trial or plan
+                ends.{" "}
+                <Link href="/blog/qr-code-stopped-working-how-to-fix" className="text-verdigris-deep underline underline-offset-2">
+                  What to do if it already stopped
+                </Link>
+                .
+              </p>
+            </div>
             <p className="mt-6 text-sm text-ink-soft">
               Guests complaining about the QR menu? Here&apos;s{" "}
               <Link href="/blog/qr-code-menu-complaints" className="text-verdigris-deep underline underline-offset-2">
