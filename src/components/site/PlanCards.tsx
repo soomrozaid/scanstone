@@ -150,7 +150,8 @@ export function PlanCards({ headingLevel = 3 }: { headingLevel?: 2 | 3 }) {
           </Link>
           <p className="relative mt-3 text-center text-xs text-paper/70">
             Renews every {yearly ? "year" : "month"} until you cancel. Cancel any
-            time from your Account page.
+            time from your Account page. Ask within 14 days of a charge for a
+            full refund.
           </p>
         </div>
       </div>

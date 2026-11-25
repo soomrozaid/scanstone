@@ -35,6 +35,11 @@ const TOPICS = [
     href: "/pricing",
   },
   {
+    q: "Can I get a refund?",
+    a: "Yes, if you ask within 14 days of a monthly or yearly charge. Email hello@scanstone.ca and we will refund it in full to the same payment method. It usually shows up in 5 to 10 business days.",
+    href: "/pricing",
+  },
+  {
     q: "A QR code I already printed stopped working. What now?",
     a: "Scan it and look at the link before you tap it. If it is a generator's own address, they may have switched the redirect off. We wrote a short guide that matches what you see to the likely cause.",
     href: "/blog/qr-code-stopped-working-how-to-fix",

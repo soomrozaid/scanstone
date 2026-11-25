@@ -74,6 +74,10 @@ const NOTES = [
     a: "Payments by Stripe. Pro renews automatically every month or every year, whichever you picked, until you cancel. Cancel yourself anytime from the billing portal, where your invoices are too. Pro extras stay on until the end of the period you paid for, and your codes and redirects are untouched.",
   },
   {
+    q: "Can I get a refund?",
+    a: "Yes. Email hello@scanstone.ca within 14 days of a monthly or yearly charge and we will refund it in full to the same payment method. It usually shows up in 5 to 10 business days. After 14 days you can still cancel any time. Pro extras stay on until the end of the period you paid for, and your codes keep working.",
+  },
+  {
     q: "What happens to my codes if I stop paying?",
     a: "They keep redirecting. You lose the Pro extras (full analytics history and CSV export) but every printed code keeps working.",
   },
@@ -160,7 +164,9 @@ export default function PricingPage() {
               subscription by itself. Pro is the only thing you can pay for. It
               renews every month or every year, whichever you pick, until you
               cancel. To cancel, open Account, choose Manage billing, then
-              cancel. Your codes keep working after that.
+              cancel. Your codes keep working after that. If you ask within 14
+              days of a charge, we refund it in full to the same payment
+              method. The refund usually shows up in 5 to 10 business days.
             </p>
             <p className="mt-4 text-ink-soft">
               If Scanstone ever shuts down, we commit to at least 90 days&apos;
