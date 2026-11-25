@@ -291,7 +291,7 @@ test("restaurant page is discoverable and offers a working free tool @mobile @sm
   request,
 }) => {
   await page.goto("/restaurant-menu-qr-code");
-  await expect(page).toHaveTitle(/Restaurant Menu QR Codes/);
+  await expect(page).toHaveTitle(/Restaurant Menu QR Code/);
   await expect(page.locator("h1")).toHaveText(
     "Change the menu.Keep the QR code.",
   );

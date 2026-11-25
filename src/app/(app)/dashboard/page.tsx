@@ -74,7 +74,7 @@ export default async function DashboardPage() {
       ) : null}
 
       {used === 0 ? (
-        <Card className="mt-8 p-10 text-center">
+        <Card className="mt-8 p-6 text-center sm:p-10">
           <div className="mx-auto max-w-md">
             <h2 className="engraved text-xl font-semibold">
               Create your first code or short URL
@@ -84,18 +84,42 @@ export default async function DashboardPage() {
               or a portfolio, then change the destination any time. Your link
               and printed code keep working.
             </p>
-            <div className="mt-5 flex flex-wrap justify-center gap-3">
-              <ButtonLink href="/dashboard/static" variant="ghost">
-                Make a static QR code
-              </ButtonLink>
-              <ButtonLink href="/dashboard/shorten" variant="ghost">
-                Create a short URL
-              </ButtonLink>
-              <ButtonLink href="/dashboard/new">
-                Create a dynamic code
-              </ButtonLink>
-            </div>
           </div>
+          <ul className="mx-auto mt-6 grid max-w-3xl gap-3 text-left sm:grid-cols-3">
+            {[
+              {
+                href: "/dashboard/new",
+                label: "Create a dynamic code",
+                body: `A QR code you can point somewhere else after you print it. Uses 1 of your ${limits.maxCodes}.`,
+                accent: true,
+              },
+              {
+                href: "/dashboard/shorten",
+                label: "Create a short URL",
+                body: `A scst.one link to share or type. You can change where it goes. Uses 1 of your ${limits.maxCodes}.`,
+                accent: false,
+              },
+              {
+                href: "/dashboard/static",
+                label: "Make a static QR code",
+                body: "The link sits inside the pattern, so it can't be edited later. Free, unlimited, not saved here.",
+                accent: false,
+              },
+            ].map((o) => (
+              <li key={o.href} className="flex flex-col rounded-2xl border border-line p-4">
+                <p className="text-sm leading-relaxed text-ink-soft">{o.body}</p>
+                <div className="mt-auto pt-4">
+                  <ButtonLink
+                    href={o.href}
+                    variant={o.accent ? undefined : "ghost"}
+                    className="w-full"
+                  >
+                    {o.label}
+                  </ButtonLink>
+                </div>
+              </li>
+            ))}
+          </ul>
         </Card>
       ) : (
         <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

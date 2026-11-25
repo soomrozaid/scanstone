@@ -156,6 +156,13 @@ export default function PricingPage() {
             <Fig>The details</Fig>
             <h2 id="billing-h" className="display mt-6 text-h2">Billing, plainly</h2>
             <p className="mt-5 text-ink-soft">
+              The free plan never asks for a card and never turns into a
+              subscription by itself. Pro is the only thing you can pay for. It
+              renews every month or every year, whichever you pick, until you
+              cancel. To cancel, open Account, choose Manage billing, then
+              cancel. Your codes keep working after that.
+            </p>
+            <p className="mt-4 text-ink-soft">
               If Scanstone ever shuts down, we commit to at least 90 days&apos;
               email notice and a window to export your data, so you have time to
               move or reprint. Read the full promise in{" "}

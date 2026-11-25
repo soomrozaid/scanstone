@@ -46,8 +46,11 @@ export default async function UpgradePage({
           Taking you to checkout
         </h1>
         <p className="mt-2 text-sm leading-relaxed text-ink-soft">
-          Pro {plan}, {PRICING[plan].label}. Payment is handled by Stripe. If
-          you cancel later, your codes and short links keep working.
+          Pro {plan}, {PRICING[plan].label}. It renews every{" "}
+          {plan === "yearly" ? "year" : "month"} until you cancel, and you can
+          cancel any time from your Account page. Payment is handled by
+          Stripe, which shows the exact amount before you pay. If you cancel,
+          your codes and short links keep working.
         </p>
         <AutoCheckoutForm interval={plan} />
         <p className="mt-4 text-xs text-ink-faint">

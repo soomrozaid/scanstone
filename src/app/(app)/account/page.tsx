@@ -45,7 +45,7 @@ export default async function AccountPage({
       {params.billing_error ? (
         <Card className="border-danger/40 bg-danger/5 p-4">
           <p className="text-sm text-danger">
-            Something went wrong talking to billing. Nothing was charged — try
+            Something went wrong talking to billing. Nothing was charged. Try
             again in a minute.
           </p>
         </Card>
@@ -72,11 +72,11 @@ export default async function AccountPage({
             <p className="text-sm text-ink-soft">
               You&apos;re on <strong>Pro</strong>
               {profile?.current_period_end
-                ? ` — renews ${new Date(profile.current_period_end).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}`
+                ? `. It renews on ${new Date(profile.current_period_end).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })} unless you cancel`
                 : ""}
-              . Manage billing, change between monthly and yearly, download
-              invoices, or cancel below. If you cancel,{" "}
-              <strong>every code keeps redirecting</strong> — you only lose the
+              . Use Manage billing to switch between monthly and yearly,
+              download invoices, or cancel. If you cancel,{" "}
+              <strong>every code keeps redirecting</strong>. You only lose the
               Pro extras.
             </p>
             <form action="/api/stripe/portal" method="POST">
@@ -95,19 +95,22 @@ export default async function AccountPage({
               <form action="/api/stripe/checkout" method="POST">
                 <input type="hidden" name="interval" value="monthly" />
                 <Button type="submit" variant="accent" className="w-full">
-                  Go Pro — {PRICING.monthly.label}
+                  Go Pro monthly: {PRICING.monthly.label}
                 </Button>
               </form>
               <form action="/api/stripe/checkout" method="POST">
                 <input type="hidden" name="interval" value="yearly" />
                 <Button type="submit" variant="ghost" className="w-full">
-                  {PRICING.yearly.label} ({PRICING.yearly.note})
+                  Go Pro yearly: {PRICING.yearly.label}
                 </Button>
               </form>
             </div>
             <p className="text-xs text-ink-faint">
-              Cancel anytime from this page. Your codes keep working regardless
-              — that&apos;s the covenant.
+              Pro renews automatically every month or every year, whichever
+              you pick, until you cancel. Yearly is {PRICING.yearly.note}.
+              Stripe shows the exact amount before you pay. Once you&apos;re on
+              Pro, cancel any time on this page with Manage billing. Your codes
+              keep working either way.
             </p>
           </div>
         )}
