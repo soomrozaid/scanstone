@@ -90,7 +90,7 @@ async function createRedirect(
     return {
       error:
         limits.maxCodes <= 3
-          ? "You've used all 3 free codes and short URLs. Upgrade to Pro for up to 500 — your existing links keep working either way."
+          ? "You've used all 3 free codes and short URLs. Upgrade to Pro for up to 500. Your existing links keep working either way."
           : "You've reached the limit of 500 codes and short URLs. Contact us if you need more.",
     };
   }

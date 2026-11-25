@@ -72,10 +72,13 @@ export function CodeForm({
           <Input
             id="destination_url"
             name="destination_url"
-            type="url"
+            type="text"
             inputMode="url"
+            autoCapitalize="none"
+            autoCorrect="off"
+            spellCheck={false}
             defaultValue={initial?.destination_url || initialDestination}
-            placeholder="https://example.com/menu"
+            placeholder="example.com/menu"
             required
           />
           <p className="mt-1.5 text-xs text-ink-faint">

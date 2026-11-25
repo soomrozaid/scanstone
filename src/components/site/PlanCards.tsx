@@ -148,6 +148,10 @@ export function PlanCards({ headingLevel = 3 }: { headingLevel?: 2 | 3 }) {
           >
             {yearly ? "Go Pro yearly" : "Go Pro monthly"}
           </Link>
+          <p className="relative mt-3 text-center text-xs text-paper/70">
+            Renews every {yearly ? "year" : "month"} until you cancel. Cancel any
+            time from your Account page.
+          </p>
         </div>
       </div>
     </div>
