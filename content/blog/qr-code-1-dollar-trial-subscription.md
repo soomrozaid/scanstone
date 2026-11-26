@@ -8,6 +8,8 @@ GetQR is the example in the news this month, so here is how it describes its own
 
 GetQR isn't the only site that works this way, and the terms are on its pages. The problem is that people go in expecting to pay once for a file and come out with a subscription.
 
+A similar surprise happens on sites that show a monthly price but bill the whole year at once. If QR Code Creator charged you $133.20, see [our guide to that charge](/blog/qr-code-creator-charged-133).
+
 Two details catch people out:
 
 - **"Every 4 weeks" is not monthly.** That's 13 charges a year, not 12. At $39.99 that's about $520 a year.
