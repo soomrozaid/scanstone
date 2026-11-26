@@ -40,6 +40,10 @@ const FAQS = [
     a: "Yes. Leave the password empty or pick None (open network), and the code holds only the network name.",
   },
   {
+    q: "Does it work for a hidden network?",
+    a: "Yes. Tick Hidden network before you download. The code then tells the phone the network doesn't broadcast its name, so it can join even though the name isn't in the WiFi list.",
+  },
+  {
     q: "Is it really free? Is there a watermark?",
     a: "Free, with no account and no watermark. Download a PNG for screens and small prints, or an SVG for print shops and large signs.",
   },

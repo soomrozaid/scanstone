@@ -22,4 +22,10 @@ describe("static payloads", () => {
       "WIFI:T:WPA;S:Cafe\\;Guest;P:a\\:b;;",
     );
   });
+
+  it("marks hidden WiFi networks", () => {
+    expect(wifiPayload({ ssid: "Back Office", password: "pw", security: "WPA", hidden: true })).toBe(
+      "WIFI:T:WPA;S:Back Office;P:pw;H:true;;",
+    );
+  });
 });

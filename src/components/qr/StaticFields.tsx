@@ -24,7 +24,13 @@ export const STATIC_KIND_LABELS: Record<StaticKind, string> = {
 
 export type StaticValues = {
   text: string;
-  wifi: { ssid: string; password: string; security: "WPA" | "WEP" | "nopass" };
+  wifi: {
+    ssid: string;
+    password: string;
+    security: "WPA" | "WEP" | "nopass";
+    /** The network doesn't broadcast its name, so phones must be told it exists. */
+    hidden?: boolean;
+  };
   vcard: {
     firstName: string;
     lastName: string;
@@ -161,6 +167,24 @@ export function StaticFields({
             <option value="nopass">None (open network)</option>
           </select>
         </div>
+        <label
+          htmlFor={f("hidden")}
+          className="flex min-h-11 cursor-pointer items-center gap-3 text-sm text-ink sm:col-span-2"
+        >
+          <input
+            id={f("hidden")}
+            type="checkbox"
+            checked={!!w.hidden}
+            onChange={(e) => set("wifi", { ...w, hidden: e.target.checked })}
+            className="h-5 w-5 accent-verdigris"
+          />
+          <span>
+            Hidden network{" "}
+            <span className="text-ink-faint">
+              (tick this if the name doesn&apos;t show up in your phone&apos;s WiFi list)
+            </span>
+          </span>
+        </label>
         <p className="text-xs text-ink-faint sm:col-span-2">
           Guests point their camera and join. The password is stored in the
           code itself and never sent to us.
