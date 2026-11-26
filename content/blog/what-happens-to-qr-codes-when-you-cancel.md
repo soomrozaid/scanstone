@@ -18,6 +18,8 @@ It depends on the company that made the code, and on whether the code is static 
 
 Static codes are the exception everywhere. Every company above that mentions them says static codes are not affected by a trial ending or a cancellation.
 
+QR Code Creator (qrcodecreator.com), not in the table, works like the trial companies: dynamic codes made in its 7-day free trial are deactivated when the trial ends, and its paid plans are charged a year at a time. We cover that in [QR Code Creator charged you $133.20?](/blog/qr-code-creator-charged-133)
+
 Bitly's own QR codes (on bit.ly, separate from QRCG) also keep scanning after you drop to its free plan, but you can't edit them there. We cover that in [Scanstone vs Bitly](/blog/bitly-qr-code-alternative).
 
 ## The details, company by company

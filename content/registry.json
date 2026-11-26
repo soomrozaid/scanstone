@@ -81,5 +81,13 @@
     "description": "Bitly puts a preview page with an ad in front of free-plan links and QR codes. How to tell which kind you have, what removes it, and when you must reprint.",
     "date": "2026-11-24",
     "category": "Rescue"
+  },
+  {
+    "slug": "qr-code-creator-charged-133",
+    "collection": "blog",
+    "title": "QR Code Creator charged you $133.20? Why, and what to do now",
+    "description": "QR Code Creator's $11.10 Basic plan is billed for a full year up front. How to turn off auto-renew, ask for a refund, and replace the code you printed.",
+    "date": "2026-11-26",
+    "category": "Rescue"
   }
 ]
