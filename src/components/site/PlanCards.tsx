@@ -101,7 +101,7 @@ export function PlanCards({ headingLevel = 3 }: { headingLevel?: 2 | 3 }) {
           </Link>
         </div>
 
-        <div className="pro-card relative flex flex-col overflow-hidden rounded-[28px] bg-night p-8 text-paper shadow-[var(--shadow-lift)] ring-1 ring-white/10 sm:p-10">
+        <div className="pro-card relative flex flex-col overflow-clip-safe rounded-[28px] bg-night p-8 text-paper shadow-[var(--shadow-lift)] ring-1 ring-white/10 sm:p-10">
           <div className="pro-sheen pointer-events-none absolute inset-0" aria-hidden="true" />
           <div className="gridlines-night absolute inset-0" aria-hidden="true" />
           <div className="relative flex items-center justify-between">

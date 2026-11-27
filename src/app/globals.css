@@ -172,6 +172,12 @@ body {
   background-size: 64px 64px;
 }
 
+/* Clips like overflow-hidden but is not a scroll container. An overflow-hidden
+   ancestor becomes the "scroller" for animation-timeline: view(), and since it
+   never scrolls, effects inside it sat frozen at their end state. Browsers
+   without overflow: clip (Safari before 16) keep hidden. */
+.overflow-clip-safe { overflow: hidden; overflow: clip; }
+
 /* Scroll reveal: CSS scroll-driven where supported, IO fallback adds .is-in */
 .reveal {
   opacity: 0;
@@ -941,14 +947,15 @@ details[open] > .faq-row::before { transform: scaleX(1); }
 }
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
-    @keyframes ink-hl { from { background-size: 0% 100%; } to { background-size: 100% 100%; } }
-    @keyframes ink-rule { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-    @keyframes ink-quote { from { opacity: 0; transform: translateX(-24px); clip-path: inset(0 100% 0 0); } to { opacity: 1; transform: none; clip-path: inset(0 0 0 0); } }
     .article-ink strong { animation: ink-hl linear both; animation-timeline: view(); animation-range: entry 40% cover 45%; }
     .article-ink h2::before { animation: ink-rule linear both; animation-timeline: view(); animation-range: entry 20% cover 35%; }
     .article-ink blockquote { animation: ink-quote linear both; animation-timeline: view(); animation-range: entry 10% cover 40%; }
   }
 }
+
+@keyframes ink-hl { from { background-size: 0% 100%; } to { background-size: 100% 100%; } }
+@keyframes ink-rule { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes ink-quote { from { opacity: 0; transform: translateX(-24px); clip-path: inset(0 100% 0 0); } to { opacity: 1; transform: none; clip-path: inset(0 0 0 0); } }
 
 /* Print press (home bento, iteration 76): a slot, sheets feeding out, ink laid down by a printhead. */
 .press { position: relative; }
@@ -1231,3 +1238,48 @@ h1, h2, h3, .text-h2 {
 p, li, dd, figcaption {
   text-wrap: pretty;
 }
+
+/* Scroll effects without CSS scroll-driven animations (desktop Safari before 26).
+   ScrollFxFallback adds html.sfx only in those browsers, and only without
+   reduced motion. Each effect becomes a paused 1s animation, and the script
+   seeks it to the element's scroll progress (same ranges as the view() rules
+   above) by setting the animation's currentTime. */
+html.sfx main h2.display:not([data-no-ink]),
+html.sfx .article-ink strong,
+html.sfx .article-ink h2::before,
+html.sfx .article-ink blockquote,
+html.sfx .night-portal,
+html.sfx .night-portal > *,
+html.sfx .covenant,
+html.sfx .covenant-sign,
+html.sfx .covenant-seal,
+html.sfx .wm-l,
+html.sfx .cta-horizon {
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+  animation-play-state: paused;
+  animation-delay: 0s;
+  animation-timeline: auto;
+  animation-range: normal;
+}
+html.sfx main h2.display:not([data-no-ink]) {
+  background-image: linear-gradient(100deg, currentColor 0 46%, color-mix(in srgb, currentColor 22%, transparent) 54% 100%);
+  background-size: 240% 100%;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation-name: h-ink;
+}
+html.sfx main h2.display:not([data-no-ink]) :is(em, i, .italic, [class*="text-"]) { -webkit-text-fill-color: currentColor; }
+html.sfx .article-ink strong { animation-name: ink-hl; }
+html.sfx .article-ink h2::before { animation-name: ink-rule; }
+html.sfx .article-ink blockquote { animation-name: ink-quote; }
+html.sfx .night-portal { animation-name: np-open; }
+html.sfx .night-portal > * { animation-name: np-settle; }
+html.sfx .covenant { animation-name: cov-in; }
+html.sfx .covenant-sign { animation-name: cov-sign; }
+html.sfx .covenant-seal { animation-name: cov-seal; }
+html.sfx .wm-l { animation-name: wm-rise; }
+html.sfx .cta-horizon { transform-origin: center; animation-name: cta-horizon; }

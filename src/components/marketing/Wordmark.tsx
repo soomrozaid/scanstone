@@ -1,6 +1,6 @@
 /** Logotype: a minimal engraved-stone mark + wordmark. Pure SVG, no asset. */
 export function Wordmark({
-  size = 22,
+  size = 30,
   tone = "ink",
 }: {
   size?: number;
@@ -9,7 +9,7 @@ export function Wordmark({
   const slab = tone === "paper" ? "#f7f3ea" : "#161411";
   const cut = tone === "paper" ? "#161411" : "#f7f3ea";
   return (
-    <span className="flex items-center gap-2.5">
+    <span className="flex items-center gap-2">
       <svg
         width={size}
         height={size}
@@ -36,7 +36,7 @@ export function Wordmark({
         <rect x="10" y="15" width="6.5" height="2" fill="#2c6e63" />
       </svg>
       <span
-        className={`engraved text-lg font-semibold ${tone === "paper" ? "text-paper" : "text-ink"}`}
+        className={`engraved text-xl font-semibold ${tone === "paper" ? "text-paper" : "text-ink"}`}
       >
         Scanstone
       </span>
