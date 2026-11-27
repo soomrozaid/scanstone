@@ -38,6 +38,8 @@ The QR code itself can add a step too. Some QR services send scans through their
 
 With Scanstone, a static code holds your menu address itself, so nothing of ours is involved at all. A dynamic code goes through a scst.one short link that redirects straight to your menu. There's no Scanstone page, cookie or ad in between, and it keeps redirecting if you cancel or downgrade.
 
+Some guests won't scan at all because they've heard about fake codes. Printing your menu address under the code and pointing it at your own domain helps; [is it safe to scan a QR code?](/blog/is-it-safe-to-scan-a-qr-code) has the full list of what careful guests check.
+
 ## Keep paper menus and say so
 
 The fix for the guest whose phone is dead, who doesn't own a smartphone, or who just prefers paper is a paper menu. You don't need a full laminated reprint every time prices change. A small stack of plain printed copies at the host stand, dated so you know when to replace them, covers it.

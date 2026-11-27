@@ -89,5 +89,13 @@
     "description": "QR Code Creator's $11.10 Basic plan is billed for a full year up front. How to turn off auto-renew, ask for a refund, and replace the code you printed.",
     "date": "2026-11-26",
     "category": "Rescue"
+  },
+  {
+    "slug": "is-it-safe-to-scan-a-qr-code",
+    "collection": "blog",
+    "title": "Is it safe to scan a QR code? What to check before you tap",
+    "description": "Scanning only reads the code. What to check before you tap, how to spot a sticker swap, and how businesses can make QR codes people trust.",
+    "date": "2026-11-27",
+    "category": "Guide"
   }
 ]
