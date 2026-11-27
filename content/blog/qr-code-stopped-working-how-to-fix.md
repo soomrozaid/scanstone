@@ -25,6 +25,8 @@ If a phone does read it, look at the web address it shows before you tap. That a
 - **It's your own website or file** (like yourcafe.com/menu or a Google Drive link). This is a static code. The link is stored in the pattern itself, so no QR company is involved. If it fails, the problem is that page.
 - **It's a short link on someone else's domain** (a QR company's or link shortener's domain). This is a dynamic code. Every scan goes to that company first, and their server forwards it to your page. If their server stops forwarding, the code stops working even though your website is fine.
 
+If the address is a domain you don't recognise at all, on a code someone may have stuck over yours, see [is it safe to scan a QR code?](/blog/is-it-safe-to-scan-a-qr-code) for how to spot a swapped code.
+
 Write down the exact address. You'll need it for everything below.
 
 ## Step 3: if the destination is broken
