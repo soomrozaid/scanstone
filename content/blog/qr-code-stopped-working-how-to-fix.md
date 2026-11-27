@@ -1,5 +1,13 @@
 If your QR code stopped working after it was printed, scan it and look at what happens. If your camera shows nothing, the print is the problem. If it opens an error page, the website it points to has moved or gone down. If it opens a page about an expired trial, a paused code or a plan upgrade, the company that made the code has switched off its redirect. Each of those has a different fix, and only one of them means you have to reprint.
 
+## Key facts
+
+- A QR code's printed pattern never expires. When a code stops working, either the print can't be read, the page it opens is gone, or the company running its redirect switched it off.
+- Scan it and read the address your phone shows. Your own website means a static code; a short link on another company's domain means a dynamic code.
+- Only a switched-off dynamic code from another company forces a reprint, unless you pay that company to turn it back on. A broken page can be fixed on your website without touching the code.
+- Many QR companies deactivate dynamic codes when a free trial ends or a paid plan lapses. QRCG by Bitly and Uniqode say so in their own help centres.
+- Static codes can't be switched off by anyone, because there's no company in the middle.
+
 ## Find your symptom
 
 | What you see when you scan | What failed | What to do |
@@ -43,7 +51,7 @@ If it's a shared file (Google Drive, Dropbox, OneDrive), check that sharing is s
 
 A page saying the code was deactivated, the trial ended, or you need to upgrade means the redirect has been turned off. Your phone and your print are fine. This usually happens when a free trial ends, a subscription lapses or is cancelled, or the account goes over a plan limit.
 
-This is common and documented by the companies themselves. QRCG by Bitly (qr-code-generator.com) [says in its help center](https://support.qr-code-generator.com/hc/en-us/articles/7665013224205-I-received-a-message-saying-that-my-QR-Codes-will-be-deactivated-What-does-that-mean) that dynamic codes made during its 14-day trial are deactivated when the trial ends. Uniqode's help center [says](https://docs.uniqode.com/en/articles/17190918-what-happens-to-my-qr-codes-when-my-subscription-changes-or-ends) its dynamic codes stop working when a trial expires, and after the renewal date if you cancel. Other companies have their own rules, so check the policy of whoever made your code. We put [eight companies' cancellation policies side by side](/blog/what-happens-to-qr-codes-when-you-cancel). If the code came from a $1 download that turned into a subscription, here is [how to cancel and what to expect](/blog/qr-code-1-dollar-trial-subscription).
+This is common and documented by the companies themselves. QRCG by Bitly (qr-code-generator.com) [says in its help center](https://support.qr-code-generator.com/hc/en-us/articles/7665013224205-I-received-a-message-saying-that-my-QR-Codes-will-be-deactivated-What-does-that-mean) that dynamic codes made during its 14-day trial are deactivated when the trial ends. Uniqode's help center [says](https://docs.uniqode.com/en/articles/17190918-what-happens-to-my-qr-codes-when-my-subscription-changes-or-ends) its dynamic codes stop working when a trial expires, and after the renewal date if you cancel. Other companies have their own rules, so check the policy of whoever made your code. We put [11 QR companies' cancellation policies side by side](/blog/what-happens-to-qr-codes-when-you-cancel). If the code came from a $1 download that turned into a subscription, here is [how to cancel and what to expect](/blog/qr-code-1-dollar-trial-subscription).
 
 You have two real options:
 
