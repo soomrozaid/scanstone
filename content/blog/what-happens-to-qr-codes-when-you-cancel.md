@@ -1,5 +1,13 @@
 It depends on the company that made the code, and on whether the code is static or dynamic. A static code keeps working no matter what, because your link is stored in the pattern itself. A dynamic code sends every scan through the company's server first, so it keeps working only as long as that company keeps forwarding it. Most QR companies stop forwarding dynamic codes when a free trial ends or a paid plan lapses. A few keep some or all of them running on a free plan. Here is what each company says in its own help pages.
 
+## Key facts
+
+- Static QR codes keep working after any trial ends or plan is cancelled. Every company in the table below that mentions static codes says so.
+- Dynamic codes depend on the company's redirect. Most companies here switch them off when a free trial ends or a paid plan lapses.
+- QRCG by Bitly, Scanova and QR Code Creator deactivate dynamic codes made during their free trials. QR TIGER's free dynamic codes stop after 500 scans each.
+- Hovercode, QRCodeChimp and Flowcode keep some codes running on their free plans after you cancel. Hovercode keeps the first 3 dynamic codes, QRCodeChimp the last 10.
+- Scanstone has no trial, and existing redirects keep working after you cancel or downgrade. That's written into our terms.
+
 ## What each company says
 
 | Company | Free trial or free plan | When you cancel a paid plan |
