@@ -19,6 +19,7 @@ import {
 import { isScannableCombo } from "@/lib/qr/contrast";
 import { Button, Input, Label, Card } from "@/components/ui";
 import type { QRDesign } from "@/lib/validate";
+import { WifiSignPanel } from "./WifiSignPanel";
 
 export type GeneratorMode = "url" | StaticKind;
 
@@ -251,6 +252,10 @@ export function StaticGenerator({
             switch off. Scan it and your phone shows your own link, not ours.
           </p>
         </Card>
+
+        {mode === "wifi" ? (
+          <WifiSignPanel wifi={values.wifi} ready={ready} onSaved={recordDownload} />
+        ) : null}
 
         {mode === "url" && variant === "dashboard" ? (
           <Card className="mt-4 !rounded-[22px] border-verdigris/30 bg-verdigris/5 p-5">

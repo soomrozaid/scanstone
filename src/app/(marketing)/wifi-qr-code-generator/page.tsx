@@ -4,9 +4,9 @@ import { ToolPage } from "@/components/site/ToolPage";
 import { StaticGenerator } from "@/components/free-tool/StaticGenerator";
 
 export const metadata: Metadata = {
-  title: "WiFi QR Code Generator: Free, No Sign-Up, Never Expires",
+  title: "WiFi QR Code Generator: Free Printable Sign, No Sign-Up",
   description:
-    "Make a free WiFi QR code in your browser. Guests scan with their phone camera and join, no typing. No sign-up, no watermark, never expires. PNG and SVG.",
+    "Make a free WiFi QR code and print a 4 x 6 scan-to-join sign with the network name and password. No sign-up, no watermark, never expires. Made in your browser.",
   alternates: { canonical: "/wifi-qr-code-generator" },
 };
 
@@ -44,8 +44,16 @@ const FAQS = [
     a: "Yes. Tick Hidden network before you download. The code then tells the phone the network doesn't broadcast its name, so it can join even though the name isn't in the WiFi list.",
   },
   {
+    q: "Can I print a WiFi sign with the password on it?",
+    a: "Yes. Under the code, Print a WiFi sign makes a 4 x 6 inch card with a headline, the code, the network name and the password written out, for laptops, TVs and game consoles that can't scan. Untick the password line if you'd rather not print it. Print it, save it as a PDF, or download a PNG. Two signs fit on a letter page.",
+  },
+  {
+    q: "How big should I print a WiFi QR code?",
+    a: "On the 4 x 6 sign the code is about 2.5 inches wide, which scans easily from a table or counter. For a wall sign people read from across a room, print it bigger or download the SVG, which stays sharp at any size. Always scan a test print with your own phone first.",
+  },
+  {
     q: "Is it really free? Is there a watermark?",
-    a: "Free, with no account and no watermark. Download a PNG for screens and small prints, or an SVG for print shops and large signs.",
+    a: "Free, with no account and no watermark. Download a PNG for screens and small prints, an SVG for print shops and large signs, or print the ready-made sign.",
   },
   {
     q: "Where do people put these?",
@@ -83,9 +91,9 @@ export default function WifiQRPage() {
         lead={
           <>
             Stop spelling out your WiFi password. Guests scan, tap, and
-            they&apos;re on. Generated entirely in your browser, so the password
-            never touches our servers, and like every static code, it never
-            expires.
+            they&apos;re on. Download the code or print a ready-made sign. Made
+            entirely in your browser, so the password never touches our
+            servers, and like every static code, it never expires.
           </>
         }
         tool={<StaticGenerator initialMode="wifi" />}

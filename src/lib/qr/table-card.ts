@@ -23,7 +23,7 @@ const FONT = "Helvetica, Arial, sans-serif";
 const INK = "#1c1917";
 const SOFT = "#57534e";
 
-function esc(s: string): string {
+export function esc(s: string): string {
   return s
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
@@ -63,7 +63,7 @@ function wrap(text: string, chars: number, maxLines: number): string[] | null {
 }
 
 /** Largest font size (between max and min) at which the text fits in maxLines. */
-function fit(
+export function fit(
   text: string,
   maxSize: number,
   minSize: number,
