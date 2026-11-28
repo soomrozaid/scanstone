@@ -1,5 +1,13 @@
 Uniqode (formerly Beaconstac) has no free plan for editable QR codes. You get a 14-day trial, and when it ends your dynamic codes stop working until you pay. The cheapest plan, Essential, is $9 USD a month billed yearly ($108 a year) for 15 dynamic codes and 50,000 scans a year across your account; Uniqode says codes stop working when you hit the scan limit, and they stop on your renewal date if you cancel. Scanstone's free plan has 3 editable codes or short links with no trial, Pro is $9 USD a month or $79 USD a year for 500, scans are unlimited, and codes keep working if you stop paying. If you need a team, SSO, GS1 codes, forms or compliance paperwork, Uniqode does far more than we do.
 
+## Key facts
+
+- Uniqode (formerly Beaconstac) has no free plan for editable codes: a 14-day trial, then dynamic codes go inactive unless you pay.
+- Its cheapest plan, Essential, is $9 USD a month billed yearly ($108) for 15 dynamic codes and 50,000 scans a year. Uniqode says codes stop working at the scan limit, and on the renewal date if you cancel.
+- Scanstone's free plan has 3 editable codes or scst.one short links with no trial. Pro is $9 USD a month or $79 USD a year for 500, with unlimited scans on every plan.
+- Existing Scanstone redirects keep working if you stop paying. That's in section 2 of our terms.
+- Uniqode does far more for larger teams: multiple users, SSO, GS1 codes, forms and compliance paperwork (SOC 2, HIPAA).
+
 ## Uniqode vs Scanstone
 
 |                                   | Uniqode                                                                                                | Scanstone                                                                      |
@@ -14,7 +22,7 @@ Uniqode (formerly Beaconstac) has no free plan for editable QR codes. You get a 
 | Custom domain                     | $500 a year add-on on Plus ($99 a month billed yearly), included in Business+                          | Not available yet                                                              |
 | Teams, SSO, API, forms, GS1       | Yes, depending on plan                                                                                 | No: single user, colours only, web links                                       |
 
-Uniqode prices are in US dollars from its [pricing page](https://www.uniqode.com/pricing), checked November 18, 2026. Its plan table lists 30 days of analytics on Essential, while the FAQ on the same page says 60 days.
+Uniqode prices are in US dollars from its [pricing page](https://www.uniqode.com/pricing), checked November 18 and again November 28, 2026. Its plan table lists 30 days of analytics on Essential, while the FAQ on the same page says 60 days.
 
 ## Is Uniqode free?
 

@@ -1,5 +1,13 @@
 Some QR codes stop working after a free trial because they contain a provider’s redirect link, and the provider deactivates that link when the trial ends. A static QR pattern has no trial expiry, although the website it points to can still disappear. Before printing, check which kind of code you created and what the provider’s cancellation policy actually says.
 
+## Key facts
+
+- A QR code's printed pattern has no expiry date. A code "expires" when the company behind a dynamic code switches off its redirect, usually when a free trial ends or a plan lapses.
+- A static code holds your link in the pattern and needs no account to keep working, as long as the page it opens stays online.
+- A dynamic code holds a short link on the QR company's domain. That's what lets you edit it after printing, and also what lets the company turn it off.
+- QRCG by Bitly (qr-code-generator.com) says in its help center that dynamic codes made during its 14-day free trial are deactivated when the trial ends.
+- Before you print, scan a sample and read the address it shows. Your own website means a static code; a short link on another company's domain means you depend on that company's policy.
+
 ## What expires: the redirect, not the printed pattern
 
 A static QR code stores its content directly. For a menu URL, the pattern contains that URL; a compatible phone reads it and opens the website. The QR generator does not need to operate a separate redirect for the scan to work. If you own the menu URL and keep it available, you can change the menu content at that address without changing the QR code.

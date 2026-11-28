@@ -62,7 +62,7 @@ Our [free QR code generator](/qr-code-generator) makes static codes with no acco
 
 A menu code that stops working is worse than no code. Several QR companies switch dynamic codes off when a free trial ends. Two restaurant owners on Reddit described exactly that: their menu codes died after 14-day trials with no warning, one right after a full reprint.
 
-If your menu stays at one address, you don't need a dynamic code. A static code to that address has nothing to expire. If you want to change the address later or count scans, use a dynamic code from a company that says in writing what happens when you stop paying. Our [restaurant menu QR code page](/restaurant-menu-qr-code) explains both options, and our comparison of [what happens to QR codes when you cancel](/blog/what-happens-to-qr-codes-when-you-cancel) covers eight companies' policies.
+If your menu stays at one address, you don't need a dynamic code. A static code to that address has nothing to expire. If you want to change the address later or count scans, use a dynamic code from a company that says in writing what happens when you stop paying. Our [restaurant menu QR code page](/restaurant-menu-qr-code) explains both options, and our comparison of [what happens to QR codes when you cancel](/blog/what-happens-to-qr-codes-when-you-cancel) covers 11 QR companies' policies.
 
 ## A two-minute check before service
 
