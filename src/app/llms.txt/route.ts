@@ -23,7 +23,7 @@ export function GET() {
 
 ## Tools
 - [Free QR code generator](${base}/qr-code-generator): permanent static QR codes for a link, WiFi, contact card, text, email, SMS or phone number. PNG or vector SVG, no signup, no expiration.
-- [WiFi QR code generator](${base}/wifi-qr-code-generator): a scannable code that joins a WiFi network.
+- [WiFi QR code generator](${base}/wifi-qr-code-generator): a scannable code that joins a WiFi network, plus a free printable 4 x 6 inch "Scan to join" sign with the network name and (optionally) the password written out. Made in the browser; the password is never sent to Scanstone.
 - [vCard QR code generator](${base}/vcard-qr-code-generator): a contact card in one scan.
 - [Restaurant menu QR codes](${base}/restaurant-menu-qr-code): use your existing menu webpage or public PDF URL; update the destination after printing, plus a free table card maker (printable 4 x 6 inch cards, optional table numbers, link printed under the code). Scanstone does not host menus.
 - [Pricing](${base}/pricing): free forever (unlimited static + 3 dynamic); Pro is $9 USD/month or $79 USD/year for 500 codes and full analytics. Redirects never expire on any plan.

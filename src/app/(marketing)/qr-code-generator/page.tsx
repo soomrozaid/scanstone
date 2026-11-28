@@ -99,7 +99,11 @@ export default function FreeQRGeneratorPage() {
                 <Link href="/vcard-qr-code-generator" className="text-verdigris-deep underline">
                   vCard QR generator
                 </Link>
-                . Not sure which kind of code you need? Read{" "}
+                . The WiFi one also prints a{" "}
+                <Link href="/wifi-qr-code-generator#wifi-sign" className="text-verdigris-deep underline">
+                  scan-to-join sign
+                </Link>{" "}
+                with the password written out. Not sure which kind of code you need? Read{" "}
                 <Link href="/blog/permanent-qr-code" className="text-verdigris-deep underline">
                   what makes a QR code permanent
                 </Link>
