@@ -1,5 +1,13 @@
 A permanent QR code is one that keeps opening the right thing for as long as the print is around. The pattern itself never wears out or expires. What stops a code is something it depends on: a QR company's redirect, a website that moves, or a domain nobody renewed. The most permanent setup is a free static code that points at a page on a website you own. If you need to change the destination later, use a static code that points at an address on your own domain and redirect it yourself, or a dynamic code from a company whose terms say it keeps codes running when you stop paying.
 
+## Key facts
+
+- A QR code's pattern never expires. What stops a code is something it depends on: a QR company's redirect, a website that moves, or a domain nobody renewed.
+- The most permanent setup is a free static code that points at a page on a website you own.
+- To change the destination later without depending on a QR company, point a static code at an address on your own domain and redirect it yourself.
+- WiFi, contact and plain-text codes keep their details in the pattern, so nothing can switch them off. They go stale if the password or phone number changes.
+- Scanstone's free plan has 3 dynamic codes or scst.one short links with no time limit. Existing redirects keep working if you cancel or downgrade, and our terms promise at least 90 days' email notice if Scanstone ever shuts down.
+
 ## What decides whether a QR code lasts
 
 Every QR code contains text. For a website code, that text is a web address. When someone scans it, their phone reads the address and opens it. So the question is never "does this QR code expire?" but "will the address inside it still work in five years?"

@@ -7,7 +7,7 @@
     "date": "2026-07-24",
     "category": "Explainer",
     "featured": true,
-    "updated": "2026-11-13"
+    "updated": "2026-11-28"
   },
   {
     "slug": "qr-code-stopped-working-how-to-fix",
@@ -41,7 +41,8 @@
     "title": "Bitly QR code alternative: Scanstone vs Bitly, side by side",
     "description": "Bitly QR codes don't expire, but editing one starts at $120 a year with 5 changes a month. How Bitly and Scanstone compare on price, edits and cancelling.",
     "date": "2026-11-16",
-    "category": "Comparison"
+    "category": "Comparison",
+    "updated": "2026-11-28"
   },
   {
     "slug": "is-qr-code-generator-com-free",
@@ -57,7 +58,8 @@
     "title": "Uniqode alternative: Scanstone vs Uniqode (Beaconstac), side by side",
     "description": "Uniqode has no free editable codes: a 14-day trial, then plans from $108 a year with scan caps. How it compares with Scanstone on price, limits and cancelling.",
     "date": "2026-11-18",
-    "category": "Comparison"
+    "category": "Comparison",
+    "updated": "2026-11-28"
   },
   {
     "slug": "permanent-qr-code",
@@ -65,7 +67,8 @@
     "title": "Permanent QR code: how to make one that keeps working",
     "description": "A QR code pattern never expires. What stops it is the address inside. Three ways to make a permanent QR code for free, and what to check before you print.",
     "date": "2026-11-21",
-    "category": "Explainer"
+    "category": "Explainer",
+    "updated": "2026-11-28"
   },
   {
     "slug": "qr-code-menu-complaints",
@@ -73,7 +76,8 @@
     "title": "Why people hate QR code menus, and how to fix yours",
     "description": "Slow on bad signal, cookie banners, logins, no paper option. The common QR menu complaints and a plain fix for each, plus a two-minute check before service.",
     "date": "2026-11-23",
-    "category": "Guide"
+    "category": "Guide",
+    "updated": "2026-11-28"
   },
   {
     "slug": "bitly-qr-code-ad-preview-page",

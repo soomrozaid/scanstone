@@ -1,5 +1,13 @@
 If you only need QR codes that you can edit after printing, Bitly is an expensive way to get them. Bitly's codes don't expire, and they keep scanning if you drop to its free plan, which is better than most QR companies. But on the free plan you can't change where a code points. Editing starts with the Core plan at $120 USD a year, billed annually only, and even then you get 5 destination changes a month. Scanstone's free plan has 3 editable codes or short links with no limit on edits, and Pro is $9 USD a month or $79 USD a year. If you need branded links on your own domain, a team account, an API or integrations, Bitly does far more than we do.
 
+## Key facts
+
+- Bitly's QR codes don't expire, and bit.ly codes keep scanning if you drop to its free plan.
+- On Bitly's free plan you can't change where a code points. Editing starts on Core at $10 USD a month billed yearly ($120), with 5 destination changes a month.
+- Scanstone's free plan has 3 editable QR codes or scst.one short links in total, with no limit on edits and no ads. Pro is $9 USD a month or $79 USD a year for 500.
+- Existing Scanstone redirects keep working if you cancel or downgrade. That's in section 2 of our terms.
+- Bitly does far more for link-heavy teams: branded links on your own domain, team accounts, an API and integrations.
+
 ## Side by side
 
 | | Bitly | Scanstone |
@@ -15,14 +23,14 @@ If you only need QR codes that you can edit after printing, Bitly is an expensiv
 | Logos in codes | Paid plans | No, colours only |
 | API and integrations | Yes, with ChatGPT, Claude, Shopify, Canva and others | No public API |
 
-Bitly prices are in US dollars from its [pricing page](https://bitly.com/pages/pricing), checked November 16, 2026. Growth is $29 a month billed yearly or $35 billed monthly; Premium is $199 a month billed yearly or $300 monthly. Bitly shows lower prices in some regions, so check the page from where you are.
+Bitly prices are in US dollars from its [pricing page](https://bitly.com/pages/pricing), checked November 16 and again November 28, 2026. Growth is $29 a month billed yearly or $35 billed monthly; Premium is $199 a month billed yearly or $300 monthly. Bitly shows lower prices in some regions, so check the page from where you are.
 
 ## What Bitly does well
 
 Bitly is a link platform first, and QR codes are a picture of a short link. That makes it a good fit if links are most of your work:
 
 - **Codes don't expire.** Bitly's help centre says its [QR codes never expire](https://support.bitly.com/hc/en-us/articles/12231200298125-Do-Bitly-Codes-ever-expire) and stop only if you delete the code or its link.
-- **Downgrading doesn't break bit.ly codes.** Its [downgrade article](https://support.bitly.com/hc/en-us/articles/360029870551-What-happens-when-I-downgrade-to-a-lower-subscription-plan) says bit.ly links and the codes made from them keep working on the free plan. That puts Bitly ahead of QR companies that switch codes off when a trial ends; we compared [8 of those policies](/blog/what-happens-to-qr-codes-when-you-cancel).
+- **Downgrading doesn't break bit.ly codes.** Its [downgrade article](https://support.bitly.com/hc/en-us/articles/360029870551-What-happens-when-I-downgrade-to-a-lower-subscription-plan) says bit.ly links and the codes made from them keep working on the free plan. That puts Bitly ahead of QR companies that switch codes off when a trial ends; we compared [11 QR companies' policies](/blog/what-happens-to-qr-codes-when-you-cancel).
 - **Branded links.** From Growth up, links can use your own domain, which also means a printed code isn't tied to bit.ly.
 - **Teams and tools.** Bulk creation, UTM campaigns, landing pages, an API, and connections to AI assistants. Scanstone has none of these.
 
